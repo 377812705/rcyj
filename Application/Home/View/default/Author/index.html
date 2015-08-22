@@ -1,0 +1,67 @@
+<extend name="Base/common" />
+<block name="body">
+    <div class="container content">
+			<div class="custom">
+				<ul class="nextnav no-drop">
+								<li class="nextnavon"><a href="javascript:;">推荐作者</a></li>
+                                <li class="top-btn author-btn"><input name="" type="button" value="成为作者" onclick="javascript:location.href='__ROOT__/Author/pAuthorReg.html'"></li>
+						</ul>
+					</div>
+				<div class="module">
+						<div class="module-tle authortle">
+								<h5>Hi，<span>{:session('user_auth.username')}</span>，以下就是我们为您万里挑一的作者。快去关注他们，您将第一时间在 <span>我的首页</span> 看到他们更新。</h5>
+						</div>
+						<div class="author-content">
+                       	  <div class="author-filter">
+                            	<h5>
+                           	 		 标签：   <a href="#" class="aon">全部</a>
+                                    <volist name="zttag" id="data">
+                                        <a href="javascript:;">{$data.tag_content}</a>
+                                    </volist>
+                                </h5>
+                                <h5>
+                           	 		 地区：   <a href="#" class="aon"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳   重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
+                                <h5>
+                           	 		 排序：   <a href="#" class="aon">最新加入</a> <a href="#">人气最高</a> <a href="#">粉丝最多</a> <a href="#">作品最多</a> <a href="#">成交量最多</a> <a href="#">诚信度最高</a></h5>
+                          </div>
+                        <volist name="author" id="data">
+                          <div class="author-module">
+                          	<div class="module-left">
+                                <a href="__ROOT__/Author/details/id/{$data.id}.html">
+                                    <empty name="data.header_img">
+                                        <img src="__IMG__/author-img01.gif"/>
+                                        <else />
+                                        <img src="http://www.2ciyuanjie.com/{$data.header_img}" style="width: 127px;height: 127px;"/>
+                                    </empty>
+
+                                </a>
+                                <span>
+                                	<h3>{$data.user_name}</h3>
+                                    <h6>{$data.address} / {$data.tags_content|strtr=';',' '}</h6>
+                                    <h6>人气：{$data.pop_count}</h6>
+                                    <h6>粉丝：{$data.fans_count} / 作品：{$uinfo.workcount}</h6>
+                                    <h6>成交量：{$uinfo.customcount}</h6>
+                                </span>
+                            </div>
+                            <div class="module-right">
+                            	<span class="works"><img src="__IMG__/author-works01.gif"/><img src="__IMG__/author-works02.gif"/><img src="__IMG__/author-works03.gif"/></span>
+                                <input name="" type="button" value="+ 关注">
+                            </div>
+                          </div>
+                        </volist>
+                        </div>
+                    <div class="page">
+                    	<ul>
+                        	<li class="lion"><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li class="omission">…</li>
+                          <li><a href="#">30</a></li>
+                          <li class="goto"><input name="" type="text"></li>
+                          <li class="nextpage"><a href="#">下一页</a></li>
+                        </ul>
+                    </div>
+				</div>
+		</div>
+    
+</block>

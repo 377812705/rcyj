@@ -1,0 +1,170 @@
+<extend name="Base/common"/>
+<block name="body">
+    <div class="container author-details">
+        <div class="details-left">
+                	<span>
+                    	<img src="__IMG__/author-img03.gif"/>
+                        <h5><a class="add-attention" href="javascript:;">加关注</a></h5>
+                        <h5><a class="custom-a" href="custom.html">我要订制</a></h5>
+                        <h5><a class="report-a" href="javascript:;">举报</a></h5>
+                    </span>
+            <span class="author-name"><h3>{$uinfo.user_name}</h3><h5>{$uinfo.address} / {$uinfo.tags_content|strtr=';','
+                '}</h5><h5>形象最低接单金额 ￥{$uinfo.minmoney}</h5></span>
+                    <span class="author-status"><h3>
+                        <switch name="uinfo.workstatus">
+                            <case value="1">工作中</case>
+                            <case value="2">未接单</case>
+                            <default/>
+                            暂停接单
+                        </switch>
+                        <span>接单状态</span></h3></span>
+            <span class="author-status"><h3>{$uinfo.workcount} <span>作品</span><span>/</span> {$uinfo.customcount} <span>成交量</span>
+            </h3></span>
+            <span class="author-status"><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img
+                    src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/><h3>
+                <span>诚信度</span><span>/</span>80%<span>好评率</span></h3></span>
+            <span class="author-status"><h3>{$uinfo.pop_count}<span>人气</span><span>/</span> {$uinfo.fans_count}
+                <span>粉丝</span></h3></span>
+        </div>
+        <div class="details-right"><img src="__IMG__/img25.gif"/></div>
+    </div>
+    <div class="container content">
+        <div class="custom">
+            <ul class="nextnav no-drop author-nav">
+                <li class="nextnavon"><a href="javascript:;">作品</a></li>
+                <li><a href="javascript:;">收藏作品</a></li>
+                <li><a href="javascript:;">关注作者</a></li>
+            </ul>
+        </div>
+        <div class="author-content">
+            <div class="module">
+                <div class="author-filter">
+                    <h5>
+                        标签： <a href="#" class="aon">全部</a>
+                        <volist name="zttag" id="data">
+                            <a href="javascript:;">{$data.tag_content}</a>
+                        </volist>
+                    </h5>
+                    <h5>
+                        状态： <a href="javascript:;" class="carryout aon"> 已经完成</a> <a href="javascript:;"
+                                                                                     class="current">正在进行</a></h5>
+                    <h5>
+                        排序： <a href="javascript:;" class="aon">最新上传</a> <a href="javascript:;">人气最高</a> <a
+                            href="javascript:;">价格最低</a> <a href="javascript:;">价格最高</a> <a href="javascript:;">点赞最多</a>
+                    </h5>
+                </div>
+
+                <ul>
+                    <volist name="uwork" id="data" mod="4">
+                        <li style="display:block;"><img
+                                src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}"
+                                style="display：block;width: 293px;height: 222px;"/>
+
+                            <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
+                                <h4>￥{$data.money}</h4>
+                                <span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
+                                <h5><span>{$data.open_count}</span>人气 /<span>{$data.praise_count}</span>点赞 /<span>{$data.favorite_count}</span>收藏
+                                </h5>
+                        </li>
+                        <eq name="mod" value="3"></ul><ul></eq>
+                    </volist>
+                </ul>
+            </div>
+            <div class="module" style="display:none;">
+                <div class="author-filter">
+                    <h5>
+                        标签： <a href="javascript:;" class="aon">全部</a>
+                        <volist name="zttag" id="data">
+                            <a href="javascript:;">{$data.tag_content}</a>
+                        </volist>
+                    </h5>
+                    <h5>
+                        排序： <a href="javascript:;" class="aon">人气最高</a> <a href="javascript:;">价格最低</a> <a
+                            href="javascript:;">价格最高</a> <a href="javascript:;">点赞最多</a></h5>
+                </div>
+                <ul>
+                    <volist name="uswork" id="data" mod="4">
+                        <li style="display: block;"><img
+                                src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}"
+                                style="display：block;width: 293px;height: 222px;"/>
+                            <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
+                                <h4>￥{$data.money}</h4>
+                                <span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
+                                <h5><span>{$data.open_count}</span>人气 /<span>{$data.praise_count}</span>点赞 /<span>{$data.favorite_count}</span>收藏
+                                </h5>
+                        </li>
+                        <eq name="mod" value="3"></ul><ul></eq>
+                    </volist>
+                </ul>
+            </div>
+            <div class="module" style="display:none;">
+                <div class="author-filter">
+                    <h5>
+                        标签： <a href="javascript:;" class="aon">全部</a>
+                        <volist name="zttag" id="data">
+                            <a href="javascript:;">{$data.tag_content}</a>
+                        </volist>
+                    </h5>
+                    <h5>
+                        地区： <a href="javascript:;" class="aon"> 全部地区</a> <a href="javascript:;">北京</a> <a
+                            href="javascript:;">上海</a> <a href="javascript:;">广州</a> <a href="javascript:;">深圳 重庆</a> <a
+                            href="javascript:;">杭州</a> <a href="javascript:;">成都</a> <a href="javascript:;">南京</a> <a
+                            href="javascript:;">武汉</a> <a href="javascript:;">其他地区</a></h5>
+                    <h5>
+                        排序： <a href="javascript:;" class="aon">最新加入</a> <a href="javascript:;">人气最高</a> <a
+                            href="javascript:;">粉丝最多</a> <a href="javascript:;">作品最多</a> <a
+                            href="javascript:;">成交量最多</a> <a href="javascript:;">诚信度最高</a></h5>
+                </div>
+                <volist name="author" id="data">
+                    <div class="author-module">
+                        <div class="module-left">
+                            <empty name="data.header_img">
+                                <img src="__IMG__/author-img01.gif"/>
+                                <else />
+                                <img src="http://www.2ciyuanjie.com/{$data.header_img}" style="width: 127px;height: 127px;"/>
+                            </empty>
+                                <span>
+                                	<h3>{$data.user_name}</h3>
+                                    <h6>{$data.address} / {$data.tags_content|strtr=';',' '}</h6>
+                                    <h6>人气：{$data.pop_count}</h6>
+                                    <h6>粉丝：{$data.fans_count} / 作品：{$uinfo.workcount}</h6>
+                                    <h6>成交量：{$uinfo.customcount}</h6>
+                                </span>
+                        </div>
+                        <div class="module-right">
+                            <span class="works"><img src="__IMG__/author-works01.gif"/><img
+                                    src="__IMG__/author-works02.gif"/><img src="__IMG__/author-works03.gif"/></span>
+                            <input name="" type="button" value="+ 关注">
+                        </div>
+                    </div>
+                </volist>
+            </div>
+
+            <div class="page">
+                <ul>
+                    <li class="lion"><a href="javascript:;">1</a></li>
+                    <li><a href="javascript:;">2</a></li>
+                    <li><a href="javascript:;">3</a></li>
+                    <li class="omission">…</li>
+                    <li><a href="javascript:;">30</a></li>
+                    <li class="goto"><input name="" type="text"></li>
+                    <li class="nextpage"><a href="javascript:;">下一页</a></li>
+                </ul>
+            </div>
+
+            <div class="report-content" style="display:none;">
+                <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+                <div class="report-main">
+                    <textarea name="" cols="" rows="" class="description"
+                              onkeyup="this.value = this.value.slice(0, 2000)"
+                              onfocus="if(value=='请输入举报理由'){value='';this.className='description02'}"
+                              onblur="if (value==''){value='请输入举报理由';this.className='description'}">请输入举报理由</textarea>
+                    <h6>还可以输入 <span> 299 </span> 字符</h6>
+                </div>
+                <div class="report-btn"><input name="" type="button" value="确认"><input class="cancel-btn" name=""
+                                                                                       type="button" value="取消"></div>
+            </div>
+
+        </div>
+    </div>
+</block>

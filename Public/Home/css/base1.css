@@ -1,0 +1,266 @@
+@charset "utf-8";
+/*======全局样式=======*/
+*, html, body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, "微软雅黑";
+}
+body {
+	color: #424242;
+	background-color: #f4f4f4;
+}
+img {
+	border: none;
+	margin:0;
+	line-height:none;
+}
+ul, li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	outline:none;blr:expression(this.onFocus=this.blur());
+}
+section{
+	position:relative;
+	}
+.container {
+	position: relative;
+	width: 1250px;
+	margin: 0 auto;
+}
+input,textarea{
+	outline:none;
+	resize:none;
+	}
+input[type='button'] {
+	cursor: pointer;
+}
+/*======页面头部样式=======*/
+.nav-wrapper {
+	height: 72px;
+	background-color: #ff5709;
+}
+header.container {
+	height: 72px;
+	background: url(../images/logo-img.gif) no-repeat 66px top;
+}
+header.logo02 {
+	background: url(../images/logo02.png) no-repeat 66px center;
+}
+.nav {
+	display: block;
+	float: left;
+	padding-left: 191px;
+	overflow: hidden;
+}
+.nav li {
+	float: left;
+	padding-right: 5px;
+}
+.nav li a {
+	display: block;
+	float: left;
+	padding: 0 23px;
+	font-size: 17px;
+	line-height: 72px;
+	color: #fff;
+}
+.nav li a:hover ,.navon{
+	background-color: #ff793a;
+}
+
+.header-right {
+	float: right;
+	padding-top: 18px;
+}
+.login-top {
+	/*width: 380px;*/
+	
+}
+.header-right input[type='text'] {
+	float: left;
+	height: 37px;
+	width: 229px;
+	padding-left: 26px;
+	border: none;
+	border-radius: 18px;
+	-moz-border-radius: 18px; /* 老的 Firefox */
+	font: 16px Arial, "微软雅黑";
+	background: #d24909 url(../images/search-img.png) no-repeat right center;
+ *background:#d24909 url(../images/iesearch-bg.png) no-repeat left center;
+}
+.header-right .gray {
+	color: #e9b3a5;
+}
+.header-right .white {
+	color: #fff;
+}
+.header-right>ul {
+	padding:0 15px 0 21px;
+	float:left;
+}
+.header-right>ul>li ,.header-right>ul>li>a, .header-right>ul>li.user-img>a {
+	font-size: 16px;
+	color: #fff;
+	line-height: 37px;
+}
+.header-right>ul>li a{
+	display:block;
+	}
+.header-right>ul>li {
+	float: left;
+	padding: 0 6px;
+}
+.header-right ul.img-btn{
+	float:left;
+	}
+.header-right ul.img-btn>li>a{
+	line-height:50px;
+	}
+.header-right>ul>li.user-img>a{
+	line-height:normal;
+	padding: 0 6px;
+	}
+.logo02 .header-right>ul>li a{
+	display:inline;
+	}
+.logo02 .header-right>ul>li, .logo02 .header-right>ul>li>a {
+	font-size: 14px;
+	color: #424242;
+}
+.logo02 .header-right>ul>li a {
+	color: #ff5709;
+}
+.header-right>ul>li.gray {
+	color: #d5d5d5;
+}
+.success input[type='text'] {
+	width: 170px;
+	margin-top:20px;
+}
+.img-btn li a {
+	padding: 6px;
+}
+.success {
+	padding-top: 0;
+	height: 61px;
+}
+.success input {
+	margin-top: 5px;
+}
+.success li a {
+	line-height: 50px;
+}
+.success>ul>li {
+	position:relative;
+	padding-top:10px;
+	line-height: 50px;
+}
+.color-li{
+	background-color:#ff793a;
+	}
+.nextmenu{
+	position:absolute;
+	right:0px;
+	width:162px;
+	text-align:left;
+	z-index:1000;
+	background-color:#ff793a;
+	}
+.nextmenu li{
+	display:block;
+	padding:0 7px;
+	}
+.nextmenu li a{
+	padding-left:20px;
+	border-bottom:1px solid #fb6a25;
+	line-height:50px;
+	font-size:18px;
+	color:#fff;
+	}
+.nextmenu img{
+	margin-right:10px;
+	vertical-align:middle;
+	}
+@media (max-width: 1250px) {
+body {
+	min-width: 1004px;
+}
+.container {
+	width: 1004px;
+	margin: 0 auto;
+}
+header.container,.header.logo02 {
+	background: url(../images/logo-img.gif) no-repeat 10px top;
+}
+header.logo02{
+	background: url(../images/logo02.png) no-repeat 10px center;
+	}
+header {
+	background: url(../images/logo-img.gif) no-repeat 40px top;
+}
+.nav {
+	padding-left: 110px;
+}
+.nav li a{
+	padding:0 15px;
+	}
+.success input[type="text"]{
+	width:120px;
+	margin-top:20px;
+	}
+.banner img{
+	width:1004px;
+	}
+}
+/*======页面底部样式=======*/
+.footer {
+	padding-top: 46px;
+	padding-bottom: 50px;
+	text-align: center;
+	font-size: 14px;
+	color: #949494;
+}
+.bottom{
+	padding-top:48px;
+	margin-top:18px;
+	overflow:hidden;
+	background-color:#fff2ec;
+	border-top:20px solid #ffd3bf;
+	}
+.botm-left{
+	float:left;
+	width:1014px;
+	padding-top:7px;
+	background:url(../images/footer-logo.gif) no-repeat left 3px;
+	}
+.botm-btn{
+	float:right;
+	padding-right:115px;
+	padding-bottom:10px;
+	}
+.botm-left a.botm-share{
+	margin-right:18px;
+	}
+.botm-left h5{
+	clear:both;
+	padding-top:6px;
+	font-size:14px;
+	font-weight:normal;
+	color:#424242;
+	}
+.botm-left h5 a{
+	color:#424242;
+	margin-right:40px;
+	}
+.botm-left h5 span{
+	padding-right:35px;
+	}
+.botm-left h5.gray-h5{
+	color:#6f6f6f;
+	}
+.botm-right{
+	float:right;
+	padding-bottom:60px;
+	}

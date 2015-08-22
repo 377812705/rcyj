@@ -1,0 +1,39 @@
+<extend name="Public/base" />
+
+<block name="body">
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title cf">
+        <h2>订单详情</h2>
+    </div>
+    <!-- 标签页导航 -->
+<div class="tab-wrap">
+    <div class="tab-content">
+       <!-- 基础文档模型 -->
+		<div id="tab" class="tab-pane in tab1">
+           <div class="form-item cf">
+                    <label class="item-label" style="padding-left:30px">订单标题：</label><span class="check-tips" >{$order['work_title']}</span>
+                    <label class="item-label" style="padding-left:30px">订单类型：</label><span class="check-tips" >{$category[$order['order_category']]}</span>
+                    <label class="item-label" style="padding-left:30px">订单编号：</label><span class="check-tips" >{$order['order_number']}</span>
+                    <label class="item-label" style="padding-left:30px">实付金额：</label><span class="check-tips" >{$order['pay_money']}</span>
+                </div>
+                <div class="form-item cf">
+                    <label class="item-label" style="padding-left:30px">付款方：</label><span class="check-tips" >{$order['user_id']|getUserNameById=###}</span>
+                    <label class="item-label" style="padding-left:30px">收款方：</label><span class="check-tips" >{$order['auther_id']|getUserNameById=###}</span>
+                    <label class="item-label" style="padding-left:30px">支付方式：</label><span class="check-tips" >{$paytype[$order['pay_type']]}</span>
+                    <label class="item-label" style="padding-left:30px">支付状况：</label><span class="check-tips" >{$paystatus[$order['order_type']]}</span>
+                </div>
+                <div class="form-item cf">
+                    <label class="item-label" style="padding-left:30px">创建时间：</label><span class="check-tips" >{$order['create_date']}</span>
+                    <label class="item-label" style="padding-left:30px">支付时间：</label><span class="check-tips" >{$order['pay_time']}</span>
+                    <label class="item-label" style="padding-left:30px">处理状况：</label><span class="check-tips" >{$handle[$order[handle]]}</span>
+                    </div>
+                
+        </div>
+        <div class="form-item cf">
+            <a class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</a>
+        </div>
+    </div>
+</div>
+</block>
+
+

@@ -1,0 +1,107 @@
+<extend name="Base/common"/>
+
+<block name="body">
+<div class="container content">
+    <div class="custom">
+        <ul class="nextnav">
+            <li class="nextnavon activ-li"><a href="#">资料修改</a></li>
+        </ul>
+        <div class="custom-content">
+            <ul>
+                <li>Hi，二郎神，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
+                <li class="base-data">
+                    <ul class="fill-left">
+                        <li class="fill fill-data">
+                            <h5>用户名：</h5>
+                            番茄一点红 </li>
+                        <li class="fill fill-data">
+                            <h5>邮箱：</h5>
+                            122222222222@163.com
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail.html'" value="修改邮箱">
+                        </li>
+                        <li class="fill fill-data address">
+                            <h5>联系地址：</h5>
+                            北京市海淀区清河朱房路6666666号
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress.html'" value="修改地址">
+                        </li>
+                    </ul>
+            <span class="portrait"><img src="__IMG__/user-img12.gif"/>
+            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto.html'" type="button" value="修改头像">
+            </span> </li>
+                <li class="fill">
+                    <h5>标签：</h5>
+                    <h4> <span class="auto">
+              <input name="" type="checkbox" value="">
+              <span></span>形象</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>漫画</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>插画</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>产品设计</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>动画</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>游戏</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>音乐</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>VI</span> <span class="auto disabled">
+              <input name="" type="checkbox" value="" disabled>
+              <span></span>广告</span> </h4>
+                </li>
+                <li class="fill edit-name">
+                    <h5>真实名称：</h5>
+                    <input name="" type="text" class="gray" value="请写真实名称。" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
+                </li>
+                <li class="fill">
+                    <h5>性别：</h5>
+                    <h4> <span class="auto radio">
+              <input name="radiobutton" type="radio" value="">
+              <span></span>男</span> <span class="auto radio">
+              <input name="radiobutton" type="radio" value="">
+              <span></span>女</span> </h4>
+                </li>
+                <li class="fill fill-address">
+                    <h5>家乡：</h5>
+            <span class="label-span"><a href="javascript:;">请选择</a>
+            <ul class="label-check radio">
+                <li>选择1</li>
+                <li>选择2</li>
+                <li>选择3</li>
+            </ul>
+            </span> <span class="label-span"><a href="javascript:;">请选择</a>
+            <ul class="label-check radio">
+                <li>选择1</li>
+                <li>选择2</li>
+                <li>选择3</li>
+            </ul>
+            </span> </li>
+                <li class="fill fill-address">
+                    <h5>居住：</h5>
+            <span class="label-span"><a href="javascript:;">请选择</a>
+            <ul class="label-check radio">
+                <li>选择1</li>
+                <li>选择2</li>
+                <li>选择3</li>
+            </ul>
+            </span> <span class="label-span"><a href="javascript:;">请选择</a>
+            <ul class="label-check radio">
+                <li>选择1</li>
+                <li>选择2</li>
+                <li>选择3</li>
+            </ul>
+            </span> </li>
+                <li class="fill">
+                    <h5>个人简介：</h5>
+                    <textarea class="description" name="" cols="" rows="" onkeyup="this.value = this.value.slice(0, 2000)" onfocus="if(value=='请填写个人简介。'){value='';this.className='description02'}"onblur="if (value==''){value='请填写个人简介。';this.className='description'}">请填写个人简介。</textarea>
+                    <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
+                </li>
+                <li class="fill btn">
+                    <input class="submit" name="" type="button" onClick="javascript:location.href=''"  value="确认">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    </block>

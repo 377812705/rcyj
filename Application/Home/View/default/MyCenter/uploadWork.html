@@ -1,0 +1,189 @@
+<extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        var newhtml;
+        var imageid;
+        $(function () {
+            /* 初始化上传插件                 */
+            $("#upload-file").uploadify({
+                "height"          : 55,
+                "width"           : 164,
+                "buttonClass"     : "tupian",
+                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                "buttonImage"     : "__IMG__/optionfile.png",
+                "uploader"        : "__ROOT__/MyCenter/upload.html",
+                "fileTypeDesc"    : "请选择jpg gif png文件",
+                'fileSizeLimit'   : 0,
+                "removeTimeout"   : 0,
+                "fileTypeExts"    : '*.jpg;*.gif;*.png',
+                'onInit'		  : init,
+                'multi'			  : true,
+                "onUploadSuccess" : uploadSuccess,
+                'onFallback' : function() {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            $(".submit").bind('click', function () {
+                alert(imageid);
+                //$("#form0").submit();
+            });
+
+            $("#copyri").children('li').bind('click',function(){
+                var newhtml;
+                var copyrig=$("#copyri").children('.checkon');
+                $.each(copyrig, function(i, n){
+                    if(i==0){
+                        newhtml= n.textContent+";";
+                    }else{
+                        newhtml=newhtml +n.textContent+";";
+                    }
+                });
+                $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
+                $("#Copyright").val(newhtml);
+            });
+            //表单验证
+            $("#form0").validate({
+                errorPlacement: function (error, element) {
+                        element.focus();;
+                },
+                rules: {
+                    title: {
+                        required:true,
+                        maxlength: 50
+                    }
+                },
+                messages: {
+                    title: {
+                        required:"请输入作品名称",
+                        maxlength: "请输入最多50个字符或者汉字"
+                    }
+                }
+            });
+
+        });
+
+        function init(){
+            $('#upload-file').css('display','inline-block');
+        }
+
+        /* 文件上传成功回调函数 */
+        function uploadSuccess(file, data){
+            console.log(data);
+
+            $('#' + file.id).find('.data').html(' 上传完毕');
+            var data = $.parseJSON(data);
+            //alert(data.info+'--'+data.data);
+            if(data.status){
+               // alert(data.msg);
+                console.log(data.msg);
+                imageid+=data.msg;
+            } else {
+               // alert(data.msg);
+                console.log(data.msg);
+            }
+        }
+    </script>
+</block>
+<block name="body">
+    <div class="container content">
+        <div class="custom">
+            <ul class="nextnav">
+                <li class="nextnavon activ-li"><a href="#">上传作品</a></li>
+            </ul>
+            <form action="__SELF__" id="form0" method="post">
+                <input id="worktag" name="worktag" hidden/>
+                <input id="worksource" name="worksource" hidden/>
+                <input id="workshow" name="workshow" hidden/>
+                <input id="Copyright" name="Copyright" hidden/>
+                <div class="custom-content">
+                    <ul>
+                        <li>Hi，{:session('user_auth.username')}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
+                        <li class="fill name">
+                            <h5><span>*</span>作品名称：</h5>
+                            <input id="title" name="title" type="text" class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。"
+                                   onclick="if(this.value=='请写出你的作品名称，让你的作品更加丰富多彩。'){this.value='';this.className='white'}"
+                                   onblur="if(this.value=='') {this.value='请写出你的作品名称，让你的作品更加丰富多彩。';this.className='gray'}">
+                            <h6 class="price-tips">还可以输入 <span>50</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill">
+                            <h5><span>*</span>作品标签：</h5>
+            <span class="label-span"><a href="javascript:;" tag="worktag">请选择作品标签</a>
+            <ul class="label-check radio noall">
+                    <volist name="tags" id="data">
+                        <li>{$data.tag_content}</li>
+                    </volist>
+            </ul>
+            </span></li>
+                        <li class="fill">
+                            <h5><span>*</span>作品来源：</h5>
+            <span class="label-span"><a href="javascript:;" tag="worksource">请选择作品来源</a>
+            <ul class="label-check radio">
+                <li>个人作品</li>
+                <li>企业作品</li>
+                <li>自创作品</li>
+            </ul>
+            </span></li>
+                        <li class="fill">
+                            <h5><span>*</span>展示方式：</h5>
+            <span class="label-span"><a href="javascript:;" tag="workshow">请选择展示方式</a>
+            <ul class="label-check radio">
+                <li class="checkon">全部</li>
+                <li>展示方式1</li>
+                <li>展示方式2</li>
+                <li>展示方式3</li>
+            </ul>
+            </span></li>
+                        <li class="fill">
+                            <h5><span>*</span>作品价格：</h5>
+                            <input name="workmoney" type="text" class="gray" value="请进行填写价格"
+                                   onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
+                                   onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
+                        </li>
+                        <li class="fill">
+                            <h5><span>*</span>完成时间：</h5>
+                            <span class="time-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日  - &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>
+                            <h6 class="price-tips">请填写你作品完成的时间</h6>
+                        </li>
+                        <li class="fill">
+                            <h5>上传图片：</h5>
+                            <input name="file" type="button" id="upload-file">
+                            <!--<input type="button" name="file" value="选择图片" id="upload-img">-->
+                            <h6 class="upload-tips" style="margin-top: -55px;">
+                                单张图片5M以内，RGB模式，支持jpg/gif/png格式，长不超过8000，宽不超过2000。最多允许上传30张，支持批量上传。</h6>
+                        </li>
+                        <li class="fill">
+                            <h5>角色说明：</h5>
+                        <textarea name="workrole" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
+                                  onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
+                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
+                            <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill">
+                            <h5>故事梗概：</h5>
+                        <textarea name="workcontent" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
+                                  onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
+                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
+                            <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill copyright">
+                            <h5><span>*</span>版权设置：</h5>
+            <span class="label-span"><a href="javascript:;" tag="Copyright">不限制作品用途</a>
+            <ul class="label-check" id="copyri">
+                <li>禁止商业使用</li>
+                <li>禁止个人使用</li>
+                <li>禁止匿名转发</li>
+                <li>禁止商业使用</li>
+                <li>不限制作品用途</li>
+            </ul>
+            </span></li>
+                        <li class="fill btn">
+                            <input class="submit" name="" type="button" value="提交">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>

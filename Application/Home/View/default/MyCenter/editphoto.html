@@ -1,0 +1,20 @@
+<extend name="Base/common"/>
+
+<block name="body">
+    <div class="container edit">
+        <div class="edit-div">
+            <h5>修改头像</h5>
+            <ul class="login-ul">
+                <li class="photo-li"><img src="__IMG__/photo-img01.gif"/></li>
+                <li class="txt-input file-box">
+                    <input type='text' name='textfield' id='textfield' class='file-txt' />
+                    <input type='button' class='file-btn' value='浏览...' />
+                    <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+                </li>
+                <li>
+                    <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='edit-data.html'" value="提 交">
+                </li>
+            </ul>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,94 @@
+<extend name="Base/common"/>
+<block name="body">
+	<div class="container content">
+		<div class="banner"> <img src="__IMG__/banner01.jpg"/> <a class="left-btn" href="#"> </a> <a class="right-btn" href="#"> </a> </div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>活动推荐<span><a href="__ROOT__/Activity/perfect.html">我要举办“发布活动，众人参与”</a></span></h3>
+				<a href="__ROOT__/Activity.html" class="more">更多活动</a> </div>
+			<ul>
+				<li><span class="station"></span></li>
+				<li><span class="station"></span></li>
+				<li><span class="station"></span></li>
+				<li><span class="station"></span></li>
+			</ul>
+		</div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>作品推荐<span><a href="__ROOT__/MyCenter/uploadWork.html">我要上传“展现精品，创造价值”</a></span></h3>
+				<a href="__ROOT__/Product.html" class="more">更多作品推荐</a> </div>
+			<ul>
+				<volist name="tjwork" id="data">
+				<li style="display:block;width:293px;height: 430px;"><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
+					<h4>￥{$data.money}</h4>
+					<span class="label-a"><a href="#">动漫</a><a href="#">自创</a></span>
+					<h5><span>{$data.open_count}</span>人气  /<span>{$data.praise_count}</span>点赞  /<span>{$data.favorite_count}</span>收藏 </h5>
+					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
+						<if condition="($data.user_id|getUserName) eq null">
+							<img src="__IMG__/user-img02.gif" alt="用户头像"/>
+							<else />
+							<img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+						</if>
+					</a></h6>
+				</li>
+				</volist>
+
+			</ul>
+
+		</div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>作品推荐<span><a href="__ROOT__/Custom/custom.html">我要订制“订制时尚，品味生活”</a></span></h3>
+				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
+			<ul>
+				<volist name="tjwork" id="data">
+				<li style="display:block;width:293px;height: 450px;"><a href="iworks-details.html"><img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
+					<h4>￥{$data.money}</h4>
+					<span class="label-a"><a href="#">动漫</a><a href="#">自创</a></span>
+					<h2>已接单<span>接单状态</span></h2>
+					<h5><span>{$data.open_count}</span>人气</h5>
+					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
+						<!--<img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>-->
+						<if condition="($data.user_id|getUserName) eq null">
+							<img src="__IMG__/user-img02.gif" alt="用户头像"/>
+							<else />
+							<img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+						</if>
+
+					</a></h6>
+				</li>
+				</volist>
+
+			</ul>
+		</div>
+		<div class="module recommend">
+			<div class="module-tle">
+				<h3>推荐作者<span><a href="__ROOT__/Author/pAuthorReg.html">我要申请“让世界关注你”</a></span></h3>
+				<a href="__ROOT__/Author.html" class="more">更多推荐作者</a> </div>
+			<ul>
+				<volist name="author" id="data" mod="4">
+				<li style="display: block;">
+					 <a href="__ROOT__/Author/details/id/{$data.id}.html">
+						 <empty name="data.header_img">
+							 <img src="__IMG__/user-img01.gif"/>
+							 <else />
+							 <img src="http://www.2ciyuanjie.com/{$data.header_img}" style="width: 80px;height: 80px;"/>
+						 </empty>
+						 <!--<img src="__IMG__/user-img01.gif"/>-->
+
+					 </a>
+						<span>
+						 <h5><a href="__ROOT__/Author/details/id/{$data.id}.html">{$data.user_name}</a></h5>
+						 <h6>{$data.address} / {$data.tags_content|strtr=';',' '|mb_substr=1,10,'UTF-8'}</h6>
+						 <h6>粉丝：{$data.fans_count}／ 作品：{$data.workcount}</h6>
+						</span>
+				</li>
+					<eq name="mod" value="3"></ul><ul></eq>
+				</volist>
+			</ul>
+		</div>
+		<div class="activity-banner"> <img src="__IMG__/banner-img03.gif"/> </div>
+	</div>
+</block>

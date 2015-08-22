@@ -138,4 +138,8 @@ class MyCenterController extends HomeController
     {
         $this->display();
     }
+
+    public function mydetails($uid=null){
+        $this->display();
+    }
 }

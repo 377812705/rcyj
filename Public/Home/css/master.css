@@ -484,8 +484,8 @@
 	color: #646464;
 }
 .module>ul,.module-get>ul {
-	/*-moz-column-count: 4; 	/* Firefox
-	-webkit-column-count: 4; /* Safari 和 Chrome
+	/*-moz-column-count: 4; 	/* Firefox 
+	-webkit-column-count: 4; /* Safari 和 Chrome 
 	column-count: 4;*/
 	-moz-column-gap: 0; /* Firefox */
 	-webkit-column-gap: 0; /* Safari and Chrome */
@@ -493,15 +493,14 @@
 	overflow: hidden;
 }
 .module>ul li ,.module-get>ul li{
-	*width:310px;
+ *width:310px;
 	width: 310px\0;
 	width:310px;
-	float:left;
+ 	float:left;
 	float: left\0;
 	overflow: hidden;
 	border-bottom: 1px solid #f1f1f1;
 	border-left: 1px solid #f1f1f1;
-
 }
 .module ul li .station, .module ul li img ,.module-get ul li .station, .module-get ul li img {
 	display: block;
@@ -1444,7 +1443,7 @@ input[type='button'].submit-order{
 	}
 .author-name h3,.author-name h5,.author-status h3{
 	padding-top:13px;
-	font:20px;
+	font-size: 20px;
 	color:#424242;
 	font-weight:normal;
 	}
@@ -2654,6 +2653,78 @@ input[type='button'].submit-order{
 .about h5 span.in-span{
 	padding-left:50px;
 }
+.feedback-content{
+	padding:40px 110px;
+	overflow:hidden;
+	}
+.feedback h3{
+	font-size:30px;
+	font-weight:normal;
+	color:#424242;
+	}
+.feedback h5{
+	padding-top:8px;
+	font-size:16px;
+	font-weight:normal;
+	color:#424242;
+	}
+.feedback h5.feedback-lable{
+	padding-top:30px;
+	}
+.feedback textarea{
+	margin-top:10px;
+	width:100%;
+	max-width:984px;
+	padding:20px;
+	height:565px;
+	font-size:16px;
+	line-height:1.7;
+	border:1px solid #d6d6d6;
+	}
+.feedback span{
+	display:block;
+	height:49px;
+	width:446px;
+	margin-top:12px;
+	margin-right:15px;
+	float:left;
+	border:1px solid #d6d6d6;
+	font-size:16px;
+	color:#949494;
+	padding:0 14px;
+	line-height:49px;
+	background:#fff;
+	}
+.feedback span input{
+	height:45px;
+	border:none;
+	width:380px;
+	margin-left:10px;
+	}
+.feedback span.feedback-btn{
+	height:auto;
+	border:none;
+	width:auto;
+	padding:0;
+	padding-top:25px;
+	background:none;
+	}
+.feedback span.feedback-btn input{
+	height:48px;
+	width:164px;
+	font-size:18px;
+	color:#fff;
+	text-align:center;
+	background-color:#cac8c8;
+	margin-right:15px;
+	margin-left:0;
+	border:none;
+	border-radius:5px;
+	}
+.feedback span.feedback-btn input.feedback-submit{
+	width:326px;
+	background-color:#ff5709;
+	}
 @media (max-width: 1250px) {
 .module>ul li ,.module-get>ul li{
 	width:250px;

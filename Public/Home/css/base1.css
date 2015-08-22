@@ -43,7 +43,7 @@ input[type='button'] {
 }
 header.container {
 	height: 72px;
-	background: url(../images/logo-img.gif) no-repeat 66px top;
+	background: url(../images/logo-img.gif) no-repeat 10px top;
 }
 header.logo02 {
 	background: url(../images/logo02.png) no-repeat 66px center;
@@ -233,7 +233,7 @@ header {
 	float:left;
 	width:1014px;
 	padding-top:7px;
-	background:url(../images/footer-logo.gif) no-repeat left 3px;
+	background:url(../images/footer-logo.png) no-repeat left 3px;
 	}
 .botm-btn{
 	float:right;

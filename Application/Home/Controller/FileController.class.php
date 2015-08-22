@@ -23,15 +23,7 @@ class FileController extends HomeController
         /* 调用文件上传组件上传文件 */
         $File = D('File');
         //$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
-        $config = array(
-            'maxSize' = 3145728,
-            'rootPath' = './Uploads/',
-            'savePath' = '',
-            'saveName' = array('uniqid', ''),
-            'exts' = array('jpg', 'gif', 'png', 'jpeg'),
-            'autoSub' = true,
-            'subName' = array('date', 'Ymd'),
-        );
+
         $info = $File->upload(
             $_FILES,
             $config

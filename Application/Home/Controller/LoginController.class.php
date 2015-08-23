@@ -179,7 +179,7 @@ class LoginController extends HomeController {
                     $priurl=session('PRI_URL');
                     if(empty($priurl)){
                     //跳转到主页
-                        $this->display("Index/index");
+                        $this->redirect("Index/index");
                     }else{
                         $this->redirect($priurl);
                     }

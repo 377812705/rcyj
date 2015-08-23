@@ -156,7 +156,7 @@ class LoginController extends HomeController {
             $map['mobile'] = I('mobile');
             $Model = M('user', null);
             $data = $Model->where($map)->select();
-            $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
+           // $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
             $password=I('password');
             if (0 < count($data)) {
                 if (strtoupper(md5(I('password'))) == $data[0]["password"]) {

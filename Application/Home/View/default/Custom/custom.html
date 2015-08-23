@@ -1,9 +1,21 @@
 <extend name="Base/common" />
+<block name="head">
+	<script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(".custom-li").bind("click",function(){
+				var newhtml=$(this).children().html();
+				$(this).parent().siblings().html(newhtml);
+			});
+		});
+	</script>
+
+</block>
 <block name="body">
 	<div class="container content">
 		<div class="custom">
 			<ul class="nextnav">
-				<li class="nextnavon"> <a href="#">个人订制</a>
+				<li class="nextnavon"> <a id="gtag" href="#">个人订制</a>
 					<ul class="custom-ul">
 						<li class="custom-li"><a href="#">形象</a></li>
 						<li>产品设计</li>
@@ -16,7 +28,7 @@
 						<li>广告</li>
 					</ul>
 				</li>
-				<li class="nextnavon"><a href="#">企业订制</a>
+				<li class="nextnavon"><a id="etag" href="#">企业订制</a>
 					<ul class="custom-ul">
 						<li class="custom-li"><a href="#">形象</a></li>
 						<li>产品设计</li>
@@ -32,7 +44,7 @@
 			</ul>
 			<div class="custom-content">
 				<ul>
-					<li>Hi，二郎神，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
+					<li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
 					<li class="fill">
 						<h5><span>*</span>订制主题：</h5>
             <span class="label-span"><a href="javascript:;">请选择订制主题</a>
@@ -159,7 +171,7 @@
 					</li>
 				</ul>
 				<ul style="display:none;">
-					<li>Hi，二郎神，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
+					<li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
 					<li class="fill">
 						<h5><span>*</span>订制用途：</h5>
             <span class="label-span"><a href="javascript:;">请选择订制用途</a>

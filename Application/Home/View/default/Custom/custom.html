@@ -1,5 +1,6 @@
 <extend name="Base/common"/>
 <block name="head">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -8,17 +9,33 @@
                 $(this).parent().siblings().html(newhtml);
             });
             $(".submit").bind("click", function () {
-                $(this).parents('form').submit();
+                $("#form0").submit();
             });
-            $("form").validate({
+            $("#xztp").uploadify({
+                "height"          : 55,
+                "width"           : 164,
+                "buttonClass"     : "tupian",
+                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                "buttonImage"     : "__IMG__/optionfile.png",
+                "uploader"        : "__ROOT__/Custom/upload.html",
+                "fileTypeDesc"    : "请选择jpg gif png文件",
+                'fileSizeLimit'   : 0,
+                "removeTimeout"   : 0,
+                "fileTypeExts"    : '*.jpg;*.gif;*.png',
+                'onInit'		  : init,
+                'multi'			  : false,
+                "onUploadSuccess" : uploadSuccess,
+                'onFallback' : function() {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            $("#form0").validate({
+                ignore: "",
                 errorPlacement: function (error, element) {
-                    if (err == 0) {
                         alert(error.html());
-                        //element.focus();
-                    }
-                    err++;
+                        element.focus();
                 },
-                rules: {
+                rules:{
                     theme: {
                         required: true
                     },
@@ -27,22 +44,71 @@
                     },
                     imgclass:{
                         required: true
+                    },
+                    dismode:{
+                        required: true
+                    },
+                    style:{
+                        required: true
+                    },
+                    cusissue:{
+                        required: true
+                    },
+                    cusmoney:{
+                        required: true,
+                        number:true
+                    },
+                    cusname:{
+                        required: true
+                    },
+                    cuscopyright:{
+                        required: true
                     }
-
                 },
                 messages: {
                     theme: {
                         required: "请选择订制主题或订制用途"
                     },
-                    password: {
+                    mode: {
                         required: "请选择订制方式"
                     },
                     imgclass:{
                         required: "请选择形象分类"
+                    },
+                    dismode:{
+                        required: "请选择展示方式"
+                    },
+                    style:{
+                        required: "请选择风格"
+                    },
+                    cusissue:{
+                        required: "请输入订制需求"
+                    },
+                    cusmoney:{
+                        required: "请输入订制价格",
+                        number:"请输入合适的价格"
+                    },
+                    cusname:{
+                        required: "请输入订制名字"
+                    },
+                    cuscopyright:{
+                        required: "请选择版权设置"
                     }
                 }
             });
         });
+        function init(){
+            $('#xztp').css('display','inline-block');
+        }
+
+        /* 文件上传成功回调函数 */
+        function uploadSuccess(file, data){
+            //console.log(data);
+            $("#imgurl").val(data);
+            $('#' + file.id).find('.data').html(' 上传完毕');
+            var data = $.parseJSON(data);
+
+        }
     </script>
 
 </block>
@@ -83,9 +149,10 @@
             </ul>
             <div class="custom-content">
 
-                <form action="__ROOT__/Custom/customsave.html" method="post">
+                <form id="form0" action="__ROOT__/Custom/customsave.html" method="post">
                     <input type="text" name="uid" value="{$cutominfo.uid}" hidden/>
                     <input type="text" name="touid" value="{$cutominfo.touid}" hidden/>
+                    <input id="imgurl" type="text" name="imgurl" hidden/>
                     <ul>
                         <li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
                         <eq name="cutominfo.cusattr" value="0">
@@ -190,8 +257,8 @@
             </span></li>
                         <li class="fill">
                             <h5>上传图片：</h5>
-                            <input name="" type="button" value="选择图片">
-                            <h6 class="upload-tips">
+                            <input id="xztp" type="button" value="选择图片">
+                            <h6 class="upload-tips" style="margin-top: -55px;">
                                 单张图片5M以内，RGB模式，支持jpg/gif/png格式，请上传需要绘画的照片。您还可以上传一张您喜欢的作品风格，以便作者参考；没有上传，作者会根据您的描述，给您满意的作品。</h6>
                         </li>
                         <!--“订制描述”和“订制需求”只有用户选择“形象分类==》卡通”才会显示-->
@@ -237,7 +304,7 @@
                         </li>
                         <li class="fill name">
                             <h5><span>*</span>名称：</h5>
-                            <input name="cusname" type="text" class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。"
+                            <input name="cusname" type="text" class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。" onkeyup="strLenCalc($(this), 'price-tips', 100);"
                                    onclick="if(this.value=='请写出你的作品名称，让你的作品更加丰富多彩。'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请写出你的作品名称，让你的作品更加丰富多彩。';this.className='gray'}">
                             <h6 class="price-tips">还可以输入 <span>50</span> 字符 / 汉字</h6>

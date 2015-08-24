@@ -67,20 +67,21 @@
                 <h6>共 <span>{$wcount}</span> 组订制作品</h6>
             </div>
             <ul>
-                <volist name="works" id="data" mod="4">
-                    <li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+                <volist name="custom" id="data" mod="4">
+                    <li><a href="#">
+                        <img src="http://localhost{$data.imgurl}" alt="订制图片-__APP__" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/footer-logo.png'"/></a>
 
-                        <h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
-                        <h4>￥{$data.money}</h4>
-                        <span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
+                        <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
+                        <h4>￥{$data.cusmoney}</h4>
+                        <span class="label-a"><a href="javascript:;">{$data.style}</a></span>
 
-                        <h2>已接单<span>接单状态</span></h2>
+                        <h2>{$data.cusstatus}<span>接单状态</span></h2>
                         <h5><span>{$data.open_count}</span>人气</h5>
-                        <h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
-                            <if condition="($data.user_id|getUserName) eq null">
+                        <h6><a href="__ROOT__/Author/details/id/{$data.uid}.html">{$data.uid|getUserName}
+                            <if condition="($data.uid|getUserName) eq null">
                                 <img src="__IMG__/user-img02.gif" alt="用户头像"/>
                                 <else />
-                                <img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+                                <img src="{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/footer-logo.png'"/>
                             </if></a></h6>
                     </li>
                     <eq name="mod" value="3"></ul><ul></eq>

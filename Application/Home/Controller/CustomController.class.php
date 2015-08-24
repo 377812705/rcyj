@@ -11,16 +11,16 @@ class CustomController extends HomeController
         //作品标签
         $tags = D('Tags')->getTags();
         //作品
-        $works = D('Works')->getAllWorks();
+        $works = D('Custom')->getAllWorks();
         //dump($works);
         //作品主题
         $wzt = D('Tags')->getWorksZT();
         //作品总数
-        $wTotal = D('Works')->count();
+        $wTotal = D('Custom')->count();
 
         $this->assign('wcount', $wTotal);
         $this->assign('zttag', $wzt);
-        $this->assign('works', $works);
+        $this->assign('custom', $works);
         $this->assign('tags', $tags);
         $this->display();
     }
@@ -55,7 +55,7 @@ class CustomController extends HomeController
                 $custom['theme'] = implode($_POST['theme'], "/");
                 $custom['style'] = implode($_POST['style'], "/");
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
-
+                $custom['imgurl']=str_replace($_POST['imgurl'],'"','');
                 //dump($custom);
                 $custom['cusid'] = $model->add($custom);
 
@@ -81,6 +81,22 @@ class CustomController extends HomeController
         }
 
         $this->redirect('Custom/index');
+    }
+    public function upload(){
+        //$this->ajaxReturn($_FILES);
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   =     3145728 ;// 设置附件上传大小
+        $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+        $upload->rootPath  =     './Uploads/'; // 设置附件上传根目录
+        $upload->savePath  =     ''; // 设置附件上传（子）目录
+        // 上传文件
+        $info   =   $upload->uploadOne($_FILES['Filedata']);
+        if(!$info) {// 上传错误提示错误信息
+            $this->ajaxReturn($upload->getError());
+        }else{// 上传成功
+            $this->ajaxReturn('Uploads/'.$info['savepath'].$info['savename']);
+            //$this->ajaxReturn($upload->rootPath);
+        }
     }
 
     public function pCustomReg()

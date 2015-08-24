@@ -35,7 +35,7 @@ class CustomController extends HomeController
     }
 
     public function custom()
-    {   dump(is_login());
+    {
         if (is_login()) {
             $fuid = is_login();
             $tid = I('toid');
@@ -100,9 +100,20 @@ class CustomController extends HomeController
         }
     }
 
-    public function orderConfim($cusid = null)
+    /**
+     * 订制需求确认
+     */
+    public function orderConfim()
     {
-        dump($_POST);
+        $model = D('Custom');
+        if ($model->autoCheckToken($_POST)) {
+            $custom = $_POST;
+            $custom['orderid']=time().is_login().$custom['cusid'];
+            $custom['cusstatus']=2;
+            $model->where("cusid={$custom['cusid']}")->save($custom);
+        }
+
+        $this->redirect('Custom/custom');
     }
 
     public function pCustomReg()

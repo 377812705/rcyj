@@ -45,6 +45,56 @@ class OrderController extends Controller {
 	 * @param string type 来源 package ，cart 。普通
 	 * @param int cart_ids 购物车id
 	 */
+	public function makeCustomOrder(){
+		$customid = I('get.customid' );
+		if(!is_numeric($customid)){
+			$this->assign ( 'message', '需求信息' );
+			$this->display('Public/error');
+			exit();
+		}
+		$data['custom_id']=$customid;
+		$data['order_category']=1;
+		$user_id =is_login();
+		$data['user_id']=$user_id;
+		if(empty($user_id)) {
+			$this->assign ( 'message', '请登录后再操作' );
+			$this->display('Public/error');
+			exit();
+		}
+		$data['order_number']='2cyj'.makeOrderCardId();
+		
+		
+		$worksModel =D('Works');
+		$work = $worksModel->getOrderWorkByid($work_id);
+		if(!$work) {
+			$this->assign ( 'message', '生成订单异常，请重新操作' );
+			$this->display('Public/error');
+			exit();
+		}
+		$data['author_id']=$work['user_id'];
+		$data['auther']=getUserNameById($work['user_id']);
+		$data['work_title']=$work['title'];
+		$data['create_date']=date('Y-m-d H:i:s',time());
+		$data['update_date']=$data['create_date'];
+		$data['money']=$work['money'];
+		$data['order_type']=0;
+		$data['handle']=1;
+		$data['ajax_type']=0;
+		$OrderModel =D('Order');
+		$id=$OrderModel->add($data);
+		if($id){
+			redirect('/Order/pay/orderid/'.$id);
+		}else{
+			$this->assign ( 'message', '订单生成异常' );
+			$this->display('Public/error');
+			exit();
+		}
+	}
+	/**
+	 * 提交信息生成订单
+	 * @param string type 来源 package ，cart 。普通
+	 * @param int cart_ids 购物车id
+	 */
 	public function makeOrder(){
 		$work_id = I('get.workid' );
 		if(!is_numeric($work_id)){
@@ -53,7 +103,7 @@ class OrderController extends Controller {
 			exit();
 		}
 		$data['work_id']=$work_id;
-		$data['order_category']=2;
+		$data['order_category']=1;
 		$user_id =is_login();
 		$data['user_id']=$user_id;
 		if(empty($user_id)) {

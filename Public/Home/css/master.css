@@ -2820,3 +2820,7 @@ input[type='button'].submit-order{
 	line-height:55px;
 	background-color:#5eb9ec;
 }
+.module h6 img{
+	border-radius:100px;
+	-moz-border-radius:100px;
+}

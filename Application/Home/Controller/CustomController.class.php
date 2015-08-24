@@ -40,21 +40,13 @@ class CustomController extends HomeController
             $fuid = is_login();
             $tid = I('toid');
             $uinfo = D('Author')->getUserInfo($fuid);
-            //判断是否是订制用户
-            if ($uinfo[0]['custom_flag']) {
-                //是订制用户
-                //得到订制用户类型0:个人1:企业
-                $cutominfo = array(
-                    'uid' => $fuid,
-                    'cusattr' => getUserCustomType($fuid),
-                    'touid' => $tid
-                );
-                $this->assign('cutominfo', $cutominfo);
-
-
-                $this->display();
-            }
-
+            $cutominfo = array(
+                'uid' => $fuid,
+                'cusattr' => getUserCustomType($fuid),
+                'touid' => $tid
+            );
+            $this->assign('cutominfo', $cutominfo);
+            $this->display("Custom/custom");
 
         } else {
             session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);

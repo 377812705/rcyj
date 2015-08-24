@@ -36,10 +36,10 @@ return array(
 
     /* 数据库配置 */
     'DB_TYPE'   => 'mysql', // 数据库类型
-    'DB_HOST'   => '182.92.216.80', // 服务器地址
-    'DB_NAME'   => 'v_2cy', // 数据库名
+    'DB_HOST'   => '127.0.0.1', // 服务器地址
+    'DB_NAME'   => 'v2_2cy', // 数据库名
     'DB_USER'   => 'root', // 用户名
-    'DB_PWD'    => '2cydb',  // 密码
+    'DB_PWD'    => '',  // 密码
     'DB_PORT'   => '3306', // 端口
     'DB_PREFIX' => '2cy_', // 数据库表前缀
 

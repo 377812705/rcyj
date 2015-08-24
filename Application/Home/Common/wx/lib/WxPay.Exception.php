@@ -10,4 +10,5 @@ class WxPayException extends Exception {
 	{
 		return $this->getMessage();
 	}
+
 }

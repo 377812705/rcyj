@@ -40,6 +40,14 @@ class MyCenterController extends HomeController
             $this->redirect("Login/login");
         } else {
             if (IS_POST) {
+            	dump(I('Post.'));
+            	$wordid=I('Post.workid',0);
+            	$data['content']=I('Post.editorValue','');
+            	$data['title']=I('Post.title','');
+            	$data['money']=floatval(I('Post.workmoney',0));
+            	$data['tags_content']=I('Post.worktag','');
+            	$data['create_status']=I('Post.worksource',1);
+
                 $this->display("MyCenter/uploadsuccess");
             } else {
                 $tags = D('Tags')->getTags();
@@ -141,5 +149,36 @@ class MyCenterController extends HomeController
 
     public function mydetails($uid=null){
         $this->display();
+    }
+    public function upfile() {
+    	$path1 = "/uploads/comic/".date('Ymd',time()).'/';
+    	$path='.'.$path1;
+    	if(!is_dir($path)){
+    		mkdir($path);
+    	}
+    	$file_src = "src.png";
+    	$filename162 = time()."1.png";
+    	$filename48 =  time()."2.png";
+    	$src=base64_decode($_POST['pic']);
+    	$pic1=base64_decode($_POST['pic1']);
+    	$pic2=base64_decode($_POST['pic2']);
+    	if($src) {
+    		file_put_contents($file_src,$src);
+    	}
+    	$workid=I('get.wordid');
+    	$data['main_image_url']=$path1.$filename162;
+    	$data['assistant_image_url']=$path1.$filename48;
+    	$data['update_date']=date('Y-m-d H:i:s',time());
+    	$data['user_id']=is_login();
+    	if($workid){
+    		D('Works')->where('id='.$workid)->save($data);
+    	}else{
+    		$data['create_date']=date('Y-m-d H:i:s',time());
+    		$workid = D('Works')->add($data);
+    	}
+    	file_put_contents($path.$filename162,$pic1);
+    	file_put_contents($path.$filename48,$pic2);
+    	$rs['status'] = $workid;
+    	echo json_encode($rs);
     }
 }

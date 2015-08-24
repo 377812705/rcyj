@@ -33,6 +33,14 @@ class ProductController extends HomeController {
         $this->display();
     }
     public function details(){
+    	$id=I('get.id','');
+    	$works=D('Works')->find($id);
+    	$User=D('User')->find($works['user_id']);
+    	$worklist=D('Works')->getWorksByUserId($works['user_id'],3);
+    	//dump($User);
+    	$this->assign('worklist',$worklist);
+    	$this->assign('user',$User);
+    	$this->assign('works',$works);
         $this->display();
     }
 }

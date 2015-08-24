@@ -8,18 +8,39 @@ namespace Home\Controller;
 use Think\Controller;
 use Home\Controller\OrderController;
 use Home\Model\ActivityModel;
-use AlipayCenter\AlipaySubmit;
-use AlipayCenter\AlipayNotify;
 header("content-type:text/html;charset=utf8");
-include_once(APP_PATH.'Home/Common/wx/lib/alipay_submit.class.php');
-include_once(APP_PATH.'Home/Common/wx/lib/alipay_notify.class.php');
+include_once(APP_PATH.'Home/Common/wx/lib/WxPay.Api.php');
 
-class ZhifubaoController extends Controller {
-	const PAY_TYPE = 3;//支付宝支付
+class WxController extends Controller {
+	const PAY_TYPE = 1;//支付宝支付
 	
+	public function wxpay(){
+		import('WxPay/Api');
+		$input = new WxPayUnifiedOrder();
+		$input->SetBody("test");
+		$input->SetAttach("test");
+		$input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
+		$input->SetTotal_fee("1");
+		$input->SetTime_start(date("YmdHis"));
+		$input->SetTime_expire(date("YmdHis", time() + 600));
+		$input->SetGoods_tag("test");
+		$input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+		$input->SetTrade_type("NATIVE");
+		$input->SetProduct_id("123456789");
+		if($input->GetTrade_type() == "NATIVE")
+		{
+			$WxPayApi = new WxPayApi;
+			$result=$WxPayApi->unifiedOrder($input);
+		}
+		$result = GetPayUrl($input);
+		$url2 = $result["code_url"];
+		$this->assign ( 'url', $url2 );
+		$this->display('Pay/payalipay');
+	}
 	 /**
      * 快钱支付下单
      */
+	
     public function zhifubaoPay(){
     	$session = session('user');
 		$user_id =2;// $session['user_id'];

@@ -1,35 +1,13 @@
 <extend name="Base/common"/>
 <block name="head">
-    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
-    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript">
-        var newhtml;
-        var imageid;
-        $(function () {
-            /* 初始化上传插件                 */
-            $("#upload-file").uploadify({
-                "height"          : 55,
-                "width"           : 164,
-                "buttonClass"     : "tupian",
-                "swf"             : "__STATIC__/uploadify/uploadify.swf",
-                "buttonImage"     : "__IMG__/optionfile.png",
-                "uploader"        : "__ROOT__/MyCenter/upload.html",
-                "fileTypeDesc"    : "请选择jpg gif png文件",
-                'fileSizeLimit'   : 0,
-                "removeTimeout"   : 0,
-                "fileTypeExts"    : '*.jpg;*.gif;*.png',
-                'onInit'		  : init,
-                'multi'			  : true,
-                "onUploadSuccess" : uploadSuccess,
-                'onFallback' : function() {
-                    alert('未检测到兼容版本的Flash.');
-                }
-            });
-            $(".submit").bind('click', function () {
-                alert(imageid);
-                //$("#form0").submit();
-            });
-
+				function submitcheck(){
+					//alert("111");
+					$("#form0").submit();
+				}
             $("#copyri").children('li').bind('click',function(){
                 var newhtml;
                 var copyrig=$("#copyri").children('.checkon');
@@ -43,47 +21,14 @@
                 $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
                 $("#Copyright").val(newhtml);
             });
-            //表单验证
-            $("#form0").validate({
-                errorPlacement: function (error, element) {
-                        element.focus();;
-                },
-                rules: {
-                    title: {
-                        required:true,
-                        maxlength: 50
-                    }
-                },
-                messages: {
-                    title: {
-                        required:"请输入作品名称",
-                        maxlength: "请输入最多50个字符或者汉字"
-                    }
-                }
-            });
 
-        });
 
         function init(){
             $('#upload-file').css('display','inline-block');
         }
-
-        /* 文件上传成功回调函数 */
-        function uploadSuccess(file, data){
-            console.log(data);
-
-            $('#' + file.id).find('.data').html(' 上传完毕');
-            var data = $.parseJSON(data);
-            //alert(data.info+'--'+data.data);
-            if(data.status){
-               // alert(data.msg);
-                console.log(data.msg);
-                imageid+=data.msg;
-            } else {
-               // alert(data.msg);
-                console.log(data.msg);
-            }
-        }
+	function uploadevent(workid){
+  		$('#workid').attr('value',workid);
+   	}
     </script>
 </block>
 <block name="body">
@@ -94,12 +39,43 @@
             </ul>
             <form action="__SELF__" id="form0" method="post">
                 <input id="worktag" name="worktag" hidden/>
+                 <input id="workid" name="workid" hidden value=""/>
                 <input id="worksource" name="worksource" hidden/>
                 <input id="workshow" name="workshow" hidden/>
                 <input id="Copyright" name="Copyright" hidden/>
+                <input id="copyri" name="copyri" hidden/>
+                
                 <div class="custom-content">
                     <ul>
                         <li>Hi，{:session('user_auth.username')}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
+                          <style type="text/css" media="screen">
+  html, body { height:100%; background-color: #ffffff;}
+  #flashContent { width:100%; height:100%; }
+  </style>
+  
+
+ </head>
+ <body>
+
+
+  <div id="avatar_priview"></div>
+                         <li class="fill name">
+                            <h5><span>*</span>作品封面：</h5>
+                            <div id="altContent">
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+WIDTH="950" HEIGHT="550" id="myMovieName">
+<PARAM NAME=movie VALUE="__flash__/avatar.swf">
+<PARAM NAME=quality VALUE=high>
+<PARAM NAME=bgcolor VALUE=#FFFFFF>
+<param name="flashvars" value="" />
+<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" flashVars="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=908&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
+NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
+PLUGINSPAGE="">
+</EMBED>
+</OBJECT>
+
+  </div>
+                        </li>
                         <li class="fill name">
                             <h5><span>*</span>作品名称：</h5>
                             <input id="title" name="title" type="text" class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。"
@@ -127,11 +103,11 @@
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>展示方式：</h5>
-            <span class="label-span"><a href="javascript:;" tag="workshow">请选择展示方式</a>
+            <span class="label-span"><a href="javascript:;" tag="Copyright">主题</a>
             <ul class="label-check radio">
                 <li class="checkon">全部</li>
-                <li>展示方式1</li>
-                <li>展示方式2</li>
+                <li>爱情</li>
+                <li>友情</li>
                 <li>展示方式3</li>
             </ul>
             </span></li>
@@ -148,10 +124,11 @@
                         </li>
                         <li class="fill">
                             <h5>上传图片：</h5>
-                            <input name="file" type="button" id="upload-file">
-                            <!--<input type="button" name="file" value="选择图片" id="upload-img">-->
-                            <h6 class="upload-tips" style="margin-top: -55px;">
-                                单张图片5M以内，RGB模式，支持jpg/gif/png格式，长不超过8000，宽不超过2000。最多允许上传30张，支持批量上传。</h6>
+                           
+                        </li>
+                        <li class="fill">
+                            <script id="editor" type="text/plain" style="width:924px;height:500px;"></script>
+                           
                         </li>
                         <li class="fill">
                             <h5>角色说明：</h5>
@@ -179,11 +156,14 @@
             </ul>
             </span></li>
                         <li class="fill btn">
-                            <input class="submit" name="" type="button" value="提交">
+                        	<input class="button" name="" type="button" onclick="submitcheck()" value="提交">
                         </li>
                     </ul>
                 </div>
             </form>
         </div>
     </div>
+        <script type="text/javascript">
+    var ue = UE.getEditor('editor');
+    </script>
 </block>

@@ -14,8 +14,7 @@ class OrderController extends Controller {
 	 * 用户中心的订单列表
 	 */
 	public function orderlist(){
-		$session = session('user');
-		$user_id =2;// $session['user_id'];
+		$user_id =is_login();
 		$data['2cy_order.user_id']=$user_id;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );
@@ -55,8 +54,7 @@ class OrderController extends Controller {
 		}
 		$data['work_id']=$work_id;
 		$data['order_category']=2;
-		$session = session('user');
-		$user_id =2;// $session['user_id'];
+		$user_id =is_login();
 		$data['user_id']=$user_id;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );
@@ -91,8 +89,7 @@ class OrderController extends Controller {
 		}
 	}
 	public function pay(){
-		$session = session('user');
-		$user_id =2;// $session['user_id'];
+		$user_id =is_login();
 		$data['user_id']=$user_id;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );
@@ -204,8 +201,7 @@ class OrderController extends Controller {
 	 * 支付成功
 	 */
 	public function pay_success(){
-		$session = session('user');
-		$user_id = $session['user_id'];
+		$user_id = is_login();
 		$order_id = I('order_id');
 		if(!$order_id){
 			$this->assign ('message', '支付错误');

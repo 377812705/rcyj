@@ -1,4 +1,22 @@
 <extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript">
+        var pctag;
+        $(function () {
+            pctag=$("#dzzt").html();
+            $(".custom-li").click( function () {
+                var newhtml = $(this).children().html();
+                if(newhtml=='企业订制'){
+                    $("#dzzt").html('<li class="custom-li"><a href="javascript:;">全部</a></li><li class="custom-li"><a href="javascript:;">吉祥物</a></li><li class="custom-li"><a href="javascript:;">动漫产业化</a></li>');
+                }else{
+                    $("#dzzt").html(pctag);
+                }
+                $(this).parent().siblings().html(newhtml);
+            });
+        });
+    </script>
+
+</block>
 <block name="body">
     <div class="container content">
         <div class="custom">
@@ -6,22 +24,26 @@
                 <li class="nextnavon">
                     <a href="javascript:;">订制标签</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <volist name="tags" id="data">
+                            <eq name="i" value="1">
                             <li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
+                                <else />
+                                <li>{$data.tag_content}</li>
+                            </eq>
                         </volist>
                     </ul>
                 </li>
                 <li><a href="javascript:;">订制来源</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <li class="custom-li"><a href="javascript:;">个人订制</a></li>
                         <li class="custom-li"><a href="javascript:;">企业订制</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:;">订制主题</a>
-                    <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                    <ul class="custom-ul" id="dzzt">
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <volist name="zttag" id="data">
                             <li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
                         </volist>
@@ -29,7 +51,7 @@
                 </li>
                 <li><a href="javascript:;">最新上传</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">最新上传</a></li>
+                        <li class="custom-li"><a href="javascript:;">最新上传</a></li>
                         <li class="custom-li"><a href="javascript:;">人气最高</a></li>
                         <li class="custom-li"><a href="javascript:;">价格最低</a></li>
                         <li class="custom-li"><a href="javascript:;">价格最高</a></li>

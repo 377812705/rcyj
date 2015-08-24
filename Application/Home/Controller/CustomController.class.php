@@ -47,24 +47,8 @@ class CustomController extends HomeController
                 $cutominfo = array(
                     'uid' => $fuid,
                     'cusattr' => getUserCustomType($fuid),
-                    'theme' => I('theme'),
-                    'themedesc' => '',
-                    'mode' => '',
-                    'imgclass' => '',
-                    'dismode' => '',
-                    'style' => '',
-                    'imgurl' => '',
-                    'cusdesc' => '',
-                    'cusissue' => '',
-                    'cusmoney' => '',
-                    'starttime' => '',
-                    'endtime' => '',
-                    'cusname' => '',
-                    'cuscopyright' => '',
-                    'cusstatus' => '1',
                     'touid' => $tid
                 );
-//               dump($cutominfo);
                 $this->assign('cutominfo', $cutominfo);
 
 
@@ -113,7 +97,7 @@ class CustomController extends HomeController
             $model->where("cusid={$custom['cusid']}")->save($custom);
         }
 
-        $this->redirect('Custom/custom');
+        $this->redirect('Custom/index');
     }
 
     public function pCustomReg()

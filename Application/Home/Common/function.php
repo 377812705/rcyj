@@ -69,7 +69,27 @@ function get_nav_url($url){
     return $url;
 }
 
+/**
+ * 得到用户头像
+ * @param null $uid
+ * @return mixed
+ */
 function getUserImg($uid=null){
     $data=D('Author')->getUserInfo($uid);
     return $data[0]['header_img'];
+}
+
+/**
+ * 得到用户名称
+ * @param null $uid
+ * @return mixed
+ */
+function getUserName($uid=null){
+    $data=D('Author')->getUserInfo($uid);
+    return $data[0]['nick_name'];
+}
+
+function getUserCustomType($uid=null){
+   $data= D('Userinfo')->field('isme')->where("userid='{$uid}'")->select();
+    return empty($data[0]['isme'])?'0':$data[0]['isme'];
 }

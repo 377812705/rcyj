@@ -1,4 +1,22 @@
 <extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript">
+        var pctag;
+        $(function () {
+            pctag=$("#dzzt").html();
+            $(".custom-li").click( function () {
+                var newhtml = $(this).children().html();
+                if(newhtml=='企业订制'){
+                    $("#dzzt").html('<li class="custom-li"><a href="javascript:;">全部</a></li><li class="custom-li"><a href="javascript:;">吉祥物</a></li><li class="custom-li"><a href="javascript:;">动漫产业化</a></li>');
+                }else{
+                    $("#dzzt").html(pctag);
+                }
+                $(this).parent().siblings().html(newhtml);
+            });
+        });
+    </script>
+
+</block>
 <block name="body">
     <div class="container content">
         <div class="custom">
@@ -6,22 +24,26 @@
                 <li class="nextnavon">
                     <a href="javascript:;">订制标签</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <volist name="tags" id="data">
+                            <eq name="i" value="1">
                             <li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
+                                <else />
+                                <li>{$data.tag_content}</li>
+                            </eq>
                         </volist>
                     </ul>
                 </li>
                 <li><a href="javascript:;">订制来源</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <li class="custom-li"><a href="javascript:;">个人订制</a></li>
                         <li class="custom-li"><a href="javascript:;">企业订制</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:;">订制主题</a>
-                    <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">全部</a></li>
+                    <ul class="custom-ul" id="dzzt">
+                        <li class="custom-li"><a href="javascript:;">全部</a></li>
                         <volist name="zttag" id="data">
                             <li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
                         </volist>
@@ -29,13 +51,13 @@
                 </li>
                 <li><a href="javascript:;">最新上传</a>
                     <ul class="custom-ul">
-                        <li class="custom-all"><a href="javascript:;">最新上传</a></li>
+                        <li class="custom-li"><a href="javascript:;">最新上传</a></li>
                         <li class="custom-li"><a href="javascript:;">人气最高</a></li>
                         <li class="custom-li"><a href="javascript:;">价格最低</a></li>
                         <li class="custom-li"><a href="javascript:;">价格最高</a></li>
                     </ul>
                 </li>
-                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='{:U("Custom/custom")}'"
+                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/custom/formid/{:is_login()}.html'"
                     value="我要订制">
                 </li>
             </ul>
@@ -46,7 +68,7 @@
             </div>
             <ul>
                 <volist name="works" id="data" mod="4">
-                    <li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+                    <li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
 
                         <h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
                         <h4>￥{$data.money}</h4>
@@ -58,7 +80,7 @@
                             <if condition="($data.user_id|getUserName) eq null">
                                 <img src="__IMG__/user-img02.gif" alt="用户头像"/>
                                 <else />
-                                <img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+                                <img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
                             </if></a></h6>
                     </li>
                     <eq name="mod" value="3"></ul><ul></eq>

@@ -65,5 +65,8 @@ class TestController {
         echo("The state does not match. You may be a victim of CSRF.");
     }
 }
+    public function testcustomtype(){
+        dump(getUserCustomType(I('id')));
+    }
 }
 

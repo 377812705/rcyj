@@ -33,5 +33,6 @@ class AuthorModel extends Model{
     public function getTjAuthor(){
         return $this->where("author_flag='1'")->limit(8)->select();
     }
+
 }
 ?>

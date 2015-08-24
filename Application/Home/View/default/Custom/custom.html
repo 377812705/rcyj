@@ -10,6 +10,38 @@
             $(".submit").bind("click", function () {
                 $(this).parents('form').submit();
             });
+            $("form").validate({
+                errorPlacement: function (error, element) {
+                    if (err == 0) {
+                        alert(error.html());
+                        //element.focus();
+                    }
+                    err++;
+                },
+                rules: {
+                    theme: {
+                        required: true
+                    },
+                    mode: {
+                        required: true
+                    },
+                    imgclass:{
+                        required: true
+                    }
+
+                },
+                messages: {
+                    theme: {
+                        required: "请选择订制主题或订制用途"
+                    },
+                    password: {
+                        required: "请选择订制方式"
+                    },
+                    imgclass:{
+                        required: "请选择形象分类"
+                    }
+                }
+            });
         });
     </script>
 

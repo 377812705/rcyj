@@ -35,7 +35,7 @@
                         <li class="custom-li"><a href="javascript:;">价格最高</a></li>
                     </ul>
                 </li>
-                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='{:U("Custom/custom")}'"
+                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/custom/formid/{:is_login()}.html'"
                     value="我要订制">
                 </li>
             </ul>
@@ -46,7 +46,7 @@
             </div>
             <ul>
                 <volist name="works" id="data" mod="4">
-                    <li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+                    <li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
 
                         <h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
                         <h4>￥{$data.money}</h4>
@@ -58,7 +58,7 @@
                             <if condition="($data.user_id|getUserName) eq null">
                                 <img src="__IMG__/user-img02.gif" alt="用户头像"/>
                                 <else />
-                                <img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+                                <img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
                             </if></a></h6>
                     </li>
                     <eq name="mod" value="3"></ul><ul></eq>

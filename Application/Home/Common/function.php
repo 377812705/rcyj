@@ -88,3 +88,8 @@ function getUserName($uid=null){
     $data=D('Author')->getUserInfo($uid);
     return $data[0]['nick_name'];
 }
+
+function getUserCustomType($uid=null){
+   $data= D('Userinfo')->field('isme')->where("userid='{$uid}'")->select();
+    return empty($data[0]['isme'])?'0':$data[0]['isme'];
+}

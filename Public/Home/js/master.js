@@ -24,6 +24,7 @@ $(function(){
 	$(this).addClass("checkon").siblings().removeClass("checkon");
 	$(this).parent().hide();
 	$(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
+	$(this).parents(".label-span").find("input").val(newhtml);
 	$(this).parent().parent().parent().find("input[type='text']").hide();
 	})
 	/*订制tab页切换*/

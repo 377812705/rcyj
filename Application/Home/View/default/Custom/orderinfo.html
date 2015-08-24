@@ -1,0 +1,106 @@
+<extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript">
+        $(function(){
+            $("input.edit-btn.report-a").click(function(){
+                $(".color-div").show();
+                $("div.report-content.order-details").show();
+            });
+
+            $(".submit-order").click(function(){
+                $("form").submit();
+            });
+
+        });
+    </script>
+</block>
+<block name="body">
+    <div class="container content">
+        <div class="custom">
+            <ul class="nextnav pay">
+                <li class="nextnavon activ-li"><a href="#">订单确认</a></li>
+            </ul>
+            <div class="custom-content pay">
+                <div class="pay-div order-content">
+                    <div>
+                        <h4>{$custom.cusname}</h4>
+                        <h5>标签：形象 <span> {$custom.theme}</span></h5>
+                        <h5>形象分类：{$custom.imgclass} <span> 展示方式：{$custom.dismode} </span> <span> 风格选择：{$custom.style}</span></h5>
+                        <h5>订制方式：{$custom.mode}</h5>
+                        <h5>订制价格：{$custom.cusmoney}.00 <span> 时间期限：10天</span></h5>
+                        <h5>版权设置：{$custom.cuscopyright}</h5>
+                    </div>
+                    <div class="border-div">
+                        <h4>请确认您的联系方式</h4>
+                        <h5>姓名：张三</h5>
+                        <h5>电话：12222222222</h5>
+                        <h5>地址：北京市海淀区朱方路66666666号
+                            <input class="edit-btn report-a" name="" type="button" value="修改收货地址">
+                        </h5>
+                    </div>
+                </div>
+                <form action="__ROOT__/Custom/orderConfim.html" method="post">
+                    <input name="cusid" type="text" value="{$custom.cusid}" hidden>
+                <div class="additional">
+                    <h3>补充说明：
+                        <input name="descinfo" type="text">
+                    </h3>
+                    <h3 class="handle">应支付：<span>￥{$custom.cusmoney}.00</span></h3>
+                </div>
+                <input class="submit-order" name="" type="button" value="提交订单">
+                </form>
+            </div>
+            <div class="report-content order-details" style="display:none;">
+                <div class="report-tle">编辑收货地址<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+                <div class="report-main">
+                    <div class="custom-content">
+                        <ul>
+                            <li class="fill">
+                                <h5><span>*</span>收货人：</h5>
+                                <input name="" type="text" >
+                            </li>
+                            <li class="fill">
+                                <h5><span>*</span>所在地区：</h5>
+                <span class="label-span"><a href="javascript:;">城市</a>
+                <ul class="label-check radio">
+                    <li class="checkon">城市1</li>
+                    <li>城市2</li>
+                    <li>城市3</li>
+                    <li>城市4</li>
+                    <li>城市5</li>
+                    <li>城市6</li>
+                </ul>
+                </span> <span class="label-span"><a href="javascript:;">北京</a>
+                <ul class="label-check radio">
+                    <li class="checkon">北京1</li>
+                    <li>北京2</li>
+                    <li>北京3</li>
+                </ul>
+                </span> <span class="label-span"><a href="javascript:;">北京</a>
+                <ul class="label-check radio">
+                    <li class="checkon">北京1</li>
+                    <li>北京2</li>
+                    <li>北京3</li>
+                </ul>
+                </span> </li>
+                            <li class="fill">
+                                <h5><span>*</span>详细地址：</h5>
+                                <input name="" type="text" >
+                            </li>
+                            <li class="fill">
+                                <h5><span>*</span>手机号：</h5>
+                                <input name="" type="text" >
+                                <h5>固定号码：</h5>
+                                <input name="" type="text" >
+                            </li>
+                            <li class="fill btn">
+                                <input class="submit" name="" type="button" onClick="javascript:location.href='perfect.html'"  value="保存收货地址">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="color-div" style="display:none;"></div>
+</block>

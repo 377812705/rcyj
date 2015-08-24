@@ -37,8 +37,11 @@ class CustomController extends HomeController
     public function custom()
     {
         if (is_login()) {
+
+
             $this->display();
         } else {
+            session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
             $this->redirect("Login/login");
         }
     }

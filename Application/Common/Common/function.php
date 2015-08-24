@@ -1030,14 +1030,6 @@ function getUserNameById($id){
 		return '';
 	}
 }
-function getUserName($id){
-	$array=D('Home/User')->field('nick_name')->find($id);
-	if($array){
-		return $array['nick_name'];
-	}else{
-		return '';
-	}
-}
 /**
  * 生成订单号
  */

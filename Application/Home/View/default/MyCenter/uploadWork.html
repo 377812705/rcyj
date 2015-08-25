@@ -3,6 +3,10 @@
     <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/ueditor.all.min.js"> </script>
     <script type="text/javascript" charset="utf-8" src="__JS__/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script type="text/javascript">
 				function submitcheck(){
 					//alert("111");
@@ -21,7 +25,19 @@
                 $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
                 $("#Copyright").val(newhtml);
             });
-
+            $("#worktag").children('li').bind('click',function(){
+                var newhtml;
+                var copyrig=$("#worktag").children('.checkon');
+                $.each(copyrig, function(i, n){
+                    if(i==0){
+                        newhtml= n.textContent+";";
+                    }else{
+                        newhtml=newhtml +n.textContent+";";
+                    }
+                });
+                $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
+                $("#worktag").val(newhtml);
+            });
 
         function init(){
             $('#upload-file').css('display','inline-block');
@@ -85,52 +101,62 @@ PLUGINSPAGE="">
                         </li>
                         <li class="fill">
                             <h5><span>*</span>作品标签：</h5>
-            <span class="label-span"><a href="javascript:;" tag="worktag">请选择作品标签</a>
-            <ul class="label-check radio noall">
+            <span class="label-span"><a href="javascript:;"  tag="worktag">请选择作品标签</a>
+            <ul class="label-check radio noall" id="worktag">
                     <volist name="tags" id="data">
-                        <li>{$data.tag_content}</li>
+                        <li value="{$data.id}">{$data.tag_content}</li>
                     </volist>
+            </ul>
+            </span></li>
+             <li class="fill">
+                            <h5><span>*</span>作品主题：</h5>
+            <span class="label-span"><a href="javascript:;" tag="worksource">请选择作品主题</a>
+            <ul class="label-check radio">
+                <for start="1" end="count($theme)+1">
+				<li >{$theme[$i]}</li>
+ 				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>作品来源：</h5>
             <span class="label-span"><a href="javascript:;" tag="worksource">请选择作品来源</a>
             <ul class="label-check radio">
-                <li>个人作品</li>
-                <li>企业作品</li>
-                <li>自创作品</li>
+                <for start="1" end="count($source)+1">
+				<li>{$source[$i]}</li>
+ 				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>展示方式：</h5>
-            <span class="label-span"><a href="javascript:;" tag="Copyright">主题</a>
+            <span class="label-span"><a href="javascript:;" tag="Copyright">展示方式</a>
             <ul class="label-check radio">
-                <li class="checkon">全部</li>
-                <li>爱情</li>
-                <li>友情</li>
-                <li>展示方式3</li>
+               	<for start="1" end="count($show)+1">
+					<li>{$show[$i]}</li>
+ 				</for>
             </ul>
             </span></li>
+            <li class="fill">
+                            <h5><span>*</span>完成时间：</h5>
+                            <span><input type="text" id="endtime" name="endtime" value="" placeholder="完成时间" /></span>
+                            <h6 class="price-tips">请填写你作品完成的时间</h6>
+                        </li>
                         <li class="fill">
                             <h5><span>*</span>作品价格：</h5>
                             <input name="workmoney" type="text" class="gray" value="请进行填写价格"
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                         </li>
-                        <li class="fill">
-                            <h5><span>*</span>完成时间：</h5>
-                            <span class="time-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日  - &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>
-                            <h6 class="price-tips">请填写你作品完成的时间</h6>
-                        </li>
-                        <li class="fill">
-                            <h5>上传图片：</h5>
-                           
-                        </li>
-                        <li class="fill">
-                            <script id="editor" type="text/plain" style="width:924px;height:500px;"></script>
-                           
-                        </li>
-                        <li class="fill">
+                        
+                        <li class="fill copyright">
+                            <h5><span>*</span>版权设置：</h5>
+            <span class="label-span"><a href="javascript:;" tag="Copyright">不限制作品用途</a>
+            <ul class="label-check radio" id="copyri">
+                <for start="1" end="count($use)+1">
+				<li>{$use[$i]}</li>
+ 				</for>
+            </ul>
+            </span></li>
+                         <li class="fill">
                             <h5>角色说明：</h5>
                         <textarea name="workrole" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
                                   onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
@@ -144,17 +170,15 @@ PLUGINSPAGE="">
                                   onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
                             <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
                         </li>
-                        <li class="fill copyright">
-                            <h5><span>*</span>版权设置：</h5>
-            <span class="label-span"><a href="javascript:;" tag="Copyright">不限制作品用途</a>
-            <ul class="label-check" id="copyri">
-                <li>禁止商业使用</li>
-                <li>禁止个人使用</li>
-                <li>禁止匿名转发</li>
-                <li>禁止商业使用</li>
-                <li>不限制作品用途</li>
-            </ul>
-            </span></li>
+                        <li class="fill">
+                            <h5>上传图片：</h5>
+                           
+                        </li>
+                        <li class="fill">
+                            <script id="editor" type="text/plain" style="width:924px;height:500px;"></script>
+                           
+                        </li>
+                       
                         <li class="fill btn">
                         	<input class="button" name="" type="button" onclick="submitcheck()" value="提交">
                         </li>
@@ -165,5 +189,11 @@ PLUGINSPAGE="">
     </div>
         <script type="text/javascript">
     var ue = UE.getEditor('editor');
+    $('#endtime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
     </script>
 </block>

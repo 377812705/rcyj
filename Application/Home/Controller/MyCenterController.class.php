@@ -53,6 +53,10 @@ class MyCenterController extends HomeController
                 $tags = D('Tags')->getTags();
                 $source = C('source');
                 $theme = C('theme');
+                $show = C('show');
+                $use = C('use');
+                $this->assign('use', $use);
+                $this->assign('show', $show);
                 $this->assign('source', $source);
                 $this->assign('theme', $theme);
                 $this->assign('tags', $tags);

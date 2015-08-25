@@ -4,13 +4,8 @@
         var pctag;
         $(function () {
             pctag=$("#dzzt").html();
-            $(".custom-li").click( function () {
+            $(".custom-li").bind('click',function () {
                 var newhtml = $(this).children().html();
-                if(newhtml=='企业订制'){
-                    $("#dzzt").html('<li class="custom-li"><a href="javascript:;">全部</a></li><li class="custom-li"><a href="javascript:;">吉祥物</a></li><li class="custom-li"><a href="javascript:;">动漫产业化</a></li>');
-                }else{
-                    $("#dzzt").html(pctag);
-                }
                 $(this).parent().siblings().html(newhtml);
             });
         });
@@ -47,6 +42,7 @@
                         <volist name="zttag" id="data">
                             <li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
                         </volist>
+                        <li class="custom-li"><a href="javascript:;">吉祥物</a></li><li class="custom-li"><a href="javascript:;">动漫产业化</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:;">最新上传</a>
@@ -68,7 +64,7 @@
             </div>
             <ul>
                 <volist name="custom" id="data" mod="4">
-                    <li><a href="#">
+                    <li><a href="__ROOT__/Custom/detail">
                         <img src="http://localhost{$data.imgurl}" alt="订制图片-__APP__" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/footer-logo.png'"/></a>
 
                         <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>

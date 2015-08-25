@@ -48,7 +48,7 @@ class OrderController extends Controller {
 	 * @param int cart_ids 购物车id
 	 */
 	public function makeCustomOrder(){
-		$customid = I('get.customid' );
+		$customid = I('get.customid');
 		if(!is_numeric($customid)){
 			$this->assign ( 'message', '需求信息' );
 			$this->display('Public/error');
@@ -57,6 +57,7 @@ class OrderController extends Controller {
 		$data['custom_id']=$customid;
 		$data['order_category']=1;
 		$user_id =is_login();
+		dump($user_id);
 		$data['user_id']=$user_id;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );
@@ -66,19 +67,19 @@ class OrderController extends Controller {
 		$data['order_number']='2cyj'.makeOrderCardId();
 		
 		
-		$worksModel =D('Works');
-		$work = $worksModel->getOrderWorkByid($work_id);
+		$worksModel =D('Custom');
+		$work = $worksModel->getOrderCustomByid($customid);
 		if(!$work) {
 			$this->assign ( 'message', '生成订单异常，请重新操作' );
 			$this->display('Public/error');
 			exit();
 		}
-		$data['author_id']=$work['user_id'];
-		$data['auther']=getUserNameById($work['user_id']);
-		$data['work_title']=$work['title'];
+		$data['author_id']=$work['touid'];
+		$data['auther']=getUserNameById($work['touid']);
+		$data['work_title']=$work['cusname'];
 		$data['create_date']=date('Y-m-d H:i:s',time());
 		$data['update_date']=$data['create_date'];
-		$data['money']=$work['money'];
+		$data['money']=$work['cusmoney'];
 		$data['order_type']=0;
 		$data['handle']=1;
 		$data['ajax_type']=0;

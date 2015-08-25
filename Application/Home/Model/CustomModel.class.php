@@ -10,6 +10,8 @@ class CustomModel extends Model{
     public function getAllWorks(){
       return  $this->select();
     }
-
+    public function getOrderCustomByid($id){
+        return $this->find($id);
+    }
 }
 ?>

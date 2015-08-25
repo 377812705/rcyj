@@ -40,17 +40,26 @@ class MyCenterController extends HomeController
             $this->redirect("Login/login");
         } else {
             if (IS_POST) {
-            	//dump(I('Post.'));
             	$wordid=I('Post.workid',0);
+            	$data['worktag']=I('Post.worktag',1);
+            	$data['theme']=I('Post.theme',1);
+            	$data['create_status']=I('Post.create_status',1);
+            	$data['show']=I('Post.show',1);
+            	$data['copy_right']=I('Post.copyri',1);
             	$data['content']=I('Post.editorValue','');
             	$data['title']=I('Post.title','');
             	$data['money']=floatval(I('Post.workmoney',0));
             	$data['tags_content']=I('Post.worktag','');
-            	$data['create_status']=I('Post.worksource',1);
-
+            	$data['money']=I('Post.money',1);
+            	$data['workrole']=I('Post.workrole',1);
+            	$data['workstory']=I('Post.workstory',1);
+            	if($wordid){
+            		$arr['id']=$wordid;
+            		$id=D('Works')->where($arr)->save($data);
+            	}
                 $this->display("MyCenter/uploadsuccess");
             } else {
-                $tags = D('Tags')->getTags();
+                $tags = C('tag');
                 $source = C('source');
                 $theme = C('theme');
                 $show = C('show');
@@ -173,7 +182,8 @@ class MyCenterController extends HomeController
     	if($src) {
     		file_put_contents($file_src,$src);
     	}
-    	$workid=I('get.wordid');
+    	$workid=I('get.petname');
+    	dump(I('post.petname')) ;
     	$data['main_image_url']=$path1.$filename162;
     	$data['assistant_image_url']=$path1.$filename48;
     	$data['update_date']=date('Y-m-d H:i:s',time());

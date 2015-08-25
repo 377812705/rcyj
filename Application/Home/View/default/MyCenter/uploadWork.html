@@ -8,44 +8,60 @@
     <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script type="text/javascript">
-				function submitcheck(){
-					//alert("111");
-					$("#form0").submit();
-				}
-            $("#copyri").children('li').bind('click',function(){
-                var newhtml;
-                var copyrig=$("#copyri").children('.checkon');
-                $.each(copyrig, function(i, n){
-                    if(i==0){
-                        newhtml= n.textContent+";";
-                    }else{
-                        newhtml=newhtml +n.textContent+";";
-                    }
-                });
-                $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
-                $("#Copyright").val(newhtml);
-            });
-            $("#worktag").children('li').bind('click',function(){
-                var newhtml;
-                var copyrig=$("#worktag").children('.checkon');
-                $.each(copyrig, function(i, n){
-                    if(i==0){
-                        newhtml= n.textContent+";";
-                    }else{
-                        newhtml=newhtml +n.textContent+";";
-                    }
-                });
-                $(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
-                $("#worktag").val(newhtml);
-            });
-
+    function submitcheck(){
+		//alert("111");
+		$su=true;
+		if(!$('#id').val()){
+			alert("请上传封面图片");
+			$su=false;
+		}
+		if(!$('#worktag').val()){
+			alert("请选择标签");
+			$su=false;
+		}
+		if(!$('#theme').val()){
+			alert("请选择主题");
+			$su=false;
+		}
+		if(!$('#create_status').val()){
+			alert("请选择来源");
+			$su=false;
+		}
+		if($('#endtime').val()=='完成时间'){
+			alert("请填写完成时间");
+			$su=false;
+		}
+		if($('#money').val()=='请进行填写价格'||isNaN($('#money').val())){
+			alert("请进行填写价格");
+			$su=false;
+		}
+		if(!$('#copyri').val()){
+			alert("请选择版权用途");
+			$su=false;
+		}
+		if($su){
+			$("#form0").submit();
+		}
+		
+	};	
         function init(){
             $('#upload-file').css('display','inline-block');
         }
 	function uploadevent(workid){
-  		$('#workid').attr('value',workid);
+  		$('#petname').attr('value',workid);
+  		flashVars=$('#flashVars').attr('flashVars');
+  		arr=flashVars.split("wordid="); 
+  		word=arr[1];
+  		arr1=word.split("&");
+  		arr1[0]=workid;
+  		arr[1]=arr1.join("&"); 
+  		str=arr.join("wordid=");
+  		
+  		$('#flashvars1').attr('value',str);
+  		$('#flashVars').attr('flashVars',str);
    	}
     </script>
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
 </block>
 <block name="body">
     <div class="container content">
@@ -55,10 +71,10 @@
             </ul>
             <form action="__SELF__" id="form0" method="post">
                 <input id="worktag" name="worktag" hidden/>
-                 <input id="workid" name="workid" hidden value=""/>
-                <input id="worksource" name="worksource" hidden/>
-                <input id="workshow" name="workshow" hidden/>
-                <input id="Copyright" name="Copyright" hidden/>
+                 <input id="petname" name="petname" hidden value=""/>
+                <input id="theme" name="theme" hidden/>
+                <input id="create_status" name="create_status" hidden/>
+                <input id="show" name="show" hidden/>
                 <input id="copyri" name="copyri" hidden/>
                 
                 <div class="custom-content">
@@ -83,8 +99,8 @@ WIDTH="950" HEIGHT="550" id="myMovieName">
 <PARAM NAME=movie VALUE="__flash__/avatar.swf">
 <PARAM NAME=quality VALUE=high>
 <PARAM NAME=bgcolor VALUE=#FFFFFF>
-<param name="flashvars" value="" />
-<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" flashVars="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=908&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
+<param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=<present name="wordid">{$wordid}<else/></present>&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
+<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=<present name="wordid">{$wordid}<else/></present>&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
 NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
 PLUGINSPAGE="">
 </EMBED>
@@ -103,35 +119,43 @@ PLUGINSPAGE="">
                             <h5><span>*</span>作品标签：</h5>
             <span class="label-span"><a href="javascript:;"  tag="worktag">请选择作品标签</a>
             <ul class="label-check radio noall" id="worktag">
-                    <volist name="tags" id="data">
-                        <li value="{$data.id}">{$data.tag_content}</li>
-                    </volist>
+                    <for start="1" end="count($tags)+1">
+                    	<if condition="$i eq 1"><li value="{$i}">{$tags[$i]}</li> 
+                    	<else />
+                    	<ul><li value="{$i}">{$tags[$i]}</li> </ul>
+                    	</if>
+					
+ 				</for>
+                    
             </ul>
             </span></li>
              <li class="fill">
                             <h5><span>*</span>作品主题：</h5>
-            <span class="label-span"><a href="javascript:;" tag="worksource">请选择作品主题</a>
-            <ul class="label-check radio">
+            <span class="label-span"><a href="javascript:;" tag="theme">请选择作品主题</a>
+            <ul class="label-check radio" id="theme">
                 <for start="1" end="count($theme)+1">
-				<li >{$theme[$i]}</li>
+					<li value="{$i}">{$theme[$i]}</li>
  				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>作品来源：</h5>
-            <span class="label-span"><a href="javascript:;" tag="worksource">请选择作品来源</a>
-            <ul class="label-check radio">
+            <span class="label-span"><a href="javascript:;" tag="create_status">请选择作品来源</a>
+            <ul class="label-check radio" id="create_status">
                 <for start="1" end="count($source)+1">
-				<li>{$source[$i]}</li>
+				<li  value="{$i}">{$source[$i]}</li>
  				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>展示方式：</h5>
-            <span class="label-span"><a href="javascript:;" tag="Copyright">展示方式</a>
-            <ul class="label-check radio">
+            <span class="label-span"><a href="javascript:;" tag="show">展示方式</a>
+            <ul class="label-check radio" id="show" >
                	<for start="1" end="count($show)+1">
-					<li>{$show[$i]}</li>
+					<if condition="$i eq 1"><li value="{$i}">{$show[$i]}</li> 
+                    	<else />
+                    		<ul><li value="{$i}">{$show[$i]}</li></ul>
+                    	</if>
  				</for>
             </ul>
             </span></li>
@@ -142,7 +166,7 @@ PLUGINSPAGE="">
                         </li>
                         <li class="fill">
                             <h5><span>*</span>作品价格：</h5>
-                            <input name="workmoney" type="text" class="gray" value="请进行填写价格"
+                            <input name="money" id="money" type="text" class="gray" value="请进行填写价格"
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                         </li>
@@ -152,7 +176,7 @@ PLUGINSPAGE="">
             <span class="label-span"><a href="javascript:;" tag="Copyright">不限制作品用途</a>
             <ul class="label-check radio" id="copyri">
                 <for start="1" end="count($use)+1">
-				<li>{$use[$i]}</li>
+				<li value="{$i}">{$use[$i]}</li>
  				</for>
             </ul>
             </span></li>
@@ -165,7 +189,7 @@ PLUGINSPAGE="">
                         </li>
                         <li class="fill">
                             <h5>故事梗概：</h5>
-                        <textarea name="workcontent" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
+                        	<textarea name="workstory" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
                                   onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
                                   onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
                             <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>

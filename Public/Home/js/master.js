@@ -18,6 +18,7 @@ $(function(){
 	/*下拉列内容表选项选中取消*/
 	$(".label-check>li").click(function(){
 	$(this).toggleClass("checkon");
+		$("#"+$(this).parent().attr("id")).attr("value",$(this).attr("value"));
 	})
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();

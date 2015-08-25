@@ -100,7 +100,9 @@ class CustomController extends HomeController
             $this->ajaxReturn(think_encrypt('/upload/'.$info['savepath'].$info['savename']));
         }
     }
-
+    public function detail(){
+        $this->display();
+    }
     public function pCustomReg()
     {
         $this->display();

@@ -35,4 +35,7 @@ class IndexController extends HomeController {
     public function mechanism(){
         $this->display();
     }
+    public function feedback(){
+        $this->display();
+    }
 }

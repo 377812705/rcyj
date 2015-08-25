@@ -78,9 +78,12 @@ class CustomController extends HomeController
             $custom['orderid']=time().is_login().$custom['cusid'];
             $custom['cusstatus']=2;
             $model->where("cusid={$custom['cusid']}")->save($custom);
+            $this->redirect("Order/makeCustomOrder/customid/{$custom['cusid']}");
+        }else{
+            $this->redirect("Custom/index");
         }
 
-        $this->redirect('Custom/index');
+
     }
     public function upload(){
         //$this->ajaxReturn($_FILES);
@@ -95,7 +98,6 @@ class CustomController extends HomeController
             $this->ajaxReturn($upload->getError());
         }else{// 上传成功
             $this->ajaxReturn(think_encrypt('/upload/'.$info['savepath'].$info['savename']));
-            //$this->ajaxReturn($upload->rootPath);
         }
     }
 

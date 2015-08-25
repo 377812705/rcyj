@@ -3,10 +3,10 @@
 <div class="container content details">
     <div class="details brief">
         <div class="brief-left">
-            <h4>大眼眶熊猫</h4>
-            <h5>定制主题：<span>浪漫的爱情</span>标签：<span>形象</span>形象分类：<span>卡通</span></h5>
-            <h5>订制方式：<span>一对一</span>展示方式：<span>数码 ／ 电脑绘画</span>风格选择：<span>现代Q版</span><span>速写</span></h5>
-            <h5>订制价格：<span class="red-span">500 RMB</span>订制期限：<span class="red-span">10 天</span></h5>
+            <h4>{$custom.cusname}</h4>
+            <h5>定制主题：<span>{$custom.theme}</span>标签：<span>形象</span>形象分类：<span>{$custom.imgclass}</span></h5>
+            <h5>订制方式：<span>{$custom.mode}</span>展示方式：<span>{$custom.dismode}</span>风格选择：<span>{$custom.style}</span></h5>
+            <h5>订制价格：<span class="red-span">{$custom.cusmoney} RMB</span>订制期限：<span class="red-span">10 天</span></h5>
         </div>
         <div class="brief-right grab"> <img src="__IMG__/user-img10.gif"/> <span>
         <h4>大眼眶熊猫</h4>
@@ -17,7 +17,17 @@
             <input class="grab-btn" name="" type="button" value="抢单">
         </div>
     </div>
-    <include file="Public/lmaq"/>
+    <switch name="custom.theme">
+        <case value="浪漫的爱情"><include file="Public/lmaq"/></case>
+        <case value="浓浓的亲情"><include file="Public/nnqq"/></case>
+        <case value="真挚的友情"><include file="Public/zzyq"/></case>
+        <case value="独一无二的自己"><include file="Public/dywezj"/></case>
+        <case value="生日"><include file="Public/sr"/></case>
+        <case value="投资型订制"><include file="Public/tzxdz"/></case>
+        <default /><include file="Public/tzxdz"/>
+    </switch>
+
+
     <div class="tag"> <span class="collect"> <img src="__IMG__/tag-img01.png"/> <span>
       <h4>收藏</h4>
       <h5>233人收藏</h5>

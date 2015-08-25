@@ -100,7 +100,12 @@ class CustomController extends HomeController
             $this->ajaxReturn(think_encrypt('/upload/'.$info['savepath'].$info['savename']));
         }
     }
-    public function detail(){
+    public function detail($cusid=null){
+        //得到订制作品明细
+        $custom=D('Custom')->getOrderCustomByid($cusid);
+        //dump($custom);
+        $this->assign('custom',$custom);
+
         $this->display();
     }
     public function pCustomReg()

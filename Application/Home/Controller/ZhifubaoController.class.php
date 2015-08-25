@@ -21,8 +21,7 @@ class ZhifubaoController extends Controller {
      * 快钱支付下单
      */
     public function zhifubaoPay(){
-    	$session = session('user');
-		$user_id =2;// $session['user_id'];
+		$user_id =is_login();
 		$data['user_id']=$user_id;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );

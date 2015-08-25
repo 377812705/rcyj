@@ -40,7 +40,7 @@ class MyCenterController extends HomeController
             $this->redirect("Login/login");
         } else {
             if (IS_POST) {
-            	dump(I('Post.'));
+            	//dump(I('Post.'));
             	$wordid=I('Post.workid',0);
             	$data['content']=I('Post.editorValue','');
             	$data['title']=I('Post.title','');
@@ -51,6 +51,14 @@ class MyCenterController extends HomeController
                 $this->display("MyCenter/uploadsuccess");
             } else {
                 $tags = D('Tags')->getTags();
+                $source = C('source');
+                $theme = C('theme');
+                $show = C('show');
+                $use = C('use');
+                $this->assign('use', $use);
+                $this->assign('show', $show);
+                $this->assign('source', $source);
+                $this->assign('theme', $theme);
                 $this->assign('tags', $tags);
                 $this->display();
             }

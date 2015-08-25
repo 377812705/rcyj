@@ -14,7 +14,7 @@
     <div class="author-content">
       <div class="module">
         <div class="module-tle authortle">
-          <h5>Hi，<span>二郎神</span>，欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
+          <h5>Hi，<span>{$userid|getUserNameById=###}</span>，欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
         </div>
         <div class="author-filter">
           <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a><!-- <a href="javascript:;" class="current">未评价</a></h5> -->

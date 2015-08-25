@@ -33,6 +33,8 @@ class OrderController extends Controller {
 		$Page       = new Page($count,$pageshowcount);
 		$show       = $Page->pageshow();
 		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags_content")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		
+		$this->assign('userid',$user_id);
 		$paytype=C('paystatus');
 		$this->assign('orderList',$orderList);
 		$this->assign('paytype',$paytype);

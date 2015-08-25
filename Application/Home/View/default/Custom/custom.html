@@ -1,5 +1,9 @@
 <extend name="Base/common"/>
 <block name="head">
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
     <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
@@ -9,6 +13,7 @@
                 $(this).parent().siblings().html(newhtml);
             });
             $(".submit").bind("click", function () {
+                alert($("#cusattr").val());
                 $("#form0").submit();
             });
             $("#xztp").uploadify({
@@ -63,6 +68,14 @@
                     },
                     cuscopyright:{
                         required: true
+                    },
+                    starttime:{
+                        required: true,
+                        date:true
+                    },
+                    endtime:{
+                        required: true,
+                        date:true
                     }
                 },
                 messages: {
@@ -93,8 +106,29 @@
                     },
                     cuscopyright:{
                         required: "请选择版权设置"
+                    },
+                    starttime:{
+                        required: "请选择开始日期",
+                        date:"请输入正确的日期"
+                    },
+                    endtime:{
+                        required: "请选择结束日期",
+                        date:"请输入正确的日期"
                     }
                 }
+            });
+            $('#starttime').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language:"zh-CN",
+                minView:2,
+                autoclose:true
+            });
+
+            $('#endtime').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language:"zh-CN",
+                minView:2,
+                autoclose:true
             });
         });
         function init(){
@@ -103,7 +137,7 @@
 
         /* 文件上传成功回调函数 */
         function uploadSuccess(file, data){
-            //console.log(data);
+            alert(data);
             $("#imgurl").val(data);
             $('#' + file.id).find('.data').html(' 上传完毕');
             var data = $.parseJSON(data);
@@ -152,6 +186,7 @@
                 <form id="form0" action="__ROOT__/Custom/customsave.html" method="post">
                     <input type="text" name="uid" value="{$cutominfo.uid}" hidden/>
                     <input type="text" name="touid" value="{$cutominfo.touid}" hidden/>
+                    <input type="text" id="cusattr" name="cusattr" value="{$cutominfo['cusattr']+1}" hidden/>
                     <input id="imgurl" type="text" name="imgurl" hidden/>
                     <ul>
                         <li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
@@ -298,8 +333,10 @@
                         </li>
                         <li class="fill">
                             <h5><span>*</span>时间期限：</h5>
-                            <span class="time-span activ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日 </span>
-                            <span class="activ-txt">至</span> <span class="time-span activ"> &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>
+                            <!--<span class="time-span activ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日 </span>-->
+                            <!--<span class="activ-txt">至</span> <span class="time-span activ"> &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>-->
+                            <input type="text" id="starttime" name="starttime" value="" placeholder="起始时间" /> -
+                            <input type="text" id="endtime" name="endtime" value="" placeholder="结束时间" />
                             <h6 class="price-tips">请填写你希望最迟收到作品的时间期限，不能低于七天哦。</h6>
                         </li>
                         <li class="fill name">

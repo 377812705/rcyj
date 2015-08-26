@@ -104,10 +104,21 @@ class CustomController extends HomeController
         //得到订制作品明细
         $custom=D('Custom')->getOrderCustomByid($cusid);
         //dump($custom);
+        $this->assign('isgrab',isgrab(is_login(),$cusid));
         $this->assign('custom',$custom);
 
         $this->display();
     }
+
+    /**
+     * 抢单
+     */
+    public function grab(){
+        $model=M('grab');
+        $model->add($_POST);
+        $this->ajaxReturn('已抢单');
+    }
+
     public function pCustomReg()
     {
         $this->display();

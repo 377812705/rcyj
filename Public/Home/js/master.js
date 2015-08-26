@@ -156,10 +156,10 @@ $(function(){
 		$(this).addClass("attention");
 		$(this).val("已关注")
 		})
-	$(".brief-right input").click(function(){
-		$(this).addClass("attention");
-		$(this).val("已关注")
-		})
+	//$(".brief-right input").click(function(){
+	//	$(this).addClass("attention");
+	//	$(this).val("已关注")
+	//	})
 	//$(".brief-right input.grab-btn").click(function(){
 	//	$(this).addClass("grab-btnon");
 	//	$(this).val("已抢单");

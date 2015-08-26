@@ -1037,3 +1037,9 @@ function makeOrderCardId(){
 	$my_t = gettimeofday();
 	return mt_rand(1000, 9999).$my_t['sec'].$my_t['usec'];
 }
+
+function isgrab($uid,$cusid){
+    $count=M('grab')->where("uid={$uid} and cusid={$cusid}")->count();
+    return $count>0 ? $count : 0;
+    //return $count;
+}

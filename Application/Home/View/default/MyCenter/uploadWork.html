@@ -11,10 +11,6 @@
     function submitcheck(){
 		//alert("111");
 		$su=true;
-		if(!$('#id').val()){
-			alert("请上传封面图片");
-			$su=false;
-		}
 		if(!$('#worktag').val()){
 			alert("请选择标签");
 			$su=false;
@@ -48,17 +44,8 @@
             $('#upload-file').css('display','inline-block');
         }
 	function uploadevent(workid){
-  		$('#petname').attr('value',workid);
-  		flashVars=$('#flashVars').attr('flashVars');
-  		arr=flashVars.split("wordid="); 
-  		word=arr[1];
-  		arr1=word.split("&");
-  		arr1[0]=workid;
-  		arr[1]=arr1.join("&"); 
-  		str=arr.join("wordid=");
-  		
-  		$('#flashvars1').attr('value',str);
-  		$('#flashVars').attr('flashVars',str);
+
+  		//$('#petname').attr('value',workid);
    	}
     </script>
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
@@ -69,17 +56,17 @@
             <ul class="nextnav">
                 <li class="nextnavon activ-li"><a href="#">上传作品</a></li>
             </ul>
-            <form action="__SELF__" id="form0" method="post">
-                <input id="worktag" name="worktag" hidden/>
-                 <input id="petname" name="petname" hidden value=""/>
-                <input id="theme" name="theme" hidden/>
-                <input id="create_status" name="create_status" hidden/>
-                <input id="show" name="show" hidden/>
-                <input id="copyri" name="copyri" hidden/>
+            <form action="__ROOT__/MyCenter/uploadWork" id="form0" method="post">
+                <input id="worktag" name="worktag" hidden value="{$word['tags']}"/>
+                 <input id="workid" name="workid" hidden value="{$word['id']}"/>
+                <input id="theme" name="theme" hidden  value="{$word['theme']}" />
+                <input id="create_status" name="create_status" hidden  value="{$word['create_status']}"/>
+                <input id="show" name="show" hidden  value="{$word['show']}" />
+                <input id="copyri" name="copyri" hidden   value="{$word['copy_right']}" />
                 
                 <div class="custom-content">
                     <ul>
-                        <li>Hi，{:session('user_auth.username')}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
+                        <li>Hi，{$word['user_id']|getUserNameById=###}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
                           <style type="text/css" media="screen">
   html, body { height:100%; background-color: #ffffff;}
   #flashContent { width:100%; height:100%; }
@@ -99,8 +86,8 @@ WIDTH="950" HEIGHT="550" id="myMovieName">
 <PARAM NAME=movie VALUE="__flash__/avatar.swf">
 <PARAM NAME=quality VALUE=high>
 <PARAM NAME=bgcolor VALUE=#FFFFFF>
-<param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=<present name="wordid">{$wordid}<else/></present>&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
-<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.jpg&uploadUrl=__URL__/upfile?wordid=<present name="wordid">{$wordid}<else/></present>&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
+<param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
+<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
 NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
 PLUGINSPAGE="">
 </EMBED>
@@ -110,19 +97,19 @@ PLUGINSPAGE="">
                         </li>
                         <li class="fill name">
                             <h5><span>*</span>作品名称：</h5>
-                            <input id="title" name="title" type="text" class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。"
+                            <input id="title" name="title" type="text" <if condition="$word['title'] neq null">class="white" value="{$word['title']}" <else /> class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。" </if>
                                    onclick="if(this.value=='请写出你的作品名称，让你的作品更加丰富多彩。'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请写出你的作品名称，让你的作品更加丰富多彩。';this.className='gray'}">
                             <h6 class="price-tips">还可以输入 <span>50</span> 字符 / 汉字</h6>
                         </li>
                         <li class="fill">
                             <h5><span>*</span>作品标签：</h5>
-            <span class="label-span"><a href="javascript:;"  tag="worktag">请选择作品标签</a>
+            <span class="label-span"><if condition="$word['tags'] neq null"><a href="javascript:;"  tag="worktag" style="color: rgb(66, 66, 66);">{$tags[$word['tags']]}<else /> <a href="javascript:;"  tag="worktag">请选择作品标签</if></a>
             <ul class="label-check radio noall" id="worktag">
                     <for start="1" end="count($tags)+1">
-                    	<if condition="$i eq 1"><li value="{$i}">{$tags[$i]}</li> 
+                    	<if condition="$i eq 1"><if condition="$word['tags'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$tags[$i]}</li> 
                     	<else />
-                    	<ul><li value="{$i}">{$tags[$i]}</li> </ul>
+                    	<ul><if condition="$word['tags'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$tags[$i]}</li> </ul>
                     	</if>
 					
  				</for>
@@ -131,28 +118,29 @@ PLUGINSPAGE="">
             </span></li>
              <li class="fill">
                             <h5><span>*</span>作品主题：</h5>
-            <span class="label-span"><a href="javascript:;" tag="theme">请选择作品主题</a>
+                           
+            <span class="label-span"><if condition="$word['theme'] neq null"><a href="javascript:;"  tag="theme" style="color: rgb(66, 66, 66);">{$theme[$word['theme']]}<else /><a href="javascript:;" tag="theme">请选择作品主题</if></a>
             <ul class="label-check radio" id="theme">
                 <for start="1" end="count($theme)+1">
-					<li value="{$i}">{$theme[$i]}</li>
+					<if condition="$word['theme'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$theme[$i]}</li>
  				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>作品来源：</h5>
-            <span class="label-span"><a href="javascript:;" tag="create_status">请选择作品来源</a>
+            <span class="label-span"><if condition="$word['create_status'] neq null"><a href="javascript:;"  tag="create_status" style="color: rgb(66, 66, 66);">{$source[$word['create_status']]}<else /><a href="javascript:;" tag="create_status">请选择作品来源</if></a>
             <ul class="label-check radio" id="create_status">
                 <for start="1" end="count($source)+1">
-				<li  value="{$i}">{$source[$i]}</li>
+				<if condition="$word['create_status'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$source[$i]}</li>
  				</for>
             </ul>
             </span></li>
                         <li class="fill">
                             <h5><span>*</span>展示方式：</h5>
-            <span class="label-span"><a href="javascript:;" tag="show">展示方式</a>
+            <span class="label-span"><if condition="$word['show'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$show[$word['show']]}<else /><a href="javascript:;" tag="show">展示方式</if></a>
             <ul class="label-check radio" id="show" >
                	<for start="1" end="count($show)+1">
-					<if condition="$i eq 1"><li value="{$i}">{$show[$i]}</li> 
+					<if condition="$i eq 1"><if condition="$word['show'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$show[$i]}</li> 
                     	<else />
                     		<ul><li value="{$i}">{$show[$i]}</li></ul>
                     	</if>
@@ -161,45 +149,44 @@ PLUGINSPAGE="">
             </span></li>
             <li class="fill">
                             <h5><span>*</span>完成时间：</h5>
-                            <span><input type="text" id="endtime" name="endtime" value="" placeholder="完成时间" /></span>
+                            <span><input type="text" id="endtime" name="endtime"<if condition="$word['show'] eq $i"> value="{$today}"<else />  value="{$today}"</if> placeholder="完成时间" /></span>
                             <h6 class="price-tips">请填写你作品完成的时间</h6>
                         </li>
                         <li class="fill">
                             <h5><span>*</span>作品价格：</h5>
-                            <input name="money" id="money" type="text" class="gray" value="请进行填写价格"
+                            <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                         </li>
-                        
                         <li class="fill copyright">
                             <h5><span>*</span>版权设置：</h5>
-            <span class="label-span"><a href="javascript:;" tag="Copyright">不限制作品用途</a>
+            <span class="label-span"><if condition="$word['copy_right'] neq null"><a href="javascript:;"  tag="copyri" style="color: rgb(66, 66, 66);">{$use[$word['copy_right']]}<else /><a href="javascript:;" tag="Copyright">不限制作品用途</if></a>
             <ul class="label-check radio" id="copyri">
                 <for start="1" end="count($use)+1">
-				<li value="{$i}">{$use[$i]}</li>
+				<if condition="$word['copy_right'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$use[$i]}</li>
  				</for>
             </ul>
             </span></li>
                          <li class="fill">
                             <h5>角色说明：</h5>
-                        <textarea name="workrole" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
+                        <textarea name="workrole" <if condition="$word['workrole'] neq null"> class="description02"<else /> class="description"</if>  onkeyup="this.value = this.value.slice(0, 2000)"
                                   onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
-                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
-                            <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
+                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}"><if condition="$word['workrole'] neq null">{$word['workrole']}<else />作品的角色介绍等</if></textarea>
+                            <h6>可以输入 <span>2000</span> 字符 / 汉字</h6>
                         </li>
                         <li class="fill">
                             <h5>故事梗概：</h5>
-                        	<textarea name="workstory" class="description" onkeyup="this.value = this.value.slice(0, 2000)"
+                        	<textarea name="workstory" <if condition="$word['story'] neq null"> class="description02"<else /> class="description"</if> onkeyup="this.value = this.value.slice(0, 2000)"
                                   onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
-                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}">作品的简单介绍等</textarea>
-                            <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
+                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}"><if condition="$word['story'] neq null">{$word['story']}<else />作品的简单介绍等</if></textarea>
+                            <h6>可以输入 <span>2000</span> 字符 / 汉字</h6>
                         </li>
                         <li class="fill">
                             <h5>上传图片：</h5>
                            
                         </li>
                         <li class="fill">
-                            <script id="editor" type="text/plain" style="width:924px;height:500px;"></script>
+                            <script id="editor" type="text/plain" style="width:924px;height:500px;">{$word['content']}</script>
                            
                         </li>
                        

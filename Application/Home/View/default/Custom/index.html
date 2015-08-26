@@ -65,7 +65,7 @@
             <ul>
                 <volist name="custom" id="data" mod="4">
                     <li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html">
-                        <img src="http://localhost{$data.imgurl}" alt="订制图片-__APP__" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/footer-logo.png'"/></a>
+                        <img src="http://localhost{$data.imgurl}" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/cmy.png'"/></a>
 
                         <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
                         <h4>￥{$data.cusmoney}</h4>
@@ -75,9 +75,9 @@
                         <h5><span>{$data.open_count}</span>人气</h5>
                         <h6><a href="__ROOT__/Author/details/id/{$data.uid}.html">{$data.uid|getUserName}
                             <if condition="($data.uid|getUserName) eq null">
-                                <img src="__IMG__/user-img02.gif" alt="用户头像"/>
+                                <img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
                                 <else />
-                                <img src="{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/footer-logo.png'"/>
+                                <img src="{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
                             </if></a></h6>
                     </li>
                     <eq name="mod" value="3"></ul><ul></eq>

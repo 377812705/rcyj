@@ -2828,3 +2828,7 @@ input[type='button'].submit-order{
 	border-radius:100px;
 	-moz-border-radius:100px;
 }
+.author-module div a img{
+	border-radius:100px;
+	-moz-border-radius:100px;
+}

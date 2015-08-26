@@ -1,4 +1,3 @@
-<div class="details-content order-subject">
     <div class="order-module meet"> <img src="__IMG__/investment-img01.gif"/> <span>
         <h5><img src="__IMG__/investment-img02.gif"/></h5>
         梦想是一定要有的，万一实现了呢？<br/>
@@ -70,15 +69,12 @@
           <h4>{$custom.cuscopyright}</h4>
           </span></span></li>
         <!------如果用户上传了图片就显示这一栏如果没有上传就不显示------>
-        <noempty name="custom.imgurl">
+        <neq name="custom.imgurl" value="">
             <li><span><img src="__IMG__/btn-img29.gif"/><span>
           <h3>图片参考</h3>
+          <!--<h4><img src="__IMG__/img26.gif"/></h4>-->
           <h4><img src="http://localhost{$custom.imgurl}" style="width: 700px;"/></h4>
           </span></span></li>
-        </noempty>
+        </neq>
         <!------如果用户上传了图片就显示这一栏如果没有上传就不显示------>
     </ul>
-      <span class="details-btn">
-      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/custom/formid/{:is_login()}.html'" value="我要订制">
-      <input class="blue-input" name="" type="button" onClick="javascript:location.href='author details-edit.html'" value="我要抢单">
-      </span> <span class="third-party"> <a href="#" class="sina"></a> <a href="#" class="wechat"></a> <a href="#" class="qq"></a> <a href="#" class="space"></a> </span> </div>

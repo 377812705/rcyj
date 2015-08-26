@@ -43,8 +43,9 @@
         function init(){
             $('#upload-file').css('display','inline-block');
         }
-	function uploadevent(workid){
-
+        function uploadevent(status,picUrl,callback){
+ 			alert(callback);
+ 			alert(picUrl);
   		//$('#petname').attr('value',workid);
    	}
     </script>
@@ -170,8 +171,8 @@ PLUGINSPAGE="">
                          <li class="fill">
                             <h5>角色说明：</h5>
                         <textarea name="workrole" <if condition="$word['workrole'] neq null"> class="description02"<else /> class="description"</if>  onkeyup="this.value = this.value.slice(0, 2000)"
-                                  onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
-                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}"><if condition="$word['workrole'] neq null">{$word['workrole']}<else />作品的角色介绍等</if></textarea>
+                                  onfocus="if(value=='作品的角色介绍等'){value='';this.className='description02'}"
+                                  onblur="if (value==''){value='作品的角色介绍等';this.className='description'}"><if condition="$word['workrole'] neq null">{$word['workrole']}<else />作品的角色介绍等</if></textarea>
                             <h6>可以输入 <span>2000</span> 字符 / 汉字</h6>
                         </li>
                         <li class="fill">

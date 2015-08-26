@@ -11,25 +11,29 @@
 namespace Home\Controller;
 
 use User\Api\UserApi;
-
+use Think\Page;
 class ProductController extends HomeController {
 
     public function index() {
         //作品标签
-        $tags=D('Tags')->getTags();
+        $tags=C('tag');
         //作品
-        $works=D('Works')->getAllWorks();
-        //dump($works);
-        //作品主题
-        $wzt=D('Tags')->getWorksZT();
-        //作品总数
-        $wTotal=D('Works')->count();
-
-        $this->assign('wcount',$wTotal);
-        $this->assign('zttag',$wzt);
-        $this->assign('works',$works);
+        $data=array();
+        $worksModel =D('Works');
+        $tags=I('get.tags');
+        if($tags!=null){
+        	if($tags>=0){
+        		$data['tags'] = $tags;
+        	}
+        }
+        $count      = $worksModel->where($data)->count();
+        $pageshowcount=34;
+        $Page       = new Page($count,$pageshowcount);
+        $show       = $Page->pageshow();
+        $workList = $worksModel->field("works_comic.id,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $this->assign('works',$workList);
+        $this->assign('wcount',$count);
         $this->assign('tags',$tags);
-
         $this->display();
     }
     public function details(){

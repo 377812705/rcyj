@@ -52,13 +52,34 @@ class MyCenterController extends HomeController
             	$data['tags_content']=I('Post.worktag','');
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
-            	$data['workstory']=I('Post.workstory',1);
+            	$data['endtime']=I('Post.endtime',1);
+            	$data['money']=I('Post.money',1);
+            	$data['workrole']=I('Post.workrole',1);
+            	$data['story']=I('Post.workstory');
+            	$data['update_date']=date('Y-m-d H:i:s',time());
+            	$data['user_id']=is_login();
+            	$data['create_date']=date('Y-m-d H:i:s',time());
+            	$data['main_image_url']=I('Post.main_image_url','');
+            	$data['assistant_image_url']=I('Post.assistant_image_url','');
             	if($wordid){
             		$arr['id']=$wordid;
             		$id=D('Works')->where($arr)->save($data);
+            	}else{
+            		$workid = D('Works')->add($data);
             	}
                 $this->display("MyCenter/uploadsuccess");
             } else {
+            	$wordid=I('get.id',0);
+            	if($wordid){
+            		
+            		$word=D('Works')->find($wordid);
+            		$this->assign('word', $word);
+            		if (is_login()!=$word['user_id']) {
+            				$this->assign ( 'message', '错误的作品' );
+            				$this->display('Public/error');
+            				exit();
+            		}
+            	}
                 $tags = C('tag');
                 $source = C('source');
                 $theme = C('theme');
@@ -69,6 +90,7 @@ class MyCenterController extends HomeController
                 $this->assign('source', $source);
                 $this->assign('theme', $theme);
                 $this->assign('tags', $tags);
+                $this->assign('today', date('Y-m-d'));
                 $this->display();
             }
         }
@@ -168,7 +190,7 @@ class MyCenterController extends HomeController
         $this->display();
     }
     public function upfile() {
-    	$path1 = "/uploads/comic/".date('Ymd',time()).'/';
+    	$path1 = "/Uploads/comic/".date('Ymd',time()).'/';
     	$path='.'.$path1;
     	if(!is_dir($path)){
     		mkdir($path);
@@ -182,21 +204,24 @@ class MyCenterController extends HomeController
     	if($src) {
     		file_put_contents($file_src,$src);
     	}
-    	$workid=I('get.petname');
-    	dump(I('post.petname')) ;
+    	
     	$data['main_image_url']=$path1.$filename162;
     	$data['assistant_image_url']=$path1.$filename48;
-    	$data['update_date']=date('Y-m-d H:i:s',time());
-    	$data['user_id']=is_login();
+    	/*
+    	$workid=I('post.petname');
+    	
     	if($workid){
     		D('Works')->where('id='.$workid)->save($data);
     	}else{
-    		$data['create_date']=date('Y-m-d H:i:s',time());
+    		dump($workid);
+    		
     		$workid = D('Works')->add($data);
-    	}
+    	}*/
     	file_put_contents($path.$filename162,$pic1);
     	file_put_contents($path.$filename48,$pic2);
-    	$rs['status'] = $workid;
+    	$rs['status'] = 1;
+    	$rs['main_image_url'] = $data['main_image_url'];
+    	$rs['assistant_image_url'] =$data['assistant_image_url'];
     	echo json_encode($rs);
     }
 }

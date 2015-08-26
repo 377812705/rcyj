@@ -1,4 +1,14 @@
 <extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript">
+        function qd(uid,cusid){
+            alert("uid:"+uid+"--cusid:"+cusid);
+            $("#btn_qd1").addClass("grab-btnon");
+            $("#btn_qd1").val("已抢单");
+            $("#btn_qd2").hide();
+        }
+    </script>
+</block>
 <block name="body">
 <div class="container content details">
     <div class="details brief">
@@ -14,9 +24,10 @@
         <h5>几分：234 笔 <span> 等级：九品</span></h5>
         <h5>好评率：99%</h5>
         </span>
-            <input class="grab-btn" name="" type="button" value="抢单">
+            <input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单">
         </div>
     </div>
+    <div class="details-content order-subject">
     <switch name="custom.theme">
         <case value="浪漫的爱情"><include file="Public/lmaq"/></case>
         <case value="浓浓的亲情"><include file="Public/nnqq"/></case>
@@ -27,6 +38,10 @@
         <default /><include file="Public/tzxdz"/>
     </switch>
 
+          <span class="details-btn">
+      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/custom/formid/{:is_login()}.html'" value="我要订制">
+      <input class="blue-input" type="button" id="btn_qd2" value="我要抢单" onclick="qd({:is_login()},{$custom.cusid})">
+      </span> <span class="third-party"> <a href="#" class="sina"></a> <a href="#" class="wechat"></a> <a href="#" class="qq"></a> <a href="#" class="space"></a> </span> </div>
 
     <div class="tag"> <span class="collect"> <img src="__IMG__/tag-img01.png"/> <span>
       <h4>收藏</h4>

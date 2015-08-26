@@ -21,8 +21,12 @@ class LoginController extends HomeController {
 
     /* 注册页面 */
 
-    public function register($username = '', $password = '', $repassword = '', $email = '', $verify = '') {
+    public function register() {
+        if(IS_POST){
+            dump($_POST);
+        }else{
         $this->display("Login/register");
+        }
     }
     
     public function register0(){
@@ -89,7 +93,7 @@ class LoginController extends HomeController {
     public function checkMobile($mobile=''){
         //$mobile=I('mobile');
         $Model=M('user',null);
-        $data=$Model->where("mobile='".$mobile."'")->count();
+        $data=$Model->where("mobile='{$mobile}'")->count();
         if(0 < $data){
             $this->ajaxReturn(TRUE);
             //echo TRUE;
@@ -105,7 +109,7 @@ class LoginController extends HomeController {
     public function rcheckMobile($mobile=''){
         //$mobile=I('mobile');
         $Model=M('user',null);
-        $data=$Model->where("mobile='".$mobile."'")->count();
+        $data=$Model->where("mobile='{$mobile}'")->count();
         if(0 < $data){
             $this->ajaxReturn(FALSE);
             //echo TRUE;
@@ -121,7 +125,7 @@ class LoginController extends HomeController {
     public function rcheckUserName($user_name=''){
         //$mobile=I('mobile');
         $Model=M('user',null);
-        $data=$Model->where("user_name='".$user_name."'")->count();
+        $data=$Model->where("user_name='{$user_name}'")->count();
         if(0 < $data){
             $this->ajaxReturn(FALSE);
             //echo TRUE;

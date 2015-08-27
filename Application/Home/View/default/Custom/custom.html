@@ -13,7 +13,7 @@
                 $(this).parent().siblings().html(newhtml);
             });
             $(".submit").bind("click", function () {
-                alert($("#cusattr").val());
+                //alert($("#cusattr").val());
                 $("#form0").submit();
             });
             $("#xztp").uploadify({
@@ -137,7 +137,7 @@
 
         /* 文件上传成功回调函数 */
         function uploadSuccess(file, data){
-            alert(data);
+           // alert(data);
             $("#imgurl").val(data);
             $('#' + file.id).find('.data').html(' 上传完毕');
             var data = $.parseJSON(data);

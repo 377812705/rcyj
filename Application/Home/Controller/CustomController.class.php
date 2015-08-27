@@ -101,13 +101,20 @@ class CustomController extends HomeController
         }
     }
     public function detail($cusid=null){
-        //得到订制作品明细
-        $custom=D('Custom')->getOrderCustomByid($cusid);
-        //dump($custom);
-        $this->assign('isgrab',isgrab(is_login(),$cusid));
-        $this->assign('custom',$custom);
+        if (is_login()) {
+            //得到订制作品明细
+            $custom=D('Custom')->getOrderCustomByid($cusid);
+            //dump($custom);
+            $this->assign('isgrab',isgrab(is_login(),$cusid));
+            $this->assign('custom',$custom);
 
-        $this->display();
+            $this->display();
+
+        } else {
+            session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME.'/cusid/'.$cusid);
+            $this->redirect("Login/login");
+        }
+
     }
 
     /**

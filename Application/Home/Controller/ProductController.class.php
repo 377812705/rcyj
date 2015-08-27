@@ -21,22 +21,22 @@ class ProductController extends HomeController {
         $this->assign('source',$source);
         //作品
         $data['title']=array('exp',"is not Null");
-        $create_status=I('post.create_status');
+        $create_status=I('get.create_status');
         if($create_status>0){
         	$data['create_status']=$create_status;
         	$dataf['create_status']=$create_status;
         }
-        $tags=I('post.tags');
+        $tags=I('get.tags');
         if($tags>0){
         	$data['tags']=$tags;
         	$dataf['tags']=$tags;
         }
-        $theme=I('post.theme');
+        $theme=I('get.theme');
         if($theme>0){
         	$data['theme']=$theme;
         	$dataf['theme']=$theme;
         }
-        $news=I('post.news');
+        $news=I('get.news');
         $order='id desc';
         if($news>0){
         	if($news==1){
@@ -58,6 +58,8 @@ class ProductController extends HomeController {
         $this->assign('wcount',$count);
         $tags=C('tag');
         $this->assign('tags',$tags);
+        $this->assign('dataf',$dataf);
+       
         $theme=C('theme');
         $this->assign('theme',$theme);
         $this->display();

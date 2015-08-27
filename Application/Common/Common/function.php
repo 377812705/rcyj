@@ -1043,3 +1043,10 @@ function isgrab($uid,$cusid){
     return $count>0 ? $count : 0;
     //return $count;
 }
+// 微信发起支付
+function wxOrderPay($data)
+{
+	Vendor("wx.wxpay");
+	$wxPay = new wxPay($data);
+	return $wxPay::orderPOST();
+}

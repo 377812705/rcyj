@@ -35,6 +35,11 @@
 			alert("请选择版权用途");
 			$su=false;
 		}
+		if(!$('#main_image_url').val()){
+			alert("请上传封面图并保存");
+			$su=false;
+		}
+		
 		if($su){
 			$("#form0").submit();
 		}
@@ -44,9 +49,9 @@
             $('#upload-file').css('display','inline-block');
         }
         function uploadevent(status,picUrl,callback){
- 			alert(callback);
- 			alert(picUrl);
-  		//$('#petname').attr('value',workid);
+ 			var jsonobj=eval('('+callback+')');  
+ 			$('#assistant_image_url').attr('value',jsonobj.assistant_image_url);
+  			$('#main_image_url').attr('value',jsonobj.main_image_url);
    	}
     </script>
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
@@ -64,7 +69,8 @@
                 <input id="create_status" name="create_status" hidden  value="{$word['create_status']}"/>
                 <input id="show" name="show" hidden  value="{$word['show']}" />
                 <input id="copyri" name="copyri" hidden   value="{$word['copy_right']}" />
-                
+                <input id="assistant_image_url" name="assistant_image_url" hidden  value="{$word['assistant_image_url']}" />
+                <input id="main_image_url" name="main_image_url" hidden   value="{$word['main_image_url']}" />
                 <div class="custom-content">
                     <ul>
                         <li>Hi，{$word['user_id']|getUserNameById=###}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>

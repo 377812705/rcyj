@@ -1,8 +1,16 @@
 <extend name="Base/common" />
 <block name="body">
+<script type="text/javascript">
+        $(function () {
+            $(".custom-li").bind("click", function () {
+                var newhtml = $(this).children().html();
+                $(this).parent().siblings().html(newhtml);
+            });
+        });
+            </script>
   <div class="container content">
 			<div class="custom">
-			 <form action="__ROOT__/Product" id="formprod" method="post">
+			 <form action="__ROOT__/Product" id="formprod" method="get">
 			 	<input id="tagslist" name="tags" hidden value="{$dataf['tags']}"/>
                 <input id="themelist" name="theme" hidden  value="{$dataf['theme']}" />
                 <input id="create_statuslist" name="create_status" hidden  value="{$dataf['create_status']}"/>
@@ -10,7 +18,7 @@
 			</form>
 				<ul class="nextnav">
 								<li class="nextnavon">
-                                		<a href="javascript:;">作品标签</a>
+                                		<a href="javascript:;"><if condition="$dataf['tags']">{$tags[$dataf['tags']]}<else />作品标签</if></a>
 										<ul class="custom-ul" id="tags">
 												<li class="custom-li custom-all" value="0"><a href="javascript:;">全部</a></li>
 												<for start="1" end="count($tags)+1" >
@@ -18,15 +26,15 @@
  												</for>
 										</ul>
 								</li>
-								<li><a href="javascript:;">作品来源</a>
+								<li><a href="javascript:;"><if condition="$dataf['create_status']">{$source[$dataf['create_status']]}<else />作品来源</if></a>
 									<ul class="custom-ul" id="create_status" >
-												<li class="custom-li custom-all"><a href="javascript:;" value="0">全部</a></li>
+												<li class="custom-li custom-all" value="0"><a href="javascript:;" >全部</a></li>
 												<for start="1" end="count($source)+1" >
 													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$source[$i]}</a></li>
  												</for>
 										</ul>
 								</li>
-                                <li><a href="javascript:;" >作品主题</a>
+                                <li><a href="javascript:;" ><if condition="$dataf['theme']">{$theme[$dataf['theme']]}<else />作品主题</if></a>
 									<ul class="custom-ul" id="theme">
 												<li class="custom-li custom-all"  value="0"><a href="javascript:;">全部</a></li>
 												<for start="1" end="count($theme)+1" >

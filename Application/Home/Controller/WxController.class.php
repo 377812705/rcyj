@@ -12,29 +12,34 @@ header("content-type:text/html;charset=utf8");
 include_once(APP_PATH.'Home/Common/wx/lib/WxPay.Api.php');
 
 class WxController extends Controller {
-	const PAY_TYPE = 1;//支付宝支付
+	const PAY_TYPE = 2;//支付宝支付
 	
 	public function wxpay(){
-		import('WxPay/Api');
-		$input = new WxPayUnifiedOrder();
-		$input->SetBody("test");
-		$input->SetAttach("test");
-		$input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-		$input->SetTotal_fee("1");
-		$input->SetTime_start(date("YmdHis"));
-		$input->SetTime_expire(date("YmdHis", time() + 600));
-		$input->SetGoods_tag("test");
-		$input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
-		$input->SetTrade_type("NATIVE");
-		$input->SetProduct_id("123456789");
-		if($input->GetTrade_type() == "NATIVE")
-		{
-			$WxPayApi = new WxPayApi;
-			$result=$WxPayApi->unifiedOrder($input);
+		$user_id =is_login();
+		$data['user_id']=$user_id;
+		if(empty($user_id)) {
+			$this->assign ( 'message', '请登录后再操作' );
+			$this->display('Public/error');
+			exit();
 		}
-		$result = GetPayUrl($input);
-		$url2 = $result["code_url"];
-		$this->assign ( 'url', $url2 );
+		$order_id = I('get.orderid' );
+		if(!is_numeric($order_id)){
+			$this->assign ( 'message', '订单信息错误' );
+			$this->display('Public/error');
+			exit();
+		}
+		$data['order_id']=$order_id;
+		$data['ajax_type']=0;
+		$OrderModel =D('Order');
+		$order=$OrderModel->where($data)->find();
+		if(!$order){
+			$this->assign ( 'message', '订单号异常' );
+			$this->display('Public/error');
+			exit();
+		}
+		$url=wxOrderPay($order);
+		$this->assign ('order',$order);
+		$this->assign ( 'url', $url );
 		$this->display('Pay/payalipay');
 	}
 	 /**

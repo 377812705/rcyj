@@ -1,24 +1,25 @@
 <extend name="Base/common" />
 <block name="body">
-  <!--------ҳ�����ݲ���--------->
+  <!--------页面内容部分--------->
   <div class="container content">
     <div class="custom">
       <ul class="nextnav pay">
-        <li class="nextnavon activ-li"><a href="#">ѡ�񸶿ʽ</a></li>
+        <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
       </ul>
       <div class="custom-content pay">
-        <h3>�����ύ�ɹ����������츶�<span>�����ţ�2763782636263</span></h3>
-        <h5>�������ύ������24Сʱ�����֧�������򶩵����Զ�ȡ��</h5>
+        <h3>订单提交成功，请您尽快付款！<span>订单号：{$order.order_number}</span></h3>
+        <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>
         <div class="pay-div">
-          <h4>Ӧ����<span>300.00</span> Ԫ</h4>
+          <h4>应付金额：<span>{$order.money}</span> 元</h4>
           <div class="pay-by by-alipay">
-            <h5><span>֧����֧��</span></h5>
-            <div class="code"> <span><img src="images/code.png"/></span> <a href="#">��ʹ��֧����ɨһɨɨ���ά��֧��</a> </div>
-            <img src="images/pay-img06.gif"/> </div>
+            <h5><span>支付宝支付</span></h5>
+            <div class="code"> <span><img  src="http://paysdk.weixin.qq.com/example/qrcode.php?data={$url}" style="width:150px;height:150px;"/>
+	</span> <a href="#">请使用微信扫一扫扫描二维码支付</a> </div>
+            <img src="__IMG__/pay-img06.gif"/> </div>
         </div>
-        <div class="other-pay"> <a href="pay-by.html"><span> < </span> ѡ����������</a> </div>
+        <div class="other-pay"> <a href="__ROOT__/Order/pay/orderid/{$order.order_id}"> 选择其他支付方式</a> </div> 
       </div>
     </div>
   </div>
-  <!--------ҳ��ײ�--------->
+  <!--------页面底部--------->
 </block>

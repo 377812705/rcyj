@@ -52,7 +52,7 @@ class ProductController extends HomeController {
         $pageshowcount=24;
         $Page       = new Page($count,$pageshowcount);
         $show       = $Page->pageshow();
-        $workList = $worksModel->field("works_comic.id,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
         $this->assign('works',$workList);
         $this->assign('show',$show);
         $this->assign('wcount',$count);

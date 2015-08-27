@@ -10,25 +10,34 @@
 namespace Home\Controller;
 
 use OT\DataDictionary;
-
+use Think\Page;
 class MyCenterController extends HomeController
 {
     /**
      * 我的首页
      * @param string $id 用户ID
      */
-    public function index($id = '')
+    public function index()
     {
         if (!is_login()) {
             session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
             $this->redirect("Login/login");
         } else {
-            $tags = D('Tags')->getTags();
-            $works = D('Works')->getUserWorks($id);
-            $this->assign('total', count($works));
-            $this->assign('works', $works);
-            $this->assign('tags', $tags);
-            $this->display();
+        		$data['user_id']=is_login();
+                $worksModel =D('Works');
+		        $count      = $worksModel->where($data)->count();
+		        $pageshowcount=24;
+		        $Page       = new Page($count,$pageshowcount);
+		        $show       = $Page->pageshow();
+		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $this->assign('works',$workList);
+		        $this->assign('show',$show);
+		        $this->assign('wcount',$count);
+		        $tags=C('tag');
+		        $this->assign('tags',$tags);
+		        $theme=C('theme');
+		        $this->assign('theme',$theme);
+		        $this->display();
         }
     }
 

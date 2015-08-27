@@ -22,10 +22,18 @@ class LoginController extends HomeController {
     /* 注册页面 */
 
     public function register() {
+        //dump($_POST);
         if(IS_POST){
-            dump($_POST);
+            $model=D('User');
+            if ($model->autoCheckToken($_POST)){
+                // 令牌验证错误
+                $model->add($_POST);
+                $this->redirect("Login/login");
+            }else{
+            $this->redirect("Login/register");
+            }
         }else{
-        $this->display("Login/register");
+            $this->display("Login/register");
         }
     }
     
@@ -58,15 +66,14 @@ class LoginController extends HomeController {
             $Model=M('user',null);
             $data=$Model->where("mobile='".$mobile."'")->select();
             if(0< count($data)){
-                echo '手机号已经存在';
+                $this->ajaxReturn('手机号已经存在');
             }else{
                 $sendsms=new \Vendor\sms\SendSMS();
                 //("13800000000" ,array('6532','5'),"1");
                 $result=$sendsms->sendTemplateSMS($mobile, array($CheckCode,'5'), "10249");
                 //保存记录
-                var_dump($result);
                 if($result->statusCode=='000000'){
-                    $mvcode=M('mobile_vcode',null);
+                    $mvcode=M('mobilevcode');
                     $data['mobile']=$mobile;
                     $data['vcode']=$CheckCode;
                     $data['telmpno']="10249";
@@ -74,14 +81,13 @@ class LoginController extends HomeController {
                     $smsmessage = $result->TemplateSMS;
                     $data['smsMessageSid']=$smsmessage->smsMessageSid;
                     $data['dateCreated']=$smsmessage->dateCreated;
-                    //$data['createtime']=time();
-                    
-                   $mvcode->data($data)->add();
+                    $mvcode->data($data)->add();
                 }
+                $this->ajaxReturn('验证码已经发送');
             }
             
         }else{
-            echo '不是有效手机号';
+            $this->ajaxReturn('不是有效手机号');
         }
         
         

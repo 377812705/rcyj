@@ -23,19 +23,21 @@
 			}, "请正确填写您的手机号码");
 	$(function(){
 		$(".retrieve-btn").click(function(){
-			alert("123123");
 			$("#form0").submit();
 		});
 		$("#form0").validate({
+			focusCleanup:true,
 			errorPlacement: function (error, element) {
 					//alert(error.html());
 					element.siblings('span').remove();
 					element.parent().append('<span class="prompt">'+error.html()+'</span>');
+					//element.focus();
 			},
 			rules: {
 				user_name: {
 					required: true,
-					remote: "__ROOT__/Login/rcheckUserName"
+					remote: "__ROOT__/Login/rcheckUserName",
+					rangelength: [4, 16]
 				},
 				mobile:{
 					isMobile: true,
@@ -49,13 +51,15 @@
 					equalTo:"#password"
 				},
 				vercode : {
+					vdefault:true,
 					required:true
 				}
 			},
 			messages: {
 				user_name: {
 					required: "请输入用户名",
-					remote: "用户名已经存在"
+					remote: "用户名已经存在",
+					rangelength:"用户名，4~16个字符，字母/中文/数字/下划线"
 				},
 				mobile:{
 					remote:"手机号已经注册过，请使用手机号登录"
@@ -68,9 +72,25 @@
 					equalTo:"两次密码输入不一致"
 				},
 				vercode:{
+					vdefault:"请输入验证码",
 					required:"请输入验证码"
 				}
 			}
+		});
+		$("#sendcode").click(function(){
+			mcode=$("mobile").val();
+			if(mcode=="请输入手机号"){
+				alert("请输入手机号");
+			}else{
+				$.post("__ROOT__/Login/sendCode", {mobile: mcode},
+						function (data) {
+							$("#btn_qd1").addClass("grab-btnon");
+							$("#btn_qd1").val("已抢单");
+							$("#btn_qd2").hide();
+						});
+			}
+
+
 		});
 	});
 </script>
@@ -94,13 +114,13 @@
 						<ul class="nextnav">
 								<li class="nextnavon"><a href="register.html">注册</a></li>
 						</ul>
-						<form id="form0" action="__ROOT__/Login/resgister.html" method="post">
+						<form id="form0" action="__SELF__" method="post">
 						<ul class="login-ul">
 								<li class="txt-input username"><img src="__IMG__/login-img03.gif"/ alt="用户名图标">
 										<input name="user_name" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if(this.value=='用户名，4~16个字符，字母/中文/数字/下划线'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='用户名，4~16个字符，字母/中文/数字/下划线';this.className='gray'}">
 										<span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span></li>
 								<li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
-										<input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if(this.value=='请输入手机号'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入手机号';this.className='gray'}">
+										<input name="mobile" id="mobile" type="text" value="请输入手机号"  class="gray" onclick="if(this.value=='请输入手机号'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入手机号';this.className='gray'}">
 								</li>
 								<li class="txt-input password"><img src="__IMG__/login-img02.gif" alt="密码图标"/>
 										<input name="password" id="password" type="password" value="请输入密码"  class="gray" onclick="if(this.value=='请输入密码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入密码';this.className='gray'}">
@@ -110,7 +130,7 @@
 								</li>
 								<li class="txt-input verify"><img src="__IMG__/login-img05.gif" alt="验证码图标"/>
 										<input name="vercode" type="text" value="请输入验证码"  class="gray" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
-										<input name="" type="button" value="验证码">
+										<input id="sendcode" name="" type="button" value="验证码">
 								</li>
 								<li class="txt-input invite"><img src="__IMG__/login-img06.gif" alt="邀请码图标"/>
 										<input name="" type="text" value="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">

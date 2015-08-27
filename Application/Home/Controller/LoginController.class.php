@@ -27,6 +27,7 @@ class LoginController extends HomeController {
             $model=D('User');
             if ($model->autoCheckToken($_POST)){
                 // 令牌验证错误
+                $_POST['password']=strtoupper(md5($_POST['password']));
                 $model->add($_POST);
                 $this->redirect("Login/login");
             }else{
@@ -169,7 +170,7 @@ class LoginController extends HomeController {
            // $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
             $password=I('password');
             if (0 < count($data)) {
-                if (strtoupper(md5(I('password'))) == $data[0]["password"]) {
+                if (strtoupper(md5($password)) == $data[0]["password"]) {
                     //记录登陆历史
                     /* 更新登录信息 */
                     $user = array(
@@ -210,6 +211,6 @@ class LoginController extends HomeController {
     public function loginout(){
         session('user_auth', null);
         session('user_auth_sign', null);
-        $this->display("Index/index");
+        $this->redirect("Index/index");
     }
 }

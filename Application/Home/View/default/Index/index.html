@@ -39,19 +39,19 @@
 		</div>
 		<div class="module">
 			<div class="module-tle">
-				<h3>作品推荐<span><a href="__ROOT__/Custom/custom.html">我要订制“订制时尚，品味生活”</a></span></h3>
+				<h3>订制推荐<span><a href="__ROOT__/Custom/custom.html">我要订制“订制时尚，品味生活”</a></span></h3>
 				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
 			<ul>
-				<volist name="tjwork" id="data">
-				<li style="display:block;width:293px;height: 450px;"><a href="iworks-details.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
-					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
-					<h4>￥{$data.money}</h4>
-					<span class="label-a"><a href="#">动漫</a><a href="#">自创</a></span>
-					<h2>已接单<span>接单状态</span></h2>
+				<volist name="dzwork" id="data">
+				<li style="display:block;width:293px;height: 450px;"><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html"><img src="{$data.imgurl}" alt="作品图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
+					<h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
+					<h4>￥{$data.cusmoney}</h4>
+					<span class="label-a"><a href="#">{$data.style}</a></span>
+					<h2>{$data.cusstatus}<span>接单状态</span></h2>
 					<h5><span>{$data.open_count}</span>人气</h5>
-					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html" style="color: #0390e9;">{$data.user_id|getUserName}
+					<h6><a href="__ROOT__/Author/details/id/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
 						<!--<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>-->
-						<if condition="($data.user_id|getUserName) eq null">
+						<if condition="($data.uid|getUserName) eq null">
 							<img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
 							<else />
 							<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>

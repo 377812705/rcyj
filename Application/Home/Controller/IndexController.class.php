@@ -18,8 +18,8 @@ class IndexController extends HomeController {
         $this->assign("tjwork",$tjwork);
 
         //定制作品推荐
-        $dzwork=D('Works')->getTJWoks();
-        $this->assign("dzwork",$dzwork);
+        $custom=D('Custom')->getTJCustom();
+        $this->assign("dzwork",$custom);
         //作者推荐
         $author=D('Author')->getTjAuthor();
         $this->assign('author',$author);

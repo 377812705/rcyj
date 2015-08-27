@@ -157,7 +157,7 @@ class MyCenterController extends HomeController
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize = 52428800;// 设置附件上传大小
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-        $upload->rootPath = './Uploads/'; // 设置附件上传根目录
+        $upload->rootPath = './uploads/'; // 设置附件上传根目录
         $upload->savePath = ''; // 设置附件上传（子）目录
         // 上传文件
         $info = $upload->upload();
@@ -190,7 +190,7 @@ class MyCenterController extends HomeController
         $this->display();
     }
     public function upfile() {
-    	$path1 = "/Uploads/comic/".date('Ymd',time()).'/';
+    	$path1 = "/uploads/comic/".date('Ymd',time()).'/';
     	$path='.'.$path1;
     	if(!is_dir($path)){
     		mkdir($path);
@@ -205,8 +205,8 @@ class MyCenterController extends HomeController
     		file_put_contents($file_src,$src);
     	}
     	
-    	$data['main_image_url']=$path1.$filename162;
-    	$data['assistant_image_url']=$path1.$filename48;
+    	$data['main_image_url']=$filename162;
+    	$data['assistant_image_url']=$filename48;
     	/*
     	$workid=I('post.petname');
     	

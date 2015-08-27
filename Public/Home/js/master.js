@@ -40,6 +40,8 @@ $(function(){
 	/*订制tab内容切换*/
 	$(".custom-li").click(function(){
 		$(this).removeClass("custom-li").addClass("custom-all").siblings().removeClass("custom-all").addClass("custom-li");
+		$("#"+$(this).parent().attr("id")+"list").attr("value",$(this).attr("value"));
+		$("#formprod").submit();
 	});
 	/*描述内容添加title*/
 	$(".fill textarea").mouseover(function(){

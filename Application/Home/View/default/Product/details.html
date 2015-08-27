@@ -4,14 +4,14 @@
 		<div class="details brief">
 			<div class="brief-left">
 				<h4>{$works['title']}</h4>
-				<h5>标签：<span>{$works['tags_content']}</span>主题：<span>{$works['category']}</span>作品来源：<span>{$works['create_status']}</span></h5>
-				<h5>展示方式：<span>{$works['shape']}</span></h5>
+				<h5>标签：<span>{$tags[$works['tags_content']]}</span>主题：<span>{$theme[$works['theme']]}</span>作品来源：<span>{$source[$works['create_status']]}</span></h5>
+				<h5>展示方式：<span>{$show[$works['show']]}</span></h5>
 				<h5>作品价格：<span class="red-span">{$works['money']} RMB</span><!--出售状态：<span class="red-span">10 天</span></h5>-->
 			</div>
 			<div class="brief-right"> <if condition="$user['header_img'] eq null"> <img src="__IMG__/user-img10.gif"/> <else /> <img src="http://www.2ciyuanjie.com{$user['header_img']}"  width="103px" height="103px"/> </if>  <span>
         <h4>{$user['nick_name']}</h4>
         <h5>作者标签：{$user['skilled_field']}</h5>
-        <h5>成交量：{$user['volume']} </h5>
+       <!-- <h5>成交量：{$user['volume']} </h5> --> 
         <!--  <h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
         </span>
 				<!--<input name="" type="button" value="+ 关注">-->
@@ -21,16 +21,12 @@
 		{$works['content']}
 		</div>
 		<div class="explain">
-			<h4>角色说明</h4>
-			<h5>名字：大眼眶熊猫      眼睛：两个黑大眼眶     身型：白色胶囊状     星球：地球     身高：12cm</h5>
-			<h5>性格：易满足、爱享受、猥琐、幽默、无厘头      属性：呆蠢、贱萌       喜欢：搞笑、整人      讨厌：被嘲笑 </h5>
-			<h5>喜爱食物：黑白巧克力豆</h5>
-			<h4>故事梗概</h4>
-			<h5>有一天熊猫中心里来了一位博士，在博士临走时不小心掉了一颗黑白巧克力豆，后来被一只出世不久的小熊猫偷吃了 ， 这个巧克力豆是博士用奇妙药水和黑白巧克力糖组成的，一旦吃了它，都会变
-				成胶囊状。小熊猫偷吃后瞬间变成了与原来体形相差巨大的胶囊形熊猫，随后逃出了熊猫中心，偷偷跑到城市里，从此展开奇妙的旅行。
-				原本肥胖的熊猫，变成了微小的胶囊熊猫后动作也迅速了很多，它的生活多姿多彩，而且常常模仿人类。它易满足、爱享受，无处不在，喜欢做些无厘头的
-				行为，逗大家开心。唯一改变不了的还是一直喜欢吃巧克力豆，喜欢它的朋友们，一起来它关注吧！</h5>
-			<h6><span>作品版权：</span> 大眼眶熊猫 <span>版权所有，禁止匿名转载；禁止商业使用；禁止个人使用。</span></h6>
+			<h4>角色说明:</h4>
+			<h5>{$works['workrole']}</h5>
+			
+			<h4>故事梗概:</h4>
+			<h5>{$works['story']}</h5>
+			<h6><span>作品版权：</span> <span>{$use[$works['copy_right']]}</span></h6>
       <span class="details-btn">
 		  <if condition="1 eq 1">
       <input name="" type="button" value="我要购买" onclick="javascript:location.href='__ROOT__/Order/makeOrder/workid/{$works['id']}'"></if>
@@ -54,13 +50,12 @@
 			<div class="author-left"> <if condition="$user['header_img'] eq null"> <img src="__IMG__/user-img10.gif"/> <else /> <img src="http://www.2ciyuanjie.com{$user['header_img']}"  width="103px" height="103px"/> </if>  <span>
         <h4>{$user['nick_name']}</h4>
         <h5>作者标签：{$user['skilled_field']}</h5>
-        <h5>成交量：{$user['volume']}</h5>
+        <!-- <h5>成交量：{$user['volume']} </h5> --> 
          <!--<h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
         </span>
 			<!--	<input name="" type="button" value="已关注">-->
 			</div>
-			 
-			<div class="author-right"> <volist name="worklist" id="list"><a href="/Product/details/id/{$list['id']}.html"><if condition="$list['assistant_image_url'] eq null"> <img src="http://www.2ciyuanjie.com{$list['main_image_url']}"  width="188px" height="125px"/> <else /> <img src="{$list['assistant_image_url']}" /> </if> </a></volist> <span class="cutover"> <a href="/Author/details/id/{$user['id']}.html"></a><a href="/Author/details/id/{$user['id']}.html"></a><a href="/Author/details/id/{$user['id']}.html"></a> </span> </div>
+			<div class="author-right"><volist name="worklist" id="list"><a href="/Product/details/id/{$list['id']}.html"><if condition="$list['assistant_image_url'] eq null"> <if condition="$list['main_image_url'] eq null"><img src="__flash__/default.png"  width="188px" height="125px"/><else /><img src="{$list['main_image_url']}"  width="188px" height="125px"/> </if><else /> <img src="{$list['assistant_image_url']}" /> </if> </a></volist> <span class="cutover"> <a href="/Author/details/id/{$user['id']}.html"></a><a href="/Author/details/id/{$user['id']}.html"></a><a href="/Author/details/id/{$user['id']}.html"></a> </span> </div>
 		</div>
 		<div class="activity-banner"> <img src="__IMG__/banner-img03.gif"/> </div>
 	</div>

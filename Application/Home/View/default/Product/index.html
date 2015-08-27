@@ -2,40 +2,46 @@
 <block name="body">
   <div class="container content">
 			<div class="custom">
+			 <form action="__ROOT__/Product" id="formprod" method="post">
+			 	<input id="tagslist" name="tags" hidden value="{$dataf['tags']}"/>
+                <input id="themelist" name="theme" hidden  value="{$dataf['theme']}" />
+                <input id="create_statuslist" name="create_status" hidden  value="{$dataf['create_status']}"/>
+                <input id="newslist" name="news" hidden  value="{$dataf['news']}" />
+			</form>
 				<ul class="nextnav">
 								<li class="nextnavon">
                                 		<a href="javascript:;">作品标签</a>
-										<ul class="custom-ul">
-												<li class="custom-all"><a href="javascript:;">全部</a></li>
-											<volist name="tags" id="data">
-												<li class="custom-li"><a href="javascript:;" >{$data.tag_content}</a></li>
-											</volist>
+										<ul class="custom-ul" id="tags">
+												<li class="custom-li custom-all" value="0"><a href="javascript:;">全部</a></li>
+												<for start="1" end="count($tags)+1" >
+													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$tags[$i]}</a></li>
+ 												</for>
 										</ul>
 								</li>
 								<li><a href="javascript:;">作品来源</a>
-									<ul class="custom-ul">
-												<li class="custom-all"><a href="javascript:;">全部</a></li>
-												<li class="custom-li"><a href="javascript:;">个人订制</a></li>
-												<li class="custom-li"><a href="javascript:;">企业订制</a></li>
-                                                <li class="custom-li"><a href="javascript:;">自创作品</a></li>
+									<ul class="custom-ul" id="create_status" >
+												<li class="custom-li custom-all"><a href="javascript:;" value="0">全部</a></li>
+												<for start="1" end="count($source)+1" >
+													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$source[$i]}</a></li>
+ 												</for>
 										</ul>
 								</li>
-                                <li><a href="javascript:;">作品主题</a>
-									<ul class="custom-ul">
-												<li class="custom-all"><a href="javascript:;">全部</a></li>
-										<volist name="zttag" id="data">
-												<li class="custom-li"><a href="javascript:;">{$data.tag_content}</a></li>
-										</volist>
+                                <li><a href="javascript:;" >作品主题</a>
+									<ul class="custom-ul" id="theme">
+												<li class="custom-li custom-all"  value="0"><a href="javascript:;">全部</a></li>
+												<for start="1" end="count($theme)+1" >
+													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$theme[$i]}</a></li>
+ 												</for>
 										</ul>
 								</li>
                                 <li><a href="javascript:;">最新上传</a>
-									<ul class="custom-ul">
-												<li class="custom-all"><a href="javascript:;">最新上传</a></li>
-												<li class="custom-li"><a href="javascript:;">人气最高</a></li>
+									<ul class="custom-ul" id="news">
+												<li class="custom-li custom-all" value=0><a href="javascript:;">最新上传</a></li>
+												<!-- <li class="custom-li"><a href="javascript:;">人气最高</a></li>
                                                 <li class="custom-li"><a href="javascript:;">点击最多</a></li>
-                                                <li class="custom-li"><a href="javascript:;">收藏最多</a></li>
-												<li class="custom-li"><a href="javascript:;">价格最低</a></li>
-												<li class="custom-li"><a href="javascript:;">价格最高</a></li>
+                                                <li class="custom-li"><a href="javascript:;">收藏最多</a></li> -->
+												<li class="custom-li" value=1><a href="javascript:;">价格最低</a></li>
+												<li class="custom-li" value=2><a href="javascript:;">价格最高</a></li>
 										</ul>
 								</li>
                                 <li class="top-btn upload"> <input name="" type="button" value="上传作品" onClick="javascript:location.href='__ROOT__/MyCenter/uploadWork.html'"></li>
@@ -47,11 +53,11 @@
 						</div>
 						<ul>
 							<volist name="works" id="data" mod="4">
-								<li style="display:block;"><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></a>
+								<li style="display:block;"><a href="__ROOT__/Product/details/id/{$data.id}.html"><if condition="$data['main_image_url']"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/><else /> <img src="__flash__/default.png" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></if></a>
 										<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
 										<h4>￥{$data.money}</h4>
-										<span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
-										<h5><span>{$data.open_count}</span>人气  /<span>876</span>点赞  /<span>60</span>收藏 </h5>
+										<span class="label-a"><if condition="$data['tags']"><a href="javascript:;">{$tags[$data['tags']]}</a><else /> </if><if condition="$data['create_status']"><a href="javascript:;">{$source[$data['create_status']]}</a><else /> </if></span>
+										<!-- <h5><span>{$data.open_count}</span>人气  /<span>876</span>点赞  /<span>60</span>收藏 </h5> -->
 										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
 											<if condition="($data.user_id|getUserName) eq null">
 												<img src="__IMG__/user-img02.gif" alt="用户头像"/>
@@ -62,17 +68,7 @@
 								<eq name="mod" value="3"></ul><ul></eq>
 							</volist>
 						</ul>
-                    <div class="page">
-                    	<ul>
-                        	<li class="lion"><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li class="omission">…</li>
-                          <li><a href="#">30</a></li>
-                          <li class="goto"><input name="" type="text"></li>
-                          <li class="nextpage"><a href="#">下一页</a></li>
-                        </ul>
-                    </div>
+                    {$show}
 				</div>
 		</div>
 </block>

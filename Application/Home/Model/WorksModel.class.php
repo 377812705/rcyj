@@ -47,7 +47,7 @@ class WorksModel extends Model{
     	return $this->find($id);
     }
     public function getWorksByUserId($userid,$limit=3){
-    	return $this->field('main_image_url,assistant_image_url,id')->where("user_id=".$userid)->limit($limit)->select();
+    	return $this->field('main_image_url,assistant_image_url,id')->where("user_id=".$userid." and title is not Null")->limit($limit)->select();
     }
 }
 ?>

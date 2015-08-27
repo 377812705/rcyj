@@ -14,9 +14,13 @@ class IndexController extends HomeController {
 
     public function index(){
         //推荐作品
-        $tjwork=D('Works')->getTJWoks();
-        $this->assign("tjwork",$tjwork);
-
+        $worksModel =D('Works');
+        $workList = $worksModel->field("works_comic.id,create_status,tags,title,works_comic.user_id,main_image_url,money,theme,user.header_img,user.nick_name")->join('left join user on works_comic.user_id = user.id')->order('istj desc,id desc')->limit(8)->where()->select();
+        $this->assign('tjwork',$workList);
+        $tags =C('tag');
+        $source=C('source');
+        $this->assign('source',$source);
+        $this->assign('tags',$tags);
         //定制作品推荐
         $custom=D('Custom')->getTJCustom();
         $this->assign("dzwork",$custom);

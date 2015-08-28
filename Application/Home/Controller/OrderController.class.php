@@ -10,6 +10,12 @@ use Think\Controller;
 use Think\Page;
 
 class OrderController extends Controller {
+	public function __construct(){
+		if (!is_login()) {
+			session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+			$this->redirect("Login/login");
+		}
+	}
 	/**
 	 * 用户中心的订单列表
 	 */
@@ -32,8 +38,14 @@ class OrderController extends Controller {
 		$pageshowcount=5;
 		$Page       = new Page($count,$pageshowcount);
 		$show       = $Page->pageshow();
-		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags_content")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.work_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags,works_comic.tags,works_comic.tags,works_comic.theme,works_comic.theme,works_comic.show,works_comic.create_status")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		$this->assign('userid',$user_id);
+		$tags=C('tag');
+		$this->assign('tags',$tags);
+		$show=C('show');
+		$this->assign('show',$show);
+		$theme=C('theme');
+		$this->assign('theme',$theme);
 		$paytype=C('paystatus');
 		$this->assign('orderList',$orderList);
 		$this->assign('paytype',$paytype);

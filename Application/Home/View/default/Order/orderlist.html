@@ -23,9 +23,9 @@
 	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
 	          <div class="order-content order-main"> <img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
 	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
-	            <h5>主题：浪漫的爱情 <span> 标签：{$data.tags_content}  </span> <span>形象分类：肖像</span></h5>
-	            <h5>订制方式：一对一 <span>展示方式：数码 / 电脑绘画</span></h5>
-	            <h5>风格选择：现代Q版 <span>速写</span></h5>
+	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
+	            <h5>展示方式：{$show[$data['show']]}</h5>
+	            <!-- <h5>风格选择：现代Q版 <span>速写</span></h5> -->
 	            <h5>订制价格：{$data.money}元<!--  <span>订制时间：10天</span>--> </h5>
 	            </span> </div>
 	          <div class="price">

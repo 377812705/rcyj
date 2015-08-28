@@ -1,17 +1,9 @@
 <?php
-
-// +----------------------------------------------------------------------
-// | OneThink [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2013 http://www.onethink.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Author: 麦当苗儿 <zuojiazi@vip.qq.com> <http://www.zjzit.cn>
-// +----------------------------------------------------------------------
-
 namespace Home\Controller;
 
 use User\Api\UserApi;
 use Vendor\sms\SendSMS;
+use Vendor\weibo\SaeTOAuthV2;
 
 class LoginController extends HomeController {
 
@@ -63,11 +55,8 @@ class LoginController extends HomeController {
     //发送验证码
     public function sendCode(){
         $CheckCode= rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-        
+
         $mobile=I('mobile');
-        //判断是否是手机号
-        $isMobileNO=$this->isMobile($mobile);
-        if($isMobileNO){
             //判断手机号是否已经注册过
             $Model=M('user',null);
             $data=$Model->where("mobile='".$mobile."'")->select();
@@ -91,10 +80,6 @@ class LoginController extends HomeController {
                 }
                 $this->ajaxReturn('验证码已经发送');
             }
-            
-        }else{
-            $this->ajaxReturn('不是有效手机号');
-        }
         
         
     }
@@ -218,5 +203,37 @@ class LoginController extends HomeController {
         session('user_auth_sign', null);
         session('PRI_URL', null);
         $this->redirect("Index/index");
+    }
+
+    /**
+     * 新浪微博登录
+     */
+    public function sinalogin(){
+        $o = new SaeTOAuthV2("2443143300", "a4dbd21f4f7467d41e4bac092863de42");
+
+        if (isset($_REQUEST['code'])) {
+            $keys = array();
+            $keys['code'] = $_REQUEST['code'];
+            $keys['redirect_uri'] = "http://www.2ciyuanjie.com";
+            try {
+                $token = $o->getAccessToken( 'code', $keys ) ;
+            } catch (OAuthException $e) {
+            }
+        }
+
+        if ($token) {
+            $_SESSION['token'] = $token;
+            setcookie( 'weibojs_'.$o->client_id, http_build_query($token) );
+            $this->redirect("Index/index");
+        }else{
+            $this->redirect("Login/login");
+        }
+    }
+
+    /**
+     * QQ登录
+     */
+    public function qqlogin(){
+
     }
 }

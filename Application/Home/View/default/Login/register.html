@@ -28,9 +28,10 @@
 		$("#form0").validate({
 			focusCleanup:true,
 			errorPlacement: function (error, element) {
+					$("#message").html(error.html());
 					//alert(error.html());
-					element.siblings('span').remove();
-					element.parent().append('<span class="prompt">'+error.html()+'</span>');
+					//element.siblings('span').remove();
+					//element.parent().append('<span class="prompt">'+error.html()+'</span>');
 					//element.focus();
 			},
 			rules: {
@@ -41,7 +42,7 @@
 				},
 				mobile:{
 					isMobile: true,
-					remote: "__ROOT__/Login/checkMobile"
+					remote: "__ROOT__/Login/rcheckMobile"
 				},
 				password: {
 					required:true,
@@ -84,9 +85,7 @@
 			}else{
 				$.post("__ROOT__/Login/sendCode", {mobile: mcode},
 						function (data) {
-							$("#btn_qd1").addClass("grab-btnon");
-							$("#btn_qd1").val("已抢单");
-							$("#btn_qd2").hide();
+							alert(data);
 						});
 			}
 
@@ -135,6 +134,7 @@
 								<li class="txt-input invite"><img src="__IMG__/login-img06.gif" alt="邀请码图标"/>
 										<input name="invitecode" type="text" value="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
 										<span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+								<li id="message" class="txt-input invite" style="color: red;"></li>
 								<li class="auto">
 										<input name="" type="checkbox" value="" checked>
 										<span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>

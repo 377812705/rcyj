@@ -24,19 +24,24 @@ class MyCenterController extends HomeController
             $this->redirect("Login/login");
         } else {
         		$data['user_id']=is_login();
+        		$data['title']=array('exp',"is not Null");
+        		$tags=I('get.tags');
+        		if($tags>0){
+        			$data['tags']=$tags;
+        		}
                 $worksModel =D('Works');
 		        $count      = $worksModel->where($data)->count();
-		        $pageshowcount=24;
+		        $pageshowcount=8;
 		        $Page       = new Page($count,$pageshowcount);
 		        $show       = $Page->pageshow();
-		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		        $this->assign('works',$workList);
 		        $this->assign('show',$show);
 		        $this->assign('wcount',$count);
+		        $source=C('source');
+		        $this->assign('source',$source);
 		        $tags=C('tag');
 		        $this->assign('tags',$tags);
-		        $theme=C('theme');
-		        $this->assign('theme',$theme);
 		        $this->display();
         }
     }
@@ -68,8 +73,11 @@ class MyCenterController extends HomeController
             	$data['update_date']=date('Y-m-d H:i:s',time());
             	$data['user_id']=is_login();
             	$data['create_date']=date('Y-m-d H:i:s',time());
-            	$data['main_image_url']=I('Post.main_image_url','');
-            	$data['assistant_image_url']=I('Post.assistant_image_url','');
+            	$path="/uploads/comic/".date('Ymd',time()).'/';
+            	$main_image_url=I('Post.main_image_url','');
+            	$assistant_image_url=I('Post.assistant_image_url','');
+            	$data['main_image_url']=$path.$main_image_url;
+            	$data['assistant_image_url']=$path.$assistant_image_url;
             	if($wordid){
             		$arr['id']=$wordid;
             		$id=D('Works')->where($arr)->save($data);
@@ -229,6 +237,7 @@ class MyCenterController extends HomeController
     	file_put_contents($path.$filename162,$pic1);
     	file_put_contents($path.$filename48,$pic2);
     	$rs['status'] = 1;
+    	$rs['picUrl'] = $path1;
     	$rs['main_image_url'] = $data['main_image_url'];
     	$rs['assistant_image_url'] =$data['assistant_image_url'];
     	echo json_encode($rs);

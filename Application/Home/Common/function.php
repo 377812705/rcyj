@@ -117,3 +117,14 @@ function make_coupon_card() {
     );
     return $d;
 }
+
+function getUserThreeWork($uid=null){
+    $data=D('Works')->getWorksByUserId($uid);
+    $html="";
+    $errorimg="this.src='__IMG__/works.png'";
+    foreach($data as $d){
+       $html= $html. "<img src='{$d['main_image_url']}' style='width: 164px;height: 110px;'/>";
+    }
+
+    return $html;
+}

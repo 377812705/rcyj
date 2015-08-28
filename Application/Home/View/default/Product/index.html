@@ -70,7 +70,7 @@
 											<if condition="($data.user_id|getUserName) eq null">
 												<img src="__IMG__/user-img02.gif" alt="用户头像"/>
 												<else />
-												<img src="http://www.2ciyuanjie.com/{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
+												<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>
 											</if></a></h6>
 								</li>
 								<eq name="mod" value="3"></ul><ul></eq>

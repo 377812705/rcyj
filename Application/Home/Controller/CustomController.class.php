@@ -2,6 +2,7 @@
 namespace Home\Controller;
 
 use User\Api\UserApi;
+use Think\Page;
 
 class CustomController extends HomeController
 {
@@ -18,6 +19,11 @@ class CustomController extends HomeController
         //作品总数
         $wTotal = D('Custom')->count();
 
+        $pageshowcount=24;
+        $Page       = new Page($wTotal,$pageshowcount);
+        $show   = $Page->pageshow();
+
+        $this->assign('show', $show);
         $this->assign('wcount', $wTotal);
         $this->assign('zttag', $wzt);
         $this->assign('custom', $works);

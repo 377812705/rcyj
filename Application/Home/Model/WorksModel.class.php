@@ -43,9 +43,11 @@ class WorksModel extends Model{
     public function getTJWoks(){
         return $this->where("istj='1'")->limit(8)->select();
     }
+
     public function getOrderWorkByid($id){
     	return $this->find($id);
     }
+
     public function getWorksByUserId($userid,$limit=3){
     	return $this->field('main_image_url,assistant_image_url,id')->where("user_id=".$userid." and title is not Null")->limit($limit)->select();
     }

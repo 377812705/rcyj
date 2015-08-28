@@ -11,17 +11,18 @@
 namespace Home\Controller;
 
 use User\Api\UserApi;
+use Think\Page;
 
 class AuthorController extends HomeController {
 
     public function index() {
-
         //形象最低接单金额
         $uinfo[0]['minmoney']='300';
         //作品
         $uinfo[0]['workcount']='26';
         //成交量
         $uinfo[0]['customcount']='56';
+
         $this->assign('uinfo',$uinfo[0]);
         //作品标签
         $tags=D('Tags')->getTags();
@@ -30,9 +31,14 @@ class AuthorController extends HomeController {
         $this->assign('uid',is_login());
 
         //作者
-        $author=D('Author')->getAllAuthor();
+        $acount=D('Author')->count();
+        $pageshowcount=8;
+        $Page       = new Page($acount,$pageshowcount);
+        $show   = $Page->pageshow();
+        $author=D('Author')->limit($Page->firstRow.','.$Page->listRows)->select();
+       // dump($show);
         $this->assign('author',$author);
-
+        $this->assign('show',$show);
         $this->display();
     }
     public function details($id=null){
@@ -40,8 +46,6 @@ class AuthorController extends HomeController {
             $id='1799';
         }
         $uinfo=D('Author')->getUserInfo($id);
-
-
 
         //作品标签
         $tags=D('Tags')->getTags();

@@ -15,6 +15,8 @@ use User\Api\UserApi;
 class ActivityController extends HomeController {
 
     public function index() {
+    	$id=is_login();
+    	$this->assign('userid',$id);
         $this->display();
     }
     public function perfect(){

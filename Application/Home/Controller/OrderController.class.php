@@ -10,12 +10,7 @@ use Think\Controller;
 use Think\Page;
 
 class OrderController extends Controller {
-	public function __construct(){
-		if (!is_login()) {
-			session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
-			$this->redirect("Login/login");
-		}
-	}
+
 	/**
 	 * 用户中心的订单列表
 	 */
@@ -42,8 +37,8 @@ class OrderController extends Controller {
 		$this->assign('userid',$user_id);
 		$tags=C('tag');
 		$this->assign('tags',$tags);
-		$show=C('show');
-		$this->assign('show',$show);
+		$show1=C('show');
+		$this->assign('show1',$show1);
 		$theme=C('theme');
 		$this->assign('theme',$theme);
 		$paytype=C('paystatus');
@@ -68,12 +63,10 @@ class OrderController extends Controller {
 		$data['custom_id']=$customid;
 		$data['order_category']=1;
 		$user_id =is_login();
-		dump($user_id);
 		$data['user_id']=$user_id;
-		if(empty($user_id)) {
-			$this->assign ( 'message', '请登录后再操作' );
-			$this->display('Public/error');
-			exit();
+		if (!is_login()) {
+			session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+			$this->redirect("Login/login");
 		}
 		$data['order_number']='2cyj'.makeOrderCardId();
 		
@@ -119,12 +112,12 @@ class OrderController extends Controller {
 		$data['work_id']=$work_id;
 		$data['order_category']=1;
 		$user_id =is_login();
-		$data['user_id']=$user_id;
-		if(empty($user_id)) {
-			$this->assign ( 'message', '请登录后再操作' );
-			$this->display('Public/error');
-			exit();
+		if (!is_login()) {
+			session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME.'/workid/'.$work_id);
+				
+			$this->redirect("Login/login");
 		}
+		$data['user_id']=$user_id;
 		$data['order_number']='2cyj'.makeOrderCardId();
 		$worksModel =D('Works');	
 		$work = $worksModel->getOrderWorkByid($work_id);

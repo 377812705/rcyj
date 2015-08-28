@@ -1,4 +1,13 @@
 <extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript">
+        $(function(){
+            $(".works img").live("onerror",function(){
+                $(this).src("__ROOT__/works.png");
+            });
+        });
+    </script>
+</block>
 <block name="body">
     <div class="container content">
 			<div class="custom">
@@ -46,10 +55,10 @@
                                     <h6>成交量：{$uinfo.customcount}</h6>
                                 </span>
                             </div>
-                            <!--<div class="module-right">-->
-                            	<!--<span class="works"><img src="__IMG__/author-works01.gif"/><img src="__IMG__/author-works02.gif"/><img src="__IMG__/author-works03.gif"/></span>-->
+                            <div class="module-right">
+                            	<span class="works">{$data.id|getUserThreeWork}</span>
                                 <!--<input name="" type="button" value="+ 关注">-->
-                            <!--</div>-->
+                            </div>
                           </div>
                         </volist>
                         </div>

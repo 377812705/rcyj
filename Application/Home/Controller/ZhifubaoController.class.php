@@ -188,7 +188,7 @@ class ZhifubaoController extends Controller {
     			//注意：
     			//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
     			$order = new OrderController();
-    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'ajax_type'=>1));
+    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'ajax_type'=>1,'order_type'=>1));
    
     			//调试用，写文本函数记录程序运行情况是否正常
     			$this->log_result('支付请求成功#'.json_encode($result));
@@ -199,7 +199,7 @@ class ZhifubaoController extends Controller {
     			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
     			//如果有做过处理，不执行商户的业务程序
     			$order = new OrderController();
-    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'ajax_type'=>1));
+    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'ajax_type'=>1,'order_type'=>1));
     			//调试用，写文本函数记录程序运行情况是否正常
     			$this->log_result('支付请求成功*'.json_encode($result));
     			//注意：

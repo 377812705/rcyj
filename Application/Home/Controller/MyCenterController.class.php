@@ -126,6 +126,19 @@ class MyCenterController extends HomeController
     //我的邀请
     public function invite()
     {
+        $uid=I('id');
+        $uinfo=D('User')->where("id={$uid}")->find();
+
+        if(empty($uinfo['love_type'])){
+            $uinfo['love_type']=make_coupon_card();
+        }
+        D('User')->where("id={$uid}")->save($uinfo);
+        $this->assign('uinfo',$uinfo);
+        //被邀请的人
+        $yqUser=D('User')->where("love_status='{$uinfo["love_type"]}'")->select();
+
+        $this->assign('yquser',$yqUser);
+
         $this->display();
     }
 

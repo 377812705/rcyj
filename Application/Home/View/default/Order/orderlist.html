@@ -14,7 +14,7 @@
     <div class="author-content">
       <div class="module">
         <div class="module-tle authortle">
-          <h5>Hi，<span>{$userid|getUserNameById=###}</span>，欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
+          <h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
         </div>
         <div class="author-filter">
           <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a><!-- <a href="javascript:;" class="current">未评价</a></h5> -->
@@ -24,7 +24,7 @@
 	          <div class="order-content order-main"> <img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
 	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
 	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
-	            <h5>展示方式：{$show[$data['show']]}</h5>
+	            <h5>展示方式：{$show1[$data['show']]}</h5>
 	            <!-- <h5>风格选择：现代Q版 <span>速写</span></h5> -->
 	            <h5>订制价格：{$data.money}元<!--  <span>订制时间：10天</span>--> </h5>
 	            </span> </div>

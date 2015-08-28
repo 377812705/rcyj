@@ -2,16 +2,17 @@
 <block name="body">
     <div class="container content">
 			<div class="custom">
-				<ul class="nextnav no-drop">
+				<ul class="nextnav no-drop author-nav">
 								<li class="nextnavon"><a href="javascript:;">全部活动</a></li>
 								<li><a href="javascript:;">进行中的活动</a></li>
                                 <li><a href="javascript:;">已结束的活动</a></li>
-                                <li class="top-btn apply"><input name="" onClick="javascript:location.href='{:U("Activity/perfect")}'" type="button" value="我要举办"></li>
+                                <!-- <li class="top-btn apply"><input name="" onClick="javascript:location.href='{:U("Activity/perfect")}'" type="button" value="我要举办"></li> -->
 						</ul>
 					</div>
+					<div class="custom">
 				<div class="module">
 						<div class="module-tle">
-								<h5>Hi，<span>二郎神</span>，以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
+								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
 						</div>
 						<div class="activity-content">
                         	<span class="activity-tle">
@@ -19,7 +20,7 @@
                                 <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
                             </span>
                             <span class="activity-img">
-                            	<a href="#"><img src="__IMG__/activity-img01.jpg"/></a>
+                            	<a href="#"><img src="/uploads/activity/cyzh1.png"/></a>
                             </span>
                         </div>
                         <div class="activity-content">
@@ -28,38 +29,34 @@
                           <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
                           </span>
                             <span class="activity-img">
-                            	<a href="#"><img src="__IMG__/activity-img01.jpg"/></a>
+                            	<a href="#"><a href="#"><img src="/uploads/activity/yz1.png"/></a></a>
                             </span>
                         </div>
-                        <div class="activity-content">
-                       	  <span class="activity-tle">
-                            	<h3>创意中华 —— 2015全球品牌造梦计划   <span> ( 进行中 )</span></h3>
-                          <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
-                          </span>
-                            <span class="activity-img">
-                            	<a href="#"><img src="__IMG__/activity-img01.jpg"/></a>
-                            </span>
-                        </div>
-                        <div class="activity-content">
-                       	  <span class="activity-tle">
-                            	<h3>创意中华 —— 2015全球品牌造梦计划   <span> ( 进行中 )</span></h3>
-                          <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
-                          </span>
-                            <span class="activity-img">
-                            	<a href="#"><img src="__IMG__/activity-img01.jpg"/></a>
-                            </span>
-                        </div>
-                    <div class="page">
-                    	<ul>
-                        	<li class="lion"><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li class="omission">…</li>
-                          <li><a href="#">30</a></li>
-                          <li class="goto"><input name="" type="text"></li>
-                          <li class="nextpage"><a href="#">下一页</a></li>
-                        </ul>
-                    </div>
+
 				</div>
+				<div class="module" style="display:none;">
+                	<div class="module-tle">
+								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
+						</div>
+						<div class="activity-content">
+                        	<span class="activity-tle">
+                            	<h3>创意中华 —— 2015全球品牌造梦计划   <span> ( 进行中 )</span></h3>
+                                <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
+                            </span>
+                            <span class="activity-img">
+                            	<a href="#"><img src="/uploads/activity/cyzh1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3>创意中华 —— 2015全球品牌造梦计划   <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-07-01 — 2015-08-01</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="#"><a href="#"><img src="/uploads/activity/yz1.png"/></a></a>
+                            </span>
+                        </div>
+
+				</div> 
 		</div>
 </block>

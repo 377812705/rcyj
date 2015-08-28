@@ -426,7 +426,6 @@
 }
 .banner a {
 	position: absolute;
-	top: 40%;
 	height: 90px;
 	width: 50px;
 	background-image: url(../images/banner-btn.png);
@@ -1047,49 +1046,13 @@ input[type='button'].submit-order{
 	}
 .third-party{
 	display:block;
-	width:300px;
+	width:350px;
 	padding:50px 0 55px;
 	margin:0 auto;
 	overflow:hidden;
 	text-align:center;
 	}
-.third-party a:link{
-	display:block;
-	float:left;
-	margin:0 11px;
-	height:46px;
-	width:46px;
-	background:url(../images/btn-img01.png) no-repeat;
-/*	-webkit-filter: grayscale(100%);
-     -o-filter: grayscale(100%);
-     -moz-filter: grayscale(100%);
-     -ms-filter: grayscale(100%);
-     filter: grayscale(100%);*/
-	}
-.third-party a.sina{
-	background-position:left top;
-	}
-.third-party a.wechat{
-	background-position:-66px top;
-	}
-.third-party a.qq{
-	background-position:-132px top;
-	}
-.third-party a.space{
-	background-position:-198px top;
-	}
-.third-party a.sina:hover{
-	background-position:left -56px;
-	}
-.third-party a.wechat:hover{
-	background-position:-66px -56px;
-	}
-.third-party a.qq:hover{
-	background-position:-132px -56px;
-	}
-.third-party a.space:hover{
-	background-position:-198px -56px;
-	}
+
 .tag{
 	margin-top:20px;
 	height:108px;

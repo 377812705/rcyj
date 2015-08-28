@@ -1,12 +1,21 @@
 <extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript">
+        $(function () {
+            $("#jb_btn").click(function (){
+                $(".report-content").show();
+            });
+        });
+    </script>
+</block>
 <block name="body">
     <div class="container author-details">
         <div class="details-left">
                 	<span>
                     	<img src="__IMG__/author-img03.gif"/>
-                        <h5><a class="add-attention" href="javascript:;">加关注</a></h5>
-                        <h5><a class="custom-a" href="custom.html">我要订制</a></h5>
-                        <h5><a class="report-a" href="javascript:;">举报</a></h5>
+                        <!--<h5><a class="add-attention" href="javascript:;">加关注</a></h5>-->
+                        <h5><a class="custom-a" href="__ROOT__/Custom/custom.html">我要订制</a></h5>
+                        <h5><a class="report-a" id="jb_btn" href="javascript:;">举报</a></h5>
                     </span>
             <span class="author-name"><h3>{$uinfo.user_name}</h3><h5>{$uinfo.address} / {$uinfo.tags_content|strtr=';','
                 '}</h5><h5>形象最低接单金额 ￥{$uinfo.minmoney}</h5></span>
@@ -41,9 +50,10 @@
                 <div class="author-filter">
                     <h5>
                         标签： <a href="#" class="aon">全部</a>
-                        <volist name="zttag" id="data">
-                            <a href="javascript:;">{$data.tag_content}</a>
-                        </volist>
+                        <a href="javascript:;">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
+                        <!--<volist name="zttag" id="data">-->
+                            <!--<a href="javascript:;">{$data.tag_content}</a>-->
+                        <!--</volist>-->
                     </h5>
                     <h5>
                         状态： <a href="javascript:;" class="carryout aon"> 已经完成</a> <a href="javascript:;"
@@ -57,7 +67,7 @@
                 <ul>
                     <volist name="uwork" id="data" mod="4">
                         <li style="display:block;"><img
-                                src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}"
+                                src="{$data.main_image_url}" alt="作品图片-{$data.title}"
                                 style="display：block;width: 293px;height: 222px;"/>
 
                             <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
@@ -74,9 +84,10 @@
                 <div class="author-filter">
                     <h5>
                         标签： <a href="javascript:;" class="aon">全部</a>
-                        <volist name="zttag" id="data">
-                            <a href="javascript:;">{$data.tag_content}</a>
-                        </volist>
+                        <a href="javascript:;">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
+                        <!--<volist name="zttag" id="data">-->
+                            <!--<a href="javascript:;">{$data.tag_content}</a>-->
+                        <!--</volist>-->
                     </h5>
                     <h5>
                         排序： <a href="javascript:;" class="aon">人气最高</a> <a href="javascript:;">价格最低</a> <a
@@ -85,7 +96,7 @@
                 <ul>
                     <volist name="uswork" id="data" mod="4">
                         <li style="display: block;"><img
-                                src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.title}"
+                                src="{$data.main_image_url}" alt="作品图片-{$data.title}"
                                 style="display：block;width: 293px;height: 222px;"/>
                             <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
                                 <h4>￥{$data.money}</h4>
@@ -101,9 +112,10 @@
                 <div class="author-filter">
                     <h5>
                         标签： <a href="javascript:;" class="aon">全部</a>
-                        <volist name="zttag" id="data">
-                            <a href="javascript:;">{$data.tag_content}</a>
-                        </volist>
+                        <a href="javascript:;">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
+                        <!--<volist name="zttag" id="data">-->
+                            <!--<a href="javascript:;">{$data.tag_content}</a>-->
+                        <!--</volist>-->
                     </h5>
                     <h5>
                         地区： <a href="javascript:;" class="aon"> 全部地区</a> <a href="javascript:;">北京</a> <a
@@ -119,9 +131,9 @@
                     <div class="author-module">
                         <div class="module-left">
                             <empty name="data.header_img">
-                                <img src="__IMG__/author-img01.gif"/>
+                                <img src="__IMG__/touxiang.png" style="width: 127px;height: 127px;"/>
                                 <else />
-                                <img src="http://www.2ciyuanjie.com/{$data.header_img}" style="width: 127px;height: 127px;"/>
+                                <img src="{$data.header_img}" style="width: 127px;height: 127px;" onerror="this.src='__IMG__/touxiang.png'"/>
                             </empty>
                                 <span>
                                 	<h3 style="color: #0390e9;">{$data.user_name}</h3>
@@ -140,18 +152,7 @@
                 </volist>
             </div>
 
-            <div class="page">
-                <ul>
-                    <li class="lion"><a href="javascript:;">1</a></li>
-                    <li><a href="javascript:;">2</a></li>
-                    <li><a href="javascript:;">3</a></li>
-                    <li class="omission">…</li>
-                    <li><a href="javascript:;">30</a></li>
-                    <li class="goto"><input name="" type="text"></li>
-                    <li class="nextpage"><a href="javascript:;">下一页</a></li>
-                </ul>
-            </div>
-
+           {$show}
             <div class="report-content" style="display:none;">
                 <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
                 <div class="report-main">

@@ -9,7 +9,7 @@ class CustomController extends HomeController
     public function index()
     {
         //作品标签
-        $tags = D('Tags')->getTags();
+        $tags = C('tag');
         //作品
         $works = D('Custom')->getAllWorks();
         //dump($works);

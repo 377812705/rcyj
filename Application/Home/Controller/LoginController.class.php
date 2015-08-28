@@ -28,7 +28,12 @@ class LoginController extends HomeController {
             if ($model->autoCheckToken($_POST)){
                 // 令牌验证错误
                 $_POST['password']=strtoupper(md5($_POST['password']));
-                $model->add($_POST);
+                $data=$_POST;
+                $data['love_type']=make_coupon_card();//自己的邀请码
+                if(empty($data['invitecode'])){
+                    $data['love_status']=$data['invitecode']; //被谁邀请了
+                }
+                $model->add($data);
                 $this->redirect("Login/login");
             }else{
             $this->redirect("Login/register");

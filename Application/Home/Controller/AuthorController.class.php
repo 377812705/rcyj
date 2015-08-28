@@ -27,6 +27,8 @@ class AuthorController extends HomeController {
         $tags=D('Tags')->getTags();
         $this->assign('zttag',$tags);
 
+        $this->assign('uid',is_login());
+
         //作者
         $author=D('Author')->getAllAuthor();
         $this->assign('author',$author);

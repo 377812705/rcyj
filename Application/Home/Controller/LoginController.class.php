@@ -216,6 +216,7 @@ class LoginController extends HomeController {
     public function loginout(){
         session('user_auth', null);
         session('user_auth_sign', null);
+        session('PRI_URL', null);
         $this->redirect("Index/index");
     }
 }

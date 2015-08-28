@@ -15,9 +15,10 @@
                        	  <div class="author-filter">
                             	<h5>
                            	 		 标签：   <a href="#" class="aon">全部</a>
-                                    <volist name="zttag" id="data">
-                                        <a href="javascript:;">{$data.tag_content}</a>
-                                    </volist>
+                                    <a href="#">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
+                                    <!--<volist name="zttag" id="data">-->
+                                        <!--<a href="javascript:;">{$data.tag_content}</a>-->
+                                    <!--</volist>-->
                                 </h5>
                                 <h5>
                            	 		 地区：   <a href="#" class="aon"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳   重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
@@ -31,7 +32,7 @@
                                     <empty name="data.header_img">
                                         <img src="__IMG__/touxiang.png" style="width: 127px;height: 127px;"/>
                                         <else />
-                                        <img src="http://www.2ciyuanjie.com/{$data.header_img}" style="width: 127px;height: 127px;"/>
+                                        <img src="{$data.header_img}" style="width: 127px;height: 127px;" onerror="this.src='__IMG__/touxiang.png'"/>
                                     </empty>
 
                                 </a>
@@ -43,10 +44,10 @@
                                     <h6>成交量：{$uinfo.customcount}</h6>
                                 </span>
                             </div>
-                            <div class="module-right">
-                            	<span class="works"><img src="__IMG__/author-works01.gif"/><img src="__IMG__/author-works02.gif"/><img src="__IMG__/author-works03.gif"/></span>
-                                <input name="" type="button" value="+ 关注">
-                            </div>
+                            <!--<div class="module-right">-->
+                            	<!--<span class="works"><img src="__IMG__/author-works01.gif"/><img src="__IMG__/author-works02.gif"/><img src="__IMG__/author-works03.gif"/></span>-->
+                                <!--<input name="" type="button" value="+ 关注">-->
+                            <!--</div>-->
                           </div>
                         </volist>
                         </div>

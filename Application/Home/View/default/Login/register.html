@@ -79,7 +79,7 @@
 			}
 		});
 		$("#sendcode").click(function(){
-			mcode=$("mobile").val();
+			var mcode=$("#mobile").val();
 			if(mcode=="请输入手机号"){
 				alert("请输入手机号");
 			}else{

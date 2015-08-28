@@ -5,139 +5,154 @@ use User\Api\UserApi;
 use Vendor\sms\SendSMS;
 use Vendor\weibo\SaeTOAuthV2;
 
-class LoginController extends HomeController {
+class LoginController extends HomeController
+{
 
-    public function index() {
-      
+    public function index()
+    {
+
     }
 
     /* 注册页面 */
 
-    public function register() {
+    public function register()
+    {
         //dump($_POST);
-        if(IS_POST){
-            $model=D('User');
-            if ($model->autoCheckToken($_POST)){
+        if (IS_POST) {
+            $model = D('User');
+            if ($model->autoCheckToken($_POST)) {
                 // 令牌验证错误
-                $_POST['password']=strtoupper(md5($_POST['password']));
-                $data=$_POST;
-                $data['love_type']=make_coupon_card();//自己的邀请码
-                if(empty($data['invitecode'])){
-                    $data['love_status']=$data['invitecode']; //被谁邀请了
+                $_POST['password'] = strtoupper(md5($_POST['password']));
+                $data = $_POST;
+                $data['love_type'] = make_coupon_card();//自己的邀请码
+                if (empty($data['invitecode'])) {
+                    $data['love_status'] = $data['invitecode']; //被谁邀请了
                 }
                 $model->add($data);
                 $this->redirect("Login/login");
-            }else{
-            $this->redirect("Login/register");
+            } else {
+                $this->redirect("Login/register");
             }
-        }else{
+        } else {
             $this->display("Login/register");
         }
     }
-    
-    public function register0(){
+
+    public function register0()
+    {
         $Model = M('test', null);
         $data = array(
-            'mobile'             => '11111111',
-            'password'           => '123145611111',
-            'createtime' => date('y-m-d h:i:s',time())
+            'mobile' => '11111111',
+            'password' => '123145611111',
+            'createtime' => date('y-m-d h:i:s', time())
         );
         $Model->data($data)->add();
         echo 'ok';
-       // $this->display("Index/index");
+        // $this->display("Index/index");
     }
-    public function register1(){
+
+    public function register1()
+    {
         $Model = M('test', null);
         $Model->create();
         $Model->add();
         $this->display("Index/index");
     }
-    //发送验证码
-    public function sendCode(){
-        $CheckCode= rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 
-        $mobile=I('mobile');
-            //判断手机号是否已经注册过
-            $Model=M('user',null);
-            $data=$Model->where("mobile='".$mobile."'")->select();
-            if(0< count($data)){
-                $this->ajaxReturn('手机号已经存在');
-            }else{
-                $sendsms=new \Vendor\sms\SendSMS();
-                //("13800000000" ,array('6532','5'),"1");
-                $result=$sendsms->sendTemplateSMS($mobile, array($CheckCode,'5'), "10249");
-                //保存记录
-                if($result->statusCode=='000000'){
-                    $mvcode=M('mobilevcode');
-                    $data['mobile']=$mobile;
-                    $data['vcode']=$CheckCode;
-                    $data['telmpno']="10249";
-                    $data['statuscode']=$result->statusCode;
-                    $smsmessage = $result->TemplateSMS;
-                    $data['smsMessageSid']=$smsmessage->smsMessageSid;
-                    $data['dateCreated']=$smsmessage->dateCreated;
-                    $mvcode->data($data)->add();
-                }
-                $this->ajaxReturn('验证码已经发送');
+    //发送验证码
+    public function sendCode()
+    {
+        $CheckCode = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
+
+        $mobile = I('mobile');
+        //判断手机号是否已经注册过
+        $Model = M('user', null);
+        $data = $Model->where("mobile='" . $mobile . "'")->select();
+        if (0 < count($data)) {
+            $this->ajaxReturn('手机号已经存在');
+        } else {
+            $sendsms = new \Vendor\sms\SendSMS();
+            //("13800000000" ,array('6532','5'),"1");
+            $result = $sendsms->sendTemplateSMS($mobile, array($CheckCode, '5'), "10249");
+            //保存记录
+            if ($result->statusCode == '000000') {
+                $mvcode = M('mobilevcode');
+                $data['mobile'] = $mobile;
+                $data['vcode'] = $CheckCode;
+                $data['telmpno'] = "10249";
+                $data['statuscode'] = $result->statusCode;
+                $smsmessage = $result->TemplateSMS;
+                $data['smsMessageSid'] = $smsmessage->smsMessageSid;
+                $data['dateCreated'] = $smsmessage->dateCreated;
+                $mvcode->data($data)->add();
             }
-        
-        
+            $this->ajaxReturn('验证码已经发送');
+        }
+
+
     }
+
     /**
      * 登陆检测手机号是否存在
      * @param type $mobile
      */
-    public function checkMobile($mobile=''){
+    public function checkMobile($mobile = '')
+    {
         //$mobile=I('mobile');
-        $Model=M('user',null);
-        $data=$Model->where("mobile='{$mobile}'")->count();
-        if(0 < $data){
+        $Model = M('user', null);
+        $data = $Model->where("mobile='{$mobile}'")->count();
+        if (0 < $data) {
             $this->ajaxReturn(TRUE);
             //echo TRUE;
-        }else{
+        } else {
             //return TRUE;
-             $this->ajaxReturn(FALSE);
+            $this->ajaxReturn(FALSE);
         }
     }
+
     /**
      * 注册检测手机号是否存在
      * @param type $mobile
      */
-    public function rcheckMobile($mobile=''){
+    public function rcheckMobile($mobile = '')
+    {
         //$mobile=I('mobile');
-        $Model=M('user',null);
-        $data=$Model->where("mobile='{$mobile}'")->count();
-        if(0 < $data){
+        $Model = M('user', null);
+        $data = $Model->where("mobile='{$mobile}'")->count();
+        if (0 < $data) {
             $this->ajaxReturn(FALSE);
             //echo TRUE;
-        }else{
+        } else {
             //return TRUE;
-             $this->ajaxReturn(TRUE);
+            $this->ajaxReturn(TRUE);
         }
     }
-      /**
+
+    /**
      * 注册检测用户名是否存在
      * @param type $user_name
      */
-    public function rcheckUserName($user_name=''){
+    public function rcheckUserName($user_name = '')
+    {
         //$mobile=I('mobile');
-        $Model=M('user',null);
-        $data=$Model->where("user_name='{$user_name}'")->count();
-        if(0 < $data){
+        $Model = M('user', null);
+        $data = $Model->where("user_name='{$user_name}'")->count();
+        if (0 < $data) {
             $this->ajaxReturn(FALSE);
             //echo TRUE;
-        }else{
+        } else {
             //return TRUE;
-             $this->ajaxReturn(TRUE);
+            $this->ajaxReturn(TRUE);
         }
     }
-    
+
     /**
-    * 验证手机号是否正确
-    * @author 
-    * @param INT $mobile
-    */
-    public function isMobile($mobile) {
+     * 验证手机号是否正确
+     * @author
+     * @param INT $mobile
+     */
+    public function isMobile($mobile)
+    {
         if (!is_numeric($mobile)) {
             return false;
         }
@@ -146,59 +161,63 @@ class LoginController extends HomeController {
 
     /* 忘记密码 */
 
-    public function forgetpass() {
+    public function forgetpass()
+    {
         $this->display("Login/forgetpass");
     }
 
     /* 登录页面 */
 
-    public function login() {
+    public function login()
+    {
         if (IS_POST) {
             $map['mobile'] = I('mobile');
             $Model = M('user', null);
             $data = $Model->where($map)->select();
-           // $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
-            $password=I('password');
+            // $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
+            $password = I('password');
             if (0 < count($data)) {
                 if (strtoupper(md5($password)) == $data[0]["password"]) {
                     //记录登陆历史
                     /* 更新登录信息 */
                     $user = array(
-                        'id'             => $data[0]["id"],
+                        'id' => $data[0]["id"],
                         'last_login_date' => date("Y-m-d h:i:s"),
                     );
-                    M('user',null)->save($user);
+                    M('user', null)->save($user);
                     //保存session
                     $auth = array(
-                        'uid'             => $data[0]["id"],
-                        'username'        => $data[0]["user_name"],
+                        'uid' => $data[0]["id"],
+                        'username' => $data[0]["user_name"],
                         'last_login_time' => date("Y-m-d h:i:s"),
                     );
                     session('user_auth', $auth);
                     session('user_auth_sign', data_auth_sign($auth));
 
-                    $priurl=session('PRI_URL');
-                    if(empty($priurl)){
-                    //跳转到主页
+                    $priurl = session('PRI_URL');
+                    if (empty($priurl)) {
+                        //跳转到主页
                         $this->redirect("Index/index");
-                    }else{
+                    } else {
                         $this->redirect($priurl);
                     }
-                }else{
+                } else {
                     //$this->error($data[0]["password"].'----');
-                    $this->assign('msginfo','用户名密码错误');
-                    
+                    $this->assign('msginfo', '用户名密码错误');
+
                     $this->display("Login/login");
                 }
             } else {
-                $this->assign('msginfo','用户不存在');
+                $this->assign('msginfo', '用户不存在');
                 $this->display("Login/login");
             }
         } else {
             $this->display("Login/login");
         }
     }
-    public function loginout(){
+
+    public function loginout()
+    {
         session('user_auth', null);
         session('user_auth_sign', null);
         session('PRI_URL', null);
@@ -208,7 +227,8 @@ class LoginController extends HomeController {
     /**
      * 新浪微博登录
      */
-    public function sinalogin(){
+    public function sinalogin()
+    {
         $o = new SaeTOAuthV2("2443143300", "a4dbd21f4f7467d41e4bac092863de42");
 
         if (isset($_REQUEST['code'])) {
@@ -216,16 +236,16 @@ class LoginController extends HomeController {
             $keys['code'] = $_REQUEST['code'];
             $keys['redirect_uri'] = "http://www.2ciyuanjie.com";
             try {
-                $token = $o->getAccessToken( 'code', $keys ) ;
+                $token = $o->getAccessToken('code', $keys);
             } catch (OAuthException $e) {
             }
         }
 
         if ($token) {
             $_SESSION['token'] = $token;
-            setcookie( 'weibojs_'.$o->client_id, http_build_query($token) );
+            setcookie('weibojs_' . $o->client_id, http_build_query($token));
             $this->redirect("Index/index");
-        }else{
+        } else {
             $this->redirect("Login/login");
         }
     }
@@ -233,7 +253,8 @@ class LoginController extends HomeController {
     /**
      * QQ登录
      */
-    public function qqlogin(){
+    public function qqlogin()
+    {
 
     }
 }

@@ -168,18 +168,24 @@ class MyCenterController extends HomeController
     //修改email
     public function editmail()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 
     //修改地址
     public function editaddress()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 
     //修改头像
     public function editphoto()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 

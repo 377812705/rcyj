@@ -17,16 +17,16 @@
                         <li class="fill fill-data">
                             <h5>邮箱：</h5>
                             {$uinfo.email}
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail.html'" value="修改邮箱">
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail/id/{$uinfo.id}.html'" value="修改邮箱">
                         </li>
                         <li class="fill fill-data address">
                             <h5>联系地址：</h5>
                             {$uinfo.address}
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress.html'" value="修改地址">
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
                         </li>
                     </ul>
             <span class="portrait"><img src="{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
-            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto.html'" type="button" value="修改头像">
+            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
             </span> </li>
                 <li class="fill">
                     <h5>标签：</h5>

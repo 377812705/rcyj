@@ -1,7 +1,7 @@
 <extend name="Base/common"/>
 <block name="body">
     <div class="container module-tle edittle">
-        <h5>Hi，<span>{$uinfo.user_name}</span>，这是属于你自己的个人主页。您可以 <span>修改个人资料</span> 和 <span>发布作品</span>，把他充实起来吧！ </h5>
+        <h5>Hi，<span>{$uinfo.user_name}</span>，这是属于你自己的个人主页。您可以 <span><a href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改个人资料</a></span> 和 <span><a href="__ROOT__/MyCenter/uploadWork.html">发布作品</a></span>，把他充实起来吧！ </h5>
         <a href="javascript:;"><img src="__IMG__/colse-btn02.gif"/></a> </div>
     <div class="container author-details">
         <div class="details-left"> <span> <img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>

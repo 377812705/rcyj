@@ -131,13 +131,13 @@ class MyCenterController extends HomeController
         $uid=I('id');
         $uinfo=D('User')->where("id={$uid}")->find();
 
-        if(empty($uinfo['love_type'])){
-            $uinfo['love_type']=make_coupon_card();
+        if(empty($uinfo['mycode'])){
+            $uinfo['mycode']=make_coupon_card();
         }
         D('User')->where("id={$uid}")->save($uinfo);
         $this->assign('uinfo',$uinfo);
         //被邀请的人
-        $yqUser=D('User')->where("love_status='{$uinfo["love_type"]}'")->select();
+        $yqUser=D('User')->where("invitecode='{$uinfo["mycode"]}'")->select();
 
         $this->assign('yquser',$yqUser);
 
@@ -162,24 +162,32 @@ class MyCenterController extends HomeController
     //修改资料
     public function editdata()
     {
+        $uinfo=D('Author')->getUserInfo(I('id'));
+        $this->assign('uinfo',$uinfo[0]);
         $this->display();
     }
 
     //修改email
     public function editmail()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 
     //修改地址
     public function editaddress()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 
     //修改头像
     public function editphoto()
     {
+        $uid=I('id');
+        $this->assign('uid',$uid);
         $this->display();
     }
 
@@ -303,6 +311,8 @@ class MyCenterController extends HomeController
     }
 
     public function mydetails($uid=null){
+        $uinfo=D('Author')->getUserInfo(is_login());
+        $this->assign('uinfo',$uinfo[0]);
         $this->display();
     }
     public function upfile() {

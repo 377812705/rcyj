@@ -8,25 +8,25 @@
         </ul>
         <div class="custom-content">
             <ul>
-                <li>Hi，二郎神，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
+                <li>Hi，{$uinfo.user_name}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
                 <li class="base-data">
                     <ul class="fill-left">
                         <li class="fill fill-data">
                             <h5>用户名：</h5>
-                            番茄一点红 </li>
+                            {$uinfo.user_name} </li>
                         <li class="fill fill-data">
                             <h5>邮箱：</h5>
-                            122222222222@163.com
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail.html'" value="修改邮箱">
+                            {$uinfo.email}
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail/id/{$uinfo.id}.html'" value="修改邮箱">
                         </li>
                         <li class="fill fill-data address">
                             <h5>联系地址：</h5>
-                            北京市海淀区清河朱房路6666666号
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress.html'" value="修改地址">
+                            {$uinfo.address}
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
                         </li>
                     </ul>
-            <span class="portrait"><img src="__IMG__/user-img12.gif"/>
-            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto.html'" type="button" value="修改头像">
+            <span class="portrait"><img src="{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
             </span> </li>
                 <li class="fill">
                     <h5>标签：</h5>

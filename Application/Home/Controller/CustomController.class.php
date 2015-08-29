@@ -103,7 +103,7 @@ class CustomController extends HomeController
         if(!$info) {// 上传错误提示错误信息
             $this->ajaxReturn($upload->getError());
         }else{// 上传成功
-            $this->ajaxReturn(think_encrypt('/upload/'.$info['savepath'].$info['savename']));
+            $this->ajaxReturn(think_encrypt('/uploads/custom/'.$info['savepath'].$info['savename']));
         }
     }
     public function detail($cusid=null){

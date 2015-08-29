@@ -137,7 +137,7 @@
 
         /* 文件上传成功回调函数 */
         function uploadSuccess(file, data){
-           // alert(data);
+            //alert(data);
             $("#imgurl").val(data);
             $('#' + file.id).find('.data').html(' 上传完毕');
             var data = $.parseJSON(data);
@@ -184,17 +184,17 @@
             <div class="custom-content">
 
                 <form id="form0" action="__ROOT__/Custom/customsave.html" method="post">
-                    <input type="text" name="uid" value="{$cutominfo.uid}" hidden/>
-                    <input type="text" name="touid" value="{$cutominfo.touid}" hidden/>
-                    <input type="text" id="cusattr" name="cusattr" value="{$cutominfo['cusattr']+1}" hidden/>
-                    <input id="imgurl" type="text" name="imgurl" hidden/>
+                    <input type="text" name="uid" value="{$cutominfo.uid}" style="display:none;"/>
+                    <input type="text" name="touid" value="{$cutominfo.touid}" style="display:none;"/>
+                    <input type="text" id="cusattr" name="cusattr" value="{$cutominfo['cusattr']+1}" style="display:none;"/>
+                    <input id="imgurl" type="text" name="imgurl" style="display:none;"/>
                     <ul>
                         <li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
                         <eq name="cutominfo.cusattr" value="0">
                             <li class="fill">
                                 <h5><span>*</span>订制主题：</h5>
                                 <span class="label-span"><a href="javascript:;">请选择订制主题</a>
-                                    <input type="text" name="theme[]" hidden/>
+                                    <input type="text" name="theme[]" style="display:none;"/>
                                 <ul class="label-check radio">
                                     <li class="checkon">浪漫的爱情</li>
                                     <li>浓浓的亲情</li>
@@ -223,7 +223,7 @@
                             <li class="fill">
                                 <h5><span>*</span>订制用途：</h5>
                                 <span class="label-span"><a href="javascript:;">请选择订制用途</a>
-                                    <input type="text" name="theme[]" hidden/>
+                                    <input type="text" name="theme[]" style="display:none;"/>
                                 <ul class="label-check radio">
                                     <li class="checkon">吉祥物</li>
                                     <li>动漫产业化</li>
@@ -241,7 +241,7 @@
                         <li class="fill">
                             <h5><span>*</span>订制方式：</h5>
             <span class="label-span"><a href="javascript:;">请选择订制方式</a>
-                <input name="mode" type="text" hidden/>
+                <input name="mode" type="text" style="display:none;"/>
             <ul class="label-check radio">
                 <li class="checkon">一对一</li>
                 <li>征集</li>
@@ -250,7 +250,7 @@
                         <li class="fill">
                             <h5><span>*</span>形象分类：</h5>
             <span class="label-span"><a href="javascript:;">请选择形象分类</a>
-                <input name="imgclass" type="text" hidden/>
+                <input name="imgclass" type="text" style="display:none;"/>
             <ul class="label-check radio">
                 <li class="checkon">肖像</li>
                 <li>卡通</li>
@@ -259,7 +259,7 @@
                         <li class="fill">
                             <h5><span>*</span>展示方式：</h5>
             <span class="label-span"><a href="javascript:;">请选择展示方式</a>
-                <input name="dismode" type="text" hidden/>
+                <input name="dismode" type="text" style="display:none;"/>
             <ul class="label-check radio">
                 <li class="checkon">数码/电脑绘画</li>
                 <li class="checknot">有纸绘画</li>
@@ -268,7 +268,7 @@
                         <li class="fill">
                             <h5><span>*</span>风格选择：</h5>
             <span class="label-span"> <a href="javascript:;">请选择一级分类</a>
-                <input name="style[]" type="text" hidden/>
+                <input name="style[]" type="text" style="display:none;"/>
             <ul class="label-check radio">
                 <li class="checkon">现代Q版</li>
                 <li>现代写实</li>
@@ -278,7 +278,7 @@
                 <li>无</li>
             </ul>
             </span> <span class="label-span"> <a href="javascript:;">请选择二级分类</a>
-                        <input name="style[]" type="text" hidden/>
+                        <input name="style[]" type="text" style="display:none;"/>
             <ul class="label-check radio">
                 <li class="checkon">国画</li>
                 <li>水彩</li>
@@ -349,7 +349,7 @@
                         <li class="fill copyright">
                             <h5><span>*</span>版权设置：</h5>
             <span class="label-span"><a href="javascript:;">禁止匿名转发；禁止商业使用；禁止个人使用。</a>
-                <input name="cuscopyright" type="text" hidden/>
+                <input name="cuscopyright" type="text" style="display:none;"/>
             <ul class="label-check radio noall">
                 <li class="checkon">禁止匿名转发；禁止商业使用；禁止个人使用</li>
                 <li>禁止匿名转发；禁止商业使用</li>

@@ -42,9 +42,6 @@ class AuthorController extends HomeController {
         $this->display();
     }
     public function details($id=null){
-        if(empty($id)){
-            $id='1799';
-        }
         $uinfo=D('Author')->getUserInfo($id);
 
         //作品标签

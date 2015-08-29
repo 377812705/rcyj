@@ -1,22 +1,22 @@
 <extend name="Base/common"/>
 <block name="body">
     <div class="container module-tle edittle">
-        <h5>Hi，<span>二郎神</span>，这是属于你自己的个人主页。您可以 <span>设置个人主页皮肤、修改个人资料</span> 和 <span>发布作品</span>，把他充实起来吧！ </h5>
+        <h5>Hi，<span>{$uinfo.user_name}</span>，这是属于你自己的个人主页。您可以 <span>修改个人资料</span> 和 <span>发布作品</span>，把他充实起来吧！ </h5>
         <a href="javascript:;"><img src="__IMG__/colse-btn02.gif"/></a> </div>
     <div class="container author-details">
-        <div class="details-left"> <span> <img src="__IMG__/author-img03.gif"/>
-      <h5><a class="edit-data" href="javascript:;">修改资料</a></h5>
+        <div class="details-left"> <span> <img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+      <h5><a class="edit-data" href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改资料</a></h5>
       <h5><a class="edit-photo" href="custom.html">修改头像</a></h5>
-      <h5><a class="edit-theme" href="javascript:;">主页换肤</a></h5>
+      <!--<h5><a class="edit-theme" href="javascript:;">主页换肤</a></h5>-->
       </span> <span class="author-name">
-      <h3>番茄一点红</h3>
-      <h5>北京</h5>
+      <h3>{$uinfo.user_name}</h3>
+      <h5>{$uinfo.address}</h5>
       </span> <span class="author-status">
-      <h3>34526 <span>人气</span><span> / </span> 23 <span>粉丝</span></h3>
+      <h3>{$uinfo.pop_count} <span>人气</span><span> / </span> {$uinfo.fans_count} <span>粉丝</span></h3>
       </span> <span class="author-status">
       <h3>21 <span>积分</span><span>/</span> 98% <span>好评</span><span>/</span> 九品<span>等级</span></h3>
       </span> <span class="author-status">
-      <h3>113<span>收藏</span><span>/</span> 24 <span>关注</span></h3>
+      <h3>{$uinfo.work_count}<span>收藏</span><span>/</span> {$uinfo.follow_count} <span>关注</span></h3>
       </span> </div>
     </div>
     <div class="container content">
@@ -31,7 +31,7 @@
         <div class="author-content">
             <div class="module">
                 <div class="module-tle authortle">
-                    <h5>Hi，<span>二郎神</span>，欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
+                    <h5>Hi，<span>{$uinfo.user_name}</span>，欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
                 </div>
                 <div class="author-filter">
                     <h5> 状态： <a href="javascript:;" class="carryout aon"> 全部订单</a> <a href="javascript:;" class="carryout"> 已完成</a> <a href="javascript:;" class="current">进行中</a><a href="javascript:;" class="current">未评价</a></h5>
@@ -85,19 +85,19 @@
                     </div>
                 </div>
             </div>
-            <div class="page">
-                <ul>
-                    <li class="lion"><a href="javascript:;">1</a></li>
-                    <li><a href="javascript:;">2</a></li>
-                    <li><a href="javascript:;">3</a></li>
-                    <li class="omission">…</li>
-                    <li><a href="javascript:;">30</a></li>
-                    <li class="goto">
-                        <input name="" type="text">
-                    </li>
-                    <li class="nextpage"><a href="javascript:;">下一页</a></li>
-                </ul>
-            </div>
+            <!--<div class="page">-->
+                <!--<ul>-->
+                    <!--<li class="lion"><a href="javascript:;">1</a></li>-->
+                    <!--<li><a href="javascript:;">2</a></li>-->
+                    <!--<li><a href="javascript:;">3</a></li>-->
+                    <!--<li class="omission">…</li>-->
+                    <!--<li><a href="javascript:;">30</a></li>-->
+                    <!--<li class="goto">-->
+                        <!--<input name="" type="text">-->
+                    <!--</li>-->
+                    <!--<li class="nextpage"><a href="javascript:;">下一页</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
             <div class="report-content order-details" style="display:none;">
                 <div class="report-tle">订单详情<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
                 <div class="report-main">

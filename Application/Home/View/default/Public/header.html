@@ -44,7 +44,10 @@
                     </li> -->
                    <!-- <li><a href="__ROOT__/MyCenter/collect.html"><img src="__IMG__/top-img03.png"/></a></li> --> 
                     <li><a href="__ROOT__/MyCenter/uploadWork.html"><img src="__IMG__/top-img04.png"/></a></li>
-                    <li class="user-img"><a href="__ROOT__/MyCenter/mydetails.html"><img src="{:is_login|getUserImg}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;"/></a>
+                    <li class="user-img">
+                        <!--<a href="__ROOT__/MyCenter/mydetails.html">-->
+                        <a href="javascript:;">
+                            <img src="{:is_login|getUserImg}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;"/></a>
                         <ul class="nextmenu" style="display:none;">
                             <li><a href="__ROOT__/Order/orderlist.html"><img src="__IMG__/top-nav-img07.png"/>我的订单</a></li>
                             <li><a href="__ROOT__/MyCenter/invite/id/{:is_login()}.html"><img src="__IMG__/top-nav-img08.png"/>我的邀请</a></li>

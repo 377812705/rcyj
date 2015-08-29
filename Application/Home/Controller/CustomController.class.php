@@ -61,7 +61,7 @@ class CustomController extends HomeController
                 $custom['theme'] = implode($_POST['theme'], "/");
                 $custom['style'] = implode($_POST['style'], "/");
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
-                $custom['imgurl']=think_decrypt($_POST['imgurl']);
+                $custom['imgurl']=$_POST['imgurl'];
                 //dump($custom);
                 $custom['cusid'] = $model->add($custom);
 
@@ -103,7 +103,9 @@ class CustomController extends HomeController
         if(!$info) {// 上传错误提示错误信息
             $this->ajaxReturn($upload->getError());
         }else{// 上传成功
-            $this->ajaxReturn(think_encrypt('/uploads/custom/'.$info['savepath'].$info['savename']));
+            //$this->ajaxReturn(think_encrypt('/uploads/custom/'.$info['savepath'].$info['savename']));
+            $this->ajaxReturn('/uploads/custom/'.$info['savepath'].$info['savename'],'EVAL');
+           // exit;
         }
     }
     public function detail($cusid=null){

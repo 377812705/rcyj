@@ -139,9 +139,10 @@
         function uploadSuccess(file, data){
             //alert(data);
             $("#imgurl").val(data);
-            $('#' + file.id).find('.data').html(' 上传完毕');
-            var data = $.parseJSON(data);
-
+            //alert(data);
+            $('#' + file.id).find('.data').html('上传完毕');
+            //var data = $.parseJSON(data);
+            $("#xztp").parent().before('<img src="__ROOT__'+data+'" style="width:150px;padding-left: 170px;padding-top: 10px;">');
         }
     </script>
 

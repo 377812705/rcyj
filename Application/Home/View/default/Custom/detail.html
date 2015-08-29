@@ -10,6 +10,7 @@
             }else {
                 $.post("__ROOT__/Custom/grab", {uid: uid, cusid: cusid},
                         function (data) {
+                            alert(data);
                             $("#btn_qd1").addClass("grab-btnon");
                             $("#btn_qd1").val("已抢单");
                             $("#btn_qd2").hide();

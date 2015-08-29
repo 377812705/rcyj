@@ -176,10 +176,10 @@ $(function(){
 			   curlen -= 1; 
 			} 
 		} 
-	　　if(curlen >= len) { 
-			$("."+checklen).html("还可输入<span class='word-count'>" + Math.floor((curlen-len)/2) + "</span> 字符 / 汉字"); 
-		} else { 
-			$("."+checklen).html("已经超过 <span class='word-count'>" + Math.ceil((len-curlen)/2) + "</span> 字符 / 汉字"); 
+	　　if(curlen >= len) {
+		  obj.siblings("."+checklen).html("还可输入<span class='word-count'>" + Math.floor((curlen-len)/2) + "</span> 字符 / 汉字");
+		} else {
+		  obj.siblings("."+checklen).html("已经超过 <span class='word-count'>" + Math.ceil((len-curlen)/2) + "</span> 字符 / 汉字");
 		} 
 	} 
 	

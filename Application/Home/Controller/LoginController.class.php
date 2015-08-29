@@ -24,10 +24,7 @@ class LoginController extends HomeController
                 // 令牌验证错误
                 $_POST['password'] = strtoupper(md5($_POST['password']));
                 $data = $_POST;
-                $data['love_type'] = make_coupon_card();//自己的邀请码
-                if (empty($data['invitecode'])) {
-                    $data['love_status'] = $data['invitecode']; //被谁邀请了
-                }
+                $data['mycode'] = make_coupon_card();//自己的邀请码
                 $model->add($data);
                 $this->redirect("Login/login");
             } else {

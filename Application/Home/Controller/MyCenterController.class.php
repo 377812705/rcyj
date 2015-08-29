@@ -50,7 +50,12 @@ class MyCenterController extends HomeController
     {
 
         if (!is_login()) {
-            session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+        	$activityid=I('get.activityid',0);
+			if($activityid){
+				session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME.'/activityid/'.$activityid);
+			}else{
+            	session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+			}
             $this->redirect("Login/login");
         } else {
             if (IS_POST) {
@@ -60,10 +65,7 @@ class MyCenterController extends HomeController
             	$data['create_status']=I('Post.create_status',1);
             	$data['show']=I('Post.show',1);
             	$data['copy_right']=I('Post.copyri',1);
-            	$data['content']=I('Post.editorValue','');
             	$data['title']=I('Post.title','');
-            	$data['money']=floatval(I('Post.workmoney',0));
-            	$data['tags_content']=I('Post.worktag','');
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
             	$data['endtime']=I('Post.endtime',1);
@@ -192,31 +194,115 @@ class MyCenterController extends HomeController
     //upload
     public function upload()
     {
-        $upload = new \Think\Upload();// 实例化上传类
-        $upload->maxSize = 52428800;// 设置附件上传大小
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-        $upload->rootPath = './uploads/'; // 设置附件上传根目录
-        $upload->savePath = ''; // 设置附件上传（子）目录
-        // 上传文件
-        $info = $upload->upload();
-        //$this->ajaxReturn($info);
-        if (!$info) {// 上传错误提示错误信息
-            $result['status'] = 0;
-            $result['msg'] = $upload->getError();
-            $this->ajaxReturn($result);
-            exit;
-            //$this->error();
-        } else {// 上传成功
-            $result['status'] = 1;
-                $fid=null;
-                foreach ($info as $file) {
-                    $file['create_time'] = NOW_TIME;
-                    $fid = M('file')->add($file);
-                }
-            $result['msg'] =$fid;
-            $this->ajaxReturn($result);
-        }
-        exit;
+		$targetDir = './uploads/upload_tmp';
+		$uploadDir = './uploads/upload';
+		$cleanupTargetDir = true; // Remove old files
+		$maxFileAge = 5 * 3600; // Temp file age in seconds
+		if (!is_dir($targetDir)) {
+			echo 111;die;
+		    mkdir($targetDir);
+		}
+		if (!is_dir($uploadDir)) {
+		    mkdir($uploadDir);
+		}
+		if (isset($_REQUEST["name"])) {
+		    $fileNametrue = $_REQUEST["name"];
+		} elseif (!empty($_FILES)) {
+		    $fileNametrue = $_FILES["file"]["name"];
+		} else {
+		    $fileNametrue = uniqid("file_");
+		}
+		$fileNamed=makeOrderCardId(); 
+		$end=pathinfo($fileNametrue, PATHINFO_EXTENSION);
+		$fileName=$fileNamed.'.'.$end;
+		$md5File = @file('md5list.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$md5File = $md5File ? $md5File : array();
+		if (isset($_REQUEST["md5"]) && array_search($_REQUEST["md5"], $md5File ) !== FALSE ) {
+		    die('{"jsonrpc" : "2.0", "result" : null, "id" : "id", "exist": 1}');
+		}
+		$filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
+		$uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
+		$chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
+		$chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 1;
+		if ($cleanupTargetDir) {
+		    if (!is_dir($targetDir) || !$dir = opendir($targetDir)) {
+		        die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
+		}
+	    while (($file = readdir($dir)) !== false) {
+	        $tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
+	
+	        // If temp file is current file proceed to the next
+	        if ($tmpfilePath == "{$filePath}_{$chunk}.part" || $tmpfilePath == "{$filePath}_{$chunk}.parttmp") {
+	            continue;
+	        }
+	
+	        // Remove temp file if it is older than the max age and is not the current file
+	        if (preg_match('/\.(part|parttmp)$/', $file) && (@filemtime($tmpfilePath) < time() - $maxFileAge)) {
+	            @unlink($tmpfilePath);
+	        }
+	    }
+	    closedir($dir);
+		}
+		if (!$out = @fopen("{$filePath}_{$chunk}.parttmp", "wb")) {
+		    die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream1."}, "id" : "id"}');
+		}
+		
+		if (!empty($_FILES)) {
+		    if ($_FILES["file"]["error"] || !is_uploaded_file($_FILES["file"]["tmp_name"])) {
+		        die('{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}');
+		    }
+		
+		    // Read binary input stream and append it to temp file
+		    if (!$in = @fopen($_FILES["file"]["tmp_name"], "rb")) {
+		        die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+		    }
+		} else {
+		    if (!$in = @fopen("php://input", "rb")) {
+		        die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
+		    }
+		}
+		
+		while ($buff = fread($in, 4096)) {
+		    fwrite($out, $buff);
+		}
+		
+		@fclose($out);
+		@fclose($in);
+		
+		rename("{$filePath}_{$chunk}.parttmp", "{$filePath}_{$chunk}.part");
+		
+		$index = 0;
+		$done = true;
+		for( $index = 0; $index < $chunks; $index++ ) {
+		    if ( !file_exists("{$filePath}_{$index}.part") ) {
+		        $done = false;
+		        break;
+		    }
+		}
+		if ( $done ) {
+		    if (!$out = @fopen($uploadPath, "wb")) {
+		        die('{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream2."}, "id" : "id"}');
+		    }
+		
+		    if ( flock($out, LOCK_EX) ) {
+		        for( $index = 0; $index < $chunks; $index++ ) {
+		            if (!$in = @fopen("{$filePath}_{$index}.part", "rb")) {
+		                break;
+		            }
+		
+		            while ($buff = fread($in, 4096)) {
+		                fwrite($out, $buff);
+		            }
+		
+		            @fclose($in);
+		            @unlink("{$filePath}_{$index}.part");
+		        }
+		
+		        flock($out, LOCK_UN);
+		    }
+		    @fclose($out);
+		}
+		die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'"}');
     }
 
     public function uploadimg()

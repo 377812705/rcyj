@@ -162,6 +162,8 @@ class CustomController extends HomeController
         }
     }
     public function detail($cusid=null){
+        //人气+1
+        D('Custom')->where("cusid={$cusid}")->setInc("open_count",1);
         if (is_login()) {
             //得到订制作品明细
             $custom=D('Custom')->getOrderCustomByid($cusid);

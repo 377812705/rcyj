@@ -11,18 +11,18 @@
   <div class="container content">
 			<div class="custom">
 			 <form action="__ROOT__/Product" id="formprod" method="get">
-			 	<input id="tagslist" name="tags" hidden value="{$dataf['tags']}"/>
+			 	<input id="catelist" name="cate" hidden value="{$dataf['tags']}"/>
                 <input id="themelist" name="theme" hidden  value="{$dataf['theme']}" />
                 <input id="create_statuslist" name="create_status" hidden  value="{$dataf['create_status']}"/>
                 <input id="newslist" name="news" hidden  value="{$dataf['news']}" />
 			</form>
 				<ul class="nextnav">
 								<li class="nextnavon">
-                                		<a href="javascript:;"><if condition="$dataf['tags']">{$tags[$dataf['tags']]}<else />作品标签</if></a>
-										<ul class="custom-ul" id="tags">
+                                		<a href="javascript:;"><if condition="$dataf['cate']">{$cate[$dataf['cate']]}<else />作品标签</if></a>
+										<ul class="custom-ul" id="cate">
 												<li class="custom-li custom-all" value="0"><a href="javascript:;">全部</a></li>
-												<for start="1" end="count($tags)+1" >
-													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$tags[$i]}</a></li>
+												<for start="1" end="count($cate)+1" >
+													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$cate[$i]}</a></li>
  												</for>
 										</ul>
 								</li>

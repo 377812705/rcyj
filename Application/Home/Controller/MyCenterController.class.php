@@ -71,7 +71,13 @@ class MyCenterController extends HomeController
             	$data['endtime']=I('Post.endtime',1);
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
+            	if($data['workrole']=='作品的角色介绍等'){
+            		$data['workrole']=null;
+            	}
             	$data['story']=I('Post.workstory');
+            	if($data['story']=='作品的简单介绍等'){
+            		$data['story']=null;
+            	}
             	$data['update_date']=date('Y-m-d H:i:s',time());
             	$data['user_id']=is_login();
             	$data['create_date']=date('Y-m-d H:i:s',time());
@@ -80,11 +86,57 @@ class MyCenterController extends HomeController
             	$assistant_image_url=I('Post.assistant_image_url','');
             	$data['main_image_url']=$path.$main_image_url;
             	$data['assistant_image_url']=$path.$assistant_image_url;
+            	$data['activity_id']=I('Post.activity_id');
+            	$data['custom_id']=I('Post.custom_id');
             	if($wordid){
             		$arr['id']=$wordid;
             		$id=D('Works')->where($arr)->save($data);
             	}else{
             		$workid = D('Works')->add($data);
+            	}
+            	$sht=I('Post.sht',0);
+            	if(is_array($sht)){
+	            	for($i=0;$i<count($sht);$i++){
+	            		$imgsht['user_id']=$data['user_id'];
+	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_type']=1;
+	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$sht[$i]";
+	            		$imgsht['create_date']=date("Y-m-d H:i:s");
+	            		$image=D('Img')->add($imgsht);
+	            	}
+            	}
+            	$bqt=I('Post.bqt',0);
+            	if(is_array($bqt)){
+	            	for($i=0;$i<count($bqt);$i++){
+	            		$imgsht['user_id']=$data['user_id'];
+	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_type']=2;
+	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$bqt[$i]";
+	            		$imgsht['create_date']=date("Y-m-d H:i:s");
+	            		$image=D('Img')->add($imgsht);
+	            	}
+            	}
+            	$xqt=I('Post.xqt',0);
+            	if(is_array($xqt)){
+            		for($i=0;$i<count($xqt);$i++){
+            			$imgsht['user_id']=$data['user_id'];
+            			$imgsht['ref_id']=$workid;
+            			$imgsht['ref_type']=2;
+            			$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$xqt[$i]";
+            			$imgsht['create_date']=date("Y-m-d H:i:s");
+            			$image=D('Img')->add($imgsht);
+            		}
+            	}
+            	$dzt=I('Post.dzt',0);
+            	if(is_array($dzt)){
+	            	for($i=0;$i<count($dzt);$i++){
+	            		$imgsht['user_id']=$data['user_id'];
+	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_type']=3;
+	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$dzt[$i]";
+	            		$imgsht['create_date']=date("Y-m-d H:i:s");
+	            		$image=D('Img')->add($imgsht);
+	            	}
             	}
                 $this->display("MyCenter/uploadsuccess");
             } else {
@@ -92,13 +144,27 @@ class MyCenterController extends HomeController
             	if($wordid){
             		
             		$word=D('Works')->find($wordid);
-            		$this->assign('word', $word);
+            		
             		if (is_login()!=$word['user_id']) {
             				$this->assign ( 'message', '错误的作品' );
             				$this->display('Public/error');
             				exit();
             		}
             	}
+            	$activity_id=I('get.activityid',0);
+            	if($activity_id){
+            		$word['activity_id']=$activity_id;
+            	}
+            	$custom_id=I('get.customid',0);
+            	if($custom_id){
+            		$word['custom_id']=$custom_id;
+            	}
+            	if($word['custom_id']||$word['activity_id']){
+            		$word['showmoney']='no';
+            	}else{
+            		$word['showmoney']='yes';
+            	}
+            	$this->assign('word', $word);
                 $tags = C('tag');
                 $source = C('source');
                 $theme = C('theme');
@@ -195,11 +261,10 @@ class MyCenterController extends HomeController
     public function upload()
     {
 		$targetDir = './uploads/upload_tmp';
-		$uploadDir = './uploads/upload';
+		$uploadDir = './uploads/comic/'.date('Ymd',time());
 		$cleanupTargetDir = true; // Remove old files
 		$maxFileAge = 5 * 3600; // Temp file age in seconds
 		if (!is_dir($targetDir)) {
-			echo 111;die;
 		    mkdir($targetDir);
 		}
 		if (!is_dir($uploadDir)) {

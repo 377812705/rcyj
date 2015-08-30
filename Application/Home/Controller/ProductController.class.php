@@ -21,15 +21,17 @@ class ProductController extends HomeController {
         $this->assign('source',$source);
         //作品
         $data['title']=array('exp',"is not Null");
+        //$data['custom_id']=array('exp',"is Null");
+       // $data['activity_id']=array('exp',"is Null");
         $create_status=I('get.create_status');
         if($create_status>0){
         	$data['create_status']=$create_status;
         	$dataf['create_status']=$create_status;
         }
-        $tags=I('get.tags');
-        if($tags>0){
-        	$data['tags']=$tags;
-        	$dataf['tags']=$tags;
+        $cate=I('get.cate');
+        if($cate>0){
+        	$data['cate']=$cate;
+        	$dataf['cate']=$cate;
         }
         $theme=I('get.theme');
         if($theme>0){
@@ -59,7 +61,8 @@ class ProductController extends HomeController {
         $tags=C('tag');
         $this->assign('tags',$tags);
         $this->assign('dataf',$dataf);
-       
+        $cate=C('cate');
+        $this->assign('cate',$cate);
         $theme=C('theme');
         $this->assign('theme',$theme);
         $this->display();
@@ -69,6 +72,14 @@ class ProductController extends HomeController {
     	$works=D('Works')->find($id);
     	$User=D('User')->find($works['user_id']);
     	$worklist=D('Works')->getWorksByUserId($works['user_id'],3);
+    	$data['ref_id']=$works['id'];
+    	if($works['custom_id']||$works['activity_id']){
+    		$works['showmoney']='no';
+    	}else{
+    		$works['showmoney']='yes';
+    	}
+    	$imgs=D('Img')->where($data)->select();
+    	$this->assign('imgs',$imgs);
     	$tags=C('tag');
         $this->assign('tags',$tags);
         $source=C('source');
@@ -83,5 +94,59 @@ class ProductController extends HomeController {
     	$use=C('use');
     	$this->assign('use',$use);
         $this->display();
+    }
+    function daorushuju(){
+    	set_time_limit(0);
+    	header("Content-Type: text/html;charset=utf-8");
+    	$con=mysql_connect("tongji.2ciyuanjie.com","root","2cydb");
+    	if (!$con)
+    	{
+    		die('Could not connect: ' . mysql_error());
+    	}
+    	mysql_select_db("v2_2cy", $con);
+    	mysql_query("set names 'utf8'");
+    	$sql="SELECT * FROM works_cartoon_image";
+    	$list=mysql_query($sql,$con);
+		while($row = mysql_fetch_array($list))
+		  {
+		  	$data['id']=$row['id'];
+		  	$data['user_id']=$row['user_id'];
+		  	$data['main_image_url']=$row['main_image_url'];
+		  	$data['title']=$row['title'];
+		  	$data['workrole']=$row['role_content'];
+		  	$data['workrole']=$row['story'];
+		  	$data['praise_count']=$row['praise_count'];
+		  	$data['favorite_count']=$row['favorite_count'];
+		  	$data['comment_count']=$row['comment_count'];
+		  	$data['share_count']=$row['share_count'];
+		  	$data['open_count']=$row['open_count'];
+		  	$data['create_status']=$row['create_status'];
+		  	$data['status']=$row['status'];
+		  	$data['create_date']=$row['create_date'];
+		  	$data['update_date']=$row['update_date'];
+		  	$data['copy_right']=$row['copy_right'];
+		  	$data['group_level']=$row['group_level'];
+		  	$data['tags']=1;
+		  	$data['show']=1;
+		  	$data['cate']=1;
+		  	$data['activity_id']=1;
+		  	$data['theme']=8;
+		  	$id=D('Works')->add($data);
+		  	$sql1="SELECT * FROM `v2_2cy`.`user_image` WHERE ref_id=".$row['id']." AND ref_type='works_cartoon'";
+		  	$list1=mysql_query($sql1,$con);
+		  	while($row1 = mysql_fetch_array($list1))
+		  	{
+		  		$data1['id']=$row1['id'];
+		  		$data1['user_id']=$row1['user_id'];
+		  		$data1['ref_id']=$row1['ref_id'];
+		  		$data1['ref_type']=1;
+		  		$data1['sort_num']=$row1['sort_num'];
+		  		$data1['image_url']=$row1['image_url'];
+		  		$data1['create_date']=$row1['create_date'];
+		  		$data1['extra_info']=$row1['extra_info'];
+		  		$id1=D('Img')->add($data1);
+		  	}
+		  }
+		mysql_close($con);
     }
 }

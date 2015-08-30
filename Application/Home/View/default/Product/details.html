@@ -6,7 +6,7 @@
 				<h4>{$works['title']}</h4>
 				<h5>标签：<span>{$tags[$works['tags_content']]}</span>主题：<span>{$theme[$works['theme']]}</span>作品来源：<span>{$source[$works['create_status']]}</span></h5>
 				<h5>展示方式：<span>{$show[$works['show']]}</span></h5>
-				<h5>作品价格：<span class="red-span">{$works['money']} RMB</span><!--出售状态：<span class="red-span">10 天</span></h5>-->
+				<if condition="$works['showmoney'] eq 'yes'"><h5>作品价格：<span class="red-span">{$works['money']} RMB</span><!--出售状态：<span class="red-span">10 天</span>--></h5></if>
 			</div>
 			<div class="brief-right"> <if condition="$user['header_img'] eq null"> <img src="__IMG__/user-img10.gif"/> <else /> <img src="http://www.2ciyuanjie.com{$user['header_img']}"  width="103px" height="103px"/> </if>  <span>
         <h4>{$user['nick_name']}</h4>
@@ -18,18 +18,21 @@
 			</div>
 		</div>
 		<div class="details-content "> 
-		{$works['content']}
+				<volist name="imgs" id="data" mod="4">
+								<img src="{$data.image_url}" alt="作品图片-{$data.title}" /><br/>
+				</volist>
 		</div>
-		<div class="explain">
+		<div class="explain1">
+		 <if condition="$works['tags'] eq '1'"> 
 			<h4>角色说明:</h4>
 			<h5>{$works['workrole']}</h5>
 			
 			<h4>故事梗概:</h4>
 			<h5>{$works['story']}</h5>
+			</if>
 			<h6><span>作品版权：</span> <span>{$use[$works['copy_right']]}</span></h6>
       <span class="details-btn">
-		  <if condition="1 eq 1">
-      <input name="" type="button" value="我要购买" onclick="javascript:location.href='__ROOT__/Order/makeOrder/workid/{$works['id']}'"></if>
+      <if condition="$works['showmoney'] eq 'yes'"><input name="" type="button" value="我要购买" onclick="javascript:location.href='__ROOT__/Order/makeOrder/workid/{$works['id']}'"></if>
 		  <input name="" type="button" value="我要订制" onclick="javascript:location.href='__ROOT__/Custom/custom.html'">
       </span> 
       <div class="bshare-custom icon-medium-plus third-party"><div class="bsPromo bsPromo2"></div><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到QQ好友" class="bshare-qqim" href="javascript:void(0);"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count" style="float: none;">40.7K</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
@@ -48,7 +51,7 @@
       <h4>人气</h4>
       <h5>232736人浏览</h5>
       </span> </span> </div> -->
-		<div class="author">
+		<div class="author1">
 		
 			<div class="author-left"> <if condition="$user['header_img'] eq null"> <img src="__IMG__/user-img10.gif"/> <else /> <img src="http://www.2ciyuanjie.com{$user['header_img']}"  width="103px" height="103px"/> </if>  <span>
         <h4>{$user['nick_name']}</h4>

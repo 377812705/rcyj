@@ -19,6 +19,17 @@ $(function(){
 	$(".label-check>li").click(function(){
 	$(this).toggleClass("checkon");
 		$("#"+$(this).parent().attr("id")).attr("value",$(this).attr("value"));
+		if($(this).parent().attr("id")=='worktag'){
+			if($(this).attr("value")==1){
+				$("#xq").hide();
+				$("#kt").show();
+			}
+			if($(this).attr("value")==2){
+				$("#xq").show();
+				$("#kt").hide();
+			}
+				
+		}
 	})
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();

@@ -1006,6 +1006,11 @@ input[type='button'].submit-order{
 	line-height:1.8;
 	background:#fff;
 	}
+	.explain1{
+	padding:0 17px;
+	line-height:1.8;
+	background:#fff;
+	}
 .explain h4{
 	padding-top:35px;
 	}
@@ -1108,6 +1113,10 @@ input[type='button'].submit-order{
 	}
 .popularity img{
 	margin-top:10px;
+	}
+.author1{
+	overflow:hidden;
+	background-color:#fff;
 	}
 .author{
 	overflow:hidden;

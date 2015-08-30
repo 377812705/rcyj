@@ -7,6 +7,7 @@
     <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
+        var err=0;
         $(function () {
             $(".custom-li").bind("click", function () {
                 var newhtml = $(this).children().html();
@@ -14,6 +15,7 @@
             });
             $(".submit").bind("click", function () {
                 //alert($("#cusattr").val());
+                err=0;
                 $("#form0").submit();
             });
             $("#xztp").uploadify({
@@ -37,8 +39,10 @@
             $("#form0").validate({
                 ignore: "",
                 errorPlacement: function (error, element) {
+                    if (err == 0){
                         alert(error.html());
-                        element.focus();
+                    }
+                        err++;
                 },
                 rules:{
                     theme: {

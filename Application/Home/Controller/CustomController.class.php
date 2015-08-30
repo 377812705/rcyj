@@ -111,7 +111,11 @@ class CustomController extends HomeController
             $model = D('Custom');
             if ($model->autoCheckToken($_POST)) {
                 $custom = $_POST;
+                if($_POST['theme'][1]=='请进行填写主题'){
+                    $custom['theme']=$_POST['theme'];
+                }else{
                 $custom['theme'] = implode($_POST['theme'], "/");
+                }
                 $custom['style'] = implode($_POST['style'], "/");
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
                 $custom['imgurl']=$_POST['imgurl'];

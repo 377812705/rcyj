@@ -120,7 +120,7 @@ class ProductController extends HomeController {
 		  	$data['comment_count']=$row['comment_count'];
 		  	$data['share_count']=$row['share_count'];
 		  	$data['open_count']=$row['open_count'];
-		  	$data['create_status']=$row['create_status'];
+		  	$data['create_status']=3;
 		  	$data['status']=$row['status'];
 		  	$data['create_date']=$row['create_date'];
 		  	$data['update_date']=$row['update_date'];

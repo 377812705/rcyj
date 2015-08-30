@@ -12,7 +12,6 @@ namespace Home\Controller;
 
 use User\Api\UserApi;
 use Think\Page;
-
 class ActivityController extends HomeController {
 
     public function index() {
@@ -35,12 +34,38 @@ class ActivityController extends HomeController {
    	 $this->display();
    }
    public function worksnew(){
-   	 $this->display();
+   	 $data['status']=1;
+   	$data['group_level']=0;
+    $worksMolde=	D('Works');
+   	$count      = $worksMolde->where($data)->count();
+   	$pageshowcount=20;
+   	$Page       = new Page($count,$pageshowcount);
+   	$show       = $Page->pageshow();
+   	$works=$worksMolde->where($data)->limit($Page->firstRow.','.$Page->listRows)->order("praise_count desc")->select();
+   	$this->assign ('show', $show);
+   	$this->assign ('count', $count);
+   	$this->assign ('works', $works);
+   	$this->display();
    }
    public function cyzhindex(){
+   	$data['status']=1;
+   	$worksMolde=	D('Works');
+   	$works=$worksMolde->where($data)->limit(8)->order("praise_count desc")->select();
+   	$this->assign ('works', $works);
    	$this->display();
    }
    public function works(){
+   	$data['status']=1;
+   	$data['group_level']=1;
+    $worksMolde=	D('Works');
+   	$count      = $worksMolde->where($data)->count();
+   	$pageshowcount=20;
+   	$Page       = new Page($count,$pageshowcount);
+   	$show       = $Page->pageshow();
+   	$works=$worksMolde->where($data)->limit($Page->firstRow.','.$Page->listRows)->order("praise_count desc")->select();
+   	$this->assign ('show', $show);
+   	$this->assign ('count', $count);
+   	$this->assign ('works', $works);
    	$this->display();
    }
    public function join(){

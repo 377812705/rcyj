@@ -123,8 +123,16 @@ function getUserThreeWork($uid=null){
     $html="";
     $errorimg="this.src='__IMG__/works.png'";
     foreach($data as $d){
-       $html= $html. "<img src='{$d['main_image_url']}' style='width: 164px;height: 110px;'/>";
+       $html= $html. "<img src='{$d['main_image_url']}' style='height: 110px;'/>";
     }
 
     return $html;
+}
+function getUserWorkcount($uid=null){
+    $data=D('Works')->where("user_id={$uid}")->count();
+    return $data;
+}
+function getUserCustomcount($uid=null){
+    $data=D('Custom')->where("touid={$uid}")->count();
+    return $data;
 }

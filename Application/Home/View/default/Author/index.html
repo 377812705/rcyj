@@ -13,7 +13,7 @@
 			<div class="custom">
 				<ul class="nextnav no-drop">
 								<li class="nextnavon"><a href="javascript:;">推荐作者</a></li>
-                                <li class="top-btn author-btn"><input name="" type="button" value="成为作者" onclick="javascript:location.href='__ROOT__/Author/pAuthorReg.html'"></li>
+                                <li class="top-btn author-btn"><input name="" type="button" value="成为作者" onclick="javascript:location.href='__ROOT__/Author/pAuthorReg/isno/0.html'"></li>
 						</ul>
 					</div>
 				<div class="module">
@@ -51,8 +51,8 @@
                                 	<h3 style="color: #0390e9;">{$data.user_name}</h3>
                                     <h6>{$data.address} / {$data.tags_content|strtr=';',' '}</h6>
                                     <h6>人气：{$data.pop_count}</h6>
-                                    <h6>粉丝：{$data.fans_count} / 作品：{$uinfo.workcount}</h6>
-                                    <h6>成交量：{$uinfo.customcount}</h6>
+                                    <h6>粉丝：{$data.fans_count} / 作品：{$data.id|getUserWorkcount}</h6>
+                                    <h6>成交量：{$data.id|getUserCustomcount}</h6>
                                 </span>
                             </div>
                             <div class="module-right">

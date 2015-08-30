@@ -72,9 +72,14 @@ class AuthorController extends HomeController {
         $this->display();
     }
     public function pAuthorReg(){
+        $isno=I('isno');
+
+        $this->assign('isno',$isno);
         $this->display();
     }
     public function eAuthorReg(){
+        $isno=I('isno');
+        $this->assign('isno',$isno);
         $this->display();
     }
 }

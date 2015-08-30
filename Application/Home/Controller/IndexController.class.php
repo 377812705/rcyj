@@ -15,8 +15,10 @@ class IndexController extends HomeController {
     public function index(){
         session('PRI_URL', null);
         //推荐作品
+        $data['custom_id']=array('exp',"is Null");
+        $data['activity_id']=array('exp',"is Null");
         $worksModel =D('Works');
-        $workList = $worksModel->field("works_comic.id,create_status,tags,title,works_comic.user_id,main_image_url,money,theme,user.header_img,user.nick_name")->join('left join user on works_comic.user_id = user.id')->order('istj desc,id desc')->limit(8)->where()->select();
+        $workList = $worksModel->field("works_comic.id,create_status,tags,title,works_comic.user_id,main_image_url,money,theme,user.header_img,user.nick_name")->join('left join user on works_comic.user_id = user.id')->order('istj desc,id desc')->limit(8)->where($data)->select();
         $this->assign('tjwork',$workList);
         $tags =C('tag');
         $source=C('source');

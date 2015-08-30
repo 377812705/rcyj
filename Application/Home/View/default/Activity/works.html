@@ -7,10 +7,10 @@
 <div class="nav1">
 		<div class="nav_c">
 				<ul>
-						<li><a class="home on" href="/activity/cyzhindex">活动首页</a></li>
-						<li><a class="works" href="works.html">专业组参赛作品展示</a></li>
-						<li><a class="works" href="worksnew.html">新星组参赛作品展示</a></li>
-						<li><a class="works" href="join.html">设计说明</a></li>
+						<li><a class="home " href="/activity/cyzhindex">活动首页</a></li>
+						<li><a class="works on" href="/activity/works.html">专业组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/worksnew.html">新星组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/join.html">设计说明</a></li>
 						<!-- <li><a class="works" id="js_contact" style="" href="#contact">我要预订</a></li> -->
 				</ul>
 				<div class="join"><a href="__ROOT__/MyCenter/uploadWork/activityid/1.html">我要参加</a></div>
@@ -21,84 +21,18 @@
 		<div class="box" id="content">
 				<div class="title">人气作品</div>
 				<div class="px">排序：<a onclick="sortOrder(&#39;createDate&#39;);">时间</a> | <a onclick="sortOrder(&#39;praiseCount&#39;);">票数</a> | <a onclick="sortOrder(&#39;openCount&#39;);">人气</a></div>
-				<div class="num">作品数量： <span>25</span></div>
+				<div class="num">作品数量： <span>{$count}</span></div>
 				<div class="text">
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/187" class="pic"><img src="__IMG__/1435718137500021915.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/187" class="t">大眼眶熊猫</a>
-								<div class="aut">票数：57票 人气：106</div>
-								<a href="javascript:;" onclick="praise(this,187,&#39;works_cartoon&#39;,6478);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/239" class="pic"><img src="__IMG__/1439879619293083848.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/239" class="t">猎雕巴尔扎</a>
-								<div class="aut">票数：30票 人气：963</div>
-								<a href="javascript:;" onclick="praise(this,239,&#39;works_cartoon&#39;,6937);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/163" class="pic"><img src="__IMG__/1434701117507082715.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/163" class="t">竹竹宝宝</a>
-								<div class="aut">票数：28票 人气：191</div>
-								<a href="javascript:;" onclick="praise(this,163,&#39;works_cartoon&#39;,6276);" class="vote">投一票</a> </div>
-						<div class="work n_m"> <a href="http://www.2ciyuanjie.com/cartoon/detail/38" class="pic"><img src="__IMG__/1433732881362038504.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/38" class="t">承继着第三世界意</a>
-								<div class="aut">票数：27票 人气：65</div>
-								<a href="javascript:;" onclick="praise(this,38,&#39;works_cartoon&#39;,5820);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/161" class="pic"><img src="__IMG__/1434614251526028679.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/161" class="t">猫儿朵朵</a>
-								<div class="aut">票数：17票 人气：11</div>
-								<a href="javascript:;" onclick="praise(this,161,&#39;works_cartoon&#39;,6371);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/222" class="pic"><img src="__IMG__/1437811138798031522.png" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/222" class="t">绿狗麻豆</a>
-								<div class="aut">票数：6票 人气：66</div>
-								<a href="javascript:;" onclick="praise(this,222,&#39;works_cartoon&#39;,6190);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/150" class="pic"><img src="__IMG__/1434174963207066936.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/150" class="t">小K与菜菜</a>
-								<div class="aut">票数：5票 人气：10</div>
-								<a href="javascript:;" onclick="praise(this,150,&#39;works_cartoon&#39;,6298);" class="vote">投一票</a> </div>
-						<div class="work n_m"> <a href="http://www.2ciyuanjie.com/cartoon/detail/212" class="pic"><img src="__IMG__/1436580997407090343.png" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/212" class="t">铅笔贱</a>
-								<div class="aut">票数：5票 人气：14</div>
-								<a href="javascript:;" onclick="praise(this,212,&#39;works_cartoon&#39;,6535);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/236" class="pic"><img src="__IMG__/1439370274322085193.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/236" class="t">幸福熊</a>
-								<div class="aut">票数：5票 人气：67</div>
-								<a href="javascript:;" onclick="praise(this,236,&#39;works_cartoon&#39;,6907);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/170" class="pic"><img src="__IMG__/1435052232378056106.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/170" class="t">可扣与可可</a>
-								<div class="aut">票数：4票 人气：12</div>
-								<a href="javascript:;" onclick="praise(this,170,&#39;works_cartoon&#39;,6435);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/207" class="pic"><img src="__IMG__/1436199003871078754.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/207" class="t">跳跳熊猫</a>
-								<div class="aut">票数：4票 人气：5</div>
-								<a href="javascript:;" onclick="praise(this,207,&#39;works_cartoon&#39;,1623);" class="vote">投一票</a> </div>
-						<div class="work n_m"> <a href="http://www.2ciyuanjie.com/cartoon/detail/208" class="pic"><img src="__IMG__/1436415292942007104.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/208" class="t">芒果仔</a>
-								<div class="aut">票数：4票 人气：9</div>
-								<a href="javascript:;" onclick="praise(this,208,&#39;works_cartoon&#39;,6577);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/169" class="pic"><img src="__IMG__/1434745446944009235.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/169" class="t">能量兔</a>
-								<div class="aut">票数：3票 人气：3</div>
-								<a href="javascript:;" onclick="praise(this,169,&#39;works_cartoon&#39;,6371);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/178" class="pic"><img src="__IMG__/1435334983818076546.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/178" class="t">呆萌小葵</a>
-								<div class="aut">票数：3票 人气：15</div>
-								<a href="javascript:;" onclick="praise(this,178,&#39;works_cartoon&#39;,6460);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/210" class="pic"><img src="__IMG__/1436513243992001897.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/210" class="t">士巴蛙</a>
-								<div class="aut">票数：3票 人气：12</div>
-								<a href="javascript:;" onclick="praise(this,210,&#39;works_cartoon&#39;,6577);" class="vote">投一票</a> </div>
-						<div class="work n_m"> <a href="http://www.2ciyuanjie.com/cartoon/detail/217" class="pic"><img src="__IMG__/1437472587514021371.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/217" class="t">戈戈</a>
-								<div class="aut">票数：3票 人气：12</div>
-								<a href="javascript:;" onclick="praise(this,217,&#39;works_cartoon&#39;,1877);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/214" class="pic"><img src="__IMG__/1437101656304005780.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/214" class="t">创意中国-千囍</a>
-								<div class="aut">票数：2票 人气：15</div>
-								<a href="javascript:;" onclick="praise(this,214,&#39;works_cartoon&#39;,6658);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/219" class="pic"><img src="__IMG__/1437641502758067989.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/219" class="t">可奈酱</a>
-								<div class="aut">票数：2票 人气：9</div>
-								<a href="javascript:;" onclick="praise(this,219,&#39;works_cartoon&#39;,6350);" class="vote">投一票</a> </div>
-						<div class="work "> <a href="http://www.2ciyuanjie.com/cartoon/detail/223" class="pic"><img src="__IMG__/1437968502898019995.jpg" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/223" class="t">美女与萌兽</a>
-								<div class="aut">票数：2票 人气：8</div>
-								<a href="javascript:;" onclick="praise(this,223,&#39;works_cartoon&#39;,6694);" class="vote">投一票</a> </div>
-						<div class="work n_m"> <a href="http://www.2ciyuanjie.com/cartoon/detail/230" class="pic"><img src="__IMG__/1438249143475004452.png" width="220" height="160"></a> <a href="http://www.2ciyuanjie.com/cartoon/detail/230" class="t">《大叔爱美丽》</a>
-								<div class="aut">票数：2票 人气：29</div>
-								<a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> </div>
-						<div class="clearfloat"></div>
-						<div class="page">
-								<style type="text/css">
-.page{ height:30px; line-height:30px; color:#999;  text-align:center;}
-.page a{margin:2px; padding:4px 8px; border:1px solid #CCC; cursor:pointer; color:#000;}
-.page a:hover{background:#eee;}
-.page .cur {
-	border-top-color: rgb(255, 255, 255);
-	border: 1px solid #fff;
-	background: 0;
-	color: #000;
-}
-</style>
-								<div id="page" class="page"> <a href="http://www.2ciyuanjie.com/creativeChina/works.jsp?group=exp#" style="color: gray;">共25条</a> <a href="http://www.2ciyuanjie.com/creativeChina/works.jsp?group=exp#" style="color: gray;">首页</a> <a href="http://www.2ciyuanjie.com/creativeChina/works.jsp?group=exp#" style="color: gray;">上一页</a> <a class="cur" href="javascript:page(1)">1</a> <a href="javascript:page(2)">2</a> <a href="javascript:page(2)">下一页</a> <a href="javascript:page(2)">末页</a> </div>
+					<volist name="works" id="data"  mod="4">	
+						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
+								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
+								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
 						</div>
+					</volist>
+						<div class="clearfloat"></div>
+								
 				</div>
+				{$show}
 		</div>
 		<div class="box">
 				<div class="title">组织机构</div>

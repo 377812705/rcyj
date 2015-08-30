@@ -11,7 +11,21 @@
  * 前台配置文件
  * 所有除开系统级别的前台配置
  */
+$SITE_URL = "http://www.2ciyuanjie.com/";
+define('URL_CALLBACK', "" . $SITE_URL . "Login/callback?type=");
 return array(
+    //腾讯QQ登录配置
+    'THINK_SDK_QQ' => array(
+        'APP_KEY' => '101168875', //应用注册成功后分配的 APP ID
+        'APP_SECRET' => '3b86e7d9d32bd11bbb30c2a62b14524d', //应用注册成功后分配的KEY
+        'CALLBACK' => URL_CALLBACK . 'qq',
+    ),
+    //新浪微博配置
+    'THINK_SDK_SINA' => array(
+        'APP_KEY' => '2443143300', //应用注册成功后分配的 APP ID
+        'APP_SECRET' => 'a4dbd21f4f7467d41e4bac092863de42', //应用注册成功后分配的KEY
+        'CALLBACK' => URL_CALLBACK . 'sina',
+    ),
     'TOKEN_ON'      =>    true,  // 是否开启令牌验证 默认关闭
     'TOKEN_NAME'    =>    '__hash__',    // 令牌验证的表单隐藏字段名称，默认为__hash__
     'TOKEN_TYPE'    =>    'md5',  //令牌哈希验证规则 默认为MD5

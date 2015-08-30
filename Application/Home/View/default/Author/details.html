@@ -3,12 +3,18 @@
     <script type="text/javascript">
         $(function () {
             $("#jb_btn").click(function (){
+                $(".color-div").show();
                 $(".report-content").show();
+            });
+            $(".report-tle a,.cancel-btn,#comfin").click(function (){
+                $(".color-div").hide();
+                $(".report-content").hide();
             });
         });
     </script>
 </block>
 <block name="body">
+
     <div class="container author-details">
         <div class="details-left">
                 	<span>
@@ -152,19 +158,20 @@
                 </volist>
             </div>
            {$show}
-            <div class="report-content" style="display:none;">
-                <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
-                <div class="report-main">
+        </div>
+
+    </div>
+
+    <div class="report-content" style="display:none; margin-top: 30%;">
+        <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+        <div class="report-main">
                     <textarea name="" cols="" rows="" class="description"
                               onkeyup="this.value = this.value.slice(0, 2000)"
                               onfocus="if(value=='请输入举报理由'){value='';this.className='description02'}"
                               onblur="if (value==''){value='请输入举报理由';this.className='description'}">请输入举报理由</textarea>
-                    <h6>还可以输入 <span> 299 </span> 字符</h6>
-                </div>
-                <div class="report-btn"><input name="" type="button" value="确认"><input class="cancel-btn" name=""
-                                                                                       type="button" value="取消"></div>
-            </div>
-
+            <h6>还可以输入 <span> 299 </span> 字符</h6>
         </div>
+        <div class="report-btn"><input id="comfin" type="button" value="确认"><input class="cancel-btn" name=""
+                                                                               type="button" value="取消"></div>
     </div>
 </block>

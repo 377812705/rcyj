@@ -8,26 +8,79 @@ class CustomController extends HomeController
 {
 
     public function index()
-    {
+    {   //dump($_GET);
+        $source=C('source');
+        $this->assign('source',$source);
         //作品标签
         $tags = C('tag');
-        //作品
-        $works = D('Custom')->getAllWorks();
+        $this->assign('tags', $tags);
+
         //dump($works);
         //作品主题
-        $wzt = D('Tags')->getWorksZT();
-        //作品总数
-        $wTotal = D('Custom')->count();
+        $themes=C('theme');
+        $this->assign('theme',$themes);
+        //作品
+        $cusattr=I('get.cusattr');
+        if($cusattr>0){
+            $data['cusattr']=$source[$cusattr];
+            $dataf['cusattr']=$source[$cusattr];
+        }else{
+            $dataf['cusattr']='作品来源';
+        }
 
+        $tag=I('get.tags');
+        if($tag>0){
+            $data['tags']=$tags[$tag];
+            $dataf['tags']=$tags[$tag];
+        }else{
+            $dataf['tags']='订制标签';
+        }
+        $theme=I('get.theme');
+        if($theme>0){
+            $data['theme']=$themes[$theme];
+            $dataf['theme']=$themes[$theme];
+        }else{
+            $dataf['theme']='作品主题';
+        }
+        $news=I('get.news');
+        switch ($news)
+        {
+            case 0:
+                $order='createtime desc,cusid desc';
+                $dataf['news']='最新上传';
+                break;
+            case 1:
+                $order='createtime asc,cusid desc';
+                $dataf['news']='人气最高';
+                break;
+            case 2:
+                $order='cusmoney asc,cusid desc';
+                $dataf['news']='价格最低';
+                break;
+            case 3:
+                $order='cusmoney desc,cusid desc';
+                $dataf['news']='价格最高';
+                break;
+            default:
+                $order='createtime desc,cusid desc';
+                $dataf['news']='最新上传';
+        }
+
+        $this->assign('dataf',$dataf);
+
+        //作品总数
+        $wmodel=D('Custom');
+        $wTotal = $wmodel->where($data)->count();
         $pageshowcount=24;
         $Page       = new Page($wTotal,$pageshowcount);
         $show   = $Page->pageshow();
 
+        $works = $wmodel->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+
         $this->assign('show', $show);
         $this->assign('wcount', $wTotal);
-        $this->assign('zttag', $wzt);
         $this->assign('custom', $works);
-        $this->assign('tags', $tags);
+
         $this->display();
     }
 
@@ -61,7 +114,7 @@ class CustomController extends HomeController
                 $custom['theme'] = implode($_POST['theme'], "/");
                 $custom['style'] = implode($_POST['style'], "/");
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
-                $custom['imgurl']=think_decrypt($_POST['imgurl']);
+                $custom['imgurl']=$_POST['imgurl'];
                 //dump($custom);
                 $custom['cusid'] = $model->add($custom);
 
@@ -103,10 +156,14 @@ class CustomController extends HomeController
         if(!$info) {// 上传错误提示错误信息
             $this->ajaxReturn($upload->getError());
         }else{// 上传成功
-            $this->ajaxReturn(think_encrypt('/uploads/custom/'.$info['savepath'].$info['savename']));
+            //$this->ajaxReturn(think_encrypt('/uploads/custom/'.$info['savepath'].$info['savename']));
+            $this->ajaxReturn('/uploads/custom/'.$info['savepath'].$info['savename'],'EVAL');
+           // exit;
         }
     }
     public function detail($cusid=null){
+        //人气+1
+        D('Custom')->where("cusid={$cusid}")->setInc("open_count",1);
         if (is_login()) {
             //得到订制作品明细
             $custom=D('Custom')->getOrderCustomByid($cusid);

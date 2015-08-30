@@ -2,14 +2,22 @@
 <block name="head">
     <script type="text/javascript">
         $(function(){
-            $(".works img").live("onerror",function(){
-                $(this).src("__ROOT__/works.png");
+            $(".author-filter>h5>a").click(function(){
+                $(this).addClass("aon").siblings().removeClass("aon");
+                //alert($(this).parent().attr("id"));
+                $("#"+$(this).parent().attr("id")+"list").val($(this).html());
+                $("#formauthor").submit();
             });
         });
     </script>
 </block>
 <block name="body">
     <div class="container content">
+        <form action="__ROOT__/Author" id="formauthor" method="get">
+            <input id="tagslist" name="tags" style="display: none;"/>
+            <input id="addresslist" name="address" style="display: none;"/>
+            <input id="orderlist" name="order" style="display: none;"/>
+        </form>
 			<div class="custom">
 				<ul class="nextnav no-drop">
 								<li class="nextnavon"><a href="javascript:;">推荐作者</a></li>
@@ -24,17 +32,17 @@
                         </gt>
 						<div class="author-content">
                        	  <div class="author-filter">
-                            	<h5>
-                           	 		 标签：   <a href="#" class="aon">全部</a>
+                            	<h5 id="tags">
+                           	 		 标签：   <a href="#" class="aon" value="0">全部</a>
                                     <a href="#">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
                                     <!--<volist name="zttag" id="data">-->
                                         <!--<a href="javascript:;">{$data.tag_content}</a>-->
                                     <!--</volist>-->
                                 </h5>
-                                <h5>
-                           	 		 地区：   <a href="#" class="aon"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳   重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
-                                <h5>
-                           	 		 排序：   <a href="#" class="aon">最新加入</a> <a href="#">人气最高</a> <a href="#">粉丝最多</a> <a href="#">作品最多</a> <a href="#">成交量最多</a> <a href="#">诚信度最高</a></h5>
+                                <h5 id="address">
+                           	 		 地区：   <a href="#" class="aon" value="0"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳</a> <a href="#">重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
+                                <h5 id="order">
+                           	 		 排序：   <a href="#" class="aon" value="0">最新加入</a> <a href="#">人气最高</a> <a href="#">粉丝最多</a> <a href="#">作品最多</a> <a href="#">成交量最多</a> <a href="#">诚信度最高</a></h5>
                           </div>
                         <volist name="author" id="data">
                           <div class="author-module">

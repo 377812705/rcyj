@@ -83,10 +83,7 @@ $(function(){
 		$(this).parent().parent().parent().find("input[type='text']").show();
 		})
 	/*作者详情页 筛选*/
-	$(".author-filter>h5>a").click(function(){
-		$(this).addClass("aon").siblings().removeClass("aon");
-		})
-	
+
 	/*作者详情页切换*/
 	$(".author-nav li").click(function(){
 		$(".module").hide().eq($('.author-nav > li').index(this)).show();

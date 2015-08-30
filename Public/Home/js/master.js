@@ -19,6 +19,7 @@ $(function(){
 	$(".label-check>li").click(function(){
 	$(this).toggleClass("checkon");
 		$("#"+$(this).parent().attr("id")).attr("value",$(this).attr("value"));
+		$("#tem").hide();
 	})
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();
@@ -27,14 +28,15 @@ $(function(){
 	$(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
 	$(this).parents(".label-span").find("input").val(newhtml);
 	$(this).parent().parent().parent().find("input[type='text']").hide();
+		$("#tem").hide();
 	})
 	/*订制tab页切换*/
 	$(".nextnav>li").click(function(evt){
 		$(this).addClass("nextnavon").siblings().removeClass("nextnavon");
 		$(".custom-content > ul").hide().eq($('.nextnav > li').index(this)).show();
-		$(this).find(".custom-ul").toggle(); 
+		$(this).find(".custom-ul").toggle();
 		if(0 == $('.nextnav > li').index(this)){
-			evt.stopPropagation(); 
+			evt.stopPropagation();
 		}
 		})
 	/*订制tab内容切换*/
@@ -68,6 +70,7 @@ $(function(){
 	/*点击其他显示input*/
 	$(".other").click(function(){
 		$(this).parent().parent().parent().find("input[type='text']").show();
+		$("#tem").hide();
 		})
 	/*作者详情页 筛选*/
 	$(".author-filter>h5>a").click(function(){

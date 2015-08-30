@@ -198,4 +198,43 @@ class CustomController extends HomeController
     {
         $this->display();
     }
+
+    public function pcustom()
+    {
+        if (is_login()) {
+            $fuid = is_login();
+            $tid = I('toid');
+            $uinfo = D('Author')->getUserInfo($fuid);
+            $cutominfo = array(
+                'uid' => $fuid,
+                'cusattr' => 1,
+                'touid' => $tid
+            );
+            $this->assign('cutominfo', $cutominfo);
+            $this->display();
+
+        } else {
+            session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+            $this->redirect("Login/login");
+        }
+    }
+    public function ecustom()
+    {
+        if (is_login()) {
+            $fuid = is_login();
+            $tid = I('toid');
+            $uinfo = D('Author')->getUserInfo($fuid);
+            $cutominfo = array(
+                'uid' => $fuid,
+                'cusattr' => 2,
+                'touid' => $tid
+            );
+            $this->assign('cutominfo', $cutominfo);
+            $this->display();
+
+        } else {
+            session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+            $this->redirect("Login/login");
+        }
+    }
 }

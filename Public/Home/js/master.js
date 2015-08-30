@@ -30,6 +30,7 @@ $(function(){
 			}
 				
 		}
+		$("#tem").hide();
 	})
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();
@@ -38,6 +39,7 @@ $(function(){
 	$(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
 	$(this).parents(".label-span").find("input").val(newhtml);
 	$(this).parent().parent().parent().find("input[type='text']").hide();
+		$("#tem").hide();
 	})
 	/*订制tab页切换*/
 	$(".nextnav>li").click(function(evt){

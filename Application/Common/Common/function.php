@@ -1050,3 +1050,10 @@ function wxOrderPay($data)
 	$wxPay = new wxPay($data);
 	return $wxPay::orderPOST();
 }
+// 微信验证支付
+function wxNotifyPay()
+{
+    Vendor("wx.wxpay");
+    $wxPay = new wxPay();
+    return $wxPay::orderNotify();
+}

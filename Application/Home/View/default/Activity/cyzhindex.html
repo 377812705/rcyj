@@ -52,7 +52,7 @@
 				<div class="title">人气作品</div>
 				<div class="text">
 					<volist name="works" id="data"  mod="4">	
-						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
+						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/product/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/product/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
 								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
 								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
 						</div>

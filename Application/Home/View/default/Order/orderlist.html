@@ -21,7 +21,7 @@
         </div>
         <volist name="orderList" id="data">			
 	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
-	          <div class="order-content order-main"> <img src="http://www.2ciyuanjie.com/{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
+	          <div class="order-content order-main"> <img src="{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
 	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
 	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
 	            <h5>展示方式：{$show1[$data['show']]}</h5>

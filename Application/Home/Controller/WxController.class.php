@@ -42,155 +42,64 @@ class WxController extends Controller {
 		$this->assign ( 'url', $url );
 		$this->display('Pay/payalipay');
 	}
-	 /**
-     * 快钱支付下单
-     */
 	
-    public function zhifubaoPay(){
-    	$session = session('user');
-		$user_id =2;// $session['user_id'];
-		$data['user_id']=$user_id;
-		if(empty($user_id)) {
-			$this->assign ( 'message', '请登录后再操作' );
-			$this->display('Public/error');
-			exit();
-		}
-		$order_id = I('get.orderid' );
-		if(!is_numeric($order_id)){
-			$this->assign ( 'message', '订单信息错误' );
-			$this->display('Public/error');
-			exit();
-		}
-		$data['order_id']=$order_id;
-		$data['ajax_type']=0;
-		$OrderModel =D('Order');
-		$order=$OrderModel->where($data)->find();
-    	if(!$order){
-    		$this->assign ( 'message', '订单号异常' );
-    		$this->display('Public/error');
-    		exit();
-    	}
-    	echo $this->getZhifubaoData($order);
-    }
-    /**
-     * 
-     * @param float $orderAmount
-     * @param string $orderId 商户订单号，以下采用时间来定义订单号，商户可以根据自己订单号的定义规则来定义该值，不能为空。
-     * @return string
-     */
-	private function getZhifubaoData($order){
-		$alipay_config = include_once (APP_PATH.'Home/Common/zfb/alipay.config.php');
-		//支付类型
-		//必填，不能修改
-		$payment_type = "1";
-		//商户订单号
-		$out_trade_no = $order['order_number'];
-		//服务器异步通知页面路径"http://商户网关地址/create_direct_pay_by_user-PHP-UTF-8/notify_url.php"
-		$notify_url = U ( '/Home/Zhifubao/notify/', '', 'html', true);
-		//需http://格式的完整路径，不能加?id=123这类自定义参数
-		//页面跳转同步通知页面路径 U ( '/Home/Order/pay_success/order_id/'.$out_trade_no )
-		$return_url =  U ( '/Home/Zhifubao/alipayReturn', '', '', true );
-		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-		//商户网站订单系统中唯一订单号，必填
-		$short_title = $order['work_title'];
-		//订单名称
-		$subject = $short_title;
-		//必填
-		//付款金额
-		$total_fee = $order['money'];
-		//必填
-		//订单描述
-		$body = '';
-		//商品展示地址
-		$show_url = '';
-		//需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
-		//防钓鱼时间戳
-		$anti_phishing_key = "";
-		//若要使用请调用类文件submit中的query_timestamp函数
-		//客户端的IP地址
-		$exter_invoke_ip = "";
-		//非局域网的外网IP地址，如：221.0.0.1
-		/************************************************************/
-		//构造要请求的参数数组，无需改动
-		$parameter = array(
-				"service" => "create_direct_pay_by_user",
-				"partner" => trim($alipay_config['partner']),
-				"seller_email" => trim($alipay_config['seller_email']),
-				"payment_type"	=> $payment_type,
-				"notify_url"	=> $notify_url,
-				"return_url"	=> $return_url,
-				"out_trade_no"	=> $out_trade_no,
-				"subject"	=> $subject,
-				"total_fee"	=> $total_fee,
-				"body"	=> $body,
-				"show_url"	=> $show_url,
-				"anti_phishing_key"	=> $anti_phishing_key,
-				"exter_invoke_ip"	=> $exter_invoke_ip,
-				"_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
-		);
-		//建立请求
-		$alipaySubmit = new AlipaySubmit($alipay_config);
-		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "正在努力跳转到支付宝平台，请等待");
-		return $html_text;
+	function notify_url()
+	{
+		$res = wxNotifyPay();
+		dump($res);
+		$this->log_result("ceshiyixiasiyishi");
+		/*//        $res = '{"appid":"wx1bda22ad6a430a90","attach":"\u6c47\u70b9\u83dc\u8ba2\u5355\uff1a150511417936","bank_type":"CFT","cash_fee":"1","fee_type":"CNY","is_subscribe":"N","mch_id":"1240542002","nonce_str":"bhean67kp6nhdlvf0svwvkfaryglzbph","openid":"oVn0ksx_3nz1LE7gcIWOr17wypng","out_trade_no":"d248b3c2a7c1ccb99e90df925dccbc77","result_code":"SUCCESS","return_code":"SUCCESS","sign":"E926B804077E53345C3B79E949213253","time_end":"20150511141836","total_fee":"1","trade_type":"APP","transaction_id":"1008410968201505110122716332"}';
+		//        $res = json_decode($res, true);
+		// 根据获得的数据，判断订单是否支付成功了（类似支付婊）
+		//        file_put_contents('wxpay.txt', json_encode($res));
+		if ($res['result_code'] === 'SUCCESS' && $res['return_code'] === 'SUCCESS') {
+			//获取微信的通知返回参数，可参考技术文档中服务器异步通知参数列表
+			$orderId = $res ['out_trade_no']; //其他字段也可用类似方式获取
+			$order_sn = ssdbGet('OrderIdWxPayMD5_'.$orderId);   // 获取真正的order_sn
+			if(!$order_sn){
+				return false;
+			}
+			$oa_map = array();
+			$order_id =  rtn_order_id($order_sn);
+			$oa_map['order_id'] = $order_id;
+			$orderInfo = M('Order')->where($oa_map)->field('user_id, order_amount')->find();
+	
+			// 防止微信收不到通知，导致重复刷接口
+			if($orderInfo['order_type'] == 2 && $orderInfo['order_status'] != 5){  // 点菜
+				wxReplyNotify(true);    // 返回通知给微信
+			}
+			if( ($orderInfo['order_type'] == 4 || $orderInfo['order_type'] == 3 || $orderInfo['order_type'] == 9)
+					&& ($orderInfo['order_status'] != 0 || $orderInfo['pay_status'] != 0) )
+			{  // 外卖、团购、充值
+				wxReplyNotify(true);    // 返回通知给微信
+			}
+	
+	
+			$user_id        = $orderInfo['user_id'];
+			$order_amount   = $orderInfo['order_amount'];
+			$parameter = array(
+					"order_id"		=> $order_sn,  //商户订单编号；
+					"trade_no"		=> $res['transaction_id'],      //微信订单号
+					"total_fee"		=> ($res['total_fee']/100),      //交易金额；
+					"pay_back"		=> $res['result_code'],         //交易状态
+					"notify_id"		=> $res['out_trade_no '],       //商户订单号
+					"notify_time"	=> $res['time_end '],       //通知的发送时间。
+					'user_id'		=> $user_id,
+					'type'		    => 5,                       //支付类型 5微信
+					'desc'			=> json_encode($res)
+			);
+			// 检查支付的金额是否相符 
+			if ( $res['total_fee'] != ($order_amount * 100)){
+				return false;
+			}
+			self::__pay_callback($parameter);
+			wxReplyNotify(true);    // 返回通知给微信
+		}else{
+			wxReplyNotify(false);    // 返回通知给微信
+		}*/
+		$this->display('Order/pay_success');
 	}
-	
-	//同步信息
-    public function alipayReturn(){
-    	$alipay_config = include_once (APP_PATH.'Home/Common/zfb/alipay.config.php');
-    	//计算得出通知验证结果
-    	$alipayNotify = new AlipayNotify($alipay_config);
-    	$verify_result = $alipayNotify->verifyReturn();
-    	if($verify_result) {//验证成功
-    		//商户订单号
-    		$out_trade_no = $_GET['out_trade_no'];
-    		//支付宝交易号
-    		$trade_no = $_GET['trade_no'];
-    		 
-    		//交易状态
-    		$trade_status = $_GET['trade_status'];
-    		 
-    		$total_fee = $_GET['total_fee'];
-    		if($_GET['trade_status'] == 'TRADE_FINISHED') {
-    			//注意：
-    			//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-    			$order = new OrderController();
-    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'order_type'=>1));
-    			 
-    			//调试用，写文本函数记录程序运行情况是否正常
-    			$this->log_result('支付请求成功#'.json_encode($result));
-    			 
-    		}
-    		else if ($_GET['trade_status'] == 'TRADE_SUCCESS') {
-    			//判断该笔订单是否在商户网站中已经做过处理
-    			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-    			//如果有做过处理，不执行商户的业务程序
-    			$order = new OrderController();
-    			$result = $order -> updateOrder(array('pay_type' => self::PAY_TYPE,'trade_no'=>$trade_no, 'order_number' => $out_trade_no, 'money' => $total_fee,'order_type'=>1));
-    			//调试用，写文本函数记录程序运行情况是否正常
-    			$this->log_result('支付请求成功*'.json_encode($result));
-    			//注意：
-    			//付款完成后，支付宝系统发送该交易状态通知
-    			//调试用，写文本函数记录程序运行情况是否正常
-    			//logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-    		}
-    		 
-    		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
-    		Header ( "Location: " . U ( '/Home/Order/pay_success/order_id/'.$out_trade_no ) );
-    		
-    		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	}
-    	else {
-    		//验证失败
-    	
-    		$this->assign ( 'message', '支付宝验证失败' );
-    		$this->display('Public/error');
-    		//调试用，写文本函数记录程序运行情况是否正常
-    		$this->log_result("支付宝同步验证失败");
-    		exit();
-    	
-    	}
-    }
     /**
      * 支付异步通知方法
      */

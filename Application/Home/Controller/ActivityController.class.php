@@ -34,7 +34,7 @@ class ActivityController extends HomeController {
    	 $this->display();
    }
    public function worksnew(){
-   	 $data['status']=1;
+   	$data['status']=1;
    	$data['group_level']=0;
     $worksMolde=	D('Works');
    	$count      = $worksMolde->where($data)->count();

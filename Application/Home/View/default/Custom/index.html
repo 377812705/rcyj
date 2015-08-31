@@ -8,6 +8,9 @@
                 $("#"+$(this).parent().parent().attr("id")+"list").attr("value",$(this).parent().attr("value"));
                 $("#formcustom").submit();
             });
+            $(".nextnav>li").click(function(){
+               $(this).siblings().children("ul").hide();
+            });
         });
     </script>
 </block>

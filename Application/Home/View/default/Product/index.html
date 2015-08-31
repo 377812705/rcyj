@@ -6,6 +6,9 @@
                 var newhtml = $(this).children().html();
                 $(this).parent().siblings().html(newhtml);
             });
+			$(".nextnav>li").click(function(){
+				$(this).siblings().children("ul").hide();
+			});
         });
             </script>
   <div class="container content">

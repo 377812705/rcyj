@@ -11,13 +11,25 @@
         $(function () {
             $(".label-check>li").bind("click", function () {
                 var newhtml = $(this).html();
+                if(newhtml=='肖像'){
+                    $("#dzxq").hide();
+                    $("#dzms").hide();
+                }
+                if(newhtml=='卡通'){
+                    $("#dzxq").show();
+                    $("#dzms").show();
+                }
                 $(this).parent().siblings().html(newhtml);
                 $("#h-"+$(this).parent().attr("value")).val(newhtml);
             });
             $(".submit").bind("click", function () {
                 //alert($("#cusattr").val());
                 err=0;
-                $("#form0").submit();
+                if($("#h-mode").val()=='征集'){
+                    location.href="__ROOT__/Activity/perfect.html";
+                }else{
+                    $("#form0").submit();
+                }
             });
             $("#xztp").uploadify({
                 "height"          : 55,
@@ -61,9 +73,6 @@
                     style:{
                         required: true
                     },
-                    cusissue:{
-                        required: true
-                    },
                     cusmoney:{
                         required: true,
                         number:true
@@ -99,9 +108,6 @@
                     style:{
                         required: "请选择风格"
                     },
-                    cusissue:{
-                        required: "请输入订制需求"
-                    },
                     cusmoney:{
                         required: "请输入订制价格",
                         number:"请输入合适的价格"
@@ -135,6 +141,15 @@
                 minView:2,
                 autoclose:true
             });
+            $("#dzxq ul li").click(function(){
+                var newhtml="";
+                $("#"+$(this).parent().attr("value")).children("li.checkon").each(function(key,val){
+                    newhtml=$(val).html()+" "+newhtml;
+                });
+                $("#h-"+$(this).parent().attr("value")).val(newhtml);
+                $(this).parent().hide();
+            });
+
         });
         function init(){
             $('#xztp').css('display','inline-block');
@@ -194,6 +209,8 @@
                     <input id="h-style1" name="style1" type="text" style="display:none;"/>
                     <input id="h-style2" name="style2" type="text" style="display:none;"/>
                     <input id="h-cuscopyright" name="cuscopyright" type="text" style="display:none;"/>
+                    <input id="h-cusissue1" name="cusissue1" type="text" style="display: none;"/>
+                    <input id="h-cusissue2" name="cusissue2" type="text" style="display: none;"/>
                     <ul>
                         <li>Hi，{:session('user_auth.username')}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
 
@@ -275,23 +292,35 @@
                                   onblur="if (value==''){value='写出你想要的作品外貌、性格特征，兴趣、爱好、比较常用的表情、最喜欢的食物、未来的愿望等。';this.className='description'}">写出你想要的作品外貌、性格特征，兴趣、爱好、比较常用的表情、最喜欢的食物、未来的愿望等。</textarea>
                             <h6 class="checklen">还可以输入 <span class="word-count">2000</span> 字符 / 汉字</h6>
                         </li>
-                        <li class="fill showohide">
+                        <li class="fill showohide" id="dzxq">
                             <h5><span>*</span>订制需求：</h5>
-                            <input name="cusissue[]" type="text" class="gray" value="请填写您想要的表情（表情参考价：50/个）"
-                                   onclick="if(this.value=='请填写您想要的表情（表情参考价：50/个）'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请填写您想要的表情（表情参考价：50/个）';this.className='gray'}">
-                            <input name="cusissue[]" type="text" class="gray" value="请填写您想要的动作（动作参考价：80/个）"
-                                   onclick="if(this.value=='请填写您想要的动作（动作参考价：80/个）'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请填写您想要的动作（动作参考价：80/个）';this.className='gray'}">
+												<span class="label-span"><a href="javascript:;">请选择卡通动作</a>
+												<ul id="cusissue1" class="label-check" value="cusissue1">
+                                                    <li class="checkon">谢谢</li>
+                                                    <li>跳跳</li>
+                                                    <li>奔跑</li>
+                                                    <li>摸摸头</li>
+                                                    <li>打招呼</li>
+                                                </ul>
+												</span> <span class="label-span"> <a href="javascript:;">请选择卡通表情</a>
+												<ul id="cusissue2" class="label-check" value="cusissue2">
+                                                    <li class="checkon">喜</li>
+                                                    <li>怒</li>
+                                                    <li>哀</li>
+                                                    <li>乐</li>
+                                                    <li>萌</li>
+                                                    <li>囧</li>
+                                                </ul>
+												</span>
                             <h4> <span class="auto">
-              <input name="" type="checkbox" value="">
-              <span></span>卡通三视图</span> <span class="auto">
-              <input name="" type="checkbox" value="">
-              <span></span>角色说明</span> <span class="auto">
-              <input name="" type="checkbox" value="">
-              <span></span>故事梗概</span> <span class="auto">
-              <input class="clear-check" name="" type="checkbox" value="">
-              <span></span>无</span></h4>
+														<input name="cusissue3" type="checkbox" value="">
+														<span></span>卡通三视图</span> <span class="auto">
+														<input name="cusissue3" type="checkbox" value="" >
+														<span></span>角色说明</span> <span class="auto">
+														<input name="cusissue3" type="checkbox" value="">
+														<span></span>故事梗概</span> <span class="auto">
+														<input class="clear-check" name="" type="checkbox" value="">
+														<span></span>无</span> </h4>
                         </li>
                         <!--“订制描述”和“订制需求”只有用户选择“形象分类==》卡通”才会显示-->
                         <li class="fill">

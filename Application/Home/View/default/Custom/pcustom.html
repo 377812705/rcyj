@@ -10,6 +10,7 @@
         var err=0;
         var endtime= new Date(Date.parse(new Date()) + 7*24*60*60*1000)
         $(function () {
+            $(".nextnavon>ul").show();
             $(".label-check>li").bind("click", function () {
                 var newhtml = $(this).html();
                 if(newhtml=='肖像'){

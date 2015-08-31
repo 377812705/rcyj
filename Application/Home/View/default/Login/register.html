@@ -21,6 +21,7 @@
 			var mobile = /^(((1[3578][0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 			return this.optional(element) || (length == 11 && mobile.test(value));
 			}, "请正确填写您的手机号码");
+
 	$(function(){
 		$(".retrieve-btn").click(function(){
 			$("#form0").submit();
@@ -91,6 +92,10 @@
 
 
 		});
+		$(".nextnav li a").bind("click", function () {
+			$(this).parent().siblings().removeClass("nextnavon");
+
+		});
 	});
 </script>
 </head>
@@ -110,8 +115,12 @@
 		<!--------登录页面内容部分--------->
 		<div class="container register">
 				<div class="register-div">
-						<ul class="nextnav">
-								<li class="nextnavon"><a href="register.html">注册</a></li>
+						<ul class="nextnav" id="register">
+							<li class="nextnavon"><a href="__ROOT__/Login/register.html">注册</a></li>
+							<li><a href="__ROOT__/Author/pAuthorReg.html">个人作者注册</a></li>
+							<li><a href="__ROOT__/Author/eAuthorReg.html">企业作者注册</a></li>
+							<li><a href="__ROOT__/Custom/pCustomReg.html">个人订制注册</a></li>
+							<li><a href="__ROOT__/Custom/eCustomReg.html">企业订制注册</a></li>
 						</ul>
 						<form id="form0" action="__SELF__" method="post">
 						<ul class="login-ul">

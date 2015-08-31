@@ -8,6 +8,9 @@
                 $("#"+$(this).parent().parent().attr("id")+"list").attr("value",$(this).parent().attr("value"));
                 $("#formcustom").submit();
             });
+            $(".nextnavon a").click(function(){
+                $(".module").css("min-height","750px");
+            });
             $(".nextnav>li").click(function(){
                $(this).siblings().children("ul").hide();
             });
@@ -71,7 +74,7 @@
                 </li>
             </ul>
         </div>
-        <div class="module" style="min-height: 500px;">
+        <div class="module">
             <div class="module-tle">
                 <h6>共 <span>{$wcount}</span> 组订制</h6>
             </div>

@@ -60,7 +60,8 @@ class MyCenterController extends HomeController
         } else {
             if (IS_POST) {
             	$wordid=I('Post.workid',0);
-            	$data['worktag']=I('Post.worktag',1);
+            	$data['tags']=I('Post.worktag',1);
+            	$data['cate']=1;
             	$data['theme']=I('Post.theme',1);
             	$data['create_status']=I('Post.create_status',1);
             	$data['show']=I('Post.show',1);

@@ -57,12 +57,12 @@ body {
 	height: 450px;
 	background: url(../images/banner.jpg) no-repeat center bottom;
 }
-.nav {
+.nav1 {
 	height: 60px;
 	background: #ffcc99;
 	border-bottom: 1px solid #ccc;
 }
-.nav .nav_c {
+.nav1 .nav_c {
 	width: 1060px;
 	height: 60px;
 	padding: 0 30px;

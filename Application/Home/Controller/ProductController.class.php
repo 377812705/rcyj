@@ -21,8 +21,8 @@ class ProductController extends HomeController {
         $this->assign('source',$source);
         //作品
         $data['title']=array('exp',"is not Null");
-        //$data['custom_id']=array('exp',"is Null");
-       // $data['activity_id']=array('exp',"is Null");
+        $data['custom_id']=array('ELT',"0");
+        $data['activity_id']=array('ELT',"0");
         $create_status=I('get.create_status');
         if($create_status>0){
         	$data['create_status']=$create_status;
@@ -114,7 +114,7 @@ class ProductController extends HomeController {
 		  	$data['main_image_url']=$row['main_image_url'];
 		  	$data['title']=$row['title'];
 		  	$data['workrole']=$row['role_content'];
-		  	$data['workrole']=$row['story'];
+		  	$data['story']=$row['content'];
 		  	$data['praise_count']=$row['praise_count'];
 		  	$data['favorite_count']=$row['favorite_count'];
 		  	$data['comment_count']=$row['comment_count'];
@@ -132,20 +132,7 @@ class ProductController extends HomeController {
 		  	$data['activity_id']=1;
 		  	$data['theme']=8;
 		  	$id=D('Works')->add($data);
-		  	$sql1="SELECT * FROM `v2_2cy`.`user_image` WHERE ref_id=".$row['id']." AND ref_type='works_cartoon'";
-		  	$list1=mysql_query($sql1,$con);
-		  	while($row1 = mysql_fetch_array($list1))
-		  	{
-		  		$data1['id']=$row1['id'];
-		  		$data1['user_id']=$row1['user_id'];
-		  		$data1['ref_id']=$row1['ref_id'];
-		  		$data1['ref_type']=1;
-		  		$data1['sort_num']=$row1['sort_num'];
-		  		$data1['image_url']=$row1['image_url'];
-		  		$data1['create_date']=$row1['create_date'];
-		  		$data1['extra_info']=$row1['extra_info'];
-		  		$id1=D('Img')->add($data1);
-		  	}
+		  	
 		  }
 		mysql_close($con);
     }

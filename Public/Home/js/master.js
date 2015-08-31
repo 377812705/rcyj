@@ -28,9 +28,7 @@ $(function(){
 				$("#xq").show();
 				$("#kt").hide();
 			}
-				
 		}
-		$("#tem").hide();
 	})
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();
@@ -39,7 +37,6 @@ $(function(){
 	$(this).parents(".label-span").find("a").html(newhtml).css("color","#424242");
 	$(this).parents(".label-span").find("input").val(newhtml);
 	$(this).parent().parent().parent().find("input[type='text']").hide();
-		$("#tem").hide();
 	})
 	/*订制tab页切换*/
 	$(".nextnav>li").click(function(evt){
@@ -83,10 +80,7 @@ $(function(){
 		$(this).parent().parent().parent().find("input[type='text']").show();
 		})
 	/*作者详情页 筛选*/
-	$(".author-filter>h5>a").click(function(){
-		$(this).addClass("aon").siblings().removeClass("aon");
-		})
-	
+
 	/*作者详情页切换*/
 	$(".author-nav li").click(function(){
 		$(".module").hide().eq($('.author-nav > li').index(this)).show();

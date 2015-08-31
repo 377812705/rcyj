@@ -12,7 +12,7 @@ class CustomController extends HomeController
         $source=C('source');
         $this->assign('source',$source);
         //作品标签
-        $tags = C('tag');
+        $tags = C('cate');
         $this->assign('tags', $tags);
 
         //dump($works);
@@ -111,11 +111,19 @@ class CustomController extends HomeController
             $model = D('Custom');
             if ($model->autoCheckToken($_POST)) {
                 $custom = $_POST;
-                $custom['theme'] = implode($_POST['theme'], "/");
-                $custom['style'] = implode($_POST['style'], "/");
+                if($_POST['theme']=='其他'){
+                    $custom['theme']=$_POST['theme2'];
+                }
+                $custom['style'] = $_POST['style1']."/".$_POST['style2'];
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
                 $custom['imgurl']=$_POST['imgurl'];
                 //dump($custom);
+                if($custom['cusissue']=='请填写您想要的表情（表情参考价：50/个）/请填写您想要的动作（动作参考价：80/个）'){
+                    $custom['cusissue']='';
+                }
+                if($custom['cusdesc']=='写出你想要的作品外貌、性格特征，兴趣、爱好、比较常用的表情、最喜欢的食物、未来的愿望等。'){
+                    $custom['cusdesc']='';
+                }
                 $custom['cusid'] = $model->add($custom);
 
                 $this->assign('custom', $custom);

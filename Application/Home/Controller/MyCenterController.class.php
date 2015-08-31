@@ -229,7 +229,11 @@ class MyCenterController extends HomeController
     //修改资料
     public function editdata()
     {
-        $uinfo=D('Author')->getUserInfo(I('id'));
+		$id=I('id');
+		if($id){
+			$id=is_login();
+		}
+        $uinfo=D('Author')->getUserInfo($id);
         $this->assign('uinfo',$uinfo[0]);
         $this->display();
     }

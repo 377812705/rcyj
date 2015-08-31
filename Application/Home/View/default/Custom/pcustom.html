@@ -8,6 +8,7 @@
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
         var err=0;
+        var endtime= new Date(Date.parse(new Date()) + 7*24*60*60*1000)
         $(function () {
             $(".label-check>li").bind("click", function () {
                 var newhtml = $(this).html();
@@ -133,13 +134,20 @@
                 format: 'yyyy-mm-dd',
                 language:"zh-CN",
                 minView:2,
-                autoclose:true
+                startDate:new Date(),
+                autoclose:true,
+            }).on('changeDate',function(ev){
+                var starttime=$('#starttime').val();
+                endtime= new Date(Date.parse(starttime) + 7*24*60*60*1000);
+                $('#endtime').datetimepicker('setStartDate',endtime);
+                $('#starttime').datetimepicker('hide');
             });
 
             $('#endtime').datetimepicker({
                 format: 'yyyy-mm-dd',
                 language:"zh-CN",
                 minView:2,
+                startDate:endtime,
                 autoclose:true
             });
             $("#dzxq ul li").click(function(){
@@ -159,7 +167,8 @@
         function uploadSuccess(file, data){
             $("#h-imgurl").val(data);
             $('#' + file.id).find('.data').html('上传完毕');
-            $("#xztp").parent().before('<img src="http://erciyuanjie.com'+data+'" style="width:150px;padding-left: 170px;padding-top: 10px;">');
+            $("#uploadimg").remove();
+            $("#xztp").parent().before('<img id="uploadimg" src="http://erciyuanjie.com'+data+'" style="width:150px;padding-left: 170px;padding-top: 10px;">');
         }
     </script>
 

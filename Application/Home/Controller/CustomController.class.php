@@ -12,7 +12,7 @@ class CustomController extends HomeController
         $source=C('source');
         $this->assign('source',$source);
         //作品标签
-        $tags = C('tag');
+        $tags = C('cate');
         $this->assign('tags', $tags);
 
         //dump($works);

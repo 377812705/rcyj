@@ -68,6 +68,8 @@ class CustomController extends HomeController
 
         $this->assign('dataf',$dataf);
 
+        $data['cusstatus'] = array('gt',1);
+
         //作品总数
         $wmodel=D('Custom');
         $wTotal = $wmodel->where($data)->count();
@@ -141,7 +143,7 @@ class CustomController extends HomeController
         if ($model->autoCheckToken($_POST)) {
             $custom = $_POST;
             $custom['orderid']=time().is_login().$custom['cusid'];
-            $custom['cusstatus']=2;
+            //$custom['cusstatus']=2;
             $model->where("cusid={$custom['cusid']}")->save($custom);
             $this->redirect("Order/makeCustomOrder/customid/{$custom['cusid']}");
         }else{

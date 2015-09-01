@@ -21,17 +21,16 @@
                     $("#dzxq").show();
                     $("#dzms").show();
                 }
+                if($(newhtml=='征集'){
+                    location.href="__ROOT__/Activity/perfect.html";
+                }
                 $(this).parent().siblings().html(newhtml);
                 $("#h-"+$(this).parent().attr("value")).val(newhtml);
             });
             $(".submit").bind("click", function () {
                 //alert($("#cusattr").val());
                 err=0;
-                if($("#h-mode").val()=='征集'){
-                    location.href="__ROOT__/Activity/perfect.html";
-                }else{
-                    $("#form0").submit();
-                }
+                $("#form0").submit();
             });
             $("#xztp").uploadify({
                 "height"          : 55,

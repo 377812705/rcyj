@@ -175,10 +175,11 @@
 
 </block>
 <block name="body">
+
     <div class="container content">
         <div class="custom">
             <ul class="nextnav">
-                    <li class="nextnavon"><a id="gtag" href="__ROOT__/Custom/pcustom.html">个人订制</a>
+                    <li class="nextnavon"><a id="gtag" href="__ROOT__/Custom/pcustom/toid/{$cutominfo.touid}.html">个人订制</a>
                         <ul class="custom-ul">
                             <li class="custom-li"><a href="#">形象</a></li>
                             <li>产品设计</li>
@@ -191,7 +192,7 @@
                             <li>广告</li>
                         </ul>
                     </li>
-                    <li><a id="etag" href="__ROOT__/Custom/ecustom.html">企业订制</a>
+                    <li><a id="etag" href="__ROOT__/Custom/ecustom/toid/{$cutominfo.touid}.html">企业订制</a>
                         <ul class="custom-ul">
                             <li class="custom-li"><a href="#">形象</a></li>
                             <li>产品设计</li>
@@ -255,7 +256,12 @@
             <span class="label-span"><a href="javascript:;">请选择订制方式</a>
             <ul class="label-check radio" value="mode">
                 <li class="checkon">一对一</li>
-                <li>征集</li>
+                <empty name="cutominfo.touid">
+                    <li>征集</li>
+                    <else />
+                    <span style="color:#c5c5c5;background: none;padding-left: 10px;font-size: 15px;">征集</span>
+                </empty>
+
             </ul>
             </span></li>
                         <li class="fill">

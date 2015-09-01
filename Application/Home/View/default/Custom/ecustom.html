@@ -21,7 +21,7 @@
                     $("#dzxq").show();
                     $("#dzms").show();
                 }
-                if($(newhtml=='征集'){
+                if(newhtml=='征集'){
                     location.href="__ROOT__/Activity/perfect.html";
                 }
                 $(this).parent().siblings().html(newhtml);
@@ -334,7 +334,7 @@
                         <!--“订制描述”和“订制需求”只有用户选择“形象分类==》卡通”才会显示-->
                         <li class="fill">
                             <h5><span>*</span>订制价格：</h5>
-                            <input name="cusmoney" type="text" class="gray" value="请进行填写价格"
+                            <input maxlength="8" name="cusmoney" type="text" class="gray" value="请进行填写价格"
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                             <h6 class="price-tips">数码 / 电脑绘画参考价：100~5000元 表情参考价：50元 / 个 动作参考价：80元 / 个</h6>

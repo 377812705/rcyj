@@ -5,13 +5,15 @@
         <div class="edit-div">
             <h5>修改联系地址</h5>
             <ul class="login-ul">
+                <form action="__SELF__" method="post">
                 <li class="txt-input username">
                     <input name="" type="text" value="新联系地址"  class="gray" onclick="if(this.value=='新联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='新联系地址';this.className='gray'}">
                 </li>
-                <li class="txt-input verify">
-                    <input name="" type="text" value="请输入验证码"  class="gray" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
-                    <input name="" type="button" value="验证码">
-                </li>
+                </form>
+                <!--<li class="txt-input verify">-->
+                    <!--<input name="" type="text" value="请输入验证码"  class="gray" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">-->
+                    <!--<input name="" type="button" value="验证码">-->
+                <!--</li>-->
                 <li>
                     <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="确 定">
                     <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="返 回">

@@ -221,6 +221,7 @@ class LoginController extends HomeController
 
     public function thridlogin($type = null) {
         empty($type) && $this->error('参数错误');
+
         import('Org.ThinkSDK.ThinkOauth');
 
 

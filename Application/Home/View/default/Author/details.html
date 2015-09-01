@@ -9,6 +9,7 @@
             $(".report-tle a,.cancel-btn,#comfin").click(function (){
                 $(".color-div").hide();
                 $(".report-content").hide();
+                $("#report-content").val("");
             });
         });
     </script>
@@ -23,7 +24,7 @@
                         <h5><a class="custom-a" href="__ROOT__/Custom/custom.html">我要订制</a></h5>
                         <h5><a class="report-a" id="jb_btn" href="javascript:;">举报</a></h5>
                     </span>
-            <span class="author-name"><h3>{$uinfo.user_name}</h3><h5>{$uinfo.address} / {$uinfo.tags_content|strtr=';','
+            <span class="author-name"><h3>{$uinfo.nick_name}</h3><h5>{$uinfo.address} / {$uinfo.tags_content|strtr=';','
                 '}</h5><h5>形象最低接单金额 ￥{$uinfo.minmoney}</h5></span>
                     <span class="author-status"><h3>
                         <switch name="uinfo.workstatus">
@@ -165,11 +166,11 @@
     <div class="report-content" style="display:none; margin-top: 30%;">
         <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
         <div class="report-main">
-                    <textarea name="" cols="" rows="" class="description"
-                              onkeyup="this.value = this.value.slice(0, 2000)"
+                    <textarea id="report-content" name="" cols="" rows="" class="description"
+                              onkeyup="strLenCalc($(this), 'checklen', 600);"
                               onfocus="if(value=='请输入举报理由'){value='';this.className='description02'}"
                               onblur="if (value==''){value='请输入举报理由';this.className='description'}">请输入举报理由</textarea>
-            <h6>还可以输入 <span> 299 </span> 字符</h6>
+            <h6 class="checklen">还可以输入 <span> 300 </span> 字符</h6>
         </div>
         <div class="report-btn"><input id="comfin" type="button" value="确认"><input class="cancel-btn" name=""
                                                                                type="button" value="取消"></div>

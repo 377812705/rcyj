@@ -139,8 +139,9 @@
             }).on('changeDate',function(ev){
                 var starttime=$('#starttime').val();
                 endtime= new Date(Date.parse(starttime) + 7*24*60*60*1000);
-                $('#endtime').datetimepicker('setStartDate',endtime);
+                $('#endtime').datetimepicker('setStartDate',getFormatDate(endtime));
                 $('#starttime').datetimepicker('hide');
+                $('#endtime').val(getFormatDate(endtime));
             });
 
             $('#endtime').datetimepicker({

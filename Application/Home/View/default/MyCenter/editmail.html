@@ -1,5 +1,18 @@
 <extend name="Base/common"/>
 <block name="head">
+    <script type="text/javascript">
+        $(function(){
+            $("#comfin").click(function(){
+                if($("#email").val()=='新邮箱'){
+                    alert("请输入新邮箱");
+                }else if($("#email").val()==''){
+                    alert("请输入新邮箱");
+                }else{
+                    $("#form0").submit();
+                }
+            });
+        });
+    </script>
 
 </block>
 <block name="body">
@@ -7,9 +20,10 @@
     <div class="edit-div">
         <h5>修改邮箱账号</h5>
         <ul class="login-ul">
-            <form action="__SELF__" method="post">
+            <form id="form0" action="__SELF__" method="post">
+                <input name="id" type="text" value="{$uid}" style="display: none;"/>
             <li class="txt-input username">
-                <input name="" type="text" value="新邮箱"  class="gray" onclick="if(this.value=='新邮箱'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='新邮箱';this.className='gray'}">
+                <input id="email" name="email" type="text" value="新邮箱"  class="gray" onclick="if(this.value=='新邮箱'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='新邮箱';this.className='gray'}">
             </li>
             </form>
             <!--<li class="txt-input verify">-->
@@ -17,7 +31,7 @@
                 <!--<input name="" type="button" value="验证码">-->
             <!--</li>-->
             <li>
-                <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="确 定">
+                <input id="comfin" class="retrieve-btn" name="" type="button" value="确 定">
                 <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="返 回">
             </li>
         </ul>

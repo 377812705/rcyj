@@ -240,26 +240,65 @@ class MyCenterController extends HomeController
 
     //修改email
     public function editmail()
-    {
-        $uid=I('id');
-        $this->assign('uid',$uid);
-        $this->display();
+    {	if(IS_POST){
+			$uid=$_POST['id'];
+			$data=array(
+				'email'=>$_POST['email']
+			);
+			D('Author')->where("id={$uid}")->save($data);
+			$this->redirect('MyCenter/editdata/id/{$uid}');
+		}else{
+			$uid=I('id');
+			$this->assign('uid',$uid);
+			$this->display();
+		}
     }
 
     //修改地址
     public function editaddress()
     {
-        $uid=I('id');
-        $this->assign('uid',$uid);
-        $this->display();
+		if(IS_POST){
+			$uid=$_POST['id'];
+			$data=array(
+				'address'=>$_POST['address']
+			);
+			D('Author')->where("id={$uid}")->save($data);
+			$this->redirect('MyCenter/editdata/id/{$uid}');
+		}else{
+			$uid=I('id');
+			$this->assign('uid',$uid);
+			$this->display();
+		}
     }
 
     //修改头像
     public function editphoto()
-    {
-        $uid=I('id');
-        $this->assign('uid',$uid);
-        $this->display();
+    {	 $uid=I('id');
+		if(empty($uid)){
+			$uid=is_login();
+		}
+		if(IS_POST){
+			$upload = new \Think\Upload();// 实例化上传类
+			$upload->maxSize   =     3145728 ;// 设置附件上传大小
+			$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+			$upload->rootPath  =      './uploads/headerimg/'; // 设置附件上传根目录
+			// 上传单个文件
+			$info   =   $upload->uploadOne($_FILES['photo']);
+			if(!$info) {// 上传错误提示错误信息
+				$this->error($upload->getError());
+			}
+//else{// 上传成功 获取上传文件信息
+//				echo $info['savepath'].$info['savename'];
+//			}
+			$data=array(
+				'header_img'=>'/uploads/headerimg/'.$info['savepath'].$info['savename']
+			);
+			D('Author')->where("id={$uid}")->save($data);
+			$this->redirect('MyCenter/editdata/id/'.is_login());
+		}else{
+        	$this->assign('uid',$uid);
+        	$this->display();
+		}
     }
 
     //upload

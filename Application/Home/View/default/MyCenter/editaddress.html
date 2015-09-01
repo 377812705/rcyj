@@ -1,13 +1,29 @@
 <extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript">
+        $(function(){
+            $("#comfin").click(function(){
+                if($("#address").val()=='新联系地址'){
+                    alert("请输入新联系地址");
+                }else if($("#email").val()==''){
+                    alert("请输入新联系地址");
+                }else{
+                    $("#form0").submit();
+                }
+            });
+        });
+    </script>
 
+</block>
 <block name="body">
     <div class="container edit">
         <div class="edit-div">
             <h5>修改联系地址</h5>
             <ul class="login-ul">
-                <form action="__SELF__" method="post">
+                <form id="form0" action="__SELF__" method="post">
+                    <input name="id" type="text" value="{$uid}" style="display: none;"/>
                 <li class="txt-input username">
-                    <input name="" type="text" value="新联系地址"  class="gray" onclick="if(this.value=='新联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='新联系地址';this.className='gray'}">
+                    <input id="address" name="address" type="text" value="新联系地址"  class="gray" onclick="if(this.value=='新联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='新联系地址';this.className='gray'}">
                 </li>
                 </form>
                 <!--<li class="txt-input verify">-->
@@ -15,7 +31,7 @@
                     <!--<input name="" type="button" value="验证码">-->
                 <!--</li>-->
                 <li>
-                    <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="确 定">
+                    <input id="comfin" class="retrieve-btn" name="" type="button" value="确 定">
                     <input class="retrieve-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editdata/id/{$uid}.html'" value="返 回">
                 </li>
             </ul>

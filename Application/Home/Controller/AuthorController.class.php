@@ -91,6 +91,7 @@ class AuthorController extends HomeController {
         //作者
         $author=D('Author')->getAllAuthor();
         $this->assign('author',$author);
+        $this->assign('islogin',is_login());
 
 
         $this->display();

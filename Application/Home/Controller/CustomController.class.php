@@ -245,4 +245,28 @@ class CustomController extends HomeController
             $this->redirect("Login/login");
         }
     }
+    public function userdetails(){
+        $uid = I('uid');
+
+        $uinfo = D('Author')->getUserInfo($uid);
+
+
+        $data['uid']=$uid;
+
+        $order='createtime desc,cusid desc';
+
+        $cmodel=D('Custom');
+        $cTotal = $cmodel->where($data)->count();
+        $pageshowcount=16;
+        $Page       = new Page($cTotal,$pageshowcount);
+        $show   = $Page->pageshow();
+
+        $custom = $cmodel->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+
+        $this->assign('show', $show);
+        $this->assign('wcount', $cTotal);
+        $this->assign('custom', $custom);
+        $this->assign("uinfo",$uinfo[0]);
+        $this->display();
+    }
 }

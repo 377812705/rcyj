@@ -1,0 +1,102 @@
+<extend name="Base/common"/>
+<block name="head">
+  <script type="text/javascript">
+    $(function () {
+      $("#jb_btn").click(function (){
+        $(".color-div").show();
+        $(".report-content").show();
+      });
+      $(".report-tle a,.cancel-btn,#comfin").click(function (){
+        $(".color-div").hide();
+        $(".report-content").hide();
+      });
+    });
+  </script>
+</block>
+<block name="body">
+  <div class="container author-details">
+    <div class="details-left user-details"> <span> <img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+      <h5><a class="add-attention" href="javascript:;">加关注</a></h5>
+      <h5><a class="report-a" id="jb_btn" href="javascript:;">举报</a></h5>
+      </span> <span class="author-name">
+      <h3>{$uinfo.user_name}</h3>
+      <h5>{$uinfo.address}</h5>
+      </span> <span class="author-status">
+      <h3>{$uinfo.pop_count} <span>人气</span><span> / </span> {$uinfo.fans_count} <span>粉丝</span></h3>
+      </span> <span class="author-status">
+      <h3>{$uinfo.work_count} <span>积分</span><span>/</span> 98% <span>好评</span><span>/</span> 九品<span>等级</span></h3>
+      </span> <span class="author-status">
+      <h3>0<span>收藏</span><span>/</span> {$uinfo.follow_count} <span>关注</span></h3>
+      </span> </div>
+  </div>
+  <div class="container content">
+    <div class="custom">
+      <ul class="nextnav no-drop author-nav">
+        <li class="nextnavon"><a href="javascript:;">订制作品</a></li>
+        <li><a href="javascript:;">收藏作品</a></li>
+        <li><a href="javascript:;">关注作者</a></li>
+      </ul>
+    </div>
+    <div class="author-content">
+      <div class="module">
+        <div class="author-filter">
+          <h5> 标签： <a href="#" class="aon">全部</a> <a href="#">形象</a> <span>漫画</span> <span>插画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span></h5>
+        </div>
+        <ul>
+          <volist name="custom" id="data" mod="4">
+            <li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html">
+              <img src="http://erciyuanjie.com{$data.imgurl}" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/cmy.png'"/></a>
+              <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
+              <h4>￥{$data.cusmoney}</h4>
+              <span class="label-a"><a href="javascript:;">{$data.style}</a><a href="javascript:;">{$data.mode}</a></span>
+              <h5><span>{$data.open_count}</span>人气  /<span>876</span>点赞  /<span>60</span>收藏 </h5>
+            </li>
+            <eq name="mod" value="3"></ul><ul></eq>
+        </volist>
+      </ul>
+        {$show}
+      </div>
+      <div class="module" style="display:none;">
+        <div class="author-filter">
+          <h5> 标签： <a href="javascript:;" class="aon">全部</a> <a href="javascript:;">形象</a> <span>漫画</span> <span>插画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span></h5>
+          <h5> 排序： <a href="javascript:;" class="aon">人气最高</a> <a href="javascript:;">价格最低</a> <a href="javascript:;">价格最高</a> <a href="javascript:;">点赞最多</a></h5>
+        </div>
+        {$show}
+      </div>
+      <div class="module" style="display:none;">
+        <div class="author-filter">
+          <h5> 标签： <a href="javascript:;" class="aon">全部</a> <a href="javascript:;">形象</a> <span>漫画</span> <span>插画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span></h5>
+          <h5> 地区： <a href="javascript:;" class="aon"> 全部地区</a> <a href="javascript:;">北京</a> <a href="javascript:;">上海</a> <a href="javascript:;">广州</a> <a href="javascript:;">深圳   重庆</a> <a href="javascript:;">杭州</a> <a href="javascript:;">成都</a> <a href="javascript:;">南京</a> <a href="javascript:;">武汉</a> <a href="javascript:;">其他地区</a></h5>
+          <h5> 排序： <a href="javascript:;" class="aon">最新加入</a> <a href="javascript:;">人气最高</a> <a href="javascript:;">粉丝最多</a> <a href="javascript:;">作品最多</a> <a href="javascript:;">成交量最多</a> <a href="javascript:;">诚信度最高</a></h5>
+        </div>
+        <div class="author-module">
+          <div class="module-left"> <a href="author details.html"><img src="images/author-img01.gif"/></a> <span>
+            <h3>大眼眶熊猫</h3>
+            <h6>北京 / 形象  漫画</h6>
+            <h6>人气：2324</h6>
+            <h6>粉丝：230 / 作品：21</h6>
+            <h6>成交量：65</h6>
+            </span> </div>
+          <div class="module-right"> <span class="works"><img src="images/author-works01.gif"/><img src="images/author-works02.gif"/><img src="images/author-works03.gif"/></span>
+            <input name="" type="button" value="+ 关注">
+          </div>
+        </div>
+        {$show}
+      </div>
+
+    </div>
+
+  </div>
+  <div class="report-content" style="display:none; margin-top: 30%;">
+    <div class="report-tle">举报<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+    <div class="report-main">
+                    <textarea name="" cols="" rows="" class="description"
+                              onkeyup="this.value = this.value.slice(0, 2000)"
+                              onfocus="if(value=='请输入举报理由'){value='';this.className='description02'}"
+                              onblur="if (value==''){value='请输入举报理由';this.className='description'}">请输入举报理由</textarea>
+      <h6>还可以输入 <span> 299 </span> 字符</h6>
+    </div>
+    <div class="report-btn"><input id="comfin" type="button" value="确认"><input class="cancel-btn" name=""
+                                                                               type="button" value="取消"></div>
+    </div>
+</block>

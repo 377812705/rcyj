@@ -6,8 +6,8 @@
     <div class="custom">
       <ul class="nextnav no-drop author-nav">
         <li class="nextnavon"><a href="javascript:;">我的订单</a></li>
-       <!--  <li><a href="javascript:;">我的作品</a></li>
-        <li><a href="javascript:;">收藏作品</a></li>
+        <li><a href="/order/sellorderlist.html">我的作品/抢单</a></li>
+        <!-- <li><a href="javascript:;">收藏作品</a></li>
         <li><a href="javascript:;">关注作者</a></li> -->
       </ul>
     </div>
@@ -17,7 +17,9 @@
           <h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
         </div>
         <div class="author-filter">
-          <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a><!-- <a href="javascript:;" class="current">未评价</a></h5> -->
+          <h5> 类别： <a href="/order/orderlist.html" class="carryout aon" >作品订单</a> <a href="/order/ordercustomlist.html"  > 定制订单</a> </h5><!-- <a href="javascript:;" class="current">未评价</a> -->
+          
+          <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a></h5><!-- <a href="javascript:;" class="current">未评价</a> -->
         </div>
         <volist name="orderList" id="data">			
 	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
@@ -47,11 +49,11 @@
 	          		<h5>创建时间：{$data.create_date}</h5>
 	          		<h5>付款时间：{$data.pay_time}     确认时间：{$data.create_date}</h5>
 	          		<span class="actually">
-	          		<h3>实付款：<span>￥<if condition="$data[pay_money] gt 0">{$data.pay_money}<else />0</if></span></h3>
+	          		<h3>实付款：<span>￥<if condition="$data[money] gt 0">{$data.money}<else />0</if></span></h3>
 	          		</span> </span> 
 	          	</div>
         	<div class="report-btn evaluation-btn">
-          	<if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if>
+          	<!-- <if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> -->
         	</div>
       </div>
         </volist>

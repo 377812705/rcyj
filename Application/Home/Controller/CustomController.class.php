@@ -269,4 +269,10 @@ class CustomController extends HomeController
         $this->assign("uinfo",$uinfo[0]);
         $this->display();
     }
+
+    public function qdlist(){
+        $cusid=I('cusid');
+
+        $this->display();
+    }
 }

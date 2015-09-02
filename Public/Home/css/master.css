@@ -3168,4 +3168,46 @@ input[type='button'].submit-order{
 	top:155px
 	}
 .module ul li img{margin:10px auto}
+.author-main{
+	padding:0;
+}
+.author-tle{
+	display:block;
+	height:39px;
+	padding-left:20px;
+	border-bottom:1px solid #f1f1f1;
+	font-size:16px;
+	color:#424242;
+	line-height:39px;
+}
+.author-leftdiv{
+	float:left;
+	width:50%;
+	border-right:1px solid #f1f1f1;
+}
+.author-rightdiv{
+	float:right;
+	width:49.9%;
+	border:none;
+}
+.author-leftdiv .module-left,.author-rightdiv .module-left{
+	float:left;
+	padding:30px 30px 20px;
+	margin-left:8px;
+}
+.author-leftdiv .module-left span h3,.author-rightdiv .module-left span h3{
+	font-weight:bold;
+}
+.xz-author,.tj-author{
+	cursor:pointer;
+}
+.xz-author:hover,.tj-author:hover{
+	background:url(../images/xz-img.png) no-repeat right bottom;
+}
+.xz-authoron,.tj-authoron{
+	background:url(../images/xz-img.png) no-repeat right bottom;
+}
+.details-btn{
+	margin-bottom:20px;
+}
 

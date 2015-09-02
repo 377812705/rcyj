@@ -66,6 +66,7 @@ class AuthorController extends HomeController {
         $this->display();
     }
     public function details($id=null){
+        $toid=I('toid');
         $uinfo=D('Author')->getUserInfo($id);
 
         //作品标签
@@ -88,6 +89,7 @@ class AuthorController extends HomeController {
         $this->assign('uwork',$uwork);
         $this->assign('uswork',$uswork);
         $this->assign('uinfo',$uinfo[0]);
+        $this->assign('toid',$toid);
         //作者
         $author=D('Author')->getAllAuthor();
         $this->assign('author',$author);

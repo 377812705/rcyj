@@ -74,13 +74,15 @@ class ActivityController extends HomeController {
    public function activitylist(){
    		$id = I('get.id','0');
    		if($id){
-   			//$data['activity_id']=$id;
+   			if($id!=1){
+   			  $data['activity_id']=$id;
+   			}
    			$worksModel=D('Works');
    			$count      = $worksModel->where($data)->count();
    			$pageshowcount=16;
    			$Page       = new Page($count,$pageshowcount);
    			$show       = $Page->pageshow();
-   			$works = $worksModel->field("user_id,main_image_url,id,create_status")->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+   			$works = $worksModel->field("user_id,title,main_image_url,id,create_status")->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
    			$this->assign ('works', $works);
    			$this->assign ('show', $show);
    			$this->assign ('count', $count);

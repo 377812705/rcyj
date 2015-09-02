@@ -50,11 +50,11 @@ body {
 	background: #f6f6f6;
 }
 .header {
-	height: 450px;
+	height: 590px;
 	background: url(../images/repeat.jpg) repeat-x;
 }
 .header .con {
-	height: 450px;
+	height: 590px;
 	background: url(../images/banner.jpg) no-repeat center bottom;
 }
 .nav1 {

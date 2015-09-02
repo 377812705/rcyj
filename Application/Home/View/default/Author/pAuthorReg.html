@@ -81,7 +81,7 @@
 										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[custom[email]]" onclick="if(this.value=='请输入邮箱地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入邮箱地址';this.className='gray'}">
 								</li>
 								<li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
-										<ul class="label-check">
+										<ul class="label-check" max="3">
 											<volist name="tag" id="v">
 												<li log={$key}>{$v}</li>
 											</volist>

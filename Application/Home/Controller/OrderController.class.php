@@ -18,16 +18,21 @@ class OrderController extends Controller {
 		$user_id =is_login();
 		$data['2cy_order.user_id']=$user_id;
 		$data['2cy_order.work_id']=array('gt',0);
-		if(empty($user_id)) {
-			$this->assign ( 'message', '请登录后再操作' );
-			$this->display('Public/error');
-			exit();
-		}
 		$paytype=I('get.paytype');
 		if($paytype!=null){
 			if($paytype>=0){
 				$data['2cy_order.order_type'] = $paytype;
 			}
+		}
+		if(empty($user_id)) {
+			$paytype=I('get.paytype');
+			if($paytype){
+				session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME.'/paytype/'.$paytype);
+			}else{
+				session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
+			}
+			$this->redirect("Login/login");
+		
 		}
 		$orderModel =D('Order');
 		$count      = $orderModel->where($data)->count();

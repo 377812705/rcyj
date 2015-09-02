@@ -16,13 +16,16 @@
     function submitcheck(){
 		//alert("111");
 		$su=true;
-		if(!$('#title').val()||$('#title').val()="请写出你的作品名称，让你的作品更加丰富多彩。"){
+		if(!$('#title').val()){
 			alert("请选择标签");
+			
 			$su=false;
+			return false;
 		}
 		if(!$('#worktag').val()){
 			alert("请选择标签");
 			$su=false;
+			return false;
 		}
 		if(!$('#activity_id').val()&&!$('#custom_id').val())
 		{
@@ -30,25 +33,30 @@
 		if(!$('#theme').val()){
 			alert("请选择主题");
 			$su=false;
+			return false;
 		}
 		if(!$('#create_status').val()){
 			alert("请选择来源");
 			$su=false;
+			return false;
 		}
 		
 			if($('#money').val()=='请进行填写价格'||isNaN($('#money').val())){
 				alert("请进行填写价格");
 				$su=false;
+				return false;
 			}
 		
 			if(!$('#copyri').val()){
 				alert("请选择版权用途");
 				$su=false;
+				return false;
 			}
 		}
 		if(!$('#main_image_url').val()){
 			alert("请上传封面图并保存");
 			$su=false;
+			return false;
 		}
 		
 		if($su){
@@ -225,7 +233,7 @@ PLUGINSPAGE="">
                        <span id="xq" style="display: none;">
 							<li class="fill">
 	                            <h5>上传图片：</h5>
-	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式，请上传需要绘画的照片。您还可以上传一张您喜欢的肖像风格，以便作者参考；没有上传，作者会根据您的描述，给您满意的作品。</h6>
+	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
 						         <div class="box">
 									<div id="flieinputxq" ></div>
 								</div>

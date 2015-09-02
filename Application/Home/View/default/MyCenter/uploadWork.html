@@ -16,10 +16,17 @@
     function submitcheck(){
 		//alert("111");
 		$su=true;
+		if(!$('#title').val()||$('#title').val()="请写出你的作品名称，让你的作品更加丰富多彩。"){
+			alert("请选择标签");
+			$su=false;
+		}
 		if(!$('#worktag').val()){
 			alert("请选择标签");
 			$su=false;
 		}
+		if(!$('#activity_id').val()&&!$('#custom_id').val())
+		{
+			
 		if(!$('#theme').val()){
 			alert("请选择主题");
 			$su=false;
@@ -28,16 +35,16 @@
 			alert("请选择来源");
 			$su=false;
 		}
-		if(!$('#activity_id').val()&&!$('#custom_id').val())
-		{
+		
 			if($('#money').val()=='请进行填写价格'||isNaN($('#money').val())){
 				alert("请进行填写价格");
 				$su=false;
 			}
-		}
-		if(!$('#copyri').val()){
-			alert("请选择版权用途");
-			$su=false;
+		
+			if(!$('#copyri').val()){
+				alert("请选择版权用途");
+				$su=false;
+			}
 		}
 		if(!$('#main_image_url').val()){
 			alert("请上传封面图并保存");
@@ -119,7 +126,7 @@ PLUGINSPAGE="">
                             <h6 class="price-tips">可以输入 <span>50</span> 字符 / 汉字</h6>
                         </li>
                         <li class="fill">
-                            <h5><span>*</span>作品标签：</h5>
+                            <h5><span>*</span>作品分类：</h5>
             <span class="label-span"><if condition="$word['tags'] neq null"><a href="javascript:;"  tag="worktag" style="color: rgb(66, 66, 66);">{$tags[$word['tags']]}<else /> <a href="javascript:;"  tag="worktag">请选择作品标签</if></a>
             <ul class="label-check radio noall" id="worktag">
                     <for start="1" end="count($tags)+1">
@@ -129,7 +136,7 @@ PLUGINSPAGE="">
  				</for>
                     
             </ul>
-            </span></li>
+            </span></li><if condition="$word['showmoney'] eq 'yes'">
              <li class="fill">
                             <h5><span>*</span>作品主题：</h5>
                            
@@ -154,26 +161,28 @@ PLUGINSPAGE="">
             <span class="label-span"><if condition="$word['show'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$show[$word['show']]}<else /><a href="javascript:;" tag="show">展示方式</if></a>
             <ul class="label-check radio" id="show" >
                	<for start="1" end="count($show)+1">
-					<if condition="$i eq 1"><if condition="$word['show'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$show[$i]}</li> 
-                    	<else />
-                    		<ul><li value="{$i}">{$show[$i]}</li></ul>
-                    	</if>
+					<if condition="$i eq 1">
+						<li value="{$i}" class="checkon">
+								{$show[$i]}</li> 
+                    <else />
+                    	<ul><li value="{$i}">{$show[$i]}</li></ul>
+                    </if>
  				</for>
             </ul>
-            </span></li>
+            </span></li> 
             <li class="fill">
                             <h5>完成时间：</h5>
                             <span><input type="text" id="endtime" name="endtime"<if condition="$word['show'] eq $i"> value="{$today}"<else />  value="{$today}"</if> placeholder="完成时间" /></span>
                             <h6 class="price-tips">请填写你作品完成的时间</h6>
                         </li>
-                        <if condition="$word['showmoney'] eq 'yes'"> 
+                        
                         <li class="fill">
                             <h5><span>*</span>作品价格：</h5>
                             <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                         </li>
-                        </if> 
+                       
                         <li class="fill copyright">
                             <h5><span>*</span>版权设置：</h5>
             <span class="label-span"><if condition="$word['copy_right'] neq null"><a href="javascript:;"  tag="copyri" style="color: rgb(66, 66, 66);">{$use[$word['copy_right']]}<else /><a href="javascript:;" tag="Copyright">不限制作品用途</if></a>
@@ -182,7 +191,7 @@ PLUGINSPAGE="">
 				<if condition="$word['copy_right'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$use[$i]}</li>
  				</for>
             </ul>
-            </span></li>
+            </span></li> </if> 
             <span id="kt">
                          <li class="fill">
                             <h5>角色说明：</h5>

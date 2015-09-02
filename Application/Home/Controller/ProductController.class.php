@@ -39,12 +39,12 @@ class ProductController extends HomeController {
         	$dataf['theme']=$theme;
         }
         $news=I('get.news');
-        $order='id desc';
+        $order='issell asc,id desc';
         if($news>0){
         	if($news==1){
-        		$order='money asc,id desc';
+        		$order='money asc,issell asc,id desc';
         	}else{
-        		$order='money desc,id desc';
+        		$order='money desc,issell asc,id desc';
         	}
         	$dataf['news']=$news;
         }
@@ -54,7 +54,8 @@ class ProductController extends HomeController {
         $pageshowcount=24;
         $Page       = new Page($count,$pageshowcount);
         $show       = $Page->pageshow();
-        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $workList = $worksModel->field("works_comic.id,works_comic.issell,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        //echo $worksModel->getLastSql();
         $this->assign('works',$workList);
         $this->assign('show',$show);
         $this->assign('wcount',$count);
@@ -73,7 +74,7 @@ class ProductController extends HomeController {
     	$User=D('User')->find($works['user_id']);
     	$worklist=D('Works')->getWorksByUserId($works['user_id'],3);
     	$data['ref_id']=$works['id'];
-    	if($works['custom_id']||$works['activity_id']){
+    	if($works['custom_id']||$works['activity_id']||$works['issell']!=1){
     		$works['showmoney']='no';
     	}else{
     		$works['showmoney']='yes';
@@ -94,6 +95,9 @@ class ProductController extends HomeController {
     	$use=C('use');
     	$this->assign('use',$use);
         $this->display();
+    }
+    function huodongzhanshi(){
+    	$this->display();
     }
     function daorushuju(){
     	set_time_limit(0);

@@ -1,5 +1,22 @@
-<extend name="Base/common"/>
-<block name="head">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keyword" content="">
+<meta name="author" content="">
+<title>企业订制注册</title>
+<link rel="stylesheet" href="__CSS__/base1.css" />
+<link rel="stylesheet" href="__CSS__/master.css" />
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/master.js"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/diyUpload.css">
+<script type="text/javascript" src="__JS__/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="__JS__/diyUpload.js"></script>
+	
 <script type="text/javascript" src="__JS__/jquery.validationEngine.min.js"></script>
 <script type="text/javascript" src="__JS__/jquery.validationEngine-zh_CN.js"></script>
 <link rel="stylesheet" href="__CSS__/validationEngine.jquery.css">
@@ -8,9 +25,9 @@
 .box li{margin:0 3px; padding:0;}
 .webuploader-pick{background:none;}
 </style>
-</block>
-
-<block name="body">
+</head>
+<body>
+<section> 
 		<!--------页面头部--------->
 		<header class="container logo02">
 				<div class="header-right">
@@ -43,10 +60,10 @@
 										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" onclick="if(this.value=='请输入联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入联系地址';this.className='gray'}">
 								</li>
 								<li class="txt-input password"><span class="input-tle">密码：</span>
-										<input name="password" type="text" placeholder="请输入密码"  class="gray validate[required]" onclick="if(this.value=='请输入密码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入密码';this.className='gray'}">
+										<input name="password" type="password" placeholder="请输入密码"  class="gray validate[required]" onclick="if(this.value=='请输入密码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入密码';this.className='gray'}">
 								</li>
 								<li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-										<input name="confirm" type="text" placeholder="请确认密码"  class="gray validate[required]" onclick="if(this.value=='请确认密码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认密码';this.className='gray'}">
+										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required]" onclick="if(this.value=='请确认密码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认密码';this.className='gray'}">
 								</li>
 								<li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
 										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[required,custom[email]]" onclick="if(this.value=='请输入邮箱地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入邮箱地址';this.className='gray'}">
@@ -80,8 +97,8 @@
 										<input name="invite" type="text" placeholder="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
 										<span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
 								<li class="auto">
-										<input name="ready" type="checkbox" value="1" checked class="validate[required]">
-										<span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+										<input name="ready" type="checkbox" value="1" checked class="validate[required]" id="ready">
+										<span></span>我已阅读并接受<a href="__ROOT__/Index/about#yisi" target="__blank">版权声明</a>和<a href="__ROOT__/Index/about#yisi" target="__blank">隐私保护</a>条款</li>
 								<li class="txt-input">
 										<input class="retrieve-btn" name="" type="button" value="马上注册">
 								</li>
@@ -90,6 +107,8 @@
 				</div>
 		</div>
 		<!--------页面底部--------->
+		<footer class="container footer">版权所有：北京世纪元通网络科技有限公司  京ICP备14025166号-1</footer>
+</section>
 <script type="text/javascript">
 $('.retrieve-btn').click(function(){
 	$('#form').validationEngine(); 
@@ -97,7 +116,7 @@ $('.retrieve-btn').click(function(){
 	$('.label-check li').each(function(i,e){
 		var tag_id = $('#tags').val();
 		if($(e).attr('class') == 'checkon'){
-			tag_id += $(e).attr('log')+ ',';
+			tag_id += $(e).attr('log')+ ';';
 			$('#tags').val(tag_id);
 		}
 	});
@@ -133,8 +152,17 @@ $("#sendcode").click(function(){
 					alert(data);
 				});
 	}
-
-
+});
+$('#ready').click(function(){
+	var check_val = $(this).val();
+	if(check_val == 1){
+		$(this).val(0);
+		$(this).checked = false;
+	}else{
+		$(this).val(1);
+		$(this).checked = true ;
+	}
 });
 </script>
-</block>
+</body>
+</html>

@@ -25,8 +25,14 @@
 										<ul class="custom-ul" id="cate">
 												<li class="custom-li custom-all" value="0"><a href="javascript:;">全部</a></li>
 												<for start="1" end="count($cate)+1" >
-													<li class="custom-li" value="{$i}"><a href="javascript:;" >{$cate[$i]}</a></li>
- 												</for>
+													<if condition="$i eq 1">
+														<li class="custom-li" value="{$i}"><a href="javascript:;" >{$cate[$i]}</a></li>
+								                    <else />
+								                    	<li value="{$i}">{$cate[$i]}</li>
+								                    </if>
+												</for>
+ 
+						
 										</ul>
 								</li>
 								<li><a href="javascript:;"><if condition="$dataf['create_status']">{$source[$dataf['create_status']]}<else />作品来源</if></a>

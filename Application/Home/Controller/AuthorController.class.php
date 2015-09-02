@@ -99,14 +99,14 @@ class AuthorController extends HomeController {
         $isno=I('isno');
         $data = I('get.');//获取所有页面传递过来的参数
         unset($data['__hash__']);
-        if(!empty($data)){
+        if(!empty($data) && strlen($isno)==0){
 
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
-            if(!check_verify($data['verify'])){//匹配验证码
-                $this->error('验证码错误');
-            }
+//             if(!check_verify($data['verify'])){//匹配验证码
+//                 $this->error('验证码错误');
+//             }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }
@@ -163,8 +163,9 @@ class AuthorController extends HomeController {
     public function eAuthorReg(){
         $isno=I('isno');
         $data = I('get.');//获取所有页面传递过来的参数
+
         unset($data['__hash__']);
-        if(!empty($data)){
+        if(!empty($data) && strlen($isno)==0){
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
@@ -187,9 +188,9 @@ class AuthorController extends HomeController {
                 $this->error('标签必选');
             }
             
-            if(!check_verify($data['verify'])){//匹配验证码
-                $this->error('验证码错误');
-            }
+//             if(!check_verify($data['verify'])){//匹配验证码
+//                 $this->error('验证码错误');
+//             }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }

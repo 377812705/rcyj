@@ -1,6 +1,6 @@
 /** 
- * 描述：重置页面元素，设置布局样式及公共模块
- * 作用范围：公共
+ * 鎻忚堪锛氶噸缃〉闈㈠厓绱狅紝璁剧疆甯冨眬鏍峰紡鍙婂叕鍏辨ā鍧�
+ * 浣滅敤鑼冨洿锛氬叕鍏�
  */
 
 html,body {
@@ -43,7 +43,7 @@ textarea {
 	resize: none;
 }
 
-/* 布局样式 */
+/* 甯冨眬鏍峰紡 */
 .cf,.nav {
 	*zoom: 1;
 }
@@ -75,6 +75,11 @@ textarea {
 	margin-right: auto;
 	width: 1000px;
 }
+.container {
+	position: relative;
+	width: 1250px;
+	margin: 0 auto;
+}
 .cont-container {
 	float: left;
 	width: 720px;
@@ -95,7 +100,7 @@ textarea {
 	padding: 10px;
 }
 
-/* 公共独立类名 */
+/* 鍏叡鐙珛绫诲悕 */
 .hidden {
 	display: none!important;
 }
@@ -119,7 +124,7 @@ textarea {
 	white-space: nowrap;
 }
 
-/* 导航列表 */
+/* 瀵艰埅鍒楄〃 */
 .nav li {
 	float: left;
 }
@@ -134,7 +139,7 @@ textarea {
 	text-decoration: none;
 }
 
-/* 表单样式 */
+/* 琛ㄥ崟鏍峰紡 */
 .text,.textarea {
     padding: 4px 6px;
     font-size: 14px;
@@ -184,7 +189,7 @@ select {
 	color: #f00;
 }
 
-/* 横向多列表单 */
+/* 妯悜澶氬垪琛ㄥ崟 */
 .form-horizontal .form-item {
 	margin-bottom: 10px;
 }
@@ -205,7 +210,7 @@ select {
 	width: 220px;
 }
 
-/* 按钮 */
+/* 鎸夐挳 */
 .btn {
     display: inline-block;
     margin: 0 0 5px;
@@ -234,7 +239,7 @@ select {
 	font-size: 14px;
 }
 
-/* 左右两列的媒体结构 */
+/* 宸﹀彸涓ゅ垪鐨勫獟浣撶粨鏋� */
 .media {
 	margin-bottom: 15px;
 }
@@ -259,7 +264,7 @@ select {
 	word-break: break-all;
 }
 
-/* 实心小三角 */
+/* 瀹炲績灏忎笁瑙� */
 .arrow {
 	display: inline-block;
 	width: 0;

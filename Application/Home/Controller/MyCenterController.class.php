@@ -69,7 +69,7 @@ class MyCenterController extends HomeController
             	$data['title']=I('Post.title','');
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
-            	$data['endtime']=I('Post.endtime',1);
+            	$data['endtime']=I('Post.endtime',date('Y-m-d H:i:s',time()));
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
             	if($data['workrole']=='作品的角色介绍等'){
@@ -94,6 +94,7 @@ class MyCenterController extends HomeController
             		$id=D('Works')->where($arr)->save($data);
             	}else{
             		$workid = D('Works')->add($data);
+            		
             	}
             	$sht=I('Post.sht',0);
             	if(is_array($sht)){

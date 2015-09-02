@@ -1,4 +1,3 @@
-// JavaScript Document
 function orderclick(id){
 		$(".color-div").show();
 		$("#report-content"+id).show();
@@ -17,7 +16,16 @@ $(function(){
 	})
 	/*下拉列内容表选项选中取消*/
 	$(".label-check>li").click(function(){
-	$(this).toggleClass("checkon");
+		if(!$(this).hasClass("checkon")){
+			var maxck = $(this).parent().attr("max");
+			if(maxck && parseInt(maxck) > 0){
+				if($(".checkon").length >= parseInt(maxck)){
+					alert("最多选择三项")
+					return ;
+				}
+			}
+		}
+		$(this).toggleClass("checkon");
 		$("#"+$(this).parent().attr("id")).attr("value",$(this).attr("value"));
 		if($(this).parent().attr("id")=='worktag'){
 			if($(this).attr("value")==1){
@@ -29,7 +37,8 @@ $(function(){
 				$("#kt").hide();
 			}
 		}
-	})
+	});
+
 	$(".radio>li").click(function(){
 	var newhtml = $(this).html();
 	$(this).addClass("checkon").siblings().removeClass("checkon");
@@ -227,7 +236,8 @@ function getFormatDate(varday)
 	
 	$(function() { 
 		//$(".fill textarea").keyup(); 
-	}); 
-			
-			
+	}); 		
+	$(".nav li").click(function(){
+		$(this).addClass("navon").siblings().removeClass("navon")
+		})
 	

@@ -271,8 +271,22 @@ class CustomController extends HomeController
     }
 
     public function qdlist(){
+        if(IS_POST){
+            $cusid=I('cusid');
+            $data=array(
+                "user_id"=>I('user_id')
+            );
+            M('order')->where("custom_id={$cusid}")->save($data);
+            $this->redirect('Order/ordercustomlist');
+        }else{
         $cusid=I('cusid');
-
+        $sql="select ga.cusid,u.id,u.user_name,u.nick_name,u.header_img,u.tags_content,u.address,u.pop_count,u.fans_count,u.work_count from 2cy_grab as ga join user as u on ga.uid=u.id where ga.cusid={$cusid}  order by u.fans_count desc limit 6";
+        $qduser=M()->query($sql);
+        $umodel=M('user',null);
+        $tjuser=$umodel->order('pop_count desc')->limit(6)->select();
+        $this->assign('qduser',$qduser);
+        $this->assign('tjuser',$tjuser);
         $this->display();
+        }
     }
 }

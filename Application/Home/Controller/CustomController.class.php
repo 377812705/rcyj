@@ -176,8 +176,11 @@ class CustomController extends HomeController
             //得到订制作品明细
             $custom=D('Custom')->getOrderCustomByid($cusid);
             //dump($custom);
+            //得到订制者明细
+            $cuinfo=D('Author')->find($custom['uid']);
             $this->assign('isgrab',isgrab(is_login(),$cusid));
             $this->assign('custom',$custom);
+            $this->assign('cuinfo',$cuinfo);
 
             $this->display();
 
@@ -194,6 +197,28 @@ class CustomController extends HomeController
     public function grab(){
         $model=M('grab');
         $model->add($_POST);
+
+        //订制需求信息
+        $cinfo=D('Custom')->getOrderCustomByid($_POST['cusid']);
+
+        //抢单者信息
+        $uinfo=D('Author')->find($_POST['uid']);
+
+        //订制需求者信息
+        $cuinfo=D('Author')->find($cinfo['uid']);
+
+        $amsg=array(
+            'uid'=>$_POST['uid'],
+            'content'=>"您对订制需求<<{$cinfo['cusname']}>>进行了抢单。"
+        );
+        M('message')->add($amsg);
+        $cmsg=array(
+           'uid'=>$cinfo['uid'],
+            'content'=>"您的订制需求<<{$cinfo['cusname']}>>被作者<<{$uinfo['nick_name']}>>抢单了。"
+        );
+        M('message')->add($cmsg);
+
+
         $this->ajaxReturn('已抢单');
     }
 
@@ -432,17 +457,38 @@ class CustomController extends HomeController
             $data=array(
                 "user_id"=>I('user_id')
             );
+
+            //订制需求信息
+            $cinfo=D('Custom')->getOrderCustomByid($cusid);
+
+            //抢单者信息
+            $uinfo=D('Author')->find($data['user_id']);
+
+            //订制需求者信息
+            $cuinfo=D('Author')->find($cinfo['uid']);
+
+            $amsg=array(
+                'uid'=>$data['user_id'],
+                'content'=>"您被<<{$cuinfo['nick_name']}>>选中为订制需求<<{$cinfo['cusname']}>>进行制作。抢单成功！"
+            );
+            M('message')->add($amsg);
+            $cmsg=array(
+                'uid'=>$cinfo['uid'],
+                'content'=>"您已经选中<<{$uinfo['nick_name']}>>为订制需求<<{$cinfo['cusname']}>>进行制作。"
+            );
+            M('message')->add($cmsg);
+
             M('order')->where("custom_id={$cusid}")->save($data);
             $this->redirect('Order/ordercustomlist');
         }else{
-        $cusid=I('cusid');
-        $sql="select ga.cusid,u.id,u.user_name,u.nick_name,u.header_img,u.tags_content,u.address,u.pop_count,u.fans_count,u.work_count from 2cy_grab as ga join user as u on ga.uid=u.id where ga.cusid={$cusid}  order by u.fans_count desc limit 6";
-        $qduser=M()->query($sql);
-        $umodel=M('user',null);
-        $tjuser=$umodel->order('pop_count desc')->limit(6)->select();
-        $this->assign('qduser',$qduser);
-        $this->assign('tjuser',$tjuser);
-        $this->display();
+            $cusid=I('cusid');
+            $sql="select ga.cusid,u.id,u.user_name,u.nick_name,u.header_img,u.tags_content,u.address,u.pop_count,u.fans_count,u.work_count from 2cy_grab as ga join user as u on ga.uid=u.id where ga.cusid={$cusid}  order by u.fans_count desc,id desc limit 6";
+            $qduser=M()->query($sql);
+            $umodel=M('user',null);
+            $tjuser=$umodel->order('pop_count desc,id desc')->limit(6)->select();
+            $this->assign('qduser',$qduser);
+            $this->assign('tjuser',$tjuser);
+            $this->display();
         }
     }
 }

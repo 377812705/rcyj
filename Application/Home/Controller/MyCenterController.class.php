@@ -218,10 +218,11 @@ class MyCenterController extends HomeController
             session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
             $this->redirect("Login/login");
         } else {
-            //作者
-            $author = D('Author')->getAllAuthor();
-            $this->assign('author', $author);
+            //得到消息
+			$where['uid']=is_login();
+            $message=M('message')->where($where)->select();
 
+			$this->assign('message',$message);
             $this->display();
         }
     }

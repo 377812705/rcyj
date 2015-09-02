@@ -144,10 +144,10 @@ $(function() {
 				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
 			<ul>
 				<volist name="dzwork" id="data">
-				<li style="display:block;width:293px;height: 450px;"><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html"><img src="{$data.imgurl}" alt="作品图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
+				<li style="display:block;width:293px;height: 450px;"><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html"><img src="http://erciyuanjie.com{$data.imgurl}" alt="作品图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
 					<h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
 					<h4>￥{$data.cusmoney}</h4>
-					<span class="label-a"><a href="#">{$data.style}</a></span>
+					<span class="label-a"><a href="#">形象</a><a href="#">{$data.theme}</a></span>
 					<h2>{$data.cusstatus}<span>接单状态</span></h2>
 					<h5><span>{$data.open_count}</span>人气</h5>
 					<h6><a href="__ROOT__/Author/details/id/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
@@ -155,7 +155,7 @@ $(function() {
 						<if condition="($data.uid|getUserName) eq null">
 							<img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
 							<else />
-							<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
+							<img src="http://erciyuanjie.com{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
 						</if>
 
 					</a></h6>

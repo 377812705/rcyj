@@ -2,6 +2,9 @@
 <block name="head">
 	<script type="text/javascript">
 		$(function(){
+			$("#comfin").click(function(){
+				$("#form").submit();
+			});
 			$(".xz-author").click(function(){
 				$("#uid").val($(this).attr("value"));
 				var flag = $(this).hasClass("xz-authoron");
@@ -73,11 +76,11 @@
                     </div>
                 </div>
         <span class="details-btn">
-			<form action="__SELF__" method="post">
-				<input name="cusid" type="text" value="{$cusid}">
-				<input id="uid" name="user_id" type="submit" value="{$uid}">
-          		<input name="" type="submit" value="确认提交">
+			<form id="form" action="__SELF__" method="post">
+				<input name="cusid" type="text" value="{$cusid}" style="display: none;">
+				<input id="uid" name="user_id" type="submit" value="{$uid}" style="display: none;">
 			</form>
+			<input id="comfin" name="" type="button" value="确认提交">
           <input name="" type="button" onClick="javascript:location.href='__ROOT__/Order/ordercustomlist.html''" value="返 回">
           </span>
             </div>

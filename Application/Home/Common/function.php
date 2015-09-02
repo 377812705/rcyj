@@ -136,3 +136,18 @@ function getUserCustomcount($uid=null){
     $data=D('Custom')->where("touid={$uid}")->count();
     return $data;
 }
+
+/**
+* 检测手机号是否符合要求
+* @param
+* @date: 2015年8月31日 下午4:02:09
+* @author: yql
+* @version: 3.0.0
+*/
+/**
+ *	验证手机号
+ * @param $mobile 手机号
+ **/
+function checkMobile($mobile) {
+    return preg_match("/^(?:13\d|14\d|15\d|17\d|18[0123456789])-?\d{5}(\d{3}|\*{3})$/", $mobile);
+}

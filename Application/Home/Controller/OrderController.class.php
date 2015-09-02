@@ -54,6 +54,7 @@ class OrderController extends Controller {
 	 */
 	public function sellorderlist(){
 		$user_id =is_login();
+		$data['2cy_order.order_type']=1;
 		$data['2cy_order.auther_id']=$user_id;
 		$data['2cy_order.work_id']=array('gt',0);
 		if(empty($user_id)) {
@@ -90,10 +91,11 @@ class OrderController extends Controller {
 	/**
 	 * 用户中心的定制订单列表
 	 */
-	public function ordercustomlist(){
+	public function grabcustomlist(){
 		$user_id =is_login();
 		$data['2cy_order.auther_id']=$user_id;
 		$data['2cy_order.custom_id']=array('gt',0);
+		$data['2cy_order.order_type']=1;
 		if(empty($user_id)) {
 			$this->assign ( 'message', '请登录后再操作' );
 			$this->display('Public/error');
@@ -111,6 +113,38 @@ class OrderController extends Controller {
 		$Page       = new Page($count,$pageshowcount);
 		$show       = $Page->pageshow();
 		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		$this->assign('userid',$user_id);
+		$paytype=C('paystatus');
+		$this->assign('orderList',$orderList);
+		$this->assign('paytype',$paytype);
+		$this->assign('order_type',$data['2cy_order.order_type']);
+		$this->assign('show',$show);
+		$this->display('graborderlist');
+	}
+	/**
+	 * 用户中心的定制订单列表
+	 */
+	public function ordercustomlist(){
+		$user_id =is_login();
+		$data['2cy_order.user_id']=$user_id;
+		$data['2cy_order.custom_id']=array('gt',0);
+		if(empty($user_id)) {
+			$this->assign ( 'message', '请登录后再操作' );
+			$this->display('Public/error');
+			exit();
+		}
+		$paytype=I('get.paytype');
+		if($paytype!=null){
+			if($paytype>=0){
+				$data['2cy_order.order_type'] = $paytype;
+			}
+		}
+		$orderModel =D('Order');
+		$count      = $orderModel->where($data)->count();
+		$pageshowcount=5;
+		$Page       = new Page($count,$pageshowcount);
+		$show       = $Page->pageshow();
+		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.auther_id,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		$this->assign('userid',$user_id);
 		$paytype=C('paystatus');
 		$this->assign('orderList',$orderList);
@@ -149,7 +183,7 @@ class OrderController extends Controller {
 			$this->display('Public/error');
 			exit();
 		}
-		$data['author_id']=$work['touid'];
+		$data['auther_id']=$work['touid'];
 		$data['auther']=getUserNameById($work['touid']);
 		$data['work_title']=$work['cusname'];
 		$data['create_date']=date('Y-m-d H:i:s',time());

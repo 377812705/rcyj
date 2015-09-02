@@ -455,18 +455,15 @@ class CustomController extends HomeController
         if(IS_POST){
             $cusid=I('cusid');
             $data=array(
-                "user_id"=>I('user_id')
+                "auther_id"=>I('user_id')
             );
 
             //订制需求信息
             $cinfo=D('Custom')->getOrderCustomByid($cusid);
-
             //抢单者信息
             $uinfo=D('Author')->find($data['user_id']);
-
             //订制需求者信息
             $cuinfo=D('Author')->find($cinfo['uid']);
-
             $amsg=array(
                 'uid'=>$data['user_id'],
                 'content'=>"您被<<{$cuinfo['nick_name']}>>选中为订制需求<<{$cinfo['cusname']}>>进行制作。抢单成功！"
@@ -478,7 +475,9 @@ class CustomController extends HomeController
             );
             M('message')->add($cmsg);
 
-            M('order')->where("custom_id={$cusid}")->save($data);
+            M('order')->where("custom_id='{$cusid}'")->save($data);
+            $custom['cusstatus']=2;
+            D('Custom')->where("cusid={$cusid}")->save($custom);
             $this->redirect('Order/ordercustomlist');
         }else{
             $cusid=I('cusid');
@@ -488,6 +487,7 @@ class CustomController extends HomeController
             $tjuser=$umodel->order('pop_count desc,id desc')->limit(6)->select();
             $this->assign('qduser',$qduser);
             $this->assign('tjuser',$tjuser);
+            $this->assign('cusid',$cusid);
             $this->display();
         }
     }

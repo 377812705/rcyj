@@ -6,6 +6,7 @@
 				$("#form").submit();
 			});
 			$(".xz-author").click(function(){
+				alert($(this).attr("value"));
 				$("#uid").val($(this).attr("value"));
 				var flag = $(this).hasClass("xz-authoron");
 				$(".xz-author").each(function(){
@@ -78,10 +79,10 @@
         <span class="details-btn">
 			<form id="form" action="__SELF__" method="post">
 				<input name="cusid" type="text" value="{$cusid}" style="display: none;">
-				<input id="uid" name="user_id" type="submit" value="{$uid}" style="display: none;">
+				<input id="uid" name="user_id" type="text" value="{$uid}" style="display: none;">
 			</form>
 			<input id="comfin" name="" type="button" value="确认提交">
-          <input name="" type="button" onClick="javascript:location.href='__ROOT__/Order/ordercustomlist.html''" value="返 回">
+          	<input type="button" onClick="javascript:location.href='__ROOT__/Order/ordercustomlist.html'" value="返 回">
           </span>
             </div>
         </div>

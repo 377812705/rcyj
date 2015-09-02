@@ -280,10 +280,15 @@ class MyCenterController extends HomeController
 			$uid=is_login();
 		}
 		if(IS_POST){
-			$upload = new \Think\Upload();// 实例化上传类
-			$upload->maxSize   =     3145728 ;// 设置附件上传大小
-			$upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-			$upload->rootPath  =      './uploads/headerimg/'; // 设置附件上传根目录
+			$config = array(
+				'maxSize'    =>    3145728,
+				'rootPath'   =>    './uploads/headerimg/',
+				'savePath'   =>    '',
+				'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),
+				'autoSub'    =>    true,
+				'subName'    =>    array('date','Ymd'),
+			);
+			$upload = new \Think\Upload($config);// 实例化上传类
 			// 上传单个文件
 			$info   =   $upload->uploadOne($_FILES['photo']);
 			if(!$info) {// 上传错误提示错误信息

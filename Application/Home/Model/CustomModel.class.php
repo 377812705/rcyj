@@ -13,7 +13,6 @@ class CustomModel extends Model
     {
         return $this->select();
     }
-
     public function getOrderCustomByid($id)
     {
         return $this->find($id);

@@ -197,16 +197,172 @@ class CustomController extends HomeController
         $this->ajaxReturn('已抢单');
     }
 
+    /**
+    * 企业定制注册
+    * @param
+    * @date: 2015年8月31日 下午6:49:02
+    * @author: yql
+    * @version: 3.0.0
+    */
     public function pCustomReg()
     {
+        $isno=I('isno');
+        $data = I('get.');//获取所有页面传递过来的参数
+        unset($data['__hash__']);
+        if(!empty($data)){
+        
+            if(!checkMobile($data['phone'])){//匹配手机号
+                $this->error('手机号格式不符合要求');
+            }
+            if(!check_verify($data['verify'])){//匹配验证码
+                $this->error('验证码错误');
+            }
+            if($data['password'] != $data['confirm']){
+                $this->error('两次输入密码不同');
+            }
+            if(empty($data['ready'])){
+                $this->error('已阅读版权必选');
+            }
+        
+            //组织页面注册数据
+            $userData['user_name'] = $data['username'];
+            $userData['nick_name'] = $data['name'];
+            $userData['mobile'] = $data['phone'];
+            $userData['author_flag'] = 1;
+            $userData['password'] = strtoupper(md5($data['password']));
+            $userData['email'] = $data['mail'];
+            $userData['create_date'] = date('Y-m-d H:i:s',time());
+            $userData['address'] = $data['address'];
+            $userData['level'] = 0 ;
+            $userData['sign_contract_flag'] = 0 ;
+            $userData['email_verified'] = 0 ;
+            $userData['mobile_verified'] = 0 ;
+            $userData['invitecode'] = $data['invite'];
+            $userData['status'] = 1;
+            $userModel = D('User') ;
+            $user_id = $userModel->register($userData);//user表插入
+            //             $user_id = 6872 ;
+            if($user_id){
+                //插入user_info
+                $infoData['userid'] = $user_id ;
+                $infoData['isme'] = 0 ;
+                $infoData['aname'] = $data['name'];
+                $infoData['phone'] = $data['phone'];
+                $infoData['address'] = $data['address'];
+                $infoData['idcode'] = $data['idcard'];
+                $infoData['khname'] = $data['bank'];
+                $infoData['yhcode'] = $data['number'];
+                //插入作者详细信息表
+                $userinfoModel = D('Userinfo') ;
+                $result = $userinfoModel->update($infoData);
+                if($result){
+                    $this->redirect("Login/login");
+                }else{
+                    $this->error($userinfoModel->getError());
+                }
+            }else{
+                $this->error($userModel->getError());
+            }
+        }
+        $this->assign('isno',$isno);
         $this->display();
     }
 
-    public function eCustomReg()
-    {
+    /**
+    * 企业定制注册
+    * @param
+    * @date: 2015年8月31日 下午6:51:38
+    * @author: yql
+    * @version: 3.0.0
+    */
+    public function eCustomReg(){
+        $isno=I('isno');
+        $data = I('get.');//获取所有页面传递过来的参数
+        unset($data['__hash__']);
+        if(!empty($data)){
+            if(!checkMobile($data['phone'])){//匹配手机号
+                $this->error('手机号格式不符合要求');
+            }
+            if(empty($data['name'])){
+                $this->error('用户名必填');
+            }
+            if(empty($data['address'])){
+                $this->error('地址必填');
+            }
+            if(empty($data['mail'])){
+                $this->error('邮箱必填');
+            }
+            if(empty($data['company'])){
+                $this->error('公司名称必填');
+            }
+            if(empty($data['sht'])){
+                $this->error('营业执照必填');
+            }
+            
+            if(!check_verify($data['verify'])){//匹配验证码
+                $this->error('验证码错误');
+            }
+            if($data['password'] != $data['confirm']){
+                $this->error('两次输入密码不同');
+            }
+            if(empty($data['ready'])){
+                $this->error('已阅读版权必选');
+            }
+            
+            //组织页面注册数据
+            $userData['user_name'] = $data['company'];
+            $userData['nick_name'] = $data['name'];
+            $userData['mobile'] = $data['phone'];
+            $userData['author_flag'] = 1;
+            $userData['password'] = strtoupper(md5($data['password']));
+            $userData['email'] = $data['mail'];
+            $userData['create_date'] = date('Y-m-d H:i:s',time());
+            $userData['address'] = $data['address'];
+            $userData['level'] = 0 ;
+            $userData['sign_contract_flag'] = 0 ;
+            $userData['skilled_field'] = $data['tags'];
+            $userData['email_verified'] = 0 ;
+            $userData['mobile_verified'] = 0 ;
+            $userData['invitecode'] = $data['invite'];
+            $userData['status'] = 1;
+            $userModel = D('User') ;
+            $user_id = $userModel->register($userData);//user表插入
+            //$user_id = 6872 ;
+            if($user_id){
+                //插入user_info
+                $infoData['userid'] = $user_id ;
+                $infoData['isme'] = 1 ;
+                $infoData['aname'] = $data['name'];
+                $infoData['phone'] = $data['phone'];
+                $infoData['address'] = $data['address'];
+                $infoData['ename'] = $data['company'];
+                $infoData['oprange'] = $data['scope'];
+                $infoData['mproduct'] = $data['product'];
+                $infoData['tuser'] = $data['user'];
+                $infoData['midea'] = $data['idea'];
+                $infoData['blicense'] = $data['sht'][0];
+                //插入作者详细信息表
+                $userinfoModel = D('Userinfo') ;
+                $result = $userinfoModel->update($infoData);
+                if($result){
+                    $this->redirect("Login/login");
+                }else{
+                    $this->error($userinfoModel->getError());
+                }
+            }else{
+                $this->error($userModel->getError());
+            }
+        }
+        $this->assign('isno',$isno);
         $this->display();
     }
-
+    /**
+    * 个人定制注册
+    * @param
+    * @date: 2015年8月31日 下午6:58:46
+    * @author: yql
+    * @version: 3.0.0
+    */
     public function pcustom()
     {
         if (is_login()) {

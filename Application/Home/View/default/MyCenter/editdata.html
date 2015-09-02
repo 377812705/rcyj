@@ -8,7 +8,7 @@
         </ul>
         <div class="custom-content">
             <ul>
-                <li>Hi，{$uinfo.user_name}，欢迎您来订制；带有 <span>*</span> 的项目都是必填项哦。</li>
+                <li>Hi，{$uinfo.user_name}，欢迎您!</li>
                 <li class="base-data">
                     <ul class="fill-left">
                         <li class="fill fill-data">
@@ -25,7 +25,7 @@
                             <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
                         </li>
                     </ul>
-            <span class="portrait"><img src="{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+            <span class="portrait"><img src="http://erciyuanjie.com{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
             <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
             </span> </li>
                 <li class="fill">
@@ -51,8 +51,8 @@
               <span></span>广告</span> </h4>
                 </li>
                 <li class="fill edit-name">
-                    <h5>真实名称：</h5>
-                    <input name="" type="text" class="gray" value="请写真实名称。" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
+                    <h5>真实姓名：</h5>
+                    <input name="" type="text" class="gray" value="请写真实姓名。" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
                 </li>
                 <li class="fill">
                     <h5>性别：</h5>

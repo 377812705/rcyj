@@ -75,7 +75,7 @@
 										<h4>￥{$data.money}</h4>
 										<span class="label-a"><if condition="$data['tags']"><a href="javascript:;">{$tags[$data['tags']]}</a><else /> </if><if condition="$data['create_status']"><a href="javascript:;">{$source[$data['create_status']]}</a><else /> </if></span>
 										<!-- <h5><span>{$data.open_count}</span>人气  /<span>876</span>点赞  /<span>60</span>收藏 </h5> -->
-										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
+										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}/toid/{$data.id}.html">{$data.user_id|getUserName}
 											<if condition="($data.user_id|getUserName) eq null">
 												<img src="__IMG__/user-img02.gif" alt="用户头像"/>
 												<else />

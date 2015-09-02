@@ -139,8 +139,9 @@
             }).on('changeDate',function(ev){
                 var starttime=$('#starttime').val();
                 endtime= new Date(Date.parse(starttime) + 7*24*60*60*1000);
-                $('#endtime').datetimepicker('setStartDate',endtime);
+                $('#endtime').datetimepicker('setStartDate',getFormatDate(endtime));
                 $('#starttime').datetimepicker('hide');
+                $('#endtime').val(getFormatDate(endtime));
             });
 
             $('#endtime').datetimepicker({
@@ -174,10 +175,11 @@
 
 </block>
 <block name="body">
+
     <div class="container content">
         <div class="custom">
             <ul class="nextnav">
-                    <li class="nextnavon"><a id="gtag" href="__ROOT__/Custom/pcustom.html">个人订制</a>
+                    <li class="nextnavon"><a id="gtag" href="__ROOT__/Custom/pcustom/toid/{$cutominfo.touid}.html">个人订制</a>
                         <ul class="custom-ul">
                             <li class="custom-li"><a href="#">形象</a></li>
                             <li>产品设计</li>
@@ -190,7 +192,7 @@
                             <li>广告</li>
                         </ul>
                     </li>
-                    <li><a id="etag" href="__ROOT__/Custom/ecustom.html">企业订制</a>
+                    <li><a id="etag" href="__ROOT__/Custom/ecustom/toid/{$cutominfo.touid}.html">企业订制</a>
                         <ul class="custom-ul">
                             <li class="custom-li"><a href="#">形象</a></li>
                             <li>产品设计</li>
@@ -254,7 +256,12 @@
             <span class="label-span"><a href="javascript:;">请选择订制方式</a>
             <ul class="label-check radio" value="mode">
                 <li class="checkon">一对一</li>
-                <li>征集</li>
+                <empty name="cutominfo.touid">
+                    <li>征集</li>
+                    <else />
+                    <span style="color:#c5c5c5;background: none;padding-left: 10px;font-size: 15px;">征集</span>
+                </empty>
+
             </ul>
             </span></li>
                         <li class="fill">
@@ -270,7 +277,7 @@
             <span class="label-span"><a href="javascript:;">请选择展示方式</a>
             <ul class="label-check radio" value="dismode">
                 <li class="checkon">数码/电脑绘画</li>
-                <li class="checknot">有纸绘画</li>
+                <span style="color:#c5c5c5;background: none;padding-left: 10px;font-size: 15px;">有纸绘画</span>
             </ul>
             </span></li>
                         <li class="fill">
@@ -299,7 +306,7 @@
                         <li class="fill">
                             <h5>上传图片：</h5>
                             <input id="xztp" type="button" value="选择图片">
-                            <h6 class="upload-tips">
+                            <h6 class="upload-tips" style="margin-top: -55px;">
                                 单张图片5M以内，RGB模式，支持jpg/gif/png格式，请上传需要绘画的照片。您还可以上传一张您喜欢的作品风格，以便作者参考；没有上传，作者会根据您的描述，给您满意的作品。</h6>
                         </li>
                         <!--“订制描述”和“订制需求”只有用户选择“形象分类==》卡通”才会显示-->

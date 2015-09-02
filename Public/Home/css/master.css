@@ -106,13 +106,14 @@
 	width: 393px;
 	margin-left: 20px;
 }
-.personal  li.txt-input input[type='text'], .firm  li.txt-input input[type='text'], .firm .permit-img {
+.personal  li.txt-input input[type='text'], .firm  li.txt-input input[type='text'],.firm  li.txt-input input[type='password'], .firm .permit-img,.personal li.txt-input input[type="password"] {
 	width: 445px;
 	padding-left: 15px;
 	border: 1px solid #f2f2f2;
 	border-radius: 5px;
 	margin-left:0;
 }
+
 .personal .txt-input .input-tle, .firm .txt-input .input-tle {
 	width: 115px;
 	padding-right: 5px;

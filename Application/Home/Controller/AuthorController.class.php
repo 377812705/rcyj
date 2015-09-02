@@ -364,6 +364,8 @@ class AuthorController extends HomeController {
             }
             @fclose($out);
         }
-        die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'"}');
+        $uploadDir = substr($uploadDir, 1);
+        $pic = $uploadDir.'/'.$fileNamed.'.'.$end;
+        die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'","pic":"'.$pic.'"}');
     }
 }

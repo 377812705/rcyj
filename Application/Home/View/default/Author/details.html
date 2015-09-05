@@ -75,9 +75,9 @@
 
                 <ul>
                     <volist name="uwork" id="data" mod="4">
-                        <li style="display:block;"><img
+                        <li style="display:block;"><a href="/Product/details/id/{$data.id}.html"><img
                                 src="{$data.main_image_url}" alt="作品图片-{$data.title}"
-                                style="display：block;width: 293px;height: 222px;"/>
+                                style="display：block;width: 293px;height: 222px;"/></a>
 
                             <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
                                 <h4>￥{$data.money}</h4>

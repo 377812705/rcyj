@@ -170,7 +170,7 @@ $(function() {
 				<a href="__ROOT__/Author.html" class="more">更多推荐作者</a> </div>
 			<ul>
 				<volist name="author" id="data" mod="4">
-				<li style="display: block;">
+				<li>
 					 <a href="__ROOT__/Author/details/id/{$data.id}.html">
 						 <empty name="data.header_img">
 							 <img style="width: 80px;height: 80px;" src="__IMG__/touxiang.png"/>
@@ -179,7 +179,7 @@ $(function() {
 						 </empty>
 						 <!--<img src="__IMG__/user-img01.gif"/>-->
 					 </a>
-						<span>
+						<span style="padding-left: 10px;">
 						 <h5><a href="__ROOT__/Author/details/id/{$data.id}.html" style="color: #0390e9;">{$data.user_name}</a></h5>
 						 <h6>{$data.address} / {$data.tags_content|strtr=';',' '|mb_substr=1,10,'UTF-8'}</h6>
 						 <h6>粉丝：{$data.fans_count}／ 作品：{$data.workcount}</h6>

@@ -200,9 +200,6 @@ header.logo02{
 header {
 	background: url(../images/logo-img.gif) no-repeat 40px top;
 }
-.nav {
-	padding-left: 110px;
-}
 .nav li a{
 	padding:0 15px;
 	}

@@ -306,6 +306,7 @@ class OrderController extends HomeController {
 		$result = $model->where ( array (
 				'order_number' => $orderId
 		) )->find ();
+		
 		if (empty ( $result )) {// 数据空的返回空
 			return array (
 					'fail' => array (
@@ -348,6 +349,7 @@ class OrderController extends HomeController {
 				'trade_no'=>$orderInfo['trade_no'],
 				'pay_time' => date('Y-m-d H:i:s',time())
 		);
+		
 		if($result['custom_id']>0){
 			$dataCustom['cusstatus']=2;
 			D('Custom')->where('cusid='.$result['custom_id'])->save($dataCustom);
@@ -361,6 +363,7 @@ class OrderController extends HomeController {
 		$model->where ( array (
 				'order_number' => $orderId
 		) )->save ( $data );
+		
 		return array (
 				'success' => array (
 						'desc1' => '支付订单成功',

@@ -26,17 +26,16 @@
             <h4>{$custom.cusname}</h4>
             <h5>定制主题：<span>{$custom.theme}</span>标签：<span>形象</span>形象分类：<span>{$custom.imgclass}</span></h5>
             <h5>订制方式：<span>{$custom.mode}</span>展示方式：<span>{$custom.dismode}</span>风格选择：<span>{$custom.style}</span></h5>
-            <h5>订制价格：<span class="red-span">{$custom.cusmoney} RMB</span>订制期限：<span class="red-span">10 天</span></h5>
+            <h5>订制价格：<span class="red-span">{$custom.cusmoney} RMB</span>订制期限：<span class="red-span">{$custom.diffday} 天</span></h5>
         </div>
         <div class="brief-right grab"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
         <h4>{$cuinfo.nick_name}</h4>
         <h5>地区：{$cuinfo.address}</h5>
         <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
-        <h5>好评率：99%</h5>
+        <h5>好评率：99%{$isgrab}</h5>
         </span>
             <switch name="isgrab">
                 <case value="0"><input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单"></case>
-                <case value="9999"><input class="grab-btnon" type="button" value="已指定作者"></case>
                 <default /><input class="grab-btnon" type="button" value="已抢单">
             </switch>
         </div>

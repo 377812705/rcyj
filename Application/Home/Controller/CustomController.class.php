@@ -148,6 +148,38 @@ class CustomController extends HomeController
             $custom['orderid']=time().is_login().$custom['cusid'];
             //$custom['cusstatus']=2;
             $model->where("cusid={$custom['cusid']}")->save($custom);
+
+            if(isset($custom['touid'])){
+            $gdata=array(
+                "uid"=>$custom['touid'],
+                "cusid"=>$custom['cusid']
+            );
+
+            $gmodel=M('grab');
+            $gmodel->add($gdata);
+
+            //订制需求信息
+            $cinfo=D('Custom')->getOrderCustomByid($gdata['cusid']);
+
+            //抢单者信息
+            $uinfo=D('Author')->find($gdata['uid']);
+
+            //订制需求者信息
+            $cuinfo=D('Author')->find($gdata['uid']);
+
+            $amsg=array(
+                'uid'=>$_POST['uid'],
+                'content'=>"您被选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
+            );
+            M('message')->add($amsg);
+            $cmsg=array(
+                'uid'=>$cinfo['uid'],
+                'content'=>"您的订制需求<<{$cinfo['cusname']}>>选择了作者<<{$uinfo['nick_name']}>>为此制作。"
+            );
+            M('message')->add($cmsg);
+
+            }
+
             $this->redirect("Order/makeCustomOrder/customid/{$custom['cusid']}");
         }else{
             $this->redirect("Custom/index");
@@ -186,11 +218,9 @@ class CustomController extends HomeController
             //dump($custom);
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
-            if($custom['touid']>0){
-                $this->assign('isgrab',isgrab(is_login(),$cusid));
-            }else{
-                $this->assign('isgrab',99999);
-            }
+            $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
+
+            $this->assign('isgrab',isgrab(is_login(),$cusid));
 
             $this->assign('custom',$custom);
             $this->assign('cuinfo',$cuinfo);

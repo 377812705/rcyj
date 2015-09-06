@@ -183,7 +183,12 @@ class CustomController extends HomeController
             //dump($custom);
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
-            $this->assign('isgrab',isgrab(is_login(),$cusid));
+            if($custom['touid']>0){
+                $this->assign('isgrab',isgrab(is_login(),$cusid));
+            }else{
+                $this->assign('isgrab',99999);
+            }
+
             $this->assign('custom',$custom);
             $this->assign('cuinfo',$cuinfo);
 
@@ -497,5 +502,13 @@ class CustomController extends HomeController
             $this->assign('cusid',$cusid);
             $this->display();
         }
+    }
+
+    public function noorder(){
+        $cusid=I('cusid');
+        $data=array(
+            "auther_id"=>0
+        );
+        M('order')->where("custom_id='{$cusid}'")->save($data);
     }
 }

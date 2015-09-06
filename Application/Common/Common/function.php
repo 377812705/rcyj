@@ -1051,9 +1051,22 @@ function wxOrderPay($data)
 	return $wxPay::orderPOST();
 }
 // 微信验证支付
-function wxNotifyPay()
+function wxNotifyPay($data)
 {
     Vendor("wx.wxpay");
+    $wxPay = new PayNotifyCallBack();
+    return $wxPay::Queryorders($data);
+}
+function wxNotifyPay2($data)
+{
+	Vendor("wxpay.wxpay");
     $wxPay = new wxPay();
     return $wxPay::orderNotify();
+}
+// 微信支付回复通知
+function wxReplyNotify($status)
+{
+	Vendor("wxpay.wxpay");
+	$wxPay = new wxPay();
+	$wxPay::replyNotify($status);
 }

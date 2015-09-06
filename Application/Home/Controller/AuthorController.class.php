@@ -14,7 +14,6 @@ use User\Api\UserApi;
 use Think\Page;
 
 class AuthorController extends HomeController {
-
     public function index() {
         //形象最低接单金额
         $uinfo[0]['minmoney']='300';
@@ -107,9 +106,9 @@ class AuthorController extends HomeController {
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
-//             if(!check_verify($data['verify'])){//匹配验证码
-//                 $this->error('验证码错误');
-//             }
+            if(check_verify($data['verify']) == false){//匹配验证码
+                $this->error('验证码错误');
+            }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }
@@ -192,9 +191,9 @@ class AuthorController extends HomeController {
                 $this->error('标签必选');
             }
             
-//             if(!check_verify($data['verify'])){//匹配验证码
-//                 $this->error('验证码错误');
-//             }
+            if(check_verify($data['verify']) == false){//匹配验证码
+                $this->error('验证码错误');
+            }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }

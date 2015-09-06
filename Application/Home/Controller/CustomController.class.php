@@ -249,9 +249,9 @@ class CustomController extends HomeController
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
-//             if(!check_verify($data['verify'])){//匹配验证码
-//                 $this->error('验证码错误');
-//             }
+            if(check_verify($data['verify']) == false){//匹配验证码
+                $this->error('验证码错误');
+            }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }
@@ -335,9 +335,9 @@ class CustomController extends HomeController
                 $this->error('营业执照必填');
             }
             
-//             if(!check_verify($data['verify'])){//匹配验证码
-//                 $this->error('验证码错误');
-//             }
+            if(check_verify($data['verify']) == false){//匹配验证码
+                $this->error('验证码错误');
+            }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }

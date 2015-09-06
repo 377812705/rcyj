@@ -1,4 +1,17 @@
 <extend name="Base/common" />
+<script type="text/javascript">
+$.ajax({
+    type: "GET",
+    url: "/wx/quel",
+    data: {'orderid':{$order.order_id}},
+    dataType: "json",
+    success: function(data){
+    	if(data.status==1){
+    		location.href="/order/pay_success/order_id/{$order.order_id}"; 
+    	}
+    }
+});
+</script>
 <block name="body">
   <!--------页面内容部分--------->
   <div class="container content">
@@ -12,8 +25,8 @@
         <div class="pay-div">
           <h4>应付金额：<span>{$order.money}</span> 元</h4>
           <div class="pay-by by-alipay">
-            <h5><span>支付宝支付</span></h5>
-            <div class="code"> <span><img  src="http://paysdk.weixin.qq.com/example/qrcode.php?data={$url}" style="width:150px;height:150px;"/>
+            <h5><span>微信支付</span></h5>
+            <div class="code"> <span><img  src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url);?>" style="width:150px;height:150px;"/>
 	</span> <a href="#">请使用微信扫一扫扫描二维码支付</a> </div>
             <img src="__IMG__/pay-img06.gif"/> </div>
         </div>

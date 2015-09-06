@@ -15,7 +15,13 @@ use Think\Controller;
  * 为防止多分组Controller名称冲突，公共Controller名称统一使用分组名称
  */
 class HomeController extends Controller {
-
+	public function  _initialize(){
+		$a=explode('/', __ACTION__);
+		if($a[2]!='Custom'&&$a[2]!='Index'&&$a[2]!='Product'&&$a[2]!='Author'&&$a[2]!='Activity'){
+			$a[2]='Index';
+		}
+		$this->assign('controllername',$a[2]);
+	}
 	/* 空操作，用于输出404页面 */
 	public function _empty(){
 		$this->redirect('Index/index');

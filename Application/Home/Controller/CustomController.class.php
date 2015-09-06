@@ -507,8 +507,13 @@ class CustomController extends HomeController
     public function noorder(){
         $cusid=I('cusid');
         $data=array(
-            "auther_id"=>0
+            "auther_id"=>'',
+            "auther"=>""
         );
         M('order')->where("custom_id='{$cusid}'")->save($data);
+        $cdata=array(
+            "touid"=>0
+        );
+        D('Custom')->where("cusid={$cusid}")->save($cdata);
     }
 }

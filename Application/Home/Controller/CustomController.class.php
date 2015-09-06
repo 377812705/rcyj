@@ -127,6 +127,8 @@ class CustomController extends HomeController
                 }
                 $custom['cusid'] = $model->add($custom);
 
+                $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
+
                 $this->assign('custom', $custom);
                 $this->display('Custom/orderinfo');
             }else{

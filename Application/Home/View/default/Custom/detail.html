@@ -31,7 +31,7 @@
         <div class="brief-right grab"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
         <h4>{$cuinfo.nick_name}</h4>
         <h5>地区：{$cuinfo.address}</h5>
-        <h5>几分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
+        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
         <h5>好评率：99%</h5>
         </span>
             <switch name="isgrab">
@@ -53,7 +53,7 @@
     </switch>
 
           <span class="details-btn">
-      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/custom/formid/{:is_login()}.html'" value="我要订制">
+      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/pcustom/formid/{:is_login()}.html'" value="我要订制">
               <eq name="isgrab" value="0">
       <input class="blue-input" type="button" id="btn_qd2" value="我要抢单" onclick="qd({:is_login()},{$custom.cusid})">
                   </eq>
@@ -71,10 +71,11 @@
       </span> </span> </div>
     <div class="author">
         <div class="author-left"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
-        <h4>{$cuinfo.nick_name}</h4>
-        <h5>订制者标签：{$cuinfo.tags_content}</h5>
-        <h5>成交量：{$cuinfo.work_count} 笔</h5>
-        <h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>
+       <h4>{$cuinfo.nick_name}</h4>
+        <h5>地区：{$cuinfo.address}</h5>
+        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
+        <h5>好评率：99%</h5>
+        <!--<h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
         </span>
             <input name="" type="button" value="已关注">
         </div>

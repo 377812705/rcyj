@@ -183,7 +183,12 @@ class CustomController extends HomeController
             //dump($custom);
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
-            $this->assign('isgrab',isgrab(is_login(),$cusid));
+            if($custom['touid']>0){
+                $this->assign('isgrab',isgrab(is_login(),$cusid));
+            }else{
+                $this->assign('isgrab',99999);
+            }
+
             $this->assign('custom',$custom);
             $this->assign('cuinfo',$cuinfo);
 
@@ -497,5 +502,36 @@ class CustomController extends HomeController
             $this->assign('cusid',$cusid);
             $this->display();
         }
+    }
+
+    public function noorder(){
+        $cusid=I('cusid');
+        $data=array(
+            "auther_id"=>'',
+            "auther"=>""
+        );
+        M('order')->where("custom_id='{$cusid}'")->save($data);
+        $cdata=array(
+            "touid"=>0
+        );
+        D('Custom')->where("cusid={$cusid}")->save($cdata);
+
+
+        //订制需求信息
+        $cinfo=D('Custom')->getOrderCustomByid($cusid);
+        //抢单者信息
+        $uinfo=D('Author')->find(is_login());
+        //订制需求者信息
+        $cuinfo=D('Author')->find($cinfo['uid']);
+        $amsg=array(
+            'uid'=>$data['user_id'],
+            'content'=>"您选择不为订制需求<<{$cinfo['cusname']}>>进行制作。"
+        );
+        M('message')->add($amsg);
+        $cmsg=array(
+            'uid'=>$cinfo['uid'],
+            'content'=>"<<{$uinfo['nick_name']}>>选择不为订制需求<<{$cinfo['cusname']}>>进行制作。"
+        );
+        M('message')->add($cmsg);
     }
 }

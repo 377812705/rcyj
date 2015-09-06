@@ -34,11 +34,11 @@
         <h5>几分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
         <h5>好评率：99%</h5>
         </span>
-            <eq name="isgrab" value="0">
-                    <input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单">
-                <else />
-                    <input class="grab-btnon" type="button" value="已抢单">
-            </eq>
+            <switch name="isgrab">
+                <case value="0"><input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单"></case>
+                <case value="9999"><input class="grab-btnon" type="button" value="已指定作者"></case>
+                <default /><input class="grab-btnon" type="button" value="已抢单">
+            </switch>
         </div>
     </div>
     <div class="details-content order-subject">

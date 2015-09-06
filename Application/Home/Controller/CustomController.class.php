@@ -69,6 +69,7 @@ class CustomController extends HomeController
         $this->assign('dataf',$dataf);
 
         $data['cusstatus'] = array('gt',1);
+        $data['touid'] = 0;
 
         //作品总数
         $wmodel=D('Custom');

@@ -84,8 +84,10 @@ class Verify {
      */
     public function check($code, $id = '') {
         $key = $this->authcode($this->seKey).$id;
+        
         // 验证码不能为空
         $secode = session($key);
+
         if(empty($code) || empty($secode)) {
             return false;
         }
@@ -95,7 +97,7 @@ class Verify {
             return false;
         }
 
-        if($this->authcode(strtoupper($code)) == $secode['verify_code']) {
+        if($this->authcode($code) == $secode['verify_code']) {
             $this->reset && session($key, null);
             return true;
         }
@@ -110,7 +112,7 @@ class Verify {
      * @param string $id 要生成验证码的标识   
      * @return void
      */
-    public function entry($id = '') {
+    public function entry($id = '',$code='') {
         // 图片宽(px)
         $this->imageW || $this->imageW = $this->length*$this->fontSize*1.5 + $this->length*$this->fontSize/2; 
         // 图片高(px)
@@ -152,8 +154,9 @@ class Verify {
         }
         
         // 绘验证码
-        $code = array(); // 验证码
+       /* $code = array(); // 验证码
         $codeNX = 0; // 验证码第N个字符的左边距
+        
         if($this->useZh){ // 中文验证码
             for ($i = 0; $i<$this->length; $i++) {
                 $code[$i] = iconv_substr($this->zhSet,floor(mt_rand(0,mb_strlen($this->zhSet,'utf-8')-1)),1,'utf-8');
@@ -165,24 +168,28 @@ class Verify {
                 $codeNX  += mt_rand($this->fontSize*1.2, $this->fontSize*1.6);
                 imagettftext($this->_image, $this->fontSize, mt_rand(-40, 40), $codeNX, $this->fontSize*1.6, $this->_color, $this->fontttf, $code[$i]);
             }
-        }
-       
+        }*/
+		if($code){
+			$code = $code ;
+		}
         // 保存验证码
         $key        =   $this->authcode($this->seKey);
-        $code       =   $this->authcode(strtoupper(implode('', $code)));
+        $code       =   $this->authcode($code);
+
         $secode     =   array();
         $secode['verify_code'] = $code; // 把校验码保存到session
         $secode['verify_time'] = NOW_TIME;  // 验证码创建时间
-        session($key.$id, $secode);
-                        
+
+        session($key.$id,$secode);
+        
         header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');
-        header('Cache-Control: post-check=0, pre-check=0', false);		
+        header('Cache-Control: post-check=0, pre-check=0', false);
         header('Pragma: no-cache');
         header("content-type: image/png");
-
-        // 输出图像
-        imagepng($this->_image);
-        imagedestroy($this->_image);
+        
+        //输出图像
+//        imagepng($this->_image);
+//        imagedestroy($this->_image);                    
     }
 
     /** 

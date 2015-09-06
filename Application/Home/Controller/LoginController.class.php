@@ -74,9 +74,11 @@ class LoginController extends HomeController
             $sendsms = new \Vendor\sms\SendSMS();
             //("13800000000" ,array('6532','5'),"1");
             $result = $sendsms->sendTemplateSMS($mobile, array($CheckCode, '5'), "10249");
+            $verify = new \Think\Verify();
+            $rs = $verify->entry('',$CheckCode);
             //保存记录
             if ($result->statusCode == '000000') {
-                $mvcode = M('mobilevcode');
+                $mvcode = D('Mobilevcode');
                 $data['mobile'] = $mobile;
                 $data['vcode'] = $CheckCode;
                 $data['telmpno'] = "10249";
@@ -84,7 +86,7 @@ class LoginController extends HomeController
                 $smsmessage = $result->TemplateSMS;
                 $data['smsMessageSid'] = $smsmessage->smsMessageSid;
                 $data['dateCreated'] = $smsmessage->dateCreated;
-                $mvcode->data($data)->add();
+                $mvcode->send($data);
             }
             $this->ajaxReturn('验证码已经发送');
         }

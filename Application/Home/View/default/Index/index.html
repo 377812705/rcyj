@@ -87,6 +87,7 @@ $(function() {
 });
 
 </script>
+
 	<div class="container content">
 		<div class="banner"> 
 		<div class="wrapper">
@@ -114,33 +115,10 @@ $(function() {
 				<li><span class="station"></span></li>
 			</ul>
 		</div>
+		
 		<div class="module">
 			<div class="module-tle">
-				<h3>作品推荐<span><a href="__ROOT__/MyCenter/uploadWork.html">我要上传“展现精品，创造价值”</a></span></h3>
-				<a href="__ROOT__/Product.html" class="more">更多作品推荐</a> </div>
-			<ul>
-				<volist name="tjwork" id="data">
-				<li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
-					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
-					<h4>￥{$data.money}</h4>
-					<span class="label-a"><a >{$tags[$data['tags']]}</a><a>{$source[$data['create_status']]}</a></span>
-					<!-- <h5><span>{$data.open_count}</span>人气  /<span>{$data.praise_count}</span>点赞  /<span>{$data.favorite_count}</span>收藏 </h5> -->
-					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html" style="color: #0390e9;">{$data.nick_name}
-						<if condition="$data.nick_name eq null">
-							<img src="__IMG__/works.png" style="width: 41px;height: 41px;" alt="用户头像"/>
-							<else />
-							<img src="{$data.header_img}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
-						</if>
-					</a></h6>
-				</li>
-				</volist>
-
-			</ul>
-
-		</div>
-		<div class="module">
-			<div class="module-tle">
-				<h3>订制推荐<span><a href="__ROOT__/Custom/custom.html">我要订制“订制时尚，品味生活”</a></span></h3>
+				<h3>订制推荐<span><a href="__ROOT__/Custom/custom.html">我要订制—“订制时尚，品味生活”</a></span></h3>
 				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
 			<ul>
 				<volist name="dzwork" id="data">
@@ -164,9 +142,33 @@ $(function() {
 
 			</ul>
 		</div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>作品推荐<span><a href="__ROOT__/MyCenter/uploadWork.html">我要上传—“展现精品，创造价值”</a></span></h3>
+				<a href="__ROOT__/Product.html" class="more">更多作品推荐</a> </div>
+			<ul>
+				<volist name="tjwork" id="data">
+				<li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
+					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
+					<h4>￥{$data.money}</h4>
+					<span class="label-a"><a >{$tags[$data['tags']]}</a><a>{$source[$data['create_status']]}</a></span>
+					<!-- <h5><span>{$data.open_count}</span>人气  /<span>{$data.praise_count}</span>点赞  /<span>{$data.favorite_count}</span>收藏 </h5> -->
+					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html" style="color: #0390e9;">{$data.nick_name}
+						<if condition="$data.nick_name eq null">
+							<img src="__IMG__/works.png" style="width: 41px;height: 41px;" alt="用户头像"/>
+							<else />
+							<img src="{$data.header_img}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
+						</if>
+					</a></h6>
+				</li>
+				</volist>
+
+			</ul>
+
+		</div>
 		<div class="module recommend">
 			<div class="module-tle">
-				<h3>作者推荐<span><a href="__ROOT__/Author/pAuthorReg.html">我要申请“让世界关注你”</a></span></h3>
+				<h3>作者推荐<span><a href="__ROOT__/Author/pAuthorReg.html">我要申请—“让世界关注你”</a></span></h3>
 				<a href="__ROOT__/Author.html" class="more">更多推荐作者</a> </div>
 			<ul>
 				<volist name="author" id="data" mod="4">

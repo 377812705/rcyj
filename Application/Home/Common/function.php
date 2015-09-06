@@ -18,7 +18,7 @@
  * @return boolean     检测结果
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
-function check_verify($code, $id = 1){
+function check_verify($code, $id = ''){
 	$verify = new \Think\Verify();
 	return $verify->check($code, $id);
 }

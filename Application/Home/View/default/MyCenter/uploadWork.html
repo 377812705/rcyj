@@ -217,7 +217,7 @@ PLUGINSPAGE="">
                         </li>
                         <li class="fill">
                             <h5>上传图片：</h5>
-            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式，请上传需要绘画的照片。您还可以上传一张您喜欢的肖像风格，以便作者参考；没有上传，作者会根据您的描述，给您满意的作品。</h6>
+            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
           <div class="box">
 	<div id="flieinput" ></div>
 </div>
@@ -230,8 +230,8 @@ PLUGINSPAGE="">
 </div>
                         </li>
                        </span>
-                       <span id="xq" style="display: none;">
-							<li class="fill">
+                       <span >
+							<li class="fill" id="xq" style="display: none;">
 	                            <h5>上传图片：</h5>
 	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
 						         <div class="box">
@@ -265,13 +265,15 @@ $('#flieinputxq').diyUpload({
 	},
 	error:function( err ) {
 		console.info( err );	
-	},	buttonText : '形象图',
+	},	
+	buttonText : '形象图',
 	chunked:true,
 	// 分片大小
 	chunkSize:512 * 1024,
 	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
 	fileNumLimit:10,
 });
+
 $('#flieinput').diyUpload({
 	url:'/MyCenter/upload',
 	success:function( data ) {
@@ -322,5 +324,7 @@ $('#flieinput3').diyUpload({
 	fileNumLimit:10,
 	accept: {}
 });
+
+    
 </script>
 </block>

@@ -69,7 +69,6 @@ class CustomController extends HomeController
         $this->assign('dataf',$dataf);
 
         $data['cusstatus'] = array('gt',1);
-        $data['touid'] = 0;
 
         //作品总数
         $wmodel=D('Custom');
@@ -126,8 +125,6 @@ class CustomController extends HomeController
                     $custom['cusdesc']='';
                 }
                 $custom['cusid'] = $model->add($custom);
-
-                $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
 
                 $this->assign('custom', $custom);
                 $this->display('Custom/orderinfo');
@@ -252,7 +249,10 @@ class CustomController extends HomeController
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
-            if(check_verify($data['verify']) == false){//匹配验证码
+            if(empty($data['verify'])){
+                $this->error('验证码必填');
+            }
+            if(check_verify($data['verify']) != true){//匹配验证码
                 $this->error('验证码错误');
             }
             if($data['password'] != $data['confirm']){
@@ -337,8 +337,10 @@ class CustomController extends HomeController
             if(empty($data['sht'])){
                 $this->error('营业执照必填');
             }
-            
-            if(check_verify($data['verify']) == false){//匹配验证码
+            if(empty($data['verify'])){
+                $this->error('验证码必填');
+            }
+            if(check_verify($data['verify']) != true){//匹配验证码
                 $this->error('验证码错误');
             }
             if($data['password'] != $data['confirm']){
@@ -534,34 +536,6 @@ class CustomController extends HomeController
         $cmsg=array(
             'uid'=>$cinfo['uid'],
             'content'=>"<<{$uinfo['nick_name']}>>选择不为订制需求<<{$cinfo['cusname']}>>进行制作。"
-        );
-        M('message')->add($cmsg);
-    }
-
-    public function conorder(){
-        $cusid=I('cusid');
-        $cdata=array(
-            "touid"=>is_login(),
-            "cusstatus"=>3
-
-        );
-        D('Custom')->where("cusid={$cusid}")->save($cdata);
-
-
-        //订制需求信息
-        $cinfo=D('Custom')->getOrderCustomByid($cusid);
-        //抢单者信息
-        $uinfo=D('Author')->find(is_login());
-        //订制需求者信息
-        $cuinfo=D('Author')->find($cinfo['uid']);
-        $amsg=array(
-            'uid'=>$data['user_id'],
-            'content'=>"您选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
-        );
-        M('message')->add($amsg);
-        $cmsg=array(
-            'uid'=>$cinfo['uid'],
-            'content'=>"<<{$uinfo['nick_name']}>>选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
         );
         M('message')->add($cmsg);
     }

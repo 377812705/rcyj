@@ -48,7 +48,7 @@
 							<li class="nextnavon"><a href="__ROOT__/Custom/eCustomReg.html">企业订制注册</a></li>
 						</ul>
 						<ul class="login-ul">
-						<form action="/2cyj/custom/ecustomreg" method="get" id="form">
+						<form action="/custom/ecustomreg" method="get" id="form">
 								<li class="txt-input name"><span class="input-tle">姓名：</span>
 										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required,minSize[4],maxSize[16]]" onclick="if(this.value=='请输入姓名'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入姓名';this.className='gray'}" />
 								</li>
@@ -127,9 +127,9 @@ $('.retrieve-btn').click(function(){
 $('#flieinput').diyUpload({
 	url:'__ROOT__/Author/upload',
 	success:function( data ) {
-		$("#inputhidden").append("<input type='hidden' name='sht'  value="+data.result+'.'+data.postfix+" />");
+		$("#inputhidden").append("<input type='hidden' name='sht'  value="+data.pic+" />");
 		$("#flieinput").html(
-        		"<span class='permit-img'><img alt='企业营业执照' class='zw-img' src='"+data.pic+"' width='258px' hieght='462'/></span>"
+        		"<span class='permit-img'><img alt='企业营业执照' class='zw-img' src='__ROOT__"+data.pic+"' width='258px' hieght='462px'/></span>"
         );
 		
 		/* console.info( data ); */

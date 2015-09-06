@@ -16,16 +16,31 @@ $(function(){
 	})
 	/*下拉列内容表选项选中取消*/
 	$(".label-check>li").click(function(){
+		var xflag = false;
 		if(!$(this).hasClass("checkon")){
 			var maxck = $(this).parent().attr("max");
 			if(maxck && parseInt(maxck) > 0){
+				xflag = true;
 				if($(".checkon").length >= parseInt(maxck)){
-					alert("最多选择三项")
+					alert("最多只能选择三个项！");
 					return ;
 				}
 			}
 		}
 		$(this).toggleClass("checkon");
+		if(xflag){
+			var txt = '';
+			$(this).parent().children().each(function(){
+				if($(this).hasClass("checkon")){
+					txt = txt + $(this).html() + ";";
+				}
+			});
+			if(txt != ''){
+				txt = txt.substring(0, txt.lastIndexOf(';'));
+			}
+			$(".label-span>a").html(txt).css("color","#424242");
+			$(this).parent().hide();
+		}
 		$("#"+$(this).parent().attr("id")).attr("value",$(this).attr("value"));
 		if($(this).parent().attr("id")=='worktag'){
 			if($(this).attr("value")==1){

@@ -22,7 +22,12 @@ class LoginController extends HomeController
                 // 令牌验证错误
                 $_POST['password'] = strtoupper(md5($_POST['password']));
                 $data = $_POST;
+                if(empty($data['verify'])){
+                    $this->error('验证码必填');
+                }
+                unset($data['verify']);
                 $data['mycode'] = make_coupon_card();//自己的邀请码
+                $data['create_date'] = date('y-m-d h:i:s', time());
                 $model->add($data);
                 $this->redirect("Login/login");
             } else {
@@ -221,7 +226,6 @@ class LoginController extends HomeController
 
     public function thridlogin($type = null) {
         empty($type) && $this->error('参数错误');
-
         import('Org.ThinkSDK.ThinkOauth');
 
 

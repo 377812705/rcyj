@@ -269,6 +269,7 @@ class CustomController extends HomeController
             $userData['mobile_verified'] = 0 ;
             $userData['invitecode'] = $data['invite'];
             $userData['status'] = 1;
+            $userData['mycode'] = make_coupon_card();//自己的邀请码
             $userModel = D('User') ;
             $user_id = $userModel->register($userData);//user表插入
             //             $user_id = 6872 ;
@@ -355,6 +356,7 @@ class CustomController extends HomeController
             $userData['mobile_verified'] = 0 ;
             $userData['invitecode'] = $data['invite'];
             $userData['status'] = 1;
+            $userData['mycode'] = make_coupon_card();//自己的邀请码
             $userModel = D('User') ;
             $user_id = $userModel->register($userData);//user表插入
             //$user_id = 6872 ;

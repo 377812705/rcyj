@@ -534,4 +534,32 @@ class CustomController extends HomeController
         );
         M('message')->add($cmsg);
     }
+
+    public function conorder(){
+        $cusid=I('cusid');
+        $cdata=array(
+            "touid"=>is_login(),
+            "cusstatus"=>3
+
+        );
+        D('Custom')->where("cusid={$cusid}")->save($cdata);
+
+
+        //订制需求信息
+        $cinfo=D('Custom')->getOrderCustomByid($cusid);
+        //抢单者信息
+        $uinfo=D('Author')->find(is_login());
+        //订制需求者信息
+        $cuinfo=D('Author')->find($cinfo['uid']);
+        $amsg=array(
+            'uid'=>$data['user_id'],
+            'content'=>"您选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
+        );
+        M('message')->add($amsg);
+        $cmsg=array(
+            'uid'=>$cinfo['uid'],
+            'content'=>"<<{$uinfo['nick_name']}>>选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
+        );
+        M('message')->add($cmsg);
+    }
 }

@@ -117,7 +117,7 @@ class OrderController extends HomeController {
 		$pageshowcount=5;
 		$Page       = new Page($count,$pageshowcount);
 		$show       = $Page->pageshow();
-		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode,2cy_custom.cusstatus")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		$this->assign('userid',$user_id);
 		$paytype=C('paystatus');
 		$this->assign('orderList',$orderList);
@@ -349,11 +349,16 @@ class OrderController extends HomeController {
 				'trade_no'=>$orderInfo['trade_no'],
 				'pay_time' => date('Y-m-d H:i:s',time())
 		);
-		
 		if($result['custom_id']>0){
 			$dataCustom['cusstatus']=2;
 			D('Custom')->where('cusid='.$result['custom_id'])->save($dataCustom);
 		}
+		if($result['work_id']>0){
+			D('Works')->where ( array (
+						'id' => $result['work_id']
+		) )->save( array('issell'=>2) );
+		}
+		
 		if(isset($orderInfo['order_type'])){
 			$data['order_type'] = $orderInfo['order_type'];
 		}
@@ -363,6 +368,7 @@ class OrderController extends HomeController {
 		$model->where ( array (
 				'order_number' => $orderId
 		) )->save ( $data );
+		
 		
 		return array (
 				'success' => array (

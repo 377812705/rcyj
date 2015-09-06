@@ -1,17 +1,26 @@
 <extend name="Base/common" />
+<block name="head">
 <script type="text/javascript">
-$.ajax({
-    type: "GET",
-    url: "/wx/quel",
-    data: {'orderid':{$order.order_id}},
-    dataType: "json",
-    success: function(data){
-    	if(data.status==1){
-    		location.href="/order/pay_success/order_id/{$order.order_id}"; 
-    	}
-    }
-});
+$(document).ready(function(){ 
+	setTimeout(trace(),5000);
+}); 
+function trace(){ 
+	$.ajax({
+	    type: "GET",
+	    url: "/wx/quel",
+	    data: {'orderid':$('#order_id').val()},
+	    dataType: "json",
+	    success: function(data){
+	    	if(data.status==1){
+	    		location.href="/order/pay_success/order_id/{$order.order_id}"; 
+	    	}else{
+	    		setTimeout(trace(),150000);
+	    	}
+	    }
+	}); 
+} 
 </script>
+</block>
 <block name="body">
   <!--------页面内容部分--------->
   <div class="container content">
@@ -19,6 +28,7 @@ $.ajax({
       <ul class="nextnav pay">
         <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
       </ul>
+       <input id="order_id" name="show" hidden  value="{$order.order_id}" />
       <div class="custom-content pay">
         <h3>订单提交成功，请您尽快付款！<span>订单号：{$order.order_number}</span></h3>
         <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>

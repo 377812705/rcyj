@@ -29,30 +29,27 @@ class WxController extends Controller {
 			exit();
 		}
 		$data['order_id']=$order_id;
-		$data['ajax_type']=0;
+		//$data['ajax_type']=0;
 		$OrderModel =D('Order');
 		$order=$OrderModel->where($data)->find();
-		if(!$order){
-			$this->assign ( 'message', '订单号异常' );
-			$this->display('Public/error');
-			exit();
-		}
+
 		$url=wxOrderPay($order);
 		$this->assign ('order',$order);
 		$this->assign ( 'url', $url );
 		$this->display('Pay/payalipay');
 	}
-	function quel($order_id){
+	function quel(){
+		$order_id = I('get.orderid' );
 		$OrderModel =D('Order');
 		$data['order_id']=$order_id;
 		$order=$OrderModel->where($data)->find();
-		if(!$order['ajax_type']!=0){
+		if($order['ajax_type']!="0"){
 			$dataarr['status']=1;
 			$dataarr['mge']='已经支付成功';
-    		return $dataarr;
+			//die('{"status" : "'.$dataarr['status'].'", "mge" : "'.$dataarr['mge'].'"}');
 		}
 		$res=wxNotifyPay($order);
-		if ($res['result_code'] === 'SUCCESS' && $res['return_code'] === 'SUCCESS') {
+		if ($res['result_code'] === 'SUCCESS' && $res['trade_state'] != 'NOTPAY') {
     		//商户订单号
     		$out_trade_no = $res['out_trade_no'];
     		//微信支付交易单号
@@ -73,14 +70,15 @@ class WxController extends Controller {
     	
     			//请不要修改或删除
     		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            wxReplyNotify(true);    // 返回通知给微信
+            //wxReplyNotify(true);    // 返回通知给微信
     		$dataarr['status']=1;
-    		return $dataarr;
+    		die('{"status" : "'.$dataarr['status'].'"}');
+    		
         }else{
-            wxReplyNotify(false);    // 返回通知给微信
-            $this->log_result("这里写入想要调试的代码变量值，或其他运行的结果记录-验证失败");
+            //wxReplyNotify(false);    // 返回通知给微信
+            //$this->log_result("这里写入想要调试的代码变量值，或其他运行的结果记录-验证失败");
             $dataarr['status']=0;
-            return $dataarr;
+            die('{"status" : "'.$dataarr['status'].'"}');
         }
 	}
 	function notify_url()

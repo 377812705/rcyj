@@ -50,6 +50,10 @@ $(function(){
 			if($(this).attr("value")==2){
 				$("#xq").show();
 				$("#kt").hide();
+				$('#flieinputxq').each(function () {                
+				   $(this).children('div').eq(1).css('width','72px');
+				   $(this).children('div').eq(1).css('height','39px');
+				});
 			}
 		}
 	});

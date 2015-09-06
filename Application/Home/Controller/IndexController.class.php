@@ -13,6 +13,7 @@ use OT\DataDictionary;
 class IndexController extends HomeController {
 
     public function index(){
+    	
         session('PRI_URL', null);
         //推荐作品
         $data['custom_id']=array('ELT',"0");

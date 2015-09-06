@@ -9,7 +9,7 @@ namespace Home\Controller;
 use Think\Controller;
 use Think\Page;
 
-class OrderController extends Controller {
+class OrderController extends HomeController {
 
 	/**
 	 * 用户中心的作品订单列表

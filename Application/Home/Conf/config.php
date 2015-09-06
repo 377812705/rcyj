@@ -11,7 +11,7 @@
  * 前台配置文件
  * 所有除开系统级别的前台配置
  */
-$SITE_URL = "http://www.erciyuanjie.com/";
+$SITE_URL = "http://www.2ciyuanjie.com/";
 define('URL_CALLBACK', "" . $SITE_URL . "Login/callback/type/");
 return array(
     //腾讯QQ登录配置

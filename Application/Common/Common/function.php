@@ -1031,6 +1031,20 @@ function getUserNameById($id){
 	}
 }
 /**
+ * 获取是不是作者
+ * @param  string $url 导航URL
+ * @return string      解析或的url
+ * @author jhw
+ */
+function getUserAutherYesNo($id){
+	$array=D('Home/User')->field('author_flag')->find($id);
+	if($array['author_flag']){
+		return true;
+	}else{
+		return false;
+	}
+}
+/**
  * 生成订单号
  */
 function makeOrderCardId(){

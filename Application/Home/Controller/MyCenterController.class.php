@@ -13,6 +13,18 @@ use OT\DataDictionary;
 use Think\Page;
 class MyCenterController extends HomeController
 {
+	public function  _initialize(){
+		$a=CONTROLLER_NAME;
+		if(CONTROLLER_NAME!='Custom'&&CONTROLLER_NAME!='Index'&&CONTROLLER_NAME!='Product'&&CONTROLLER_NAME!='Author'&&$CONTROLLER_NAME!='Activity'){
+			$a='Index';
+		}
+		$this->assign('controllername',$a);
+		if (!is_login()) {
+			//echo CONTROLLER_NAME;die;
+			session('PRI_URL', CONTROLLER_NAME);
+			$this->redirect("Login/login");
+		}
+	}
     /**
      * 我的首页
      * @param string $id 用户ID
@@ -34,7 +46,7 @@ class MyCenterController extends HomeController
 		        $pageshowcount=8;
 		        $Page       = new Page($count,$pageshowcount);
 		        $show       = $Page->pageshow();
-		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		        $this->assign('works',$workList);
 		        $this->assign('show',$show);
 		        $this->assign('wcount',$count);
@@ -45,7 +57,14 @@ class MyCenterController extends HomeController
 		        $this->display();
         }
     }
-
+	public function del(){
+		$id=I('get.id');
+		if (!is_login()) {
+			session('PRI_URL', CONTROLLER_NAME.'/'.ACTION_NAME.'/id/'.$id);
+			$this->redirect("Login/login");
+		}
+	
+	}
     public function uploadWork()
     {
 
@@ -89,6 +108,10 @@ class MyCenterController extends HomeController
             	$data['assistant_image_url']=$path.$assistant_image_url;
             	$data['activity_id']=I('Post.activity_id');
             	$data['custom_id']=I('Post.custom_id');
+            	if($data['custom_id']>0){
+            		D('Custom')->where('cusid='.$data['custom_id'])->save(array('cusstatus'=>5));
+            		echo D('Custom')->getLastSql();
+            	}
             	if($wordid){
             		$arr['id']=$wordid;
             		$id=D('Works')->where($arr)->save($data);

@@ -70,7 +70,13 @@ class ProductController extends HomeController {
     }
     public function details(){
     	$id=I('get.id','');
-    	$works=D('Works')->find($id);
+    	$custom_id=I('get.custom_id','0');
+    	if($custom_id>0){
+    		$works=D('Works')->where(array('custom_id'=>$custom_id))->order('id desc')->find();
+    	}
+    	if($id>0){
+    		$works=D('Works')->find($id);
+    	}
     	$User=D('User')->find($works['user_id']);
     	$worklist=D('Works')->getWorksByUserId($works['user_id'],3);
     	$data['ref_id']=$works['id'];

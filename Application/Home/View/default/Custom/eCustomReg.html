@@ -50,7 +50,7 @@
 						<ul class="login-ul">
 						<form action="/custom/ecustomreg" method="get" id="form">
 								<li class="txt-input name"><span class="input-tle">姓名：</span>
-										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required,minSize[4],maxSize[16]]" onclick="if(this.value=='请输入姓名'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入姓名';this.className='gray'}" />
+										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required]" onclick="if(this.value=='请输入姓名'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入姓名';this.className='gray'}" />
 								</li>
 								<li class="txt-input phone"><span class="input-tle">联系电话：</span>
 										<input name="phone" id="mobile" type="text" placeholder="请输入联系电话"  class="gray validate[required,custom[phone]]" onclick="if(this.value=='请输入联系电话'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入联系电话';this.className='gray'}" />
@@ -90,7 +90,8 @@
 								</li>	
 								<li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
 										<input name="verify" type="text" placeholder="请输入验证码"  class="gray validate[required]" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
-										<input name="sendcode" type="button" value="验证码" id="sendcode">
+										<input name="sendcode" type="button" value="验证码" id="sendcode" style="background-color:#34abef;">
+										<input name="sendcode" type="button" value="验证码"  id="sendcode1" style="display: none;" >
 										</span> </li>
 								<li class="txt-input invite"><span class="input-tle">邀请码：</span>
 										<input name="invite" type="text" placeholder="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
@@ -146,14 +147,36 @@ $('#flieinput').diyUpload({
 });
 
 //发送验证码
-$("#sendcode").click(function(){
+$('#sendcode').click(function(){
+	if($('#mobile').val().length == 0){
+		alert('请输入手机号');return false;
+	}
+
+	var s = 60;
+	var timer;
+	timer = setInterval(function(){
+			$('#sendcode1').text('倒计时 '+60);
+			if(s<0){
+				clearInterval(timer);
+				$('#sendcode').show();
+				$('#sendcode1').hide();
+			}else{
+				s--;
+			}
+		},1000);
 	var mcode=$("#mobile").val();
 	if(mcode=="请输入手机号"){
 		alert("请输入手机号");
 	}else{
 		$.post("__ROOT__/Login/sendCode", {mobile: mcode},
 				function (data) {
-					alert(data);
+					if(data.status == 1){
+						$('#sendcode').hide();
+						$('#sendcode1').show();
+						alert(data.msg);
+					}else{
+						alert(data.msg);
+					}
 				});
 	}
 });

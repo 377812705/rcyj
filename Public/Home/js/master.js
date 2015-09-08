@@ -55,6 +55,15 @@ $(function(){
 				   $(this).children('div').eq(1).css('height','39px');
 				});
 			}
+		}if($(this).parent().attr("id")=='sellcate'){
+			if($(this).attr("value")==1){
+				$("#authorizeyesno").hide();
+				$("#moneyyesno").show();
+			}
+			if($(this).attr("value")==2){
+				$("#moneyyesno").hide();
+				$("#authorizeyesno").show();
+			}
 		}
 	});
 

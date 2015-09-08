@@ -19,7 +19,7 @@ class IndexController extends HomeController {
         $data['custom_id']=array('ELT',"0");
         $data['activity_id']=array('ELT',"0");
         $worksModel =D('Works');
-        $workList = $worksModel->field("works_comic.id,create_status,tags,title,works_comic.user_id,main_image_url,money,theme,user.header_img,user.nick_name")->join('left join user on works_comic.user_id = user.id')->order('istj desc,id desc')->limit(8)->where($data)->select();
+        $workList = $worksModel->field("works_comic.id,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,tags,title,works_comic.user_id,main_image_url,money,theme,user.header_img,user.nick_name")->join('left join user on works_comic.user_id = user.id')->order('istj desc,id desc')->limit(8)->where($data)->select();
         $this->assign('tjwork',$workList);
         $tags =C('tag');
         $source=C('source');

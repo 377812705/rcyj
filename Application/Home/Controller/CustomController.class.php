@@ -381,7 +381,7 @@ class CustomController extends HomeController
             }
             
             //组织页面注册数据
-            $userData['user_name'] = $data['company'];
+            $userData['user_name'] = $data['username'];
             $userData['nick_name'] = $data['name'];
             $userData['mobile'] = $data['phone'];
             $userData['author_flag'] = 1;

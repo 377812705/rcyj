@@ -27,18 +27,20 @@ class UserModel extends Model{
 	public function register($data){
 
 	    /* 添加用户 */
-	    $uid = $this->add($data);
+	    if($data['id']){//更新
+	        $rs = $this->where(array('id'=>$data['id']))->save($data);
+	        if($rs){
+	            $uid = $data['id'];
+	        }
+	    }else{
+	        $uid = $this->add($data);
+	    }
+	    
 	    if($uid){
 	        return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
 	    }else{
 	        return false ;
 	    }
-// 	    if($this->create($data)){
-// 	        ;echo $this->_sql();
-// 	        return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
-// 	    } else {
-// 	        return false;
-// 	    }
 	}
 
 }

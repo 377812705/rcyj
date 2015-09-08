@@ -22,8 +22,15 @@ class LoginController extends HomeController
                 // 令牌验证错误
                 $_POST['password'] = strtoupper(md5($_POST['password']));
                 $data = $_POST;
+
                 if(empty($data['verify'])){
                     $this->error('验证码必填');
+                }
+                if(check_verify($data['verify']) != true){//匹配验证码
+                    $this->error('验证码错误');
+                }
+                if(!checkMobile($data['mobile'])){//匹配手机号
+                    $this->error('手机号格式不符合要求');
                 }
                 unset($data['verify']);
                 $data['mycode'] = make_coupon_card();//自己的邀请码
@@ -65,11 +72,16 @@ class LoginController extends HomeController
         $CheckCode = rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9);
 
         $mobile = I('mobile');
+        if(!checkMobile($mobile)){
+            $data1 = array('status'=>-1,'msg'=>'无效的手机号码');
+            $this->ajaxReturn($data1);
+        }
         //判断手机号是否已经注册过
         $Model = M('user', null);
         $data = $Model->where("mobile='" . $mobile . "'")->select();
         if (0 < count($data)) {
-            $this->ajaxReturn('手机号已经存在');
+            $data1 = array('status'=>-1,'msg'=>'手机号已存在');
+            $this->ajaxReturn( $data1 );
         } else {
             $sendsms = new \Vendor\sms\SendSMS();
             //("13800000000" ,array('6532','5'),"1");
@@ -88,7 +100,8 @@ class LoginController extends HomeController
                 $data['dateCreated'] = $smsmessage->dateCreated;
                 $mvcode->send($data);
             }
-            $this->ajaxReturn('验证码已经发送');
+            $data1 = array('status'=>1,'msg'=>'验证码已经发送');
+            $this->ajaxReturn($data1);
         }
 
 

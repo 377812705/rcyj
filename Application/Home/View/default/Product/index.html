@@ -72,7 +72,12 @@
 							<volist name="works" id="data" mod="4">
 								<li style="display:block;"><a href="__ROOT__/Product/details/id/{$data.id}.html"><if condition="$data['main_image_url']"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/><else /> <img src="__flash__/default.png" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></if></a>
 										<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
-										<h4>￥{$data.money}</h4>
+										
+										<if condition="$data.sellcate eq '2'">
+												<h4>授权</h4>
+												<else />
+												<h4>￥{$data.money}</h4>
+											</if>
 										<span class="label-a"><if condition="$data['tags']"><a href="javascript:;">{$tags[$data['tags']]}</a><else /> </if><if condition="$data['create_status']"><a href="javascript:;">{$source[$data['create_status']]}</a><else /> </if></span>
 										<!-- <h5><span>{$data.open_count}</span>人气  /<span>876</span>点赞  /<span>60</span>收藏 </h5> -->
 										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}/toid/{$data.id}.html">{$data.user_id|getUserName}

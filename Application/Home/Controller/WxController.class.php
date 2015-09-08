@@ -83,6 +83,7 @@ class WxController extends Controller {
 	}
 	function notify_url()
 	{
+		$this->log_result("微信支付12345");
 		$res = wxNotifyPay2();
 		if ($res['result_code'] === 'SUCCESS' && $res['return_code'] === 'SUCCESS') {
     		//商户订单号

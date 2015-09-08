@@ -14,7 +14,7 @@
        <!-- <h5>成交量：{$user['volume']} </h5> --> 
         <!--  <h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
         </span>
-				<!--<input name="" type="button" value="+ 关注">-->
+
 			</div>
 		</div>
 		<div class="details-content " style="text-align:center;"> 
@@ -31,6 +31,7 @@
 			<h5>{$works['story']}</h5>
 			</if>
 			<h6><span>作品版权：</span> <span>{$use[$works['copy_right']]}</span></h6>
+			<if condition="$works['sellcate'] eq '2'"><h6><span>版权授权：</span> <span>{$works['authorize']}</span></h6></if>
       <span class="details-btn">
       <if condition="$works['showmoney'] eq 'yes'"><input name="" type="button" value="我要购买" onclick="javascript:location.href='__ROOT__/Order/makeOrder/workid/{$works['id']}'"></if>
 		  <input name="" type="button" value="我要订制" onclick="javascript:location.href='__ROOT__/Custom/pcustom/toid/{$user[id]}.html'">

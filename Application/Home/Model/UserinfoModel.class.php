@@ -10,7 +10,15 @@ class UserinfoModel extends Model{
     //添加注册信息到表
     public function update($data){
         /* 添加用户 */
-        $uid = $this->add($data);
+        if($data['id']){
+            $rs = $this->where(array('id'=>$data['id']))->save($data);
+            if($rs){
+                $uid = $data['uid'];
+            }
+        }else{
+            $uid = $this->add($data);
+        }
+        
         if($uid){
             return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
         } else {

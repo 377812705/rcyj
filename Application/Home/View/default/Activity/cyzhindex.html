@@ -1,83 +1,83 @@
-<extend name="Base/common"/>
-<block name="body">
-<link href="__CSS__/index-style.css" rel="stylesheet" type="text/css">
-<div class="header">
-		<div class="con"></div>
-</div>
-<div class="nav1">
-		<div class="nav_c">
-				<ul>
-						<li><a class="home on" href="/activity/cyzhindex">活动首页</a></li>
-						<li><a class="works " href="/activity/works.html">专业组参赛作品展示</a></li>
-						<li><a class="works" href="/activity/worksnew.html">新星组参赛作品展示</a></li>
-						<li><a class="works" href="/activity/join.html">设计说明</a></li>
-						<!-- <li><a class="works" id="js_contact" style="" href="#contact">我要预订</a></li> -->
-				</ul>
-				<div class="join"><a href="__ROOT__/MyCenter/uploadWork/activityid/1.html">我要参加</a></div>
-		</div>
-</div>
-<div class="clearfloat"></div>
-<div class="content">
-		<div class="box">
-				<div class="title">活动奖项</div>
-				<div class="text"><img src="__IMG__/award.png" width="1000"></div>
-		</div>
-		<div class="box">
-				<div class="title">活动时间</div>
-				<div class="text"><img src="__IMG__/time.jpg" width="1000"></div>
-		</div>
-		<div class="box">
-				<div class="title">评选要求</div>
-				<div class="text">
-						<h1>美观性</h1>
-						<p>造型设计符合大众审美要求，不能带有任何违反国家法律元素。</p>
-						<h1>创意性</h1>
-						<p>设计构思巧妙，有新意，有中国元素。</p>
-						<h1>可用性</h1>
-						<p>形象的可延展性和后续动画化、游戏化以及周边产业多元化的可操作性</p>
-				</div>
-		</div>
-		<div class="box">
-				<div class="title">活动引言</div>
-				<div class="text">
-						<p>小时候，有个梦想，TA会陪我去历险；</p>
-						<p>长大后，有个故事，TA永远是超级英雄；</p>
-						<p>今天，有个机会，我们并肩成为superstar！</p>
-						<p>明天，我们将创造出新的superhero!</p>
-						<p>TA陪伴每个小伙伴成长，成就每个大伙伴的梦想！此刻，TA携手二次元界网邀请原创作者为TA、为你的家乡、为新型城镇、为蓝天碧水、为华人在地球村乃至未来宇宙时代的地位，打造新形象和新角色，重新出发，续写经典。</p>
-						<p>拿起画笔，发挥创意，与TA一起闪亮登场吧！</p>
-				</div>
-		</div>
-		<div class="box" id="content">
-				<div class="title">人气作品</div>
-				<div class="text">
-					<volist name="works" id="data"  mod="4">	
-						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/product/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/product/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
-								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
-								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
-						</div>
-					</volist>
-						<div class="clearfloat"></div>
-				</div>
-		</div>
-		<div class="box" id="contact">
-				<div class="title">联系方式</div>
-				<div class="text">
-						<ul class="layout">
-								<li class="female">肖女士&nbsp;&nbsp;&nbsp;</li>
-								<li class="phone">010-6060 0083</li>
-								<li class="mobile">133 1158 9839</li>
-								<li class="email">hz@2ciyuanjie.com</li>
-						</ul>
-						<div class="clearfloat">&nbsp;<br>
-						</div>
-						<ul class="layout" style="margin-top:10px;">
-								<li class="name">冠霆先生</li>
-								<!-- <li class="phone">010-6060 0083</li> -->
-								<li class="mobile">189 1180 3248</li>
-								<!-- <li class="email">hz@2ciyuanjie.com</li> -->
-						</ul>
-				</div>
-		</div>
-</div>
+<extend name="Base/common"/>
+<block name="body">
+<link href="__CSS__/index-style.css" rel="stylesheet" type="text/css">
+<div class="header">
+		<div class="con"></div>
+</div>
+<div class="nav1">
+		<div class="nav_c">
+				<ul>
+						<li><a class="home on" href="/activity/cyzhindex">活动首页</a></li>
+						<li><a class="works " href="/activity/works.html">专业组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/worksnew.html">新星组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/join.html">设计说明</a></li>
+						<!-- <li><a class="works" id="js_contact" style="" href="#contact">我要预订</a></li> -->
+				</ul>
+				<div class="join"><a href="__ROOT__/MyCenter/uploadWork/activityid/1.html">我要参加</a></div>
+		</div>
+</div>
+<div class="clearfloat"></div>
+<div class="content">
+		<div class="box">
+				<div class="title">活动奖项</div>
+				<div class="text"><img src="__IMG__/award.png" width="1000"></div>
+		</div>
+		<div class="box">
+				<div class="title">活动时间</div>
+				<div class="text"><img src="__IMG__/time.jpg" width="1000"></div>
+		</div>
+		<div class="box">
+				<div class="title">评选要求</div>
+				<div class="text">
+						<h1>美观性</h1>
+						<p>造型设计符合大众审美要求，不能带有任何违反国家法律元素。</p>
+						<h1>创意性</h1>
+						<p>设计构思巧妙，有新意，有中国元素。</p>
+						<h1>可用性</h1>
+						<p>形象的可延展性和后续动画化、游戏化以及周边产业多元化的可操作性</p>
+				</div>
+		</div>
+		<div class="box">
+				<div class="title">活动引言</div>
+				<div class="text">
+						<p>小时候，有个梦想，TA会陪我去历险；</p>
+						<p>长大后，有个故事，TA永远是超级英雄；</p>
+						<p>今天，有个机会，我们并肩成为superstar！</p>
+						<p>明天，我们将创造出新的superhero!</p>
+						<p>TA陪伴每个小伙伴成长，成就每个大伙伴的梦想！此刻，TA携手二次元界网邀请原创作者为TA、为你的家乡、为新型城镇、为蓝天碧水、为华人在地球村乃至未来宇宙时代的地位，打造新形象和新角色，重新出发，续写经典。</p>
+						<p>拿起画笔，发挥创意，与TA一起闪亮登场吧！</p>
+				</div>
+		</div>
+		<div class="box" id="content">
+				<div class="title">人气作品</div>
+				<div class="text">
+					<volist name="works" id="data"  mod="4">	
+						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/product/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/product/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
+								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
+								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
+						</div>
+					</volist>
+						<div class="clearfloat"></div>
+				</div>
+		</div>
+		<div class="box" id="contact">
+				<div class="title">联系方式</div>
+				<div class="text">
+						<ul class="layout">
+								<li class="female">肖女士&nbsp;&nbsp;&nbsp;</li>
+								<li class="phone">010-6060 0083</li>
+								<li class="mobile">133 1158 9839</li>
+								<li class="email">hz@2ciyuanjie.com</li>
+						</ul>
+						<div class="clearfloat">&nbsp;<br>
+						</div>
+						<ul class="layout" style="margin-top:10px;">
+								<li class="name">冠霆先生</li>
+								<!-- <li class="phone">010-6060 0083</li> -->
+								<li class="mobile">189 1180 3248</li>
+								<!-- <li class="email">hz@2ciyuanjie.com</li> -->
+						</ul>
+				</div>
+		</div>
+</div>
 </block>

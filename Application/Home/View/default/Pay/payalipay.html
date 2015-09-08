@@ -1,48 +1,48 @@
-<extend name="Base/common" />
-<block name="head">
-<script type="text/javascript">
-$(document).ready(function(){ 
-	setTimeout(trace(),5000);
-}); 
-function trace(){ 
-	$.ajax({
-	    type: "GET",
-	    url: "/wx/quel",
-	    data: {'orderid':$('#order_id').val()},
-	    dataType: "json",
-	    success: function(data){
-	    	if(data.status==1){
-	    		location.href="/order/pay_success/order_id/{$order.order_id}"; 
-	    	}else{
-	    		setTimeout(trace(),150000);
-	    	}
-	    }
-	}); 
-} 
-</script>
-</block>
-<block name="body">
-  <!--------页面内容部分--------->
-  <div class="container content">
-    <div class="custom">
-      <ul class="nextnav pay">
-        <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
-      </ul>
-       <input id="order_id" name="show" hidden  value="{$order.order_id}" />
-      <div class="custom-content pay">
-        <h3>订单提交成功，请您尽快付款！<span>订单号：{$order.order_number}</span></h3>
-        <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>
-        <div class="pay-div">
-          <h4>应付金额：<span>{$order.money}</span> 元</h4>
-          <div class="pay-by by-alipay">
-            <h5><span>微信支付</span></h5>
-            <div class="code"> <span><img  src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url);?>" style="width:150px;height:150px;"/>
-	</span> <a href="#">请使用微信扫一扫扫描二维码支付</a> </div>
-            <img src="__IMG__/pay-img06.gif"/> </div>
-        </div>
-        <div class="other-pay"> <a href="__ROOT__/Order/pay/orderid/{$order.order_id}"> 选择其他支付方式</a> </div> 
-      </div>
-    </div>
-  </div>
-  <!--------页面底部--------->
-</block>
+<extend name="Base/common" />
+<block name="head">
+<script type="text/javascript">
+$(document).ready(function(){ 
+	setTimeout(trace(),5000);
+}); 
+function trace(){ 
+	$.ajax({
+	    type: "GET",
+	    url: "/wx/quel",
+	    data: {'orderid':$('#order_id').val()},
+	    dataType: "json",
+	    success: function(data){
+	    	if(data.status==1){
+	    		location.href="/order/pay_success/order_id/{$order.order_id}"; 
+	    	}else{
+	    		setTimeout(trace(),150000);
+	    	}
+	    }
+	}); 
+} 
+</script>
+</block>
+<block name="body">
+  <!--------页面内容部分--------->
+  <div class="container content">
+    <div class="custom">
+      <ul class="nextnav pay">
+        <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
+      </ul>
+       <input id="order_id" name="show" hidden  value="{$order.order_id}" />
+      <div class="custom-content pay">
+        <h3>订单提交成功，请您尽快付款！<span>订单号：{$order.order_number}</span></h3>
+        <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>
+        <div class="pay-div">
+          <h4>应付金额：<span>{$order.money}</span> 元</h4>
+          <div class="pay-by by-alipay">
+            <h5><span>微信支付</span></h5>
+            <div class="code"> <span><img  src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url);?>" style="width:150px;height:150px;"/>
+	</span> <a href="#">请使用微信扫一扫扫描二维码支付</a> </div>
+            <img src="__IMG__/pay-img06.gif"/> </div>
+        </div>
+        <div class="other-pay"> <a href="__ROOT__/Order/pay/orderid/{$order.order_id}"> 选择其他支付方式</a> </div> 
+      </div>
+    </div>
+  </div>
+  <!--------页面底部--------->
+</block>

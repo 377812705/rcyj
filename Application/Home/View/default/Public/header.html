@@ -1,63 +1,63 @@
-<div class="nav-wrapper">
-
-    <header class="container">
-        <ul class="nav">
-            <li <if condition="$controllername eq 'Index'">class="navon"</if>><a href="__ROOT__/">首页</a></li>
-            <li <if condition="$controllername eq 'Custom'">class="navon"</if>><a href="__ROOT__/Custom.html">订制</a></li>
-            <li <if condition="$controllername eq 'Product'">class="navon"</if>><a href="__ROOT__/Product.html">作品</a></li>
-            <li <if condition="$controllername eq 'Author'">class="navon"</if>><a href="__ROOT__/Author.html">作者</a></li>
-            <li <if condition="$controllername eq 'Activity'">class="navon"</if>><a href="__ROOT__/Activity.html">活动</a></li>
-        </ul>
-        <if condition="(is_login() eq 0)">
-       <div class="header-right login-top">
-            <input name="" type="text" value="搜索"  class="gray" onclick="if (this.value == '搜索') {
-                        this.value = '';
-                        this.className = 'white'
-                    }" onblur="if (this.value == '') {
-                                this.value = '搜索';
-                                this.className = 'gray'
-                            }">
-            <ul>
-                <li><a href="__ROOT__/Login/login.html">登录</a></li>
-                <li>|</li>
-                <li><a href="__ROOT__/Login/register.html">注册</a></li>
-            </ul>
-        </div>
-            <else />
-            <div class="header-right success">
-                <input name="" type="text" value="搜索"  class="gray" onclick="if(this.value=='搜索'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='搜索';this.className='gray'}">
-
-                <ul class="img-btn">
-                    <li class="color-li"><a href="__ROOT__/MyCenter/index.html"><img src="__IMG__/top-img01.png"/></a>
-                        <ul class="nextmenu" style="display:none;">
-                            <li><a href="__ROOT__/MyCenter/index.html"><img src="__IMG__/top-nav-img01.png"/>我的作品</a></li>
-                        </ul>
-                    </li>
-                    <!-- <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-img02.png"/></a>
-                        <ul class="nextmenu" style="display:none;">
-                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img02.png"/>我的关注</a></li>
-                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img03.png"/>我的粉丝</a></li>
-                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img04.png"/>我的评价</a></li>
-                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img05.png"/>系统通知</a></li>
-                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img06.png"/>活动公告</a></li>
-                        </ul>
-                    </li> -->
-                   <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-img02.png"/></a></li>
-                    <!--<li><a href="__ROOT__/MyCenter/collect.html"><img src="__IMG__/top-img03.png"/></a></li>-->
-                    <li><a href="__ROOT__/MyCenter/uploadWork.html"><img src="__IMG__/top-img04.png"/></a></li>
-                    <li class="user-img">
-                        <!--<a href="__ROOT__/MyCenter/mydetails.html">-->
-                        <a href="javascript:;">
-                            <img src="{:getUserImg(is_login())}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/></a>
-                        <ul class="nextmenu" style="display:none;">
-                            <li><a href="__ROOT__/Order/orderlist.html"><img src="__IMG__/top-nav-img07.png"/>我的订单</a></li>
-                            <li><a href="__ROOT__/MyCenter/invite/id/{:is_login()}.html"><img src="__IMG__/top-nav-img08.png"/>我的邀请</a></li>
-                            <li><a href="__ROOT__/MyCenter/editdata/id/{:is_login()}.html"><img src="__IMG__/top-nav-img09.png"/>修改资料</a></li>
-                            <li><a href="__ROOT__/Login/loginout.html"><img src="__IMG__/top-nav-img10.png"/>退出</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </if>
-    </header>
-</div>
+<div class="nav-wrapper">
+
+    <header class="container">
+        <ul class="nav">
+            <li <if condition="$controllername eq 'Index'">class="navon"</if>><a href="__ROOT__/">首页</a></li>
+            <li <if condition="$controllername eq 'Custom'">class="navon"</if>><a href="__ROOT__/Custom.html">订制</a></li>
+            <li <if condition="$controllername eq 'Product'">class="navon"</if>><a href="__ROOT__/Product.html">作品</a></li>
+            <li <if condition="$controllername eq 'Author'">class="navon"</if>><a href="__ROOT__/Author.html">作者</a></li>
+            <li <if condition="$controllername eq 'Activity'">class="navon"</if>><a href="__ROOT__/Activity.html">活动</a></li>
+        </ul>
+        <if condition="(is_login() eq 0)">
+       <div class="header-right login-top">
+            <input name="" type="text" value="搜索"  class="gray" onclick="if (this.value == '搜索') {
+                        this.value = '';
+                        this.className = 'white'
+                    }" onblur="if (this.value == '') {
+                                this.value = '搜索';
+                                this.className = 'gray'
+                            }">
+            <ul>
+                <li><a href="__ROOT__/Login/login.html">登录</a></li>
+                <li>|</li>
+                <li><a href="__ROOT__/Login/register.html">注册</a></li>
+            </ul>
+        </div>
+            <else />
+            <div class="header-right success">
+                <input name="" type="text" value="搜索"  class="gray" onclick="if(this.value=='搜索'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='搜索';this.className='gray'}">
+
+                <ul class="img-btn">
+                    <li class="color-li"><a href="__ROOT__/MyCenter/index.html"><img src="__IMG__/top-img01.png"/></a>
+                        <ul class="nextmenu" style="display:none;">
+                            <li><a href="__ROOT__/MyCenter/index.html"><img src="__IMG__/top-nav-img01.png"/>我的作品</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-img02.png"/></a>
+                        <ul class="nextmenu" style="display:none;">
+                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img02.png"/>我的关注</a></li>
+                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img03.png"/>我的粉丝</a></li>
+                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img04.png"/>我的评价</a></li>
+                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img05.png"/>系统通知</a></li>
+                            <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-nav-img06.png"/>活动公告</a></li>
+                        </ul>
+                    </li> -->
+                   <li><a href="__ROOT__/MyCenter/attention.html"><img src="__IMG__/top-img02.png"/></a></li>
+                    <!--<li><a href="__ROOT__/MyCenter/collect.html"><img src="__IMG__/top-img03.png"/></a></li>-->
+                    <li><a href="__ROOT__/MyCenter/uploadWork.html"><img src="__IMG__/top-img04.png"/></a></li>
+                    <li class="user-img">
+                        <!--<a href="__ROOT__/MyCenter/mydetails.html">-->
+                        <a href="javascript:;">
+                            <img src="{:getUserImg(is_login())}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/></a>
+                        <ul class="nextmenu" style="display:none;">
+                            <li><a href="__ROOT__/Order/orderlist.html"><img src="__IMG__/top-nav-img07.png"/>我的订单</a></li>
+                            <li><a href="__ROOT__/MyCenter/invite/id/{:is_login()}.html"><img src="__IMG__/top-nav-img08.png"/>我的邀请</a></li>
+                            <li><a href="__ROOT__/MyCenter/editdata/id/{:is_login()}.html"><img src="__IMG__/top-nav-img09.png"/>修改资料</a></li>
+                            <li><a href="__ROOT__/Login/loginout.html"><img src="__IMG__/top-nav-img10.png"/>退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </if>
+    </header>
+</div>

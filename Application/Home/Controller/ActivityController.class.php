@@ -71,6 +71,12 @@ class ActivityController extends HomeController {
    public function join(){
    	$this->display();
    }
+   public function jxractivity(){
+   	$this->display();
+   }
+   public function wdwlactivity(){
+   	$this->display();
+   }
    public function activitylist(){
    		$id = I('get.id','0');
    		if($id){
@@ -86,11 +92,17 @@ class ActivityController extends HomeController {
    			$this->assign ('works', $works);
    			$this->assign ('show', $show);
    			$this->assign ('count', $count);
-   			
    		}
    		if($id==2){
    			$this->display('yzzs');
    		}
+   		if($id==3){
    		
+   			$this->display('jxrzs');
+   		}
+   		if($id==4){
+   		
+   			$this->display('wdwlzs');
+   		}
    }
 }

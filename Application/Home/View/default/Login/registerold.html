@@ -1,652 +1,652 @@
-<extend name="Base/common1" />
-<block name="head">
-<script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $(".nextnav li a").bind("click", function () {
-                var hideindex = $(".nextnavon").index();
-                $("#register" + hideindex).hide();
-                var index = $(this).parent().index();
-                $("#register" + index).show();
-            });
-
-            $(".retrieve-btn").bind("click", function () {
-                err=0;
-                $(this).parent().parent().submit();
-            });
-            $("input[type='text'],input[type='password']").focusin(function(){
-                if($(this).val()!=null){
-                    $(this).val();
-                }
-            });
-            var err = 0;
-            $("#form0").validate({
-                errorPlacement: function (error, element) {
-                    if (err == 0) {
-                        alert(error.html());
-                        element.focus();
-                    }
-                    err++;
-                },
-                rules: {
-                    user_name:{
-                        remote:"{:U('Login/rcheckUserName')}"
-                    },
-                    mobile: {
-                        digits: true,
-                        remote: "{:U('Login/rcheckMobile')}"
-                    },
-                    password: {
-                        rangelength: [6, 20]
-                    },
-                    confirm_password: {
-                        equalTo: "#password"
-                    }
-                },
-                messages: {
-                    user_name: {
-                        remote:"用户名已经存在!"
-                    },
-                    mobile: {
-                        digits: "请输入有效手机号码",
-                        required: "请填写手机号码",
-                        remote: "账号已存在!"
-                    },
-                    password: {
-                        required: "请输入密码!",
-                        rangelength: "密码必须是6到20个字符"
-                    },
-                    confirm_password: {
-                        required: "请输入确认密码!",
-                        equalTo: "两次输入密码不一致！",
-                        rangelength: "确认密码必须是6到20个字符"
-                    }
-                }
-            });
-        });
-    </script>
-</block>
-<block name="body">
-    <ul class="login-ul" id="register0">
-        <form id="form0" action="{:U('Login/register0')}" method="post">
-            <li class="txt-input username"><img src="__IMG__/login-img03.gif" alt="用户名图标">
-                <input id="user_name" name="user_name" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span></li>
-            <li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
-                <input id="mobile" name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入手机号';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input password"><img src="__IMG__/login-img02.gif" alt="密码图标"/>
-                <input id="password" name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入密码';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input confirm"><img src="__IMG__/login-img04.gif" alt="确认密码图标"/>
-                <input id="confirm_password" name="confirm_password" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请确认密码';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input verify"><img src="__IMG__/login-img05.gif" alt="验证码图标"/>
-                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入验证码';
-                                    this.className = 'gray'
-                                }">
-                <input name="" type="button" value="验证码">
-            </li>
-            <li class="txt-input invite"><img src="__IMG__/login-img06.gif" alt="邀请码图标"/>
-                <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请确认邀请码';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-            <li class="auto">
-                <input name="" type="checkbox" value="" checked>
-                <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
-            <li>
-                <input class="retrieve-btn" name="" type="button" value="马上注册">
-            </li>
-        </form>
-    </ul>
-
-
-    <ul class="login-ul personal" id="register1" style="display: none;">
-        <form id="form1" action="{:U('Login/register1')}" method="post">
-            <li class="txt-input username"><span class="input-tle">用户名：</span>
-                <input name="" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-            <li class="txt-input name"><span class="input-tle">姓名：</span>
-                <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入姓名';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input phone"><span class="input-tle">手机号：</span>
-                <input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入手机号';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input address"><span class="input-tle">联系地址：</span>
-                <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入联系地址';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input password"><span class="input-tle">密码：</span>
-                <input name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入密码';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-                <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请确认密码';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input idcard"><span class="input-tle">身份证号：</span>
-                <input name="" type="text" value="请输入身份证号"  class="gray" onclick="if (this.value == '请输入身份证号') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入身份证号';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
-            <li class="txt-input bank"><span class="input-tle">开户行名称：</span>
-                <input name="" type="text" value="请输入开户行名称"  class="gray" onclick="if (this.value == '请输入开户行名称') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入开户行名称';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
-            <li class="txt-input number"><span class="input-tle">银行卡账号：</span>
-                <input name="" type="text" value="请输入银行卡账号"  class="gray" onclick="if (this.value == '请输入银行卡账号') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入银行卡账号';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
-            <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-                <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入邮箱地址';
-                                    this.className = 'gray'
-                                }">
-            </li>
-            <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
-                    <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
-                                this.value = '';
-                                this.className = 'black'
-                            }" onblur="if (this.value == '') {
-                                        this.value = '请输入验证码';
-                                        this.className = 'gray'
-                                    }">
-                    <input name="" type="button" value="验证码">
-                </span> </li>
-            <li class="txt-input invite"><span class="input-tle">邀请码：</span>
-                <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请确认邀请码';
-                                    this.className = 'gray'
-                                }">
-                <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-            <li class="auto">
-                <input name="" type="checkbox" value="" checked>
-                <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
-            <li class="txt-input">
-                <input class="retrieve-btn" name="" type="button" value="马上注册">
-            </li>
-        </form>
-    </ul>
-
-    <ul class="login-ul firm" id="register2" style="display: none;">
-        <li class="txt-input name"><span class="input-tle">姓名：</span>
-            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入姓名';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input phone"><span class="input-tle">联系电话：</span>
-            <input name="" type="text" value="请输入联系电话"  class="gray" onclick="if (this.value == '请输入联系电话') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入联系电话';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input address"><span class="input-tle">联系地址：</span>
-            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入联系地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input password"><span class="input-tle">密码：</span>
-            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入邮箱地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input company"><span class="input-tle">公司名称：</span>
-            <input name="" type="text" value="请输入公司名称"  class="gray" onclick="if (this.value == '请输入公司名称') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入公司名称';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">公司名称是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-        <li class="txt-input scope"><span class="input-tle">经营范围：</span>
-            <input name="" type="text" value="请输入经营范围"  class="gray" onclick="if (this.value == '请输入经营范围') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入经营范围';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input produc"><span class="input-tle">主要产品：</span>
-            <input name="" type="text" value="请输入主要产品"  class="gray" onclick="if (this.value == '请输入主要产品') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入主要产品';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input user"><span class="input-tle">目标用户：</span>
-            <input name="" type="text" value="请输入目标用户"  class="gray" onclick="if (this.value == '请输入目标用户') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入目标用户';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input idea"><span class="input-tle">经营理念：</span>
-            <input name="" type="text" value="请输入经营理念"  class="gray" onclick="if (this.value == '请输入经营理念') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入经营理念';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input permit"><span class="input-tle">营业执照：</span> <span class="permit-img"><img alt="企业营业执照" class="zw-img" src="__IMG__/img02.gif"/></span> </li>
-        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
-                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入验证码';
-                                    this.className = 'gray'
-                                }">
-                <input name="" type="button" value="验证码">
-            </span> </li>
-        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
-            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认邀请码';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-        <li class="auto">
-            <input name="" type="checkbox" value="" checked>
-            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
-        <li class="txt-input">
-            <input class="retrieve-btn" name="" type="button" value="马上注册">
-        </li>
-    </ul>
-    <ul class="login-ul personal" id="register3" style="display: none;">
-        <li class="txt-input username"><span class="input-tle">用户名：</span>
-            <input name="" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-        <li class="txt-input name"><span class="input-tle">姓名：</span>
-            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入姓名';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input phone"><span class="input-tle">手机号：</span>
-            <input name="" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入手机号';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input address"><span class="input-tle">联系地址：</span>
-            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入联系地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input password"><span class="input-tle">密码：</span>
-            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input idcard"><span class="input-tle">身份证号：</span>
-            <input name="" type="text" value="请输入身份证号"  class="gray" onclick="if (this.value == '请输入身份证号') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入身份证号';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input bank"><span class="input-tle">开户行名称：</span>
-            <input name="" type="text" value="请输入开户行名称"  class="gray" onclick="if (this.value == '请输入开户行名称') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入开户行名称';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input number"><span class="input-tle">银行卡账号：</span>
-            <input name="" type="text" value="请输入银行卡账号"  class="gray" onclick="if (this.value == '请输入银行卡账号') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入银行卡账号';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入邮箱地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
-                <ul class="label-check">
-                    <li class="checkon">形象</li>
-                    <li>产品设计</li>
-                    <li>漫画</li>
-                    <li>动画</li>
-                    <li>游戏</li>
-                    <li>音乐</li>
-                    <li>VI</li>
-                    <li>广告</li>
-                </ul>
-            </span> </li>
-        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
-                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入验证码';
-                                    this.className = 'gray'
-                                }">
-                <input name="" type="button" value="验证码">
-            </span> </li>
-        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
-            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认邀请码';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-        <li class="auto">
-            <input name="" type="checkbox" value="" checked>
-            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
-        <li class="txt-input">
-            <input class="retrieve-btn" name="" type="button" value="马上注册">
-        </li>
-    </ul>
-    <ul class="login-ul firm" id="register4" style="display: none;">
-        <li class="txt-input name"><span class="input-tle">姓名：</span>
-            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入姓名';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input phone"><span class="input-tle">联系电话：</span>
-            <input name="" type="text" value="请输入联系电话"  class="gray" onclick="if (this.value == '请输入联系电话') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入联系电话';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input address"><span class="input-tle">联系地址：</span>
-            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入联系地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input password"><span class="input-tle">密码：</span>
-            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认密码';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入邮箱地址';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input company"><span class="input-tle">公司名称：</span>
-            <input name="" type="text" value="请输入公司名称"  class="gray" onclick="if (this.value == '请输入公司名称') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入公司名称';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">公司名称是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-        <li class="txt-input scope"><span class="input-tle">经营范围：</span>
-            <input name="" type="text" value="请输入经营范围"  class="gray" onclick="if (this.value == '请输入经营范围') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入经营范围';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input produc"><span class="input-tle">主要产品：</span>
-            <input name="" type="text" value="请输入主要产品"  class="gray" onclick="if (this.value == '请输入主要产品') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入主要产品';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input user"><span class="input-tle">目标用户：</span>
-            <input name="" type="text" value="请输入目标用户"  class="gray" onclick="if (this.value == '请输入目标用户') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入目标用户';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input idea"><span class="input-tle">经营理念：</span>
-            <input name="" type="text" value="请输入经营理念"  class="gray" onclick="if (this.value == '请输入经营理念') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请输入经营理念';
-                                this.className = 'gray'
-                            }">
-        </li>
-        <li class="txt-input permit"><span class="input-tle">营业执照：</span> <span class="permit-img"><img alt="企业营业执照" class="zw-img" src="__IMG__/img02.gif"/></span> </li>
-        <li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
-                <ul class="label-check">
-                    <li class="checkon">形象</li>
-                    <li>产品设计</li>
-                    <li>漫画</li>
-                    <li>动画</li>
-                    <li>游戏</li>
-                    <li>音乐</li>
-                    <li>VI</li>
-                    <li>广告</li>
-                </ul>
-            </span> </li>
-        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
-                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
-                            this.value = '';
-                            this.className = 'black'
-                        }" onblur="if (this.value == '') {
-                                    this.value = '请输入验证码';
-                                    this.className = 'gray'
-                                }">
-                <input name="" type="button" value="验证码">
-            </span> </li>
-        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
-            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
-                        this.value = '';
-                        this.className = 'black'
-                    }" onblur="if (this.value == '') {
-                                this.value = '请确认邀请码';
-                                this.className = 'gray'
-                            }">
-            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-        <li class="auto">
-            <input name="" type="checkbox" value="" checked>
-            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
-        <li class="txt-input">
-            <input class="retrieve-btn" name="" type="button" value="马上注册">
-        </li>
-    </ul>
-</block>
+<extend name="Base/common1" />
+<block name="head">
+<script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".nextnav li a").bind("click", function () {
+                var hideindex = $(".nextnavon").index();
+                $("#register" + hideindex).hide();
+                var index = $(this).parent().index();
+                $("#register" + index).show();
+            });
+
+            $(".retrieve-btn").bind("click", function () {
+                err=0;
+                $(this).parent().parent().submit();
+            });
+            $("input[type='text'],input[type='password']").focusin(function(){
+                if($(this).val()!=null){
+                    $(this).val();
+                }
+            });
+            var err = 0;
+            $("#form0").validate({
+                errorPlacement: function (error, element) {
+                    if (err == 0) {
+                        alert(error.html());
+                        element.focus();
+                    }
+                    err++;
+                },
+                rules: {
+                    user_name:{
+                        remote:"{:U('Login/rcheckUserName')}"
+                    },
+                    mobile: {
+                        digits: true,
+                        remote: "{:U('Login/rcheckMobile')}"
+                    },
+                    password: {
+                        rangelength: [6, 20]
+                    },
+                    confirm_password: {
+                        equalTo: "#password"
+                    }
+                },
+                messages: {
+                    user_name: {
+                        remote:"用户名已经存在!"
+                    },
+                    mobile: {
+                        digits: "请输入有效手机号码",
+                        required: "请填写手机号码",
+                        remote: "账号已存在!"
+                    },
+                    password: {
+                        required: "请输入密码!",
+                        rangelength: "密码必须是6到20个字符"
+                    },
+                    confirm_password: {
+                        required: "请输入确认密码!",
+                        equalTo: "两次输入密码不一致！",
+                        rangelength: "确认密码必须是6到20个字符"
+                    }
+                }
+            });
+        });
+    </script>
+</block>
+<block name="body">
+    <ul class="login-ul" id="register0">
+        <form id="form0" action="{:U('Login/register0')}" method="post">
+            <li class="txt-input username"><img src="__IMG__/login-img03.gif" alt="用户名图标">
+                <input id="user_name" name="user_name" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span></li>
+            <li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
+                <input id="mobile" name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入手机号';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input password"><img src="__IMG__/login-img02.gif" alt="密码图标"/>
+                <input id="password" name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入密码';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input confirm"><img src="__IMG__/login-img04.gif" alt="确认密码图标"/>
+                <input id="confirm_password" name="confirm_password" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请确认密码';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input verify"><img src="__IMG__/login-img05.gif" alt="验证码图标"/>
+                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入验证码';
+                                    this.className = 'gray'
+                                }">
+                <input name="" type="button" value="验证码">
+            </li>
+            <li class="txt-input invite"><img src="__IMG__/login-img06.gif" alt="邀请码图标"/>
+                <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请确认邀请码';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+            <li class="auto">
+                <input name="" type="checkbox" value="" checked>
+                <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+            <li>
+                <input class="retrieve-btn" name="" type="button" value="马上注册">
+            </li>
+        </form>
+    </ul>
+
+
+    <ul class="login-ul personal" id="register1" style="display: none;">
+        <form id="form1" action="{:U('Login/register1')}" method="post">
+            <li class="txt-input username"><span class="input-tle">用户名：</span>
+                <input name="" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
+            <li class="txt-input name"><span class="input-tle">姓名：</span>
+                <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入姓名';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input phone"><span class="input-tle">手机号：</span>
+                <input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入手机号';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input address"><span class="input-tle">联系地址：</span>
+                <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入联系地址';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input password"><span class="input-tle">密码：</span>
+                <input name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入密码';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+                <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请确认密码';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input idcard"><span class="input-tle">身份证号：</span>
+                <input name="" type="text" value="请输入身份证号"  class="gray" onclick="if (this.value == '请输入身份证号') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入身份证号';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
+            <li class="txt-input bank"><span class="input-tle">开户行名称：</span>
+                <input name="" type="text" value="请输入开户行名称"  class="gray" onclick="if (this.value == '请输入开户行名称') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入开户行名称';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
+            <li class="txt-input number"><span class="input-tle">银行卡账号：</span>
+                <input name="" type="text" value="请输入银行卡账号"  class="gray" onclick="if (this.value == '请输入银行卡账号') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入银行卡账号';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">想要成为推荐人，请进行填写</span> </li>
+            <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
+                <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入邮箱地址';
+                                    this.className = 'gray'
+                                }">
+            </li>
+            <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
+                    <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
+                                this.value = '';
+                                this.className = 'black'
+                            }" onblur="if (this.value == '') {
+                                        this.value = '请输入验证码';
+                                        this.className = 'gray'
+                                    }">
+                    <input name="" type="button" value="验证码">
+                </span> </li>
+            <li class="txt-input invite"><span class="input-tle">邀请码：</span>
+                <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请确认邀请码';
+                                    this.className = 'gray'
+                                }">
+                <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+            <li class="auto">
+                <input name="" type="checkbox" value="" checked>
+                <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+            <li class="txt-input">
+                <input class="retrieve-btn" name="" type="button" value="马上注册">
+            </li>
+        </form>
+    </ul>
+
+    <ul class="login-ul firm" id="register2" style="display: none;">
+        <li class="txt-input name"><span class="input-tle">姓名：</span>
+            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入姓名';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input phone"><span class="input-tle">联系电话：</span>
+            <input name="" type="text" value="请输入联系电话"  class="gray" onclick="if (this.value == '请输入联系电话') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入联系电话';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input address"><span class="input-tle">联系地址：</span>
+            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入联系地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input password"><span class="input-tle">密码：</span>
+            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
+            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入邮箱地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input company"><span class="input-tle">公司名称：</span>
+            <input name="" type="text" value="请输入公司名称"  class="gray" onclick="if (this.value == '请输入公司名称') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入公司名称';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">公司名称是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
+        <li class="txt-input scope"><span class="input-tle">经营范围：</span>
+            <input name="" type="text" value="请输入经营范围"  class="gray" onclick="if (this.value == '请输入经营范围') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入经营范围';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input produc"><span class="input-tle">主要产品：</span>
+            <input name="" type="text" value="请输入主要产品"  class="gray" onclick="if (this.value == '请输入主要产品') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入主要产品';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input user"><span class="input-tle">目标用户：</span>
+            <input name="" type="text" value="请输入目标用户"  class="gray" onclick="if (this.value == '请输入目标用户') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入目标用户';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input idea"><span class="input-tle">经营理念：</span>
+            <input name="" type="text" value="请输入经营理念"  class="gray" onclick="if (this.value == '请输入经营理念') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入经营理念';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input permit"><span class="input-tle">营业执照：</span> <span class="permit-img"><img alt="企业营业执照" class="zw-img" src="__IMG__/img02.gif"/></span> </li>
+        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
+                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入验证码';
+                                    this.className = 'gray'
+                                }">
+                <input name="" type="button" value="验证码">
+            </span> </li>
+        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
+            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认邀请码';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+        <li class="auto">
+            <input name="" type="checkbox" value="" checked>
+            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+        <li class="txt-input">
+            <input class="retrieve-btn" name="" type="button" value="马上注册">
+        </li>
+    </ul>
+    <ul class="login-ul personal" id="register3" style="display: none;">
+        <li class="txt-input username"><span class="input-tle">用户名：</span>
+            <input name="" type="text" value="用户名，4~16个字符，字母/中文/数字/下划线"  class="gray" onclick="if (this.value == '用户名，4~16个字符，字母/中文/数字/下划线') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '用户名，4~16个字符，字母/中文/数字/下划线';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
+        <li class="txt-input name"><span class="input-tle">姓名：</span>
+            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入姓名';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input phone"><span class="input-tle">手机号：</span>
+            <input name="" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入手机号';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input address"><span class="input-tle">联系地址：</span>
+            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入联系地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input password"><span class="input-tle">密码：</span>
+            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input idcard"><span class="input-tle">身份证号：</span>
+            <input name="" type="text" value="请输入身份证号"  class="gray" onclick="if (this.value == '请输入身份证号') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入身份证号';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input bank"><span class="input-tle">开户行名称：</span>
+            <input name="" type="text" value="请输入开户行名称"  class="gray" onclick="if (this.value == '请输入开户行名称') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入开户行名称';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input number"><span class="input-tle">银行卡账号：</span>
+            <input name="" type="text" value="请输入银行卡账号"  class="gray" onclick="if (this.value == '请输入银行卡账号') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入银行卡账号';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
+            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入邮箱地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
+                <ul class="label-check">
+                    <li class="checkon">形象</li>
+                    <li>产品设计</li>
+                    <li>漫画</li>
+                    <li>动画</li>
+                    <li>游戏</li>
+                    <li>音乐</li>
+                    <li>VI</li>
+                    <li>广告</li>
+                </ul>
+            </span> </li>
+        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
+                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入验证码';
+                                    this.className = 'gray'
+                                }">
+                <input name="" type="button" value="验证码">
+            </span> </li>
+        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
+            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认邀请码';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+        <li class="auto">
+            <input name="" type="checkbox" value="" checked>
+            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+        <li class="txt-input">
+            <input class="retrieve-btn" name="" type="button" value="马上注册">
+        </li>
+    </ul>
+    <ul class="login-ul firm" id="register4" style="display: none;">
+        <li class="txt-input name"><span class="input-tle">姓名：</span>
+            <input name="" type="text" value="请输入姓名"  class="gray" onclick="if (this.value == '请输入姓名') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入姓名';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input phone"><span class="input-tle">联系电话：</span>
+            <input name="" type="text" value="请输入联系电话"  class="gray" onclick="if (this.value == '请输入联系电话') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入联系电话';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input address"><span class="input-tle">联系地址：</span>
+            <input name="" type="text" value="请输入联系地址"  class="gray" onclick="if (this.value == '请输入联系地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入联系地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input password"><span class="input-tle">密码：</span>
+            <input name="" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+            <input name="" type="password" value="请确认密码"  class="gray" onclick="if (this.value == '请确认密码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认密码';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
+            <input name="" type="text" value="请输入邮箱地址"  class="gray" onclick="if (this.value == '请输入邮箱地址') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入邮箱地址';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input company"><span class="input-tle">公司名称：</span>
+            <input name="" type="text" value="请输入公司名称"  class="gray" onclick="if (this.value == '请输入公司名称') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入公司名称';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">公司名称是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
+        <li class="txt-input scope"><span class="input-tle">经营范围：</span>
+            <input name="" type="text" value="请输入经营范围"  class="gray" onclick="if (this.value == '请输入经营范围') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入经营范围';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input produc"><span class="input-tle">主要产品：</span>
+            <input name="" type="text" value="请输入主要产品"  class="gray" onclick="if (this.value == '请输入主要产品') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入主要产品';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input user"><span class="input-tle">目标用户：</span>
+            <input name="" type="text" value="请输入目标用户"  class="gray" onclick="if (this.value == '请输入目标用户') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入目标用户';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input idea"><span class="input-tle">经营理念：</span>
+            <input name="" type="text" value="请输入经营理念"  class="gray" onclick="if (this.value == '请输入经营理念') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请输入经营理念';
+                                this.className = 'gray'
+                            }">
+        </li>
+        <li class="txt-input permit"><span class="input-tle">营业执照：</span> <span class="permit-img"><img alt="企业营业执照" class="zw-img" src="__IMG__/img02.gif"/></span> </li>
+        <li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
+                <ul class="label-check">
+                    <li class="checkon">形象</li>
+                    <li>产品设计</li>
+                    <li>漫画</li>
+                    <li>动画</li>
+                    <li>游戏</li>
+                    <li>音乐</li>
+                    <li>VI</li>
+                    <li>广告</li>
+                </ul>
+            </span> </li>
+        <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
+                <input name="" type="text" value="请输入验证码"  class="gray" onclick="if (this.value == '请输入验证码') {
+                            this.value = '';
+                            this.className = 'black'
+                        }" onblur="if (this.value == '') {
+                                    this.value = '请输入验证码';
+                                    this.className = 'gray'
+                                }">
+                <input name="" type="button" value="验证码">
+            </span> </li>
+        <li class="txt-input invite"><span class="input-tle">邀请码：</span>
+            <input name="" type="text" value="请确认邀请码"  class="gray" onclick="if (this.value == '请确认邀请码') {
+                        this.value = '';
+                        this.className = 'black'
+                    }" onblur="if (this.value == '') {
+                                this.value = '请确认邀请码';
+                                this.className = 'gray'
+                            }">
+            <span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+        <li class="auto">
+            <input name="" type="checkbox" value="" checked>
+            <span></span>我已阅读并接受<a href="#">版权声明</a>和<a href="#">隐私保护</a>条款</li>
+        <li class="txt-input">
+            <input class="retrieve-btn" name="" type="button" value="马上注册">
+        </li>
+    </ul>
+</block>

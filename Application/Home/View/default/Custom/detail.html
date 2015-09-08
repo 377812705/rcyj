@@ -1,87 +1,87 @@
-<extend name="Base/common" />
-<block name="head">
-    <script type="text/javascript">
-        $(function(){
-
-        });
-        function qd(uid,cusid){
-            if($("#btn_qd1").val()=="已抢单"){
-                return;
-            }else {
-                $.post("__ROOT__/Custom/grab", {uid: uid, cusid: cusid},
-                        function (data) {
-                            alert(data);
-                            $("#btn_qd1").addClass("grab-btnon");
-                            $("#btn_qd1").val("已抢单");
-                            $("#btn_qd2").hide();
-                        });
-            }
-        }
-    </script>
-</block>
-<block name="body">
-<div class="container content details">
-    <div class="details brief">
-        <div class="brief-left">
-            <h4>{$custom.cusname}</h4>
-            <h5>定制主题：<span>{$custom.theme}</span>标签：<span>形象</span>形象分类：<span>{$custom.imgclass}</span></h5>
-            <h5>订制方式：<span>{$custom.mode}</span>展示方式：<span>{$custom.dismode}</span>风格选择：<span>{$custom.style}</span></h5>
-            <h5>订制价格：<span class="red-span">{$custom.cusmoney} RMB</span>订制期限：<span class="red-span">{$custom.diffday} 天</span></h5>
-        </div>
-        <div class="brief-right grab"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
-        <h4>{$cuinfo.nick_name}</h4>
-        <h5>地区：{$cuinfo.address}</h5>
-        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
-        <h5>好评率：99%{$isgrab}</h5>
-        </span>
-            <switch name="isgrab">
-                <case value="0"><input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单"></case>
-                <default /><input class="grab-btnon" type="button" value="已抢单">
-            </switch>
-        </div>
-    </div>
-    <div class="details-content order-subject">
-    <switch name="custom.theme">
-        <case value="浪漫的爱情"><include file="Public/lmaq"/></case>
-        <case value="浓浓的亲情"><include file="Public/nnqq"/></case>
-        <case value="真挚的友情"><include file="Public/zzyq"/></case>
-        <case value="独一无二的自己"><include file="Public/dywezj"/></case>
-        <case value="生日"><include file="Public/sr"/></case>
-        <case value="投资型订制"><include file="Public/tzxdz"/></case>
-        <default /><include file="Public/tzxdz"/>
-    </switch>
-
-          <span class="details-btn">
-      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/pcustom/formid/{:is_login()}.html'" value="我要订制">
-              <eq name="isgrab" value="0">
-      <input class="blue-input" type="button" id="btn_qd2" value="我要抢单" onclick="qd({:is_login()},{$custom.cusid})">
-                  </eq>
-      </span> <span class="third-party"> <a href="#" class="sina"></a> <a href="#" class="wechat"></a> <a href="#" class="qq"></a> <a href="#" class="space"></a> </span> </div>
-
-    <div class="tag"> <span class="collect"> <img src="__IMG__/tag-img01.png"/> <span>
-      <h4>收藏</h4>
-      <h5>233人收藏</h5>
-      </span> </span> <span class="collect report"> <img src="__IMG__/tag-img02.png"/> <span>
-      <h4>举报</h4>
-      <h5>0人举报</h5>
-      </span> </span> <span class="collect popularity"> <img src="__IMG__/tag-img03.png"/> <span>
-      <h4>人气</h4>
-      <h5>232736人浏览</h5>
-      </span> </span> </div>
-    <div class="author">
-        <div class="author-left"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
-       <h4>{$cuinfo.nick_name}</h4>
-        <h5>地区：{$cuinfo.address}</h5>
-        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
-        <h5>好评率：99%</h5>
-        <!--<h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
-        </span>
-            <input name="" type="button" value="已关注">
-        </div>
-        <!------如果用户没有作品，不显示此模块儿只是空白------>
-        <div class="author-right"> <img src="__IMG__/works.png" style="width: 188px;"/><img src="__IMG__/works.png" style="width: 188px;"/><img src="__IMG__/works.png" style="width: 188px;"/> <span class="cutover"> <a href="#"></a><a href="#"></a><a href="#"></a> </span> </div>
-        <!------如果用户没有作品，不显示此模块儿只是空白------>
-    </div>
-    <include file="Public:banner" />
-</div>
+<extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript">
+        $(function(){
+
+        });
+        function qd(uid,cusid){
+            if($("#btn_qd1").val()=="已抢单"){
+                return;
+            }else {
+                $.post("__ROOT__/Custom/grab", {uid: uid, cusid: cusid},
+                        function (data) {
+                            alert(data);
+                            $("#btn_qd1").addClass("grab-btnon");
+                            $("#btn_qd1").val("已抢单");
+                            $("#btn_qd2").hide();
+                        });
+            }
+        }
+    </script>
+</block>
+<block name="body">
+<div class="container content details">
+    <div class="details brief">
+        <div class="brief-left">
+            <h4>{$custom.cusname}</h4>
+            <h5>定制主题：<span>{$custom.theme}</span>标签：<span>形象</span>形象分类：<span>{$custom.imgclass}</span></h5>
+            <h5>订制方式：<span>{$custom.mode}</span>展示方式：<span>{$custom.dismode}</span>风格选择：<span>{$custom.style}</span></h5>
+            <h5>订制价格：<span class="red-span">{$custom.cusmoney} RMB</span>订制期限：<span class="red-span">{$custom.diffday} 天</span></h5>
+        </div>
+        <div class="brief-right grab"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
+        <h4>{$cuinfo.nick_name}</h4>
+        <h5>地区：{$cuinfo.address}</h5>
+        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
+        <h5>好评率：99%{$isgrab}</h5>
+        </span>
+            <switch name="isgrab">
+                <case value="0"><input class="grab-btn" id="btn_qd1" type="button" onclick="qd({:is_login()},{$custom.cusid})" value="抢单"></case>
+                <default /><input class="grab-btnon" type="button" value="已抢单">
+            </switch>
+        </div>
+    </div>
+    <div class="details-content order-subject">
+    <switch name="custom.theme">
+        <case value="浪漫的爱情"><include file="Public/lmaq"/></case>
+        <case value="浓浓的亲情"><include file="Public/nnqq"/></case>
+        <case value="真挚的友情"><include file="Public/zzyq"/></case>
+        <case value="独一无二的自己"><include file="Public/dywezj"/></case>
+        <case value="生日"><include file="Public/sr"/></case>
+        <case value="投资型订制"><include file="Public/tzxdz"/></case>
+        <default /><include file="Public/tzxdz"/>
+    </switch>
+
+          <span class="details-btn">
+      <input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/pcustom/formid/{:is_login()}.html'" value="我要订制">
+              <eq name="isgrab" value="0">
+      <input class="blue-input" type="button" id="btn_qd2" value="我要抢单" onclick="qd({:is_login()},{$custom.cusid})">
+                  </eq>
+      </span> <span class="third-party"> <a href="#" class="sina"></a> <a href="#" class="wechat"></a> <a href="#" class="qq"></a> <a href="#" class="space"></a> </span> </div>
+
+    <div class="tag"> <span class="collect"> <img src="__IMG__/tag-img01.png"/> <span>
+      <h4>收藏</h4>
+      <h5>233人收藏</h5>
+      </span> </span> <span class="collect report"> <img src="__IMG__/tag-img02.png"/> <span>
+      <h4>举报</h4>
+      <h5>0人举报</h5>
+      </span> </span> <span class="collect popularity"> <img src="__IMG__/tag-img03.png"/> <span>
+      <h4>人气</h4>
+      <h5>232736人浏览</h5>
+      </span> </span> </div>
+    <div class="author">
+        <div class="author-left"> <img src="http://erciyuanjie.com{$cuinfo.header_img}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/> <span>
+       <h4>{$cuinfo.nick_name}</h4>
+        <h5>地区：{$cuinfo.address}</h5>
+        <h5>积分：{$cuinfo.work_count} 笔 <span> 等级：九品</span></h5>
+        <h5>好评率：99%</h5>
+        <!--<h5>诚信度：<img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img22.gif"/><img src="__IMG__/img23.gif"/><img src="__IMG__/img23.gif"/></h5>-->
+        </span>
+            <input name="" type="button" value="已关注">
+        </div>
+        <!------如果用户没有作品，不显示此模块儿只是空白------>
+        <div class="author-right"> <img src="__IMG__/works.png" style="width: 188px;"/><img src="__IMG__/works.png" style="width: 188px;"/><img src="__IMG__/works.png" style="width: 188px;"/> <span class="cutover"> <a href="#"></a><a href="#"></a><a href="#"></a> </span> </div>
+        <!------如果用户没有作品，不显示此模块儿只是空白------>
+    </div>
+    <include file="Public:banner" />
+</div>
     </block>

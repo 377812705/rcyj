@@ -1,88 +1,101 @@
-<extend name="Base/common"/>
-
-<block name="body">
-<div class="container content">
-    <div class="custom">
-        <ul class="nextnav">
-            <li class="nextnavon activ-li"><a href="#">资料修改</a></li>
-        </ul>
-        <div class="custom-content">
-            <ul>
-                <li>Hi，{$uinfo.user_name}，欢迎您!</li>
-                <li class="base-data">
-                    <ul class="fill-left">
-                        <li class="fill fill-data">
-                            <h5>用户名：</h5>
-                            {$uinfo.user_name} </li>
-                        <li class="fill fill-data">
-                            <h5>邮箱：</h5>
-                            {$uinfo.email}
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail/id/{$uinfo.id}.html'" value="修改邮箱">
-                        </li>
-                        <li class="fill fill-data address">
-                            <h5>联系地址：</h5>
-                            {$uinfo.address}
-                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
-                        </li>
-                    </ul>
-            <span class="portrait"><img src="http://erciyuanjie.com{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
-            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
-            </span> </li>
-            <li class="fill">
-                    <h5>标签：</h5>
-                    <h4 max="3"> <span class="auto">
-		              <input name="tag" type="checkbox" value="1">
-		              <span></span>形象</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="2">
-		              <span></span>漫画</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="3">
-		              <span></span>插画</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="4">
-		              <span></span>产品设计</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="5">
-		              <span></span>动画</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="6">
-		              <span></span>游戏</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="7">
-		              <span></span>音乐</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="8">
-		              <span></span>VI</span> <span class="auto">
-		              <input name="tag" type="checkbox" value="9">
-              		  <span></span>广告</span><span class="auto"> 
-              		  <input name="tag" type="checkbox" value="10">
-              		  <span></span>课程</span> 
-              		</h4>
-                </li>
-                <li class="fill edit-name">
-                    <h5>真实姓名：</h5>
-                    <input name="" type="text" class="gray" placeholder="请写真实姓名。" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
-                </li>
-                <li class="fill">
-                    <h5>个人简介：</h5>
-                    <textarea class="description" name="" cols="" rows="" onkeyup="this.value = this.value.slice(0, 2000)" placeholder="请填写个人简介"  >请填写个人简介。</textarea>
-                    <h6>还可以输入 <span>2000</span> 字符 / 汉字</h6>
-                </li>
-                <li class="fill btn">
-                    <input class="submit" name="" type="button" onClick="javascript:location.href='__ROOT__/Index.html'"  value="确认">
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-    <script>
-    $(".auto input[type='checkbox']").click(function(){
-		var yflag = false;
-		if($(this).is(':checked')) {
-		var maxcheckbox = $(this).parent().parent().attr("max");
-			if(maxcheckbox && parseInt(maxcheckbox) > 0){
-				yflag = true;
-				if($("input[type='checkbox']:checked").length > parseInt(maxcheckbox)){
-					$(this).attr('checked',false)
-					alert("最多只能选择三项！");
-					return ;
-				}
-			}
-		}
-		})
-    </script>
+<extend name="Base/common"/>
+<block name="head">
+<script type="text/javascript" src="__JS__/jquery.validationEngine.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.validationEngine-zh_CN.js"></script>
+<link rel="stylesheet" href="__CSS__/validationEngine.jquery.css">
+</block>
+
+<block name="body">
+<div class="container content">
+    <div class="custom">
+        <ul class="nextnav">
+            <li class="nextnavon activ-li"><a href="#">资料修改</a></li>
+        </ul>
+        <div class="custom-content">
+            <ul>
+                <li>Hi，{$uinfo.user_name}，欢迎您!</li>
+                <li class="base-data">
+                    <ul class="fill-left">
+                        <li class="fill fill-data">
+                            <h5>用户名：</h5>
+                            {$uinfo.user_name} </li>
+                        <li class="fill fill-data">
+                            <h5>邮箱：</h5>
+                            {$uinfo.email}
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editmail/id/{$uinfo.id}.html'" value="修改邮箱">
+                        </li>
+                        <li class="fill fill-data address">
+                            <h5>联系地址：</h5>
+                            {$uinfo.address}
+                            <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
+                        </li>
+                    </ul>
+            <span class="portrait"><img src="http://erciyuanjie.com{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+            <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
+            </span>
+            </li>
+            <form action="__ROOT__/MyCenter/editdata/id/{$uinfo['id']}.html"  method="post" id="form">
+            <li class="fill">
+                    <h5>标签：</h5>
+                    <h4 max="3">
+                    <volist name="cate" id="v">
+                    <span class="auto">
+		              <input name="tag[]" type="checkbox" value="{$key}" <if condition="($tag[0] eq $key) or ($tag[1] eq $key) or $tag[2] eq $key">checked="checked"</if> />
+		              <span></span>{$v}
+		            </span>
+		            </volist>
+              		</h4>
+                </li>
+                <li class="fill edit-name">
+                    <h5>真实姓名：</h5>
+                    <input name="aname" type="text" class="gray" placeholder="请写真实姓名。" value="{$uinfo['aname']}" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
+                </li>
+                <li class="fill">
+                    <h5>个人简介：</h5>
+                    <textarea class="description validate[maxSize[2000]]" name="intro" cols="" rows=""  onkeyup="strLenCalc($(this), 'checklen', 2000);"  placeholder="请填写个人简介" >{$uinfo['intro']}</textarea>
+                    <h6 class="checklen">还可以输入 <span class="word-count">2000</span> 字符 / 汉字</h6>
+                </li>
+                <input type="hidden" name="uid" value="{$uinfo['id']}" />
+                <input type="hidden" name="info_id" value="{$uinfo['uid']}" />
+                <li class="fill btn">
+                    <input class="submit" name="" type="button"  value="确认">
+                </li>
+            </form>
+            </ul>
+        </div>
+    </div>
+</div>
+    <script>
+    $(".auto input[type='checkbox']").click(function(){
+		var yflag = false;
+		if($(this).is(':checked')) {
+		var maxcheckbox = $(this).parent().parent().attr("max");
+			if(maxcheckbox && parseInt(maxcheckbox) > 0){
+				yflag = true;
+				if($("input[type='checkbox']:checked").length > parseInt(maxcheckbox)){
+					$(this).attr('checked',false)
+					alert("最多只能选择三项！");
+					return ;
+				}
+			}
+		}
+		})
+		
+		$('.submit').click(function(){
+			$('#form').submit();
+		})
+		
+		//循环选中多选
+		$('.auto').each(function(i,e){
+			var tag = $('#tag').val();
+			b = tag.split(";");
+			$(e).find('.tag').each(function(i,e){
+				var ii = i + 1;
+				$(e).html("规则" + ii);
+			});
+			$(e).find('.ac-btnt').each(function(i,e){
+				$(e).attr("log",i);
+			});			
+		});
+    </script>
     </block>

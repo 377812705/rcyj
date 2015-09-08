@@ -1,207 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="keyword" content="">
-<meta name="author" content="">
-<title>个人作者注册</title>
-<link rel="stylesheet" href="__CSS__/base1.css" />
-<link rel="stylesheet" href="__CSS__/master.css" />
-<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="__JS__/master.js"></script>
-<link rel="stylesheet" type="text/css" href="__CSS__/webuploader.css">
-<link rel="stylesheet" type="text/css" href="__CSS__/diyUpload.css">
-<script type="text/javascript" src="__JS__/webuploader.html5only.min.js"></script>
-<script type="text/javascript" src="__JS__/diyUpload.js"></script>
-	
-<script type="text/javascript" src="__JS__/jquery.validationEngine.min.js"></script>
-<script type="text/javascript" src="__JS__/jquery.validationEngine-zh_CN.js"></script>
-<link rel="stylesheet" href="__CSS__/validationEngine.jquery.css">
-<style>
-*{ margin:0; padding:0;}
-.box li{margin:0 3px; padding:0;}
-.webuploader-pick{background:none;}
-.myda { background:#bababa; }  
-.mycode { background:#34abef; }
-</style>
-</head>
-<body>
-<section> 
-		<!--------页面头部--------->
-		<header class="container logo02">
-				<div class="header-right">
-						<ul>
-								<li>已有账户，<a href="__ROOT__/Login/login.html">马上登录</a></li>
-								<li class="gray">|</li>
-								<li><a href="__ROOT__/Index.html">返回二次元界</a></li>
-						</ul>
-				</div>
-		</header>
-		<!--------登录页面内容部分--------->
-		<div class="container register">
-				<div class="retrieve personal">
-						<ul class="nextnav">
-							<eq name="isno" value="0">
-								<li class="nextnavon"><a href="__ROOT__/Author/pAuthorReg/isno/{$isno}.html">个人作者注册</a></li>
-								<li><a href="__ROOT__/Author/eAuthorReg/isno/{$isno}.html">企业作者注册</a></li>
-								<else/>
-							<li><a href="__ROOT__/Login/register.html">注册</a></li>
-							<li class="nextnavon"><a href="__ROOT__/Author/pAuthorReg.html">个人作者注册</a></li>
-							<li><a href="__ROOT__/Author/eAuthorReg.html">企业作者注册</a></li>
-							<li><a href="__ROOT__/Custom/pCustomReg.html">个人订制注册</a></li>
-							<li><a href="__ROOT__/Custom/eCustomReg.html">企业订制注册</a></li>
-							</eq>
-						</ul>
-						<ul class="login-ul">
-						<form action="__ROOT__/author/pauthorreg" method="get" id="form">
-								<li class="txt-input username"><span class="input-tle">用户名：</span>
-										<input name="username" type="text" placeholder="用户名，字母/中文/数字/下划线"  class="gray validate[required]" <notempty name="info">readonly="true"</notempty> value="{$info['user_name']}">
-										<span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-								<li class="txt-input name"><span class="input-tle">姓名：</span>
-										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required]" <notempty name="info.aname">readonly="true"</notempty> value="{$info['aname']}">
-								</li>
-								<li class="txt-input phone"><span class="input-tle">手机号：</span>
-										<input name="phone" id="mobile" type="text" placeholder="请输入手机号"  class="gray validate[required,custom[phone]]" <notempty name="info">readonly="true"</notempty> value="{$info['mobile']}">
-								</li>
-								<li class="txt-input address"><span class="input-tle">联系地址：</span>
-										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" value="{$info['address']}">
-								</li>
-								<empty name="info">
-								<li class="txt-input password"><span class="input-tle">密码：</span>
-										<input name="password" type="password" placeholder="请输入密码"  class="gray validate[required]">
-								</li>
-								<li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required]">
-								</li>
-								</empty>
-								<li class="txt-input idcard"><span class="input-tle">身份证号：</span>
-										<input name="idcard" type="text" placeholder="请输入身份证号"  class="gray validate[custom[chinaIdLoose]]" value="{$info['idcode']}">
-								</li>
-								<li class="txt-input bank"><span class="input-tle">开户行名称：</span>
-										<input name="bank" type="text" placeholder="请输入开户行名称"  class="gray validate[required]" value="{$info['khname']}">
-								</li>
-								<li class="txt-input number"><span class="input-tle">银行卡账号：</span>
-										<input name="number" type="text" placeholder="请输入银行卡账号"  class="gray validate[required]" value="{$info['yhcode']}">
-								</li>
-								<li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[custom[email]]" value="{$info['email']}">
-								</li>
-								<li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
-										<ul class="label-check" max="3">
-											<volist name="tag" id="v">
-												<li log={$key}>{$v}</li>
-											</volist>
-											<input type="hidden" value="" name="tags" id="tags">	
-										</ul>
-										</span> </li>
-								<empty name="info">
-								<li class="txt-input verify"><span class="input-tle">验证码：</span> 
-									<span class="verify-span">
-										<input name="verify" type="text" placeholder="请输入验证码"  class="gray validate[required]" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
-										<input name="sendcode" type="button" value="验证码" id="sendcode" style="background-color:#34abef;">
-										<input name="sendcode" type="button" value="验证码"  id="sendcode1" style="display: none;" >
-									</span> 
-								</li>
-								</empty>
-								<li class="txt-input invite"><span class="input-tle">邀请码：</span>
-										<input name="invite" type="text" placeholder="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
-										<span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
-								<empty name="info">
-								<li class="auto">
-										<input name="ready" type="checkbox" value="1" checked id="ready">
-										<span></span>我已阅读并接受<a href="__ROOT__/Index/about#yisi" target="__blank">版权声明</a>和<a href="__ROOT__/Index/about#yisi" target="__blank">隐私保护</a>条款
-								</li>
-								</empty>
-								<li class="txt-input">
-										<input class="retrieve-btn" name="" type="button" value="<empty name='info'>马上注册<else/>成为作者</empty>">
-								</li>
-								<input type="hidden" name="id" value="{$info['id']}" />
-								<input type="hidden" name="uid" value="{$info['uid']}" />
-						</form>
-						</ul>
-				</div>
-		</div>
-		<!--------页面底部--------->
-				<footer class="container footer">版权所有：北京世纪元通网络科技有限公司  京ICP备14025166号-1</footer>
-	</section>
-<script type="text/javascript">
-$('.retrieve-btn').click(function(){
-	$('#form').validationEngine(); 
-	//勾选的标签赋值
-	$('.label-check li').each(function(i,e){
-		var tag_id = $('#tags').val();
-		if($(e).attr('class') == 'checkon'){
-			tag_id += $(e).attr('log')+ ';';
-			$('#tags').val(tag_id);
-		}
-	});
-	
-	$('#form').submit();
-})
-//发送验证码
-$('#sendcode').click(function(){
-	if($('#mobile').val().length == 0){
-		alert('请输入手机号');return false;
-	}
-
-	var s = 60;
-	var timer;
-	timer = setInterval(function(){
-			$('#sendcode1').text('倒计时 '+60);
-			if(s<0){
-				clearInterval(timer);
-				$('#sendcode').show();
-				$('#sendcode1').hide();
-			}else{
-				s--;
-			}
-		},1000);
-	var mcode=$("#mobile").val();
-	if(mcode=="请输入手机号"){
-		alert("请输入手机号");
-	}else{
-		$.post("__ROOT__/Login/sendCode", {mobile: mcode},
-				function (data) {
-					if(data.status == 1){
-						$('#sendcode').hide();
-						$('#sendcode1').show();
-						alert(data.msg);
-					}else{
-						alert(data.msg);
-					}
-				});
-	}
-});
-//倒计时
-/* var timer;
-timer=setInterval(function(){
-	var m = $('#m').val();
-	m--;
-	if(m<0){
-		clearInterval(timer);
-		changeBg();
-		alert('倒计时完毕');
-	}
-},1000); */
-
-function changeBg(){
-	$('#sendcode').css('background-color','#34abef');
-}
-
-$('#ready').click(function(){
-	var check_val = $(this).val();
-	if(check_val == 1){
-		$(this).val(0);
-		$(this).checked = false;
-	}else{
-		$(this).val(1);
-		$(this).checked = true ;
-	}
-});
-
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keyword" content="">
+<meta name="author" content="">
+<title>个人作者注册</title>
+<link rel="stylesheet" href="__CSS__/base1.css" />
+<link rel="stylesheet" href="__CSS__/master.css" />
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/master.js"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/diyUpload.css">
+<script type="text/javascript" src="__JS__/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="__JS__/diyUpload.js"></script>
+	
+<script type="text/javascript" src="__JS__/jquery.validationEngine.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.validationEngine-zh_CN.js"></script>
+<link rel="stylesheet" href="__CSS__/validationEngine.jquery.css">
+<style>
+*{ margin:0; padding:0;}
+.box li{margin:0 3px; padding:0;}
+.webuploader-pick{background:none;}
+.myda { background:#bababa; }  
+.mycode { background:#34abef; }
+</style>
+</head>
+<body>
+<section> 
+		<!--------页面头部--------->
+		<header class="container logo02">
+				<div class="header-right">
+						<ul>
+								<li>已有账户，<a href="__ROOT__/Login/login.html">马上登录</a></li>
+								<li class="gray">|</li>
+								<li><a href="__ROOT__/Index.html">返回二次元界</a></li>
+						</ul>
+				</div>
+		</header>
+		<!--------登录页面内容部分--------->
+		<div class="container register">
+				<div class="retrieve personal">
+						<ul class="nextnav">
+							<eq name="isno" value="0">
+								<li class="nextnavon"><a href="__ROOT__/Author/pAuthorReg/isno/{$isno}.html">个人作者注册</a></li>
+								<li><a href="__ROOT__/Author/eAuthorReg/isno/{$isno}.html">企业作者注册</a></li>
+								<else/>
+							<li><a href="__ROOT__/Login/register.html">注册</a></li>
+							<li class="nextnavon"><a href="__ROOT__/Author/pAuthorReg.html">个人作者注册</a></li>
+							<li><a href="__ROOT__/Author/eAuthorReg.html">企业作者注册</a></li>
+							<li><a href="__ROOT__/Custom/pCustomReg.html">个人订制注册</a></li>
+							<li><a href="__ROOT__/Custom/eCustomReg.html">企业订制注册</a></li>
+							</eq>
+						</ul>
+						<ul class="login-ul">
+						<form action="__ROOT__/author/pauthorreg" method="get" id="form">
+								<li class="txt-input username"><span class="input-tle">用户名：</span>
+										<input name="username" type="text" placeholder="用户名，字母/中文/数字/下划线"  class="gray validate[required,maxSize[16]]" <notempty name="info['user_name']">readonly="true"</notempty> value="{$info['user_name']}">
+										<span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
+								<li class="txt-input name"><span class="input-tle">姓名：</span>
+										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required,maxSize[16]]" <notempty name="info.aname">readonly="true"</notempty> value="{$info['aname']}">
+								</li>
+								<li class="txt-input phone"><span class="input-tle">手机号：</span>
+										<input name="phone" id="mobile" type="text" placeholder="请输入手机号"  class="gray validate[required,custom[phone]]" <notempty name="info">readonly="true"</notempty> value="{$info['mobile']}">
+								</li>
+								<li class="txt-input address"><span class="input-tle">联系地址：</span>
+										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" value="{$info['address']}">
+								</li>
+								<empty name="info">
+								<li class="txt-input password"><span class="input-tle">密码：</span>
+										<input name="password" type="password" placeholder="请输入密码"  class="gray validate[required]">
+								</li>
+								<li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required]">
+								</li>
+								</empty>
+								<li class="txt-input idcard"><span class="input-tle">身份证号：</span>
+										<input name="idcard" type="text" placeholder="请输入身份证号"  class="gray validate[custom[chinaIdLoose]]" value="{$info['idcode']}">
+								</li>
+								<li class="txt-input bank"><span class="input-tle">开户行名称：</span>
+										<input name="bank" type="text" placeholder="请输入开户行名称"  class="gray validate[required]" value="{$info['khname']}">
+								</li>
+								<li class="txt-input number"><span class="input-tle">银行卡账号：</span>
+										<input name="number" type="text" placeholder="请输入银行卡账号"  class="gray validate[required]" value="{$info['yhcode']}">
+								</li>
+								<li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
+										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[custom[email]]" value="{$info['email']}">
+								</li>
+								<li class="txt-input label"><span class="input-tle">标签：</span> <span class="label-span"><a href="javascript:;">请选择标签分类（可多选）</a>
+										<ul class="label-check" max="3">
+											<volist name="tag" id="v">
+												<li log={$key}>{$v}</li>
+											</volist>
+											<input type="hidden" value="" name="tags" id="tags">	
+										</ul>
+										</span> </li>
+								<empty name="info">
+								<li class="txt-input verify"><span class="input-tle">验证码：</span> 
+									<span class="verify-span">
+										<input name="verify" type="text" id="verify" placeholder="请输入验证码"  class="gray validate[required]" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
+										<input name="sendcode" type="button" value="验证码" id="sendcode" style="background-color:#34abef;">
+										<input name="sendcode" type="button" value="验证码"  id="sendcode1" style="display: none;" >
+									</span> 
+								</li>
+								</empty>
+								<li class="txt-input invite"><span class="input-tle">邀请码：</span>
+										<input name="invite" type="text" placeholder="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
+										<span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
+								<empty name="info">
+								<li class="auto">
+										<input name="ready" type="checkbox" value="1" checked id="ready">
+										<span></span>我已阅读并接受<a href="__ROOT__/Index/about#yisi" target="__blank">版权声明</a>和<a href="__ROOT__/Index/about#yisi" target="__blank">隐私保护</a>条款
+								</li>
+								</empty>
+								<li class="txt-input">
+										<input class="retrieve-btn" name="" type="button" value="<empty name='info'>马上注册<else/>成为作者</empty>">
+								</li>
+								<input type="hidden" name="id" value="{$info['id']}" />
+								<input type="hidden" name="uid" value="{$info['uid']}" />
+								<input type="hidden" value="{$info['id']}" id="is_exist" />
+						</form>
+						</ul>
+				</div>
+		</div>
+		<!--------页面底部--------->
+				<footer class="container footer">版权所有：北京世纪元通网络科技有限公司  京ICP备14025166号-1</footer>
+	</section>
+<script type="text/javascript">
+$('.retrieve-btn').click(function(){
+	$('#form').validationEngine(); 
+	//勾选的标签赋值
+	$('.label-check li').each(function(i,e){
+		var tag_id = $('#tags').val();
+		if($(e).attr('class') == 'checkon'){
+			tag_id += $(e).attr('log')+ ';';
+			$('#tags').val(tag_id);
+		}
+	});
+	
+	//成为作者，不需要判断手机和验证码
+	var is_exist = $('#is_exist').val();
+	if(is_exist.length > 0){
+		$('#form').submit();
+	}else{
+		//判断手机号无效
+		var mcode = $('#mobile').val();
+		var vcode = $('#verify').val();
+		$.post("__ROOT__/Login/checkReg", {mobile: mcode,verify:vcode},
+				function (data) {
+					if(data.status != 1){
+						alert(data.msg);return false;
+					}else{
+						$('#form').submit();
+					}
+		});
+	}
+	
+
+	
+	//$('#form').submit();
+})
+//发送验证码
+$('#sendcode').click(function(){
+	if($('#mobile').val().length == 0){
+		alert('请输入手机号');return false;
+	}
+
+	var s = 60;
+	var timer;
+	timer = setInterval(function(){
+			$('#sendcode1').text('倒计时 '+60);
+			if(s<0){
+				clearInterval(timer);
+				$('#sendcode').show();
+				$('#sendcode1').hide();
+			}else{
+				s--;
+			}
+		},1000);
+	var mcode=$("#mobile").val();
+	if(mcode=="请输入手机号"){
+		alert("请输入手机号");
+	}else{
+		$.post("__ROOT__/Login/sendCode", {mobile: mcode},
+				function (data) {
+					if(data.status == 1){
+						$('#sendcode').hide();
+						$('#sendcode1').show();
+						alert(data.msg);
+					}else{
+						alert(data.msg);
+					}
+				});
+	}
+});
+//倒计时
+/* var timer;
+timer=setInterval(function(){
+	var m = $('#m').val();
+	m--;
+	if(m<0){
+		clearInterval(timer);
+		changeBg();
+		alert('倒计时完毕');
+	}
+},1000); */
+
+function changeBg(){
+	$('#sendcode').css('background-color','#34abef');
+}
+
+$('#ready').click(function(){
+	var check_val = $(this).val();
+	if(check_val == 1){
+		$(this).val(0);
+		$(this).checked = false;
+	}else{
+		$(this).val(1);
+		$(this).checked = true ;
+	}
+});
+
+</script>
+</body>
+</html>

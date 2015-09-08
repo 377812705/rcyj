@@ -1,88 +1,88 @@
-<extend name="Base/common"/>
-<block name="body">
-    <div class="container content">
-			<div class="custom">
-				<ul class="nextnav no-drop author-nav">
-								<li class="nextnavon"><a href="javascript:;">我的作品</a></li>
-								<!-- <li><a href="javascript:;">为我推荐</a></li> -->
-						</ul>
-					</div>
-		<div class="author-content">
-				<div class="module">
-                	<div class="module-tle">
-								<h5>Hi， <span>{:getUserNameById(is_login())}</span> <!-- ，您关注了<span>13</span> 位作者，他们上传了 <span>14</span> 组作品，想要看到更多？去  <span>关注更多优秀设计师</span> 吧。--><!--（如果没有关注作者的用户，显示的是以下内容：Hi， 二郎神 ，您还没有关注作者，快去 关注优秀设计师 吧。）--></h5>
-						</div>
-                       	  <div class="author-filter">
-                            	<h5>
-                           	 		 标签：   <a href="javascript:;" class="aon">全部</a>
-									 <for start="1" end="count($tags)+1">
-											<a href="javascript:;" >{$tags[$i]}</a>
- 									</for>
-								</h5>
-                                <h5>
-                           	 		 排序：   <a href="javascript:;" class="aon">最新上传</a>
-											
-											<a href="javascript:;">价格最低</a>
-											<a href="javascript:;">价格最高</a>
-											<!-- <a href="javascript:;">人气最高</a>
-											<a href="javascript:;">点赞最多</a> -->
-								</h5>
-                          </div>
-					<gt name="total" value="4">
-						<ul>
-						<else />
-							<ul style="min-height: 365px;">
-						</gt>
-						<volist name="works" id="wdata">
-							<li style="display:block;width:293px;height: 370px; padding:0px 5px"><a href="__ROOT__/Product/details/id/{$wdata.id}.html"><img src="{$wdata.main_image_url}" alt="作品图片-{$wdata.title}" style="display：block;width: 293px;height: 222px;"/></a>
-								<h3>{$wdata.title|mb_substr=0,10,'utf-8'}</h3>
-								<if condition="$wdata.sellcate eq '2'">
-												<h4>授权</h4>
-												<else />
-												<h4>￥{$wdata.money}</h4>
-											</if>
-								<span class="label-a"><a href="javascript:;">{$tags[$wdata[tags]]}</a><a href="javascript:;">{$source[$wdata[create_status]]}</a></span>
-								<if condition="$wdata[issell] eq '1'"><div style="text-align: right;"><span><a style="color: #0390e9  ;"  href="/MyCenter/del/id/{$wdata.id}">删除</a></span><span > <a style="color: #60cb80;" href="/MyCenter/uploadWork/id/{$wdata.id}.html">修改</a></span></span></if>
-								<!-- <h5><span>{$wdata.open_count}</span>人气  /<span>{$wdata.praise_count}</span>点赞  /<span>{$wdata.favorite_count}</span>收藏 </h5> -->
-							</li>
-						</volist>
-					</ul>
-
-
-				</div>
-				<!-- 
-                <div class="module" style="display:none;">
-                	<div class="module-tle">
-								<h5>Hi， <span>{:session('user_auth.username')}</span> ，根据您最近的浏览为您推荐以下优秀作品，快来订制属于你的作品吧。</h5>
-						</div>
-                       	  <div class="author-filter">
-                            	<h5>
-                           	 		 标签：   <a href="javascript:;" class="aon">全部</a>
-									<volist name="tags" id="data">
-										<a href="javascript:;" >{$data.tag_content}</a>
-									</volist>
-									</h5>
-                                <h5>
-                           	 		 排序：   <a href="javascript:;" class="aon">最新上传</a> <a href="javascript:;">人气最高</a> <a href="javascript:;">价格最低</a> <a href="javascript:;">价格最高</a> <a href="javascript:;">点赞最多</a></h5>
-                          </div>
-					<gt name="total" value="4">
-						<ul>
-							<else />
-							<ul style="min-height: 365px;">
-					</gt>
-					<volist name="works" id="wdata">
-						<li style="display:block;width:293px;height: 330px;"><img src="http://www.2ciyuanjie.com/{$wdata.main_image_url}" alt="作品图片-{$wdata.title}" style="display：block;width: 293px;height: 222px;"/>
-							<h3>{$wdata.title|mb_substr=0,10,'utf-8'}</h3>
-							<h4>$500</h4>
-							<span class="label-a"><a href="javascript:;">{$wdata.tags_content}</a><a href="javascript:;">{$wdata.create_status}</a></span>
-							 <h5><span>{$wdata.open_count}</span>人气  /<span>{$wdata.praise_count}</span>点赞  /<span>{$wdata.favorite_count}</span>收藏 </h5>
-						</li>
-					</volist>
-					</ul>
-
-				</div> -->
-                    {$show}
-				</div>
-		</div>
-	</div>
+<extend name="Base/common"/>
+<block name="body">
+    <div class="container content">
+			<div class="custom">
+				<ul class="nextnav no-drop author-nav">
+								<li class="nextnavon"><a href="javascript:;">我的作品</a></li>
+								<!-- <li><a href="javascript:;">为我推荐</a></li> -->
+						</ul>
+					</div>
+		<div class="author-content">
+				<div class="module">
+                	<div class="module-tle">
+								<h5>Hi， <span>{:getUserNameById(is_login())}</span> <!-- ，您关注了<span>13</span> 位作者，他们上传了 <span>14</span> 组作品，想要看到更多？去  <span>关注更多优秀设计师</span> 吧。--><!--（如果没有关注作者的用户，显示的是以下内容：Hi， 二郎神 ，您还没有关注作者，快去 关注优秀设计师 吧。）--></h5>
+						</div>
+                       	  <div class="author-filter">
+                            	<h5>
+                           	 		 标签：   <a href="javascript:;" class="aon">全部</a>
+									 <for start="1" end="count($tags)+1">
+											<a href="javascript:;" >{$tags[$i]}</a>
+ 									</for>
+								</h5>
+                                <h5>
+                           	 		 排序：   <a href="javascript:;" class="aon">最新上传</a>
+											
+											<a href="javascript:;">价格最低</a>
+											<a href="javascript:;">价格最高</a>
+											<!-- <a href="javascript:;">人气最高</a>
+											<a href="javascript:;">点赞最多</a> -->
+								</h5>
+                          </div>
+					<gt name="total" value="4">
+						<ul>
+						<else />
+							<ul style="min-height: 365px;">
+						</gt>
+						<volist name="works" id="wdata">
+							<li style="display:block;width:293px;height: 370px; padding:0px 5px"><a href="__ROOT__/Product/details/id/{$wdata.id}.html"><img src="{$wdata.main_image_url}" alt="作品图片-{$wdata.title}" style="display：block;width: 293px;height: 222px;"/></a>
+								<h3>{$wdata.title|mb_substr=0,10,'utf-8'}</h3>
+								<if condition="$wdata.sellcate eq '2'">
+												<h4>授权</h4>
+												<else />
+												<h4>￥{$wdata.money}</h4>
+											</if>
+								<span class="label-a"><a href="javascript:;">{$tags[$wdata[tags]]}</a><a href="javascript:;">{$source[$wdata[create_status]]}</a></span>
+								<if condition="$wdata[issell] eq '1'"><div style="text-align: right;"><span><a style="color: #0390e9  ;"  href="/MyCenter/del/id/{$wdata.id}">删除</a></span><span > <a style="color: #60cb80;" href="/MyCenter/uploadWork/id/{$wdata.id}.html">修改</a></span></span></if>
+								<!-- <h5><span>{$wdata.open_count}</span>人气  /<span>{$wdata.praise_count}</span>点赞  /<span>{$wdata.favorite_count}</span>收藏 </h5> -->
+							</li>
+						</volist>
+					</ul>
+
+
+				</div>
+				<!-- 
+                <div class="module" style="display:none;">
+                	<div class="module-tle">
+								<h5>Hi， <span>{:session('user_auth.username')}</span> ，根据您最近的浏览为您推荐以下优秀作品，快来订制属于你的作品吧。</h5>
+						</div>
+                       	  <div class="author-filter">
+                            	<h5>
+                           	 		 标签：   <a href="javascript:;" class="aon">全部</a>
+									<volist name="tags" id="data">
+										<a href="javascript:;" >{$data.tag_content}</a>
+									</volist>
+									</h5>
+                                <h5>
+                           	 		 排序：   <a href="javascript:;" class="aon">最新上传</a> <a href="javascript:;">人气最高</a> <a href="javascript:;">价格最低</a> <a href="javascript:;">价格最高</a> <a href="javascript:;">点赞最多</a></h5>
+                          </div>
+					<gt name="total" value="4">
+						<ul>
+							<else />
+							<ul style="min-height: 365px;">
+					</gt>
+					<volist name="works" id="wdata">
+						<li style="display:block;width:293px;height: 330px;"><img src="http://www.2ciyuanjie.com/{$wdata.main_image_url}" alt="作品图片-{$wdata.title}" style="display：block;width: 293px;height: 222px;"/>
+							<h3>{$wdata.title|mb_substr=0,10,'utf-8'}</h3>
+							<h4>$500</h4>
+							<span class="label-a"><a href="javascript:;">{$wdata.tags_content}</a><a href="javascript:;">{$wdata.create_status}</a></span>
+							 <h5><span>{$wdata.open_count}</span>人气  /<span>{$wdata.praise_count}</span>点赞  /<span>{$wdata.favorite_count}</span>收藏 </h5>
+						</li>
+					</volist>
+					</ul>
+
+				</div> -->
+                    {$show}
+				</div>
+		</div>
+	</div>
 </block>

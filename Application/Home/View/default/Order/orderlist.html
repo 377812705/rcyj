@@ -1,67 +1,67 @@
-<extend name="Base/common" />
-<block name="body">
-
-  <!--------页面内容部分--------->
-  <div class="container content">
-    <div class="custom">
-      <ul class="nextnav no-drop author-nav">
-        <li class="nextnavon"><a href="javascript:;">我的订单</a></li>
-        <li><a href="/order/sellorderlist.html">我的作品/抢单</a></li>
-        <!-- <li><a href="javascript:;">收藏作品</a></li>
-        <li><a href="javascript:;">关注作者</a></li> -->
-      </ul>
-    </div>
-    <div class="author-content">
-      <div class="module">
-        <div class="module-tle authortle">
-          <h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
-        </div>
-        <div class="author-filter">
-          <h5> 类别： <a href="/order/orderlist.html" class="carryout aon" >作品订单</a> <a href="/order/ordercustomlist.html"  > 定制订单</a> </h5><!-- <a href="javascript:;" class="current">未评价</a> -->
-          
-          <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a></h5><!-- <a href="javascript:;" class="current">未评价</a> -->
-        </div>
-        <volist name="orderList" id="data">			
-	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
-	          <div class="order-content order-main"> <img src="{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
-	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
-	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
-	            <h5>展示方式：{$show1[$data['show']]}</h5>
-	            <!-- <h5>风格选择：现代Q版 <span>速写</span></h5> -->
-	            <h5>订制价格：{$data.money}元<!--  <span>订制时间：10天</span>--> </h5>
-	            </span> </div>
-	          <div class="price">
-	            <h4>￥{$data.money}</h4>
-	            <h5>（含运费：￥0.00）</h5>
-	          </div>
-	          <div class="operating"> <span>{$paytype[$data[order_type]]}<a class="report-a" onclick="orderclick({$data.order_id})" >订单详情</a></span>
-	            <h5 class="evaluate-btn"><if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> </h5>
-	          </div>
-	        </div>
-	    	<div class="report-content order-details" id="report-content{$data.order_id}" style="display:none;">
-        		<div class="report-tle">订单详情<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
-        		<div class="report-main">
-	          		<h4>当前订单状态：{$paytype[$data[order_type]]} <if condition="$data[order_type] eq 1"><span>交易成功，请及时给作者评价。</span></if></h4>
-	          		<span class="details-list">
-	          		<h5><a href="__ROOT__/Product/details/id/{$data.work_id}.html">主题：{$data.work_title}</a></h5>
-	          		<h5>作者昵称：{$data.auther}    </h5>
-	          		<h5>订单号：{$data.order_number}</h5>
-	          		<h5>创建时间：{$data.create_date}</h5>
-	          		<h5>付款时间：{$data.pay_time}     确认时间：{$data.create_date}</h5>
-	          		<span class="actually">
-	          		<h3>实付款：<span>￥<if condition="$data[money] gt 0">{$data.money}<else />0</if></span></h3>
-	          		</span> </span> 
-	          	</div>
-        	<div class="report-btn evaluation-btn">
-          	<!-- <if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> -->
-        	</div>
-      </div>
-        </volist>
-      </div>
-      
-      
-         {$show}
-         
-
-  </div>
-</block>
+<extend name="Base/common" />
+<block name="body">
+
+  <!--------页面内容部分--------->
+  <div class="container content">
+    <div class="custom">
+      <ul class="nextnav no-drop author-nav">
+        <li class="nextnavon"><a href="javascript:;">我的订单</a></li>
+        <li><a href="/order/sellorderlist.html">我的作品/抢单</a></li>
+        <!-- <li><a href="javascript:;">收藏作品</a></li>
+        <li><a href="javascript:;">关注作者</a></li> -->
+      </ul>
+    </div>
+    <div class="author-content">
+      <div class="module">
+        <div class="module-tle authortle">
+          <h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>欢迎查看您的订单，为了让您能更清楚自己的交易详情。 </h5>
+        </div>
+        <div class="author-filter">
+          <h5> 类别： <a href="/order/orderlist.html" class="carryout aon" >作品订单</a> <a href="/order/ordercustomlist.html"  > 订制订单</a> </h5><!-- <a href="javascript:;" class="current">未评价</a> -->
+          
+          <h5> 状态： <a href="/order/orderlist.html" <if condition="$order_type eq null">class="carryout aon" <else /> class="carryout" </if> > 全部订单</a> <a href="/order/orderlist/paytype/1.html" <if condition="$order_type eq 1">class="carryout aon" <else /> class="carryout" </if> > 已支付</a> <a href="/order/orderlist/paytype/0.html" <if condition="$order_type eq '0'">class="carryout aon" <else /> class="carryout" </if>>未支付</a></h5><!-- <a href="javascript:;" class="current">未评价</a> -->
+        </div>
+        <volist name="orderList" id="data">			
+	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
+	          <div class="order-content order-main"> <img src="{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
+	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
+	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
+	            <h5>展示方式：{$show1[$data['show']]}</h5>
+	            <!-- <h5>风格选择：现代Q版 <span>速写</span></h5> -->
+	            <h5>订制价格：{$data.money}元<!--  <span>订制时间：10天</span>--> </h5>
+	            </span> </div>
+	          <div class="price">
+	            <h4>￥{$data.money}</h4>
+	            <h5>（含运费：￥0.00）</h5>
+	          </div>
+	          <div class="operating"> <span>{$paytype[$data[order_type]]}<a class="report-a" onclick="orderclick({$data.order_id})" >订单详情</a></span>
+	            <h5 class="evaluate-btn"><if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> </h5>
+	          </div>
+	        </div>
+	    	<div class="report-content order-details" id="report-content{$data.order_id}" style="display:none;">
+        		<div class="report-tle">订单详情<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+        		<div class="report-main">
+	          		<h4>当前订单状态：{$paytype[$data[order_type]]} <if condition="$data[order_type] eq 1"><span>交易成功，请及时给作者评价。</span></if></h4>
+	          		<span class="details-list">
+	          		<h5><a href="__ROOT__/Product/details/id/{$data.work_id}.html">主题：{$data.work_title}</a></h5>
+	          		<h5>作者昵称：{$data.auther}    </h5>
+	          		<h5>订单号：{$data.order_number}</h5>
+	          		<h5>创建时间：{$data.create_date}</h5>
+	          		<h5>付款时间：{$data.pay_time}     确认时间：{$data.create_date}</h5>
+	          		<span class="actually">
+	          		<h3>实付款：<span>￥<if condition="$data[money] gt 0">{$data.money}<else />0</if></span></h3>
+	          		</span> </span> 
+	          	</div>
+        	<div class="report-btn evaluation-btn">
+          	<!-- <if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> -->
+        	</div>
+      </div>
+        </volist>
+      </div>
+      
+      
+         {$show}
+         
+
+  </div>
+</block>

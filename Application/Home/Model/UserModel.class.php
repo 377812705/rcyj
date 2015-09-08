@@ -29,9 +29,10 @@ class UserModel extends Model{
 	    /* 添加用户 */
 	    if($data['id']){//更新
 	        $rs = $this->where(array('id'=>$data['id']))->save($data);
-	        if($rs){
-	            $uid = $data['id'];
+	        if($rs===false){
+	            return  false ;
 	        }
+	        $uid = $data['id'];
 	    }else{
 	        $uid = $this->add($data);
 	    }

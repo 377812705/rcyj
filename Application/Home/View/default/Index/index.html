@@ -1,201 +1,202 @@
-<extend name="Base/common"/>
-<block name="body">
-<style type="text/css">
-*{margin:0;padding:0;}
-.clearfix:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix{zoom:1;}
-ul,li{list-style:none;}
-img{border:0;}
-.wrapper{margin:0 auto;padding-bottom:10px;}
-h1{height:50px;line-height:50px;font-size:22px;font-weight:normal;font-family:"Microsoft YaHei",SimHei;margin-bottom:20px;}
-/* focus */
-#focus{height:380px;overflow:hidden;position:relative;}
-#focus ul{height:380px;position:absolute;}
-#focus ul li{float:left;width:1250px;height:380px;overflow:hidden;position:relative;}
-#focus ul li div{position:absolute;overflow:hidden;}
-#focus .btnBg{height:20px;left:0;bottom:0;}
-#focus .btn{position:absolute;height:10px;padding:5px 10px;right:0;bottom:0;text-align:right;}
-
-#focus .preNext{width:45px;height:100px;position:absolute;top:120px;background:url(/uploads/activity/sprite.png) no-repeat 0 0;cursor:pointer;}
-#focus .pre{left:0;}
-#focus .next{right:0;background-position:right top;}
-</style>
-<script type="text/javascript">
-$(function() {
-	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
-	var len = $("#focus ul li").length; //获取焦点图个数
-	var index = 0;
-	var picTimer;
-	
-	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
-	var btn = "<div class='btnBg'></div><div class='btn'>";
-	for(var i=0; i < len; i++) {
-		btn += "<span></span>";
-	}
-	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
-	$("#focus").append(btn);
-	$("#focus .btnBg").css("opacity",0.5);
-
-	//为小按钮添加鼠标滑入事件，以显示相应的内容
-	$("#focus .btn span").css("opacity",0.4).mouseover(function() {
-		index = $("#focus .btn span").index(this);
-		showPics(index);
-	}).eq(0).trigger("mouseover");
-
-	//上一页、下一页按钮透明度处理
-	$("#focus .preNext").css("opacity",0.2).hover(function() {
-		$(this).stop(true,false).animate({"opacity":"0.5"},300);
-	},function() {
-		$(this).stop(true,false).animate({"opacity":"0.2"},300);
-	});
-
-	//上一页按钮
-	$("#focus .pre").click(function() {
-		index -= 1;
-		if(index == -1) {index = len - 1;}
-		showPics(index);
-	});
-
-	//下一页按钮
-	$("#focus .next").click(function() {
-		index += 1;
-		if(index == len) {index = 0;}
-		showPics(index);
-	});
-
-	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
-	$("#focus ul").css("width",sWidth * (len));
-	
-	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
-	$("#focus").hover(function() {
-		clearInterval(picTimer);
-	},function() {
-		picTimer = setInterval(function() {
-			showPics(index);
-			index++;
-			if(index == len) {index = 0;}
-		},4000); //此4000代表自动播放的间隔，单位：毫秒
-	}).trigger("mouseleave");
-	
-	//显示图片函数，根据接收的index值显示相应的内容
-	function showPics(index) { //普通切换
-		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
-		$("#focus ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
-		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
-		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
-	}
-});
-
-</script>
-
-	<div class="container content">
-		<div class="banner"> 
-		<div class="wrapper">
-		<div id="focus">
-			<ul style="left: -2400px; width: 1250px;">
-				<li><a href="__ROOT__/activity/cyzhindex.html" target="_blank"><img src="/uploads/activity/cyzh3.png"/></a></li>
-				<li><a href="__ROOT__/activity/yzindex.html" target="_blank"><img src="/uploads/activity/yz3.png"/></a></li>
-				<li><a href="__ROOT__/Custom/pcustom.html" target="_blank"><img src="/uploads/activity/active1.jpg"/></a></li>
-				<!-- <li><a href="__ROOT__/product/huodongzhanshi.html" target="_blank"><img src="/uploads/activity/zhcy5.jpg"/></a></li> -->
-				<li><a href="__ROOT__/Custom/pcustom.html" target="_blank"><img src="/uploads/activity/dingzhi.jpg"/></a></li>
-			
-			</ul>
-		<div class="btnBg" style="opacity: 0.5;"></div><!--focus end-->
-	
-	</div>
-		</div></div>
-		<div class="module">
-			<div class="module-tle">
-				<h3>活动推荐<span><!-- <a href="__ROOT__/Activity/perfect.html">我要举办“发布活动，众人参与”</a> --></span></h3>
-				<a href="__ROOT__/Activity.html" class="more">更多活动</a></div>
-			<ul>
-				<li><a  href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh2.png"/></a></li>
-				<li><a  href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz2.png"/></a></li>
-				<li><span class="station"></span></li>
-				<li><span class="station"></span></li>
-			</ul>
-		</div>
-		
-		<div class="module">
-			<div class="module-tle">
-				<h3>订制推荐<span><a href="__ROOT__/Custom/custom.html">我要订制—“订制时尚，品味生活”</a></span></h3>
-				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
-			<ul>
-				<volist name="dzwork" id="data">
-				<li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html"><img src="http://erciyuanjie.com{$data.imgurl}" alt="作品图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
-					<h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
-					<h4>￥{$data.cusmoney}</h4>
-					<span class="label-a"><a href="#">形象</a><a href="#">{$data.theme}</a></span>
-					<h2>{$data.cusstatus}<span>接单状态</span></h2>
-					<h5><span>{$data.open_count}</span>人气</h5>
-					<h6><a href="__ROOT__/Author/details/id/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
-						<!--<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>-->
-						<if condition="($data.uid|getUserName) eq null">
-							<img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
-							<else />
-							<img src="http://erciyuanjie.com{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
-						</if>
-
-					</a></h6>
-				</li>
-				</volist>
-
-			</ul>
-		</div>
-		<div class="module">
-			<div class="module-tle">
-				<h3>作品推荐<span><a href="__ROOT__/MyCenter/uploadWork.html">我要上传—“展现精品，创造价值”</a></span></h3>
-				<a href="__ROOT__/Product.html" class="more">更多作品推荐</a> </div>
-			<ul>
-				<volist name="tjwork" id="data">
-				<li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
-					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
-					<if condition="$data.sellcate eq '2'">
-												<h4>授权</h4>
-												<else />
-												<h4>￥{$data.money}</h4>
-											</if>
-					<span class="label-a"><a >{$tags[$data['tags']]}</a><a>{$source[$data['create_status']]}</a></span>
-					<!-- <h5><span>{$data.open_count}</span>人气  /<span>{$data.praise_count}</span>点赞  /<span>{$data.favorite_count}</span>收藏 </h5> -->
-					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html" style="color: #0390e9;">{$data.nick_name}
-						<if condition="$data.nick_name eq null">
-							<img src="__IMG__/works.png" style="width: 41px;height: 41px;" alt="用户头像"/>
-							<else />
-							<img src="{$data.header_img}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
-						</if>
-					</a></h6>
-				</li>
-				</volist>
-
-			</ul>
-
-		</div>
-		<div class="module recommend">
-			<div class="module-tle">
-				<h3>作者推荐<span><a href="__ROOT__/Author/pAuthorReg.html">我要申请—“让世界关注你”</a></span></h3>
-				<a href="__ROOT__/Author.html" class="more">更多推荐作者</a> </div>
-			<ul>
-				<volist name="author" id="data" mod="4">
-				<li>
-					 <a href="__ROOT__/Author/details/id/{$data.id}.html">
-						 <empty name="data.header_img">
-							 <img style="width: 80px;height: 80px;padding-left: 5px;" src="__IMG__/touxiang.png"/>
-							 <else />
-							 <img src="{$data.header_img}" class="author" style="width: 80px;height: 80px;padding-left: 5px;" onerror="this.src='__IMG__/touxiang.png'"/>
-						 </empty>
-						 <!--<img src="__IMG__/user-img01.gif"/>-->
-					 </a>
-						<span style="padding-left: 5px;">
-						 <h5><a href="__ROOT__/Author/details/id/{$data.id}.html" style="color: #0390e9;">{$data.user_name}</a></h5>
-						 <h6>{$data.address} / {$data.tags_content|strtr=';',' '|mb_substr=1,10,'UTF-8'}</h6>
-						 <h6>粉丝：{$data.fans_count}／ 作品：{$data.workcount}</h6>
-						</span>
-				</li>
-					<eq name="mod" value="3"></ul><ul></eq>
-				</volist>
-			</ul>
-		</div>
-		<include file="Public:banner" />
-	</div>
-</block>
-
+<extend name="Base/common"/>
+<block name="body">
+<style type="text/css">
+*{margin:0;padding:0;}
+.clearfix:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix{zoom:1;}
+ul,li{list-style:none;}
+img{border:0;}
+.wrapper{margin:0 auto;padding-bottom:10px;}
+h1{height:50px;line-height:50px;font-size:22px;font-weight:normal;font-family:"Microsoft YaHei",SimHei;margin-bottom:20px;}
+/* focus */
+#focus{height:380px;overflow:hidden;position:relative;}
+#focus ul{height:380px;position:absolute;}
+#focus ul li{float:left;width:1250px;height:380px;overflow:hidden;position:relative;}
+#focus ul li div{position:absolute;overflow:hidden;}
+#focus .btnBg{height:20px;left:0;bottom:0;}
+#focus .btn{position:absolute;height:10px;padding:5px 10px;right:0;bottom:0;text-align:right;}
+
+#focus .preNext{width:45px;height:100px;position:absolute;top:120px;background:url(/uploads/activity/sprite.png) no-repeat 0 0;cursor:pointer;}
+#focus .pre{left:0;}
+#focus .next{right:0;background-position:right top;}
+</style>
+<script type="text/javascript">
+$(function() {
+	var sWidth = $("#focus").width(); //获取焦点图的宽度（显示面积）
+	var len = $("#focus ul li").length; //获取焦点图个数
+	var index = 0;
+	var picTimer;
+	
+	//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i < len; i++) {
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$("#focus").append(btn);
+	$("#focus .btnBg").css("opacity",0.5);
+
+	//为小按钮添加鼠标滑入事件，以显示相应的内容
+	$("#focus .btn span").css("opacity",0.4).mouseover(function() {
+		index = $("#focus .btn span").index(this);
+		showPics(index);
+	}).eq(0).trigger("mouseover");
+
+	//上一页、下一页按钮透明度处理
+	$("#focus .preNext").css("opacity",0.2).hover(function() {
+		$(this).stop(true,false).animate({"opacity":"0.5"},300);
+	},function() {
+		$(this).stop(true,false).animate({"opacity":"0.2"},300);
+	});
+
+	//上一页按钮
+	$("#focus .pre").click(function() {
+		index -= 1;
+		if(index == -1) {index = len - 1;}
+		showPics(index);
+	});
+
+	//下一页按钮
+	$("#focus .next").click(function() {
+		index += 1;
+		if(index == len) {index = 0;}
+		showPics(index);
+	});
+
+	//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+	$("#focus ul").css("width",sWidth * (len));
+	
+	//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+	$("#focus").hover(function() {
+		clearInterval(picTimer);
+	},function() {
+		picTimer = setInterval(function() {
+			showPics(index);
+			index++;
+			if(index == len) {index = 0;}
+		},4000); //此4000代表自动播放的间隔，单位：毫秒
+	}).trigger("mouseleave");
+	
+	//显示图片函数，根据接收的index值显示相应的内容
+	function showPics(index) { //普通切换
+		var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+		$("#focus ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+		//$("#focus .btn span").removeClass("on").eq(index).addClass("on"); //为当前的按钮切换到选中的效果
+		$("#focus .btn span").stop(true,false).animate({"opacity":"0.4"},300).eq(index).stop(true,false).animate({"opacity":"1"},300); //为当前的按钮切换到选中的效果
+	}
+});
+
+</script>
+
+	<div class="container content">
+		<div class="banner"> 
+		<div class="wrapper">
+		<div id="focus">
+			<ul style="left: -2400px; width: 1250px;">
+				<li><a href="__ROOT__/activity/cyzhindex.html" target="_blank"><img src="/uploads/activity/cyzh3.png"/></a></li>
+				<li><a href="__ROOT__/activity/yzindex.html" target="_blank"><img src="/uploads/activity/yz3.png"/></a></li>
+				<li><a href="__ROOT__/Custom/pcustom.html" target="_blank"><img src="/uploads/activity/active1.jpg"/></a></li>
+				<!-- <li><a href="__ROOT__/product/huodongzhanshi.html" target="_blank"><img src="/uploads/activity/zhcy5.jpg"/></a></li> -->
+				<li><a href="__ROOT__/Custom/pcustom.html" target="_blank"><img src="/uploads/activity/dingzhi.jpg"/></a></li>
+				<li><a  href="__ROOT__/activity/jxractivity.html" target="_blank"><img src="/uploads/activity/jxr.png"/></a></li>
+				<li><a  href="__ROOT__/activity/wdwlactivity.html" target="_blank"><img src="/uploads/activity/wdwl.png"/></a></li>
+			</ul>
+		<div class="btnBg" style="opacity: 0.5;"></div><!--focus end-->
+	
+	</div>
+		</div></div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>活动推荐<span><!-- <a href="__ROOT__/Activity/perfect.html">我要举办“发布活动，众人参与”</a> --></span></h3>
+				<a href="__ROOT__/Activity.html" class="more">更多活动</a></div>
+			<ul>
+				<li><a  href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh2.png"/></a></li>
+				<li><a  href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz2.png"/></a></li>
+				<li><a  href="__ROOT__/activity/jxractivity.html"><img src="/uploads/activity/jxr2.png"/></a></li>
+				<li><a  href="__ROOT__/activity/wdwlactivity.html"><img src="/uploads/activity/wdwl2.png"/></a></li>
+			</ul>
+		</div>
+		
+		<div class="module">
+			<div class="module-tle">
+				<h3>订制推荐<span><a href="__ROOT__/Custom/pcustom/formid/1.html">我要订制—“订制时尚，品味生活”</a></span></h3>
+				<a href="__ROOT__/Custom.html" class="more">更多订制需求推荐</a> </div>
+			<ul>
+				<volist name="dzwork" id="data">
+				<li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html"><img src="http://erciyuanjie.com{$data.imgurl}" alt="作品图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
+					<h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
+					<h4>￥{$data.cusmoney}</h4>
+					<span class="label-a"><a href="#">形象</a><a href="#">{$data.theme}</a></span>
+					<h2>{$data.cusstatus}<span>接单状态</span></h2>
+					<h5><span>{$data.open_count}</span>人气</h5>
+					<h6><a href="__ROOT__/Author/details/id/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
+						<!--<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>-->
+						<if condition="($data.uid|getUserName) eq null">
+							<img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
+							<else />
+							<img src="http://erciyuanjie.com{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
+						</if>
+
+					</a></h6>
+				</li>
+				</volist>
+
+			</ul>
+		</div>
+		<div class="module">
+			<div class="module-tle">
+				<h3>作品推荐<span><a href="__ROOT__/MyCenter/uploadWork.html">我要上传—“展现精品，创造价值”</a></span></h3>
+				<a href="__ROOT__/Product.html" class="more">更多作品推荐</a> </div>
+			<ul>
+				<volist name="tjwork" id="data">
+				<li><a href="__ROOT__/Product/details/id/{$data.id}.html"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/></a>
+					<h3>{$data.title|mb_substr=0,10,'utf-8'}</h3>
+					<if condition="$data.sellcate eq '2'">
+												<h4>授权</h4>
+												<else />
+												<h4>￥{$data.money}</h4>
+											</if>
+					<span class="label-a"><a >{$tags[$data['tags']]}</a><a>{$source[$data['create_status']]}</a></span>
+					<!-- <h5><span>{$data.open_count}</span>人气  /<span>{$data.praise_count}</span>点赞  /<span>{$data.favorite_count}</span>收藏 </h5> -->
+					<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html" style="color: #0390e9;">{$data.user_id|getUserName}
+						<if condition="$data.nick_name eq null">
+							<img src="__IMG__/works.png" style="width: 41px;height: 41px;" alt="用户头像"/>
+							<else />
+							<img src="{$data.header_img}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
+						</if>
+					</a></h6>
+				</li>
+				</volist>
+
+			</ul>
+
+		</div>
+		<div class="module recommend">
+			<div class="module-tle">
+				<h3>作者推荐<span><a href="__ROOT__/Author/pAuthorReg.html">我要申请—“让世界关注你”</a></span></h3>
+				<a href="__ROOT__/Author.html" class="more">更多推荐作者</a> </div>
+			<ul>
+				<volist name="author" id="data" mod="4">
+				<li>
+					 <a href="__ROOT__/Author/details/id/{$data.id}.html">
+						 <empty name="data.header_img">
+							 <img style="width: 80px;height: 80px;padding-left: 5px;" src="__IMG__/touxiang.png"/>
+							 <else />
+							 <img src="{$data.header_img}" class="author" style="width: 80px;height: 80px;padding-left: 5px;" onerror="this.src='__IMG__/touxiang.png'"/>
+						 </empty>
+						 <!--<img src="__IMG__/user-img01.gif"/>-->
+					 </a>
+						<span style="padding-left: 5px;">
+						 <h5><a href="__ROOT__/Author/details/id/{$data.id}.html" style="color: #0390e9;">{$data.user_name}</a></h5>
+						
+						 <h6>粉丝：{$data.fans_count}／ 作品：{$data.workcount}</h6>
+						</span>
+				</li>
+					<eq name="mod" value="3"></ul><ul></eq>
+				</volist>
+			</ul>
+		</div>
+		<include file="Public:banner" />
+	</div>
+</block>
+

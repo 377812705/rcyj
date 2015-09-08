@@ -272,12 +272,49 @@ class MyCenterController extends HomeController
     //修改资料
     public function editdata()
     {
+        if(IS_POST){
+            $data = $_POST;
+            
+            $userData['id'] = $data['uid'];
+            $userData['intro'] = $data['intro'];
+            $userData['skilled_field'] = implode($data['tag'], ';');
+            
+            $userModel = D('User') ;
+            $user_id = $userModel->register($userData);//user表插入
+            
+            $userinfoData['id'] = $data['info_id'];
+            $userinfoData['aname'] = $data['aname'];
+            
+            $userinfoModel = D('Userinfo') ;
+            $result = $userinfoModel->update($userinfoData);
+
+            if($result){
+                $this->redirect("Index/index");
+            }else{
+                $this->error($userinfoModel->getError());
+            }
+        }
 		$id=I('id');
 		if($id){
 			$id=is_login();
 		}
-        $uinfo=D('Author')->getUserInfo($id);
-        $this->assign('uinfo',$uinfo[0]);
+		if($id){
+		    $prefix = C('DB_PREFIX');
+		    $table = "user u";
+		    $o_table = $prefix.'userinfo';
+		    $join = array(
+		        'left join '.$o_table . ' info ON u.id=info.userid',
+		    );
+		    $field = "u.*,info.id as uid,info.userid,info.isme,info.aname,info.address,info.idcode,info.khname,info.yhcode,info.ename,info.oprange,info.mproduct,info.tuser,info.midea,info.blicense";
+		    $uinfo =  M()->table($table)->join($join)->where(array('u.id'=>$id))->field($field)->find();
+		    
+		    //获取标签
+		    $this->assign('tag',explode(';', $uinfo['skilled_field']));
+		    $this->assign('uinfo',$uinfo);
+		}
+		$cate = C('cate');
+		$this->assign('cate',$cate);
+
         $this->display();
     }
 

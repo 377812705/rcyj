@@ -1,77 +1,77 @@
-<extend name="Base/common" />
-<block name="head">
-    <script type="text/javascript">
-        $(function(){
-            $(".author-filter>h5>a").click(function(){
-                $(this).addClass("aon").siblings().removeClass("aon");
-                //alert($(this).parent().attr("id"));
-                $("#"+$(this).parent().attr("id")+"list").val($(this).html());
-                $("#formauthor").submit();
-            });
-        });
-    </script>
-</block>
-<block name="body">
-    <div class="container content">
-        <form action="__ROOT__/Author" id="formauthor" method="get">
-            <input id="tagslist" name="tags" style="display: none;"/>
-            <input id="addresslist" name="address" style="display: none;"/>
-            <input id="orderlist" name="order" style="display: none;"/>
-        </form>
-			<div class="custom">
-				<ul class="nextnav no-drop">
-								<li class="nextnavon"><a href="javascript:;">推荐作者</a></li>
-                                <li class="top-btn author-btn"><input name="" type="button" value="成为作者" onclick="javascript:location.href='__ROOT__/Author/pAuthorReg/isno/0.html'"></li>
-						</ul>
-					</div>
-				<div class="module">
-                        <gt name="uid" value="0">
-						<div class="module-tle authortle">
-								<h5>Hi，<span>{:session('user_auth.username')}</span>，以下就是我们为您万里挑一的作者。快去关注他们，您将第一时间在 <span>我的首页</span> 看到他们更新。</h5>
-						</div>
-                        </gt>
-						<div class="author-content">
-                       	  <div class="author-filter">
-                            	<h5 id="tags">
-                           	 		 标签：   <a href="#" class="aon" value="0">全部</a>
-                                    <a href="#">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
-                                    <!--<volist name="zttag" id="data">-->
-                                        <!--<a href="javascript:;">{$data.tag_content}</a>-->
-                                    <!--</volist>-->
-                                </h5>
-                                <h5 id="address">
-                           	 		 地区：   <a href="#" class="aon" value="0"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳</a> <a href="#">重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
-                                <h5 id="order">
-                           	 		 排序：   <a href="#" class="aon" value="0">最新加入</a> <a href="#">人气最高</a> <a href="#">粉丝最多</a> <a href="#">作品最多</a> <a href="#">成交量最多</a> <a href="#">诚信度最高</a></h5>
-                          </div>
-                        <volist name="author" id="data">
-                          <div class="author-module">
-                          	<div class="module-left">
-                                <a href="__ROOT__/Author/details/id/{$data.id}.html">
-                                    <empty name="data.header_img">
-                                        <img src="__IMG__/touxiang.png" style="width: 127px;height: 127px;"/>
-                                        <else />
-                                        <img src="{$data.header_img}" style="width: 127px;height: 127px;" onerror="this.src='__IMG__/touxiang.png'"/>
-                                    </empty>
-
-                                </a>
-                                <span>
-                                	<h3 style="color: #0390e9;">{$data.user_name}</h3>
-                                    <h6>{$data.address} / {$data.tags_content|strtr=';',' '}</h6>
-                                    <h6>人气：{$data.pop_count}</h6>
-                                    <h6>粉丝：{$data.fans_count} / 作品：{$data.id|getUserWorkcount}</h6>
-                                    <h6>成交量：{$data.id|getUserCustomcount}</h6>
-                                </span>
-                            </div>
-                            <div class="module-right">
-                            	<span class="works">{$data.id|getUserThreeWork}</span>
-                                <!--<input name="" type="button" value="+ 关注">-->
-                            </div>
-                          </div>
-                        </volist>
-                        </div>
-                    {$show}
-				</div>
-		</div>
-    
-</block>
+<extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript">
+        $(function(){
+            $(".author-filter>h5>a").click(function(){
+                $(this).addClass("aon").siblings().removeClass("aon");
+                //alert($(this).parent().attr("id"));
+                $("#"+$(this).parent().attr("id")+"list").val($(this).html());
+                $("#formauthor").submit();
+            });
+        });
+    </script>
+</block>
+<block name="body">
+    <div class="container content">
+        <form action="__ROOT__/Author" id="formauthor" method="get">
+            <input id="tagslist" name="tags" style="display: none;"/>
+            <input id="addresslist" name="address" style="display: none;"/>
+            <input id="orderlist" name="order" style="display: none;"/>
+        </form>
+			<div class="custom">
+				<ul class="nextnav no-drop">
+								<li class="nextnavon"><a href="javascript:;">推荐作者</a></li>
+                                <li class="top-btn author-btn"><input name="" type="button" value="成为作者" onclick="javascript:location.href='__ROOT__/Author/pAuthorReg/isno/0.html'"></li>
+						</ul>
+					</div>
+				<div class="module">
+                        <gt name="uid" value="0">
+						<div class="module-tle authortle">
+								<h5>Hi，<span>{:session('user_auth.username')}</span>，以下就是我们为您万里挑一的作者。快去关注他们，您将第一时间在 <span>我的首页</span> 看到他们更新。</h5>
+						</div>
+                        </gt>
+						<div class="author-content">
+                       	  <div class="author-filter">
+                            	<h5 id="tags">
+                           	 		 标签：   <a href="#" class="aon" value="0">全部</a>
+                                    <a href="#">形象</a> <span>插画</span> <span>漫画</span> <span>产品设计</span> <span>动画</span> <span>游戏</span> <span>音乐</span> <span>VI</span> <span>广告</span>
+                                    <!--<volist name="zttag" id="data">-->
+                                        <!--<a href="javascript:;">{$data.tag_content}</a>-->
+                                    <!--</volist>-->
+                                </h5>
+                                <h5 id="address">
+                           	 		 地区：   <a href="#" class="aon" value="0"> 全部地区</a> <a href="#">北京</a> <a href="#">上海</a> <a href="#">广州</a> <a href="#">深圳</a> <a href="#">重庆</a> <a href="#">杭州</a> <a href="#">成都</a> <a href="#">南京</a> <a href="#">武汉</a> <a href="#">其他地区</a></h5>
+                                <h5 id="order">
+                           	 		 排序：   <a href="#" class="aon" value="0">最新加入</a> <a href="#">人气最高</a> <a href="#">粉丝最多</a> <a href="#">作品最多</a> <a href="#">成交量最多</a> <a href="#">诚信度最高</a></h5>
+                          </div>
+                        <volist name="author" id="data">
+                          <div class="author-module">
+                          	<div class="module-left">
+                                <a href="__ROOT__/Author/details/id/{$data.id}.html">
+                                    <empty name="data.header_img">
+                                        <img src="__IMG__/touxiang.png" style="width: 127px;height: 127px;"/>
+                                        <else />
+                                        <img src="{$data.header_img}" style="width: 127px;height: 127px;" onerror="this.src='__IMG__/touxiang.png'"/>
+                                    </empty>
+
+                                </a>
+                                <span>
+                                	<h3 style="color: #0390e9;">{$data.user_name}</h3>
+                                    <h6>{$data.address} / {$data.tags_content|strtr=';',' '}</h6>
+                                    <h6>人气：{$data.pop_count}</h6>
+                                    <h6>粉丝：{$data.fans_count} / 作品：{$data.id|getUserWorkcount}</h6>
+                                    <h6>成交量：{$data.id|getUserCustomcount}</h6>
+                                </span>
+                            </div>
+                            <div class="module-right">
+                            	<span class="works">{$data.id|getUserThreeWork}</span>
+                                <!--<input name="" type="button" value="+ 关注">-->
+                            </div>
+                          </div>
+                        </volist>
+                        </div>
+                    {$show}
+				</div>
+		</div>
+    
+</block>

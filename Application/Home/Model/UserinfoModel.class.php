@@ -12,13 +12,15 @@ class UserinfoModel extends Model{
         /* 添加用户 */
         if($data['id']){
             $rs = $this->where(array('id'=>$data['id']))->save($data);
-            if($rs){
-                $uid = $data['uid'];
+            
+            if($rs === false){
+                return false;
             }
+            $uid = $data['id'];
         }else{
             $uid = $this->add($data);
         }
-        
+
         if($uid){
             return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
         } else {

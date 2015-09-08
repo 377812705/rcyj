@@ -35,6 +35,8 @@ class LoginController extends HomeController
                 unset($data['verify']);
                 $data['mycode'] = make_coupon_card();//自己的邀请码
                 $data['create_date'] = date('y-m-d h:i:s', time());
+                $data['invitecode'] = $data['invite'];
+                unset($data['invite']);
                 $model->add($data);
                 $this->redirect("Login/login");
             } else {
@@ -173,6 +175,54 @@ class LoginController extends HomeController
         }
         return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
     }
+    
+    /**
+    * 检测
+    * @param
+    * @date: 2015年9月8日 下午4:44:47
+    * @author: yql
+    * @version: 3.0.0
+    */
+    public function checkReg(){
+        $data = I('post.');
+
+        $mobile = $data['mobile'];
+        if (!is_numeric($mobile)) {
+            $data1 = array('status'=>-1,'msg'=>'手机号必须是数字');
+            $this->ajaxReturn($data1);
+        }
+
+        $rs = preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile);
+        if($rs == 0){
+            $data1 = array('status'=>-1,'msg'=>'无效的手机号码');
+            $this->ajaxReturn($data1);
+        }else{//手机号是否已注册
+            $Model = M('user', null);
+            $count = $Model->where("mobile='{$mobile}'")->count();
+            
+            if($count > 0){
+                $data1 = array('status'=>-1,'msg'=>'手机号已存在');
+                $this->ajaxReturn($data1);
+            }
+        }
+        
+        $verify = $data['verify'];
+        if(!is_numeric($verify)){
+            $data1 = array('status'=>-1,'msg'=>'验证码必须是数字');
+            $this->ajaxReturn($data1);
+        }
+
+        $my_verify = M('MobileVcode',null)->where(array('mobile'=>$mobile))->order('id desc')->getField('vcode');
+
+        if($verify != $my_verify){//匹配验证码
+            $data1 = array('status'=>-1,'msg'=>'验证码错误');
+            $this->ajaxReturn($data1);
+        }
+        
+        $data1 = array('status'=>1);
+        $this->ajaxReturn($data1);  
+    }
+    
 
     /* 忘记密码 */
 

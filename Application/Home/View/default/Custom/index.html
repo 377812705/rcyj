@@ -1,104 +1,104 @@
-<extend name="Base/common"/>
-<block name="head">
-    <script type="text/javascript">
-        $(function () {
-            $(".custom-li a").bind('click',function () {
-                var newhtml = $(this).attr('value');
-                $(this).parent().parent().siblings().html(newhtml);
-                $("#"+$(this).parent().parent().attr("id")+"list").attr("value",$(this).parent().attr("value"));
-                $("#formcustom").submit();
-            });
-            $(".nextnav li a").click(function(){
-                $(".module").css("min-height","750px");
-            });
-            $(".nextnav>li").click(function(){
-               $(this).siblings().children("ul").hide();
-            });
-        });
-    </script>
-</block>
-<block name="body">
-    <div class="container content">
-        <form action="__ROOT__/Custom" id="formcustom" method="get">
-            <input id="tagslist" name="tags" style="display: none;" value="{$dataf['tags']}"/>
-            <input id="themelist" name="theme" style="display: none;"  value="{$dataf['theme']}" />
-            <input id="cusattrlist" name="cusattr" style="display: none;"  value="{$dataf['cusattr']}"/>
-            <input id="newslist" name="news" style="display: none;"  value="{$dataf['news']}" />
-        </form>
-        <div class="custom">
-            <ul class="nextnav">
-                <li class="nextnavon">
-                    <a href="javascript:;">{$dataf.tags}</a>
-                    <ul class="custom-ul" id="tags">
-                        <li class="custom-li custom-all" value="0"><a href="javascript:;" value="订制标签">全部</a></li>
-                        <for start="1" end="count($tags)+1" >
-                            <eq name="i" value="1">
-                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$tags[$i]}">{$tags[$i]}</a></li>
-                                <else/>
-                                <li>{$tags[$i]}</li>
-                            </eq>
-                        </for>
-                    </ul>
-                </li>
-                <li><a href="javascript:;">{$dataf['cusattr']}</a>
-                    <ul class="custom-ul" id="cusattr" >
-                        <li class="custom-li custom-all" value="0"><a href="javascript:;" value="作品来源">全部</a></li>
-                        <for start="1" end="count($source)+1" >
-                            <eq name="i" value="3">
-                                <else/>
-                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$source[$i]}">{$source[$i]}</a></li>
-                            </eq>
-                        </for>
-                    </ul>
-                </li>
-                <li><a href="javascript:;" >{$dataf['theme']}</a>
-                    <ul class="custom-ul" id="theme">
-                        <li class="custom-li custom-all"  value="0"><a href="javascript:;" value="作品主题">全部</a></li>
-                        <for start="1" end="count($theme)+1" >
-                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$theme[$i]}">{$theme[$i]}</a></li>
-                        </for>
-                    </ul>
-                </li>
-                <li><a href="javascript:;">{$dataf['news']}</a>
-                    <ul class="custom-ul" id="news">
-                        <li class="custom-li custom-all" value=0><a href="javascript:;">最新上传</a></li>
-                        <li class="custom-li" value=1><a href="javascript:;">人气最高</a></li>
-                        <!-- <li class="custom-li"><a href="javascript:;">点击最多</a></li>
-                        <li class="custom-li"><a href="javascript:;">收藏最多</a></li> -->
-                        <li class="custom-li" value=2><a href="javascript:;">价格最低</a></li>
-                        <li class="custom-li" value=3><a href="javascript:;">价格最高</a></li>
-                    </ul>
-                </li>
-                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/pcustom/formid/{:is_login()}.html'"
-                    value="我要订制">
-                </li>
-            </ul>
-        </div>
-        <div class="module">
-            <div class="module-tle">
-                <h6>共 <span>{$wcount}</span> 组订制</h6>
-            </div>
-            <ul>
-                <volist name="custom" id="data" mod="4">
-                    <li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html">
-                        <img src="http://erciyuanjie.com{$data.imgurl}" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/cmy.png'"/></a>
-                        <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
-                        <h4>￥{$data.cusmoney}</h4>
-                        <span class="label-a"><a href="javascript:;">形象</a><a href="javascript:;">{$data.theme}</a></span>
-
-                        <h2>{$data.cusstatus}<span>接单状态</span></h2>
-                        <h5><span>{$data.open_count}</span>人气</h5>
-                        <h6><a href="__ROOT__/Custom/userdetails/uid/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
-                            <if condition="($data.uid|getUserName) eq null">
-                                <img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
-                                <else />
-                                <img src="{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
-                            </if></a></h6>
-                    </li>
-                    <eq name="mod" value="3"></ul><ul></eq>
-                </volist>
-            </ul>
-            {$show}
-        </div>
-    </div>
+<extend name="Base/common"/>
+<block name="head">
+    <script type="text/javascript">
+        $(function () {
+            $(".custom-li a").bind('click',function () {
+                var newhtml = $(this).attr('value');
+                $(this).parent().parent().siblings().html(newhtml);
+                $("#"+$(this).parent().parent().attr("id")+"list").attr("value",$(this).parent().attr("value"));
+                $("#formcustom").submit();
+            });
+            $(".nextnav li a").click(function(){
+                $(".module").css("min-height","750px");
+            });
+            $(".nextnav>li").click(function(){
+               $(this).siblings().children("ul").hide();
+            });
+        });
+    </script>
+</block>
+<block name="body">
+    <div class="container content">
+        <form action="__ROOT__/Custom" id="formcustom" method="get">
+            <input id="tagslist" name="tags" style="display: none;" value="{$dataf['tags']}"/>
+            <input id="themelist" name="theme" style="display: none;"  value="{$dataf['theme']}" />
+            <input id="cusattrlist" name="cusattr" style="display: none;"  value="{$dataf['cusattr']}"/>
+            <input id="newslist" name="news" style="display: none;"  value="{$dataf['news']}" />
+        </form>
+        <div class="custom">
+            <ul class="nextnav">
+                <li class="nextnavon">
+                    <a href="javascript:;">{$dataf.tags}</a>
+                    <ul class="custom-ul" id="tags">
+                        <li class="custom-li custom-all" value="0"><a href="javascript:;" value="订制标签">全部</a></li>
+                        <for start="1" end="count($tags)+1" >
+                            <eq name="i" value="1">
+                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$tags[$i]}">{$tags[$i]}</a></li>
+                                <else/>
+                                <li>{$tags[$i]}</li>
+                            </eq>
+                        </for>
+                    </ul>
+                </li>
+                <li><a href="javascript:;">{$dataf['cusattr']}</a>
+                    <ul class="custom-ul" id="cusattr" >
+                        <li class="custom-li custom-all" value="0"><a href="javascript:;" value="作品来源">全部</a></li>
+                        <for start="1" end="count($source)+1" >
+                            <eq name="i" value="3">
+                                <else/>
+                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$source[$i]}">{$source[$i]}</a></li>
+                            </eq>
+                        </for>
+                    </ul>
+                </li>
+                <li><a href="javascript:;" >{$dataf['theme']}</a>
+                    <ul class="custom-ul" id="theme">
+                        <li class="custom-li custom-all"  value="0"><a href="javascript:;" value="作品主题">全部</a></li>
+                        <for start="1" end="count($theme)+1" >
+                            <li class="custom-li" value="{$i}"><a href="javascript:;" value="{$theme[$i]}">{$theme[$i]}</a></li>
+                        </for>
+                    </ul>
+                </li>
+                <li><a href="javascript:;">{$dataf['news']}</a>
+                    <ul class="custom-ul" id="news">
+                        <li class="custom-li custom-all" value=0><a href="javascript:;">最新上传</a></li>
+                        <li class="custom-li" value=1><a href="javascript:;">人气最高</a></li>
+                        <!-- <li class="custom-li"><a href="javascript:;">点击最多</a></li>
+                        <li class="custom-li"><a href="javascript:;">收藏最多</a></li> -->
+                        <li class="custom-li" value=2><a href="javascript:;">价格最低</a></li>
+                        <li class="custom-li" value=3><a href="javascript:;">价格最高</a></li>
+                    </ul>
+                </li>
+                <li class="top-btn"><input name="" type="button" onClick="javascript:location.href='__ROOT__/Custom/pcustom/formid/{:is_login()}.html'"
+                    value="我要订制">
+                </li>
+            </ul>
+        </div>
+        <div class="module">
+            <div class="module-tle">
+                <h6>共 <span>{$wcount}</span> 组订制</h6>
+            </div>
+            <ul>
+                <volist name="custom" id="data" mod="4">
+                    <li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html">
+                        <img src="http://erciyuanjie.com{$data.imgurl}" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/cmy.png'"/></a>
+                        <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
+                        <h4>￥{$data.cusmoney}</h4>
+                        <span class="label-a"><a href="javascript:;">形象</a><a href="javascript:;">{$data.theme}</a></span>
+
+                        <h2>{$data.cusstatus}<span>接单状态</span></h2>
+                        <h5><span>{$data.open_count}</span>人气</h5>
+                        <h6><a href="__ROOT__/Custom/userdetails/uid/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
+                            <if condition="($data.uid|getUserName) eq null">
+                                <img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>
+                                <else />
+                                <img src="{$data.uid|getUserImg}" style="width: 41px;height: 41px;" onerror="this.src='__IMG__/touxiang.png'"/>
+                            </if></a></h6>
+                    </li>
+                    <eq name="mod" value="3"></ul><ul></eq>
+                </volist>
+            </ul>
+            {$show}
+        </div>
+    </div>
 </block>

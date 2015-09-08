@@ -85,8 +85,12 @@ function getUserImg($uid=null){
  * @return mixed
  */
 function getUserName($uid=null){
-    $data=D('Author')->getUserInfo($uid);
-    return $data[0]['nick_name'];
+	$array=D('Home/User')->field('user_name,nick_name')->find($uid);
+	if(!empty($array['user_name'])){
+		return $array['user_name'];
+	}else{
+		return $array['nick_name'];
+	}
 }
 
 function getUserCustomType($uid=null){
@@ -150,4 +154,26 @@ function getUserCustomcount($uid=null){
  **/
 function checkMobile($mobile) {
     return preg_match("/^(?:13\d|14\d|15\d|17\d|18[0123456789])-?\d{5}(\d{3}|\*{3})$/", $mobile);
+}
+
+/**
+* 获取标签
+* @param
+* @date: 2015年9月8日 下午2:59:37
+* @author: yql
+* @version: 3.0.0
+*/
+function getTags($skill_id){
+    $id = explode(';', $skill_id);
+    $week = C('cate');
+    $str = '';
+    foreach ($id as $k => $v) {
+
+        if ($k < count($id) - 1) {
+            $str.=$week[$v] . ';';
+        } else {
+            $str.=$week[$v];
+        }
+    }
+    echo $str;
 }

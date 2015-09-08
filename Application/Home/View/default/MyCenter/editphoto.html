@@ -1,23 +1,23 @@
-<extend name="Base/common"/>
-
-<block name="body">
-    <div class="container edit">
-        <div class="edit-div">
-            <h5>修改头像</h5>
-            <ul class="login-ul">
-                <form action="__SELF__" enctype="multipart/form-data" method="post" >
-                    <input name="id" type="text" value="{$uid}" style="display: none;"/>
-                <li class="photo-li"><img src="http://erciyuanjie.com{$uid|getUserImg}" style="width: 150px;height: 150px;"/></li>
-                <li class="txt-input file-box">
-                    <input type='text' name='textfield' id='textfield' class='file-txt' />
-                    <input type='button' class='file-btn' value='浏览...' />
-                    <input type="file" name="photo" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
-                </li>
-                <li>
-                    <input class="retrieve-btn" name="" type="submit" value="提 交">
-                </li>
-                    </form>
-            </ul>
-        </div>
-    </div>
+<extend name="Base/common"/>
+
+<block name="body">
+    <div class="container edit">
+        <div class="edit-div">
+            <h5>修改头像</h5>
+            <ul class="login-ul">
+                <form action="__SELF__" enctype="multipart/form-data" method="post" >
+                    <input name="id" type="text" value="{$uid}" style="display: none;"/>
+                <li class="photo-li"><img src="http://erciyuanjie.com{$uid|getUserImg}" style="width: 150px;height: 150px;"/></li>
+                <li class="txt-input file-box">
+                    <input type='text' name='textfield' id='textfield' class='file-txt' />
+                    <input type='button' class='file-btn' value='浏览...' />
+                    <input type="file" name="photo" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+                </li>
+                <li>
+                    <input class="retrieve-btn" name="" type="submit" value="提 交">
+                </li>
+                    </form>
+            </ul>
+        </div>
+    </div>
 </block>

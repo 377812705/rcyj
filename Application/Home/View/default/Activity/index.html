@@ -1,61 +1,97 @@
-<extend name="Base/common" />
-<block name="body">
-    <div class="container content">
-			<div class="custom">
-				<ul class="nextnav no-drop author-nav">
-								<li class="nextnavon"><a href="javascript:;">全部活动</a></li>
-								<li><a href="javascript:;">进行中的活动</a></li>
-                                <li><a href="javascript:;">已结束的活动</a></li>
-                                <!-- <li class="top-btn apply"><input name="" onClick="javascript:location.href='{:U("Activity/perfect")}'" type="button" value="我要举办"></li> -->
-						</ul>
-					</div>
-					<div class="custom">
-				<div class="module">
-						<div class="module-tle">
-								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
-						</div>
-						<div class="activity-content">
-                        	<span class="activity-tle">
-                            	<h3><a href="__ROOT__/activity/cyzhindex.html">创意中华 —— 2015全球品牌造梦计划   </a><span> ( 进行中 )</span></h3>
-                                <h5>活动时间：<span>2015-04-18 — 2015-12-10</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
-                            </span>
-                            <span class="activity-img">
-                            	<a href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh1.png"/></a>
-                            </span>
-                        </div>
-                        <div class="activity-content">
-                       	  <span class="activity-tle">
-                            	<h3><a href="__ROOT__/activity/yzindex.html">创意中华 —— 2015我爱邮政更时尚 </a>  <span> ( 进行中 )</span></h3>
-                          <h5>活动时间：<span>2015-08-10 — 2016-01-01</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
-                          </span>
-                            <span class="activity-img">
-                            	<a href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz1.png"/></a>
-                            </span>
-                        </div>
-
-				</div>
-				<div class="module" style="display:none;">
-                	<div class="module-tle">
-								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
-						</div>
-						<div class="activity-content">
-                        	<span class="activity-tle">
-                            	<h3><a href="__ROOT__/activity/cyzhindex.html">创意中华 —— 2015全球品牌造梦计划   </a><span> ( 进行中 )</span></h3>
-                                <h5>活动时间：<span>2015-04-18 — 2015-12-10</span> <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> </h5>
-                            </span>
-                            <span class="activity-img">
-                            	<a href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh1.png"/></a>
-                            </span>
-                        </div>
-                        <div class="activity-content">
-                       	  <span class="activity-tle">
-                            	<h3><a href="__ROOT__/activity/yzindex.html">创意中华 —— 2015我爱邮政更时尚 </a>  <span> ( 进行中 )</span></h3>
-                          <h5>活动时间：<span>2015-08-10 — 2016-01-01</span><!--  <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div>--></h5>
-                          </span>
-                            <span class="activity-img">
-                            	<a href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz1.png"/></a>
-                            </span>
-                        </div>
-				</div> 
-		</div>
-</block>
+<extend name="Base/common" />
+<block name="body">
+    <div class="container content">
+			<div class="custom">
+				<ul class="nextnav no-drop author-nav">
+								<li class="nextnavon"><a href="javascript:;">全部活动</a></li>
+								<li><a href="javascript:;">进行中的活动</a></li>
+                                <li><a href="javascript:;">已结束的活动</a></li>
+                                <!-- <li class="top-btn apply"><input name="" onClick="javascript:location.href='{:U("Activity/perfect")}'" type="button" value="我要举办"></li> -->
+						</ul>
+					</div>
+					<div class="custom">
+				<div class="module">
+						<div class="module-tle">
+								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
+						</div>
+						<div class="activity-content">
+                        	<span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/cyzhindex.html">创意中华 —— 2015全球品牌造梦计划   </a><span> ( 进行中 )</span></h3>
+                                <h5>活动时间：<span>2015-04-18 — 2015-12-10</span><div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div></h5>
+                            </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/yzindex.html">创意中华 —— 2015我爱邮政更时尚 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-09-08 — 2016-01-01</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/jxractivity.html">创意中华 —— 寻找界小二 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-08-10 — 2015-12-10</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/jxractivity.html"><img src="/uploads/activity/jxr1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/wdwlactivity.html">创意中华 —— 我的未来我的梦 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-08-10 — 2015-12-10</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/wdwlactivity.html"><img src="/uploads/activity/wdwl1.png"/></a>
+                            </span>
+                        </div>
+
+				</div>
+				<div class="module" style="display:none;">
+                	<div class="module-tle">
+								<h5>Hi，<span><if condition="$userid eq null"><else/>{$userid|getUserNameById=###}，</if></span>以下是举办的活动，快来参加活动，赢取丰厚的奖金。</h5>
+						</div>
+						<div class="activity-content">
+                        	<span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/cyzhindex.html">创意中华 —— 2015全球品牌造梦计划   </a><span> ( 进行中 )</span></h3>
+                                <h5>活动时间：<span>2015-04-18 — 2015-12-10</span> <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> </h5>
+                            </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/cyzhindex.html"><img src="/uploads/activity/cyzh1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/yzindex.html">创意中华 —— 2015我爱邮政更时尚 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-09-08 — 2016-01-01</span><!--  <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div>--></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/yzindex.html"><img src="/uploads/activity/yz1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/jxractivity.html">创意中华 —— 寻找界小二 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-08-10 — 2015-12-10</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/jxractivity.html"><img src="/uploads/activity/jxr1.png"/></a>
+                            </span>
+                        </div>
+                        <div class="activity-content">
+                       	  <span class="activity-tle">
+                            	<h3><a href="__ROOT__/activity/wdwlactivity.html">创意中华 —— 我的未来我的梦 </a>  <span> ( 进行中 )</span></h3>
+                          <h5>活动时间：<span>2015-08-10 — 2015-12-10</span><!-- <div><span><img src="__IMG__/tle-img01.gif"/>237388</span><span><img src="__IMG__/tle-img02.gif"/>235</span><span><img src="__IMG__/tle-img03.gif"/>344</span></div> --></h5>
+                          </span>
+                            <span class="activity-img">
+                            	<a href="__ROOT__/activity/wdwlactivity.html"><img src="/uploads/activity/wdwl1.png"/></a>
+                            </span>
+                        </div>
+				</div> 
+		</div>
+</block>

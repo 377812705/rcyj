@@ -1,47 +1,47 @@
-<extend name="Base/common" />
-<block name="body">
-  <!--------页面内容部分--------->
-  <div class="activity-banner01"></div>
-  <div class="activity-nav">
-  	<ul class="container">
-    	<li><a href="__ROOT__/activity/yzindex.html">首页</a></li>
-      	<li class="activity-navon"><a href="__ROOT__/activity/activitylist/id/2.html">全部作品</a></li>
-        <li><a href="__ROOT__/MyCenter/uploadWork/activityid/2.html">我要参加</a></li>
-    </ul>
-  </div>
-  <div class="activbtn-main">
-      <div class="container content">
-        <div class="activity-module">
-            <h3>全部作品</h3><h5><!-- <span>排序：时间 / 票数 / 人气</span> --> <span>作品数量：</span>{$count}</h5>
-            <ul>
-            <volist name="works" id="data" mod="4">
-								<li <eq name="mod" value="3"> class="margin-li"</eq> ><span><a href="__ROOT__/Product/details/id/{$data.id}.html"><if condition="$data['main_image_url']"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/><else /> <img src="__flash__/default.png" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></if></a></span>
-										<h4>{$data.title|mb_substr=0,10,'utf-8'}</h4>
-										<!--  <h6>票数：57票 / 人气：108 / 点赞：230</h6>-->
-										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
-											</a></h6>
-								</li>
-								
-							</volist>
-            	   </ul>
-        </div>
-        {$show}
-      </div>
-  </div>
-  <div class="theme-content">
-      <div class="container content">
-        <div class="theme">
-          <div class="theme-left">
-            <h2>主办方：</h2>
-            <div> <span>“我爱邮政更时尚”征集BBS讨论区：bbs.2ciyuanjie.com</span> <span>“我爱邮政更时尚”征集新浪微博：二次元界</span> <span>“我爱邮政更时尚”征集百度贴吧：二次元界</span> </div>
-          </div>
-          <div class="theme-right">
-            <h2>协办方：</h2>
-            <div> <img src="__IMG__/xb-img01.png"/> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--------页面底部--------->
+<extend name="Base/common" />
+<block name="body">
+  <!--------页面内容部分--------->
+  <div class="activity-banner01"></div>
+  <div class="activity-nav">
+  	<ul class="container">
+    	<li><a href="__ROOT__/activity/yzindex.html">首页</a></li>
+      	<li class="activity-navon"><a href="__ROOT__/activity/activitylist/id/2.html">全部作品</a></li>
+        <li><a href="__ROOT__/MyCenter/uploadWork/activityid/2.html">我要参加</a></li>
+    </ul>
+  </div>
+  <div class="activbtn-main">
+      <div class="container content">
+        <div class="activity-module">
+            <h3>全部作品</h3><h5><!-- <span>排序：时间 / 票数 / 人气</span> --> <span>作品数量：</span>{$count}</h5>
+            <ul>
+            <volist name="works" id="data" mod="4">
+								<li <eq name="mod" value="3"> class="margin-li"</eq> ><span><a href="__ROOT__/Product/details/id/{$data.id}.html"><if condition="$data['main_image_url']"><img src="{$data.main_image_url}" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/works.png'"/><else /> <img src="__flash__/default.png" alt="作品图片-{$data.title}" style="display：block;width: 293px;height: 222px;"/></if></a></span>
+										<h4>{$data.title|mb_substr=0,10,'utf-8'}</h4>
+										<!--  <h6>票数：57票 / 人气：108 / 点赞：230</h6>-->
+										<h6><a href="__ROOT__/Author/details/id/{$data.user_id}.html">{$data.user_id|getUserName}
+											</a></h6>
+								</li>
+								
+							</volist>
+            	   </ul>
+        </div>
+        {$show}
+      </div>
+  </div>
+  <div class="theme-content">
+      <div class="container content">
+        <div class="theme">
+          <div class="theme-left">
+            <h2>主办方：</h2>
+            <div> <span>“我爱邮政更时尚”征集BBS讨论区：bbs.2ciyuanjie.com</span> <span>“我爱邮政更时尚”征集新浪微博：二次元界</span> <span>“我爱邮政更时尚”征集百度贴吧：二次元界</span> </div>
+          </div>
+          <div class="theme-right">
+            <h2>协办方：</h2>
+            <div> <img src="__IMG__/xb-img01.png"/> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--------页面底部--------->
 </block>

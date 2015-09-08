@@ -15,11 +15,8 @@ use Think\Page;
 class ProductController extends HomeController {
 
     public function index() {
-        //作品标签
-    	//dump(I('post.'));die;
         $source=C('source');
         $this->assign('source',$source);
-        //作品
         $data['title']=array('exp',"is not Null");
         $data['custom_id']=array('ELT',"0");
         $data['activity_id']=array('ELT',"0");
@@ -48,14 +45,12 @@ class ProductController extends HomeController {
         	}
         	$dataf['news']=$news;
         }
-        //$this->assign('dataf',$dataf);
         $worksModel =D('Works');
         $count      = $worksModel->where($data)->count();
         $pageshowcount=24;
         $Page       = new Page($count,$pageshowcount);
         $show       = $Page->pageshow();
-        $workList = $worksModel->field("works_comic.id,works_comic.issell,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
-        //echo $worksModel->getLastSql();
+        $workList = $worksModel->field("works_comic.id,works_comic.issell,works_comic.sellcate,works_comic.authorize,tags,create_status,title,works_comic.user_id,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
         $this->assign('works',$workList);
         $this->assign('show',$show);
         $this->assign('wcount',$count);
@@ -80,7 +75,7 @@ class ProductController extends HomeController {
     	$User=D('User')->find($works['user_id']);
     	$worklist=D('Works')->getWorksByUserId($works['user_id'],3);
     	$data['ref_id']=$works['id'];
-    	if($works['custom_id']||$works['activity_id']||$works['issell']!=1){
+    	if($works['custom_id']||$works['activity_id']||$works['issell']!=1||$works['sellcate']!=1){
     		$works['showmoney']='no';
     	}else{
     		$works['showmoney']='yes';

@@ -102,46 +102,58 @@ class AuthorController extends HomeController {
         $data = I('get.');//获取所有页面传递过来的参数
         unset($data['__hash__']);
         if(!empty($data) && strlen($isno)==0){
-
-            if(!checkMobile($data['phone'])){//匹配手机号
-                $this->error('手机号格式不符合要求');
-            }
-            if(empty($data['verify'])){//匹配验证码
-                $this->error('验证码必填');
-            }
-
-            if(check_verify($data['verify']) != true){//匹配验证码
-                $this->error('验证码错误');
-            }
-            if($data['password'] != $data['confirm']){
-                $this->error('两次输入密码不同');
-            }
-            if(empty($data['ready'])){
-                $this->error('已阅读版权必选');
+            if(empty($data['id'])){
+                if(!checkMobile($data['phone'])){//匹配手机号
+                    $this->error('手机号格式不符合要求');
+                }
+                if(empty($data['verify'])){//匹配验证码
+                    $this->error('验证码必填');
+                }
+                
+                if(check_verify($data['verify']) != true){//匹配验证码
+                    $this->error('验证码错误');
+                }
+                if($data['password'] != $data['confirm']){
+                    $this->error('两次输入密码不同');
+                }
+                if(empty($data['ready'])){
+                    $this->error('已阅读版权必选');
+                }
             }
             
+            
             //组织页面注册数据
+            if(!empty($data['id'])){
+                $userData['id']       = $data['id'];
+            }
             $userData['user_name'] = $data['username'];
             $userData['nick_name'] = $data['name'];
             $userData['mobile'] = $data['phone'];
             $userData['author_flag'] = 1;
-            $userData['password'] = strtoupper(md5($data['password']));
+            if($data['password']){
+                $userData['password'] = strtoupper(md5($data['password']));
+                $userData['create_date'] = date('Y-m-d H:i:s',time());
+                $userData['mycode'] = make_coupon_card();//自己的邀请码
+                $userData['invitecode'] = $data['invite'];
+            }
+            
             $userData['email'] = $data['mail'];
-            $userData['create_date'] = date('Y-m-d H:i:s',time());
             $userData['address'] = $data['address'];
             $userData['level'] = 0 ;
             $userData['sign_contract_flag'] = 0 ;
             $userData['skilled_field'] = $data['tags'];
             $userData['email_verified'] = 0 ;
-            $userData['mobile_verified'] = 0 ;
-            $userData['invitecode'] = $data['invite'];
-            $userData['mycode'] = make_coupon_card();//自己的邀请码
+            $userData['mobile_verified'] = 0 ;  
             $userData['status'] = 1;
             $userModel = D('User') ;
             $user_id = $userModel->register($userData);//user表插入
-//             $user_id = 6872 ;
+//             $user_id = 6898 ;
             if($user_id){
                 //插入user_info
+                if(!empty($data['uid'])){
+                    $infoData['id'] = $data['uid'];
+                }
+                
                 $infoData['userid'] = $user_id ;
                 $infoData['isme'] = 0 ;
                 $infoData['aname'] = $data['name'];
@@ -154,6 +166,9 @@ class AuthorController extends HomeController {
                 $userinfoModel = D('Userinfo') ;
                 $result = $userinfoModel->update($infoData);
                 if($result){
+                    if($data['id']){
+                        $this->redirect("Author/index");
+                    }
                     $this->redirect("Login/login");
                 }else{
                     $this->error($userinfoModel->getError());
@@ -162,6 +177,21 @@ class AuthorController extends HomeController {
                 $this->error($userModel->getError());
             }
         }
+        
+        $user_id = is_login();
+        if($user_id){
+            $prefix = C('DB_PREFIX');
+            $table = "user u";
+            $o_table = $prefix.'userinfo';
+            $join = array(
+                'left join '.$o_table . ' info ON u.id=info.userid',
+            );
+            $field = "u.*,info.id as uid,info.userid,info.isme,info.aname,info.address,info.idcode,info.khname,info.yhcode,info.ename,info.oprange,info.mproduct,info.tuser,info.midea,info.blicense";
+            $user_info =  M()->table($table)->join($join)->where(array('u.id'=>$user_id))->field($field)->find();
+
+            $this->assign('info',$user_info);
+        }
+        $this->assign('user_id',$user_id);
         $tag = C('cate');
         $this->assign('tag',$tag);//标签
         $this->assign('isno',$isno);
@@ -173,57 +203,67 @@ class AuthorController extends HomeController {
 
         unset($data['__hash__']);
         if(!empty($data) && strlen($isno)==0){
-            if(!checkMobile($data['phone'])){//匹配手机号
-                $this->error('手机号格式不符合要求');
-            }
-            if(empty($data['name'])){
-                $this->error('用户名必填');
-            }
-            if(empty($data['address'])){
-                $this->error('地址必填');
-            }
-            if(empty($data['mail'])){
-                $this->error('邮箱必填');
-            }
-            if(empty($data['company'])){
-                $this->error('公司名称必填');
-            }
-            if(empty($data['sht'])){
-                $this->error('营业执照必填');
-            }
-            if(empty($data['tags'])){
-                $this->error('标签必选');
-            }
-            if(empty($data['verify'])){
-                $this->error('验证码必填');
+            if(empty($data['id'])){//存在id说明已经注册进行更新即可
+                if(!checkMobile($data['phone'])){//匹配手机号
+                    $this->error('手机号格式不符合要求');
+                }
+                if(empty($data['name'])){
+                    $this->error('用户名必填');
+                }
+                if(empty($data['address'])){
+                    $this->error('地址必填');
+                }
+                if(empty($data['mail'])){
+                    $this->error('邮箱必填');
+                }
+                if(empty($data['company'])){
+                    $this->error('公司名称必填');
+                }
+                if(empty($data['sht'])){
+                    $this->error('营业执照必填');
+                }
+                if(empty($data['tags'])){
+                    $this->error('标签必选');
+                }
+                if(empty($data['verify'])){
+                    $this->error('验证码必填');
+                }
+                
+                if(check_verify($data['verify']) != true){//匹配验证码
+                    $this->error('验证码错误');
+                }
+                if($data['password'] != $data['confirm']){
+                    $this->error('两次输入密码不同');
+                }
+                if(empty($data['ready'])){
+                    $this->error('已阅读版权必选');
+                }
             }
             
-            if(check_verify($data['verify']) != true){//匹配验证码
-                $this->error('验证码错误');
-            }
-            if($data['password'] != $data['confirm']){
-                $this->error('两次输入密码不同');
-            }
-            if(empty($data['ready'])){
-                $this->error('已阅读版权必选');
-            }
             
             //组织页面注册数据
-            $userData['user_name'] = $data['company'];
+            if(!empty($data['id'])){
+                $userData['id']       = $data['id'];
+            }
+
+            $userData['user_name'] = $data['username'];
             $userData['nick_name'] = $data['name'];
             $userData['mobile'] = $data['phone'];
             $userData['author_flag'] = 1;
-            $userData['password'] = strtoupper(md5($data['password']));
+            if($data['password']){
+                $userData['password'] = strtoupper(md5($data['password']));
+                $userData['create_date'] = date('Y-m-d H:i:s',time());
+                $userData['mycode'] = make_coupon_card();//自己的邀请码
+                $userData['invitecode'] = $data['invite'];
+            }
+
             $userData['email'] = $data['mail'];
-            $userData['create_date'] = date('Y-m-d H:i:s',time());
             $userData['address'] = $data['address'];
             $userData['level'] = 0 ;
             $userData['sign_contract_flag'] = 0 ;
             $userData['skilled_field'] = $data['tags'];
             $userData['email_verified'] = 0 ;
             $userData['mobile_verified'] = 0 ;
-            $userData['invitecode'] = $data['invite'];
-            $userData['mycode'] = make_coupon_card();//自己的邀请码
             $userData['status'] = 1;
             $userModel = D('User') ;
             
@@ -233,6 +273,10 @@ class AuthorController extends HomeController {
             //$user_id = 6872 ;
             if($user_id){
                 //插入user_info
+                if(!empty($data['uid'])){
+                    $infoData['id'] = $data['uid'];
+                }
+                
                 $infoData['userid'] = $user_id ;
                 $infoData['isme'] = 1 ;
                 $infoData['aname'] = $data['name'];
@@ -243,11 +287,14 @@ class AuthorController extends HomeController {
                 $infoData['mproduct'] = $data['product'];
                 $infoData['tuser'] = $data['user'];
                 $infoData['midea'] = $data['idea'];
-                $infoData['blicense'] = $data['sht'][0];
+                $infoData['blicense'] = $data['sht'];
                 //插入作者详细信息表
                 $userinfoModel = D('Userinfo') ;
                 $result = $userinfoModel->update($infoData);
                 if($result){
+                    if($data['id']){
+                        $this->redirect("Author/index");
+                    }
                     $this->redirect("Login/login");
                 }else{
                     $this->error($userinfoModel->getError());
@@ -256,8 +303,21 @@ class AuthorController extends HomeController {
                 $this->error($userModel->getError());
             }
         }
-        
         $tag = C('cate');
+        $user_id = is_login();
+        if($user_id){
+            $prefix = C('DB_PREFIX');
+            $table = "user u";
+            $o_table = $prefix.'userinfo';
+            $join = array(
+                'left join '.$o_table . ' info ON u.id=info.userid',
+            );
+            $field = "u.*,info.id as uid,info.userid,info.isme,info.aname,info.address,info.idcode,info.khname,info.yhcode,info.ename,info.oprange,info.mproduct,info.tuser,info.midea,info.blicense";
+            $user_info =  M()->table($table)->join($join)->where(array('u.id'=>$user_id))->field($field)->find();
+            $this->assign('info',$user_info);
+        }
+        $this->assign('user_id',$user_id);
+
         $this->assign('tag',$tag);//标签
         $this->assign('isno',$isno);
         $this->display();

@@ -20,7 +20,6 @@ class MyCenterController extends HomeController
 		}
 		$this->assign('controllername',$a);
 		if (!is_login()) {
-			//echo CONTROLLER_NAME;die;
 			session('PRI_URL', CONTROLLER_NAME);
 			$this->redirect("Login/login");
 		}
@@ -46,7 +45,7 @@ class MyCenterController extends HomeController
 		        $pageshowcount=8;
 		        $Page       = new Page($count,$pageshowcount);
 		        $show       = $Page->pageshow();
-		        $workList = $worksModel->field("works_comic.id,tags,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $workList = $worksModel->field("works_comic.id,tags,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		        $this->assign('works',$workList);
 		        $this->assign('show',$show);
 		        $this->assign('wcount',$count);
@@ -59,11 +58,20 @@ class MyCenterController extends HomeController
     }
 	public function del(){
 		$id=I('get.id');
-		if (!is_login()) {
-			session('PRI_URL', CONTROLLER_NAME.'/'.ACTION_NAME.'/id/'.$id);
-			$this->redirect("Login/login");
+		if($id){
+			$worksModel =D('Works');
+			$work = $worksModel->field("issell")->find($id);
+			if($work['issell']==1){
+				$data=array('id'=>$id);
+				$data1=array('ref_id'=>$id);
+				//$worksModel->where();
+				$worksModel->where($data)->delete();
+				$imgModel =D('Img');
+				$imgModel->where($data1)->delete();
+				
+			}
 		}
-	
+		$this->redirect("index");
 	}
     public function uploadWork()
     {
@@ -86,11 +94,19 @@ class MyCenterController extends HomeController
             	$data['show']=I('Post.show',1);
             	$data['copy_right']=I('Post.copyri',1);
             	$data['title']=I('Post.title','');
-            	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
             	$data['endtime']=I('Post.endtime',date('Y-m-d H:i:s',time()));
             	$data['money']=I('Post.money',1);
             	$data['workrole']=I('Post.workrole',1);
+            	$data['sellcate']=I('Post.sellcate',1);
+            	if($data['sellcate']==1){
+            		$data['money']=I('Post.money',0.01);
+            	}else{
+            		$data['authorize']=I('Post.authorize','');
+            		if($data['authorize']=='请填写授权类别'){
+            			$data['authorize']='未填写授权类别';
+            		}
+            	}
             	if($data['workrole']=='作品的角色介绍等'){
             		$data['workrole']=null;
             	}
@@ -190,6 +206,8 @@ class MyCenterController extends HomeController
             		$word['showmoney']='yes';
             	}
             	$this->assign('word', $word);
+            	$sellcate = C('sellcate');
+            	$this->assign('sellcate', $sellcate);
                 $tags = C('tag');
                 $source = C('source');
                 $theme = C('theme');

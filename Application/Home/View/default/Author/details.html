@@ -80,7 +80,11 @@
                                 style="display：block;width: 293px;height: 222px;"/></a>
 
                             <h3>{$data.title|mb_substr=0,8,'utf-8'}</h3>
-                                <h4>￥{$data.money}</h4>
+                                <if condition="$data.sellcate eq '2'">
+												<h4>授权</h4>
+												<else />
+												<h4>￥{$data.money}</h4>
+											</if>
                                 <span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
                                 <h5><span>{$data.open_count}</span>人气 /<span>{$data.praise_count}</span>点赞 /<span>{$data.favorite_count}</span>收藏
                                 </h5>

@@ -120,7 +120,13 @@ class CustomController extends HomeController
                 $custom['cusissue'] = implode($_POST['cusissue'], "/");
                 $custom['imgurl']=$_POST['imgurl'];
                 //dump($custom);
-                $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].$_POST['cusissue3'];
+                if($_POST["cusissue3"]){
+                    $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].implode($_POST['cusissue3']," ");
+                }else{
+                    $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'];
+                }
+
+
                 if($custom['cusdesc']=='写出你想要的作品外貌、性格特征，兴趣、爱好、比较常用的表情、最喜欢的食物、未来的愿望等。'){
                     $custom['cusdesc']='';
                 }

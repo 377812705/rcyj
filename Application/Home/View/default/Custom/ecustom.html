@@ -160,7 +160,11 @@
                     newhtml=$(val).html()+" "+newhtml;
                 });
                 $("#h-"+$(this).parent().attr("value")).val(newhtml);
-                $(this).parent().siblings("a").html(newhtml);
+                if(newhtml==""){
+                    $(this).parent().siblings("a").html("请选择");
+                }else{
+                    $(this).parent().siblings("a").html(newhtml);
+                }
                 $(this).parent().hide();
             });
 

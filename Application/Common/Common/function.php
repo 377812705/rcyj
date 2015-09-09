@@ -1023,11 +1023,11 @@ function check_category_model($info){
  * @author jhw
  */
 function getUserNameById($id){
-	$array=D('Home/User')->field('nick_name')->find($id);
-	if($array){
-		return $array['nick_name'];
+	$array=D('Home/User')->field('user_name,nick_name')->find($id);
+	if(!empty($array['user_name'])){
+		return $array['user_name'];
 	}else{
-		return '';
+		return $array['nick_name'];
 	}
 }
 /**

@@ -1,347 +1,347 @@
-<extend name="Base/common"/>
-<block name="head">
-	
-    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-   <style>
-*{ margin:0; padding:0;}
-.box{ margin:10px 130px; width:750px; min-height:40px;}
-.box li{margin:0 3px; padding:0;}
-
-
-</style>
-    <script type="text/javascript">
-    function submitcheck(){
-		//alert("111");
-		$su=true;
-		if(!$('#title').val()){
-			alert("请选择标签");
-			
-			$su=false;
-			return false;
-		}
-		if(!$('#worktag').val()){
-			alert("请选择标签");
-			$su=false;
-			return false;
-		}
-		if(!$('#activity_id').val()&&!$('#custom_id').val())
-		{
-			
-		if(!$('#theme').val()){
-			alert("请选择主题");
-			$su=false;
-			return false;
-		}
-		if(!$('#create_status').val()){
-			alert("请选择来源");
-			$su=false;
-			return false;
-		}
-		if($('#sellcate').val()==1){
-			if($('#money').val()=='请进行填写价格'||isNaN($('#money').val())){
-				alert("请进行填写价格");
-				$su=false;
-				return false;
-			}
-		}
-			if(!$('#copyri').val()){
-				alert("请选择版权用途");
-				$su=false;
-				return false;
-			}
-		}
-		if(!$('#main_image_url').val()){
-			alert("请上传封面图并保存");
-			$su=false;
-			return false;
-		}
-		
-		if($su){
-			$("#form0").submit();
-		}
-		
-	};	
-        function init(){
-            $('#upload-file').css('display','inline-block');
-        }
-        function uploadevent(status,picUrl,callback){
- 			var jsonobj=eval('('+callback+')');  
- 			$('#assistant_image_url').attr('value',jsonobj.assistant_image_url);
-  			$('#main_image_url').attr('value',jsonobj.main_image_url);
-   	}
-    </script>
-    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
-    </body>
-
-</block>
-<block name="body">
-    <div class="container content">
-        <div class="custom">
-            <ul class="nextnav">
-                <li class="nextnavon activ-li"><a href="#">上传作品</a></li>
-            </ul>
-            <form action="__ROOT__/MyCenter/uploadWork" id="form0" method="post">
-                <input id="worktag" name="worktag" hidden value="{$word['tags']}"/>
-                 <input id="workid" name="workid" hidden value="{$word['id']}"/>
-                <input id="theme" name="theme" hidden  value="{$word['theme']}" />
-                <input id="create_status" name="create_status" hidden  value="{$word['create_status']}"/>
-                <input id="show" name="show" hidden  value="{$word['show']}" />
-                <input id="copyri" name="copyri" hidden   value="{$word['copy_right']}" />
-                <input id="assistant_image_url" name="assistant_image_url" hidden  value="{$word['assistant_image_url']}" />
-                <input id="main_image_url" name="main_image_url" hidden   value="{$word['main_image_url']}" />
-                <input id="activity_id" name="activity_id" hidden   value="{$word['activity_id']}" />
-                <input id="custom_id" name="custom_id" hidden   value="{$word['custom_id']}" />
-                <input id="sellcate" name="sellcate" hidden   value="{$word['sellcate']}" />
-                <span id ="inputhidden"></span>
-                <div class="custom-content">
-                    <ul>
-                        <li>Hi，{$word['user_id']|getUserNameById=###}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
-                          <style type="text/css" media="screen">
-  html, body { height:100%; background-color: #ffffff;}
-  #flashContent { width:100%; height:100%; }
-  </style>
-  
-
- </head>
- <body>
-
-
-  <div id="avatar_priview"></div>
-                         <li class="fill name">
-                            <h5><span>*</span>作品封面：</h5>
-                            <div id="altContent">
-<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-WIDTH="950" HEIGHT="550" id="myMovieName">
-<PARAM NAME=movie VALUE="__flash__/avatar.swf">
-<PARAM NAME=quality VALUE=high>
-<PARAM NAME=bgcolor VALUE=#FFFFFF>
-<param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
-<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
-NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
-PLUGINSPAGE="">
-</EMBED>
-</OBJECT>
-
-  </div>
-                        </li>
-                        <li class="fill name">
-                            <h5><span>*</span>作品名称：</h5>
-                            <input id="title" name="title" type="text" <if condition="$word['title'] neq null">class="white" value="{$word['title']}" <else /> class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。" </if>
-                                   onclick="if(this.value=='请写出你的作品名称，让你的作品更加丰富多彩。'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请写出你的作品名称，让你的作品更加丰富多彩。';this.className='gray'}">
-                            <h6 class="price-tips">可以输入 <span>50</span> 字符 / 汉字</h6>
-                        </li>
-                        <li class="fill">
-                            <h5><span>*</span>形象分类：</h5>
-            <span class="label-span"><if condition="$word['tags'] neq null"><a href="javascript:;"  tag="worktag" style="color: rgb(66, 66, 66);">{$tags[$word['tags']]}<else /> <a href="javascript:;"  tag="worktag">请选择作品标签</if></a>
-            <ul class="label-check radio noall" id="worktag">
-                    <for start="1" end="count($tags)+1">
-                    	<if condition="$word['tags'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$tags[$i]}</li> 
-                    	
-					
- 				</for>
-                    
-            </ul>
-            </span></li><if condition="$word['showmoney'] eq 'yes'">
-             <li class="fill">
-                            <h5><span>*</span>作品主题：</h5>
-                           
-            <span class="label-span"><if condition="$word['theme'] neq null"><a href="javascript:;"  tag="theme" style="color: rgb(66, 66, 66);">{$theme[$word['theme']]}<else /><a href="javascript:;" tag="theme">请选择作品主题</if></a>
-            <ul class="label-check radio" id="theme">
-                <for start="1" end="count($theme)+1">
-					<if condition="$word['theme'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$theme[$i]}</li>
- 				</for>
-            </ul>
-            </span></li>
-                        <li class="fill">
-                            <h5><span>*</span>作品来源：</h5>
-            <span class="label-span"><if condition="$word['create_status'] neq null"><a href="javascript:;"  tag="create_status" style="color: rgb(66, 66, 66);">{$source[$word['create_status']]}<else /><a href="javascript:;" tag="create_status">请选择作品来源</if></a>
-            <ul class="label-check radio" id="create_status">
-                <for start="1" end="count($source)+1">
-				<if condition="$word['create_status'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$source[$i]}</li>
- 				</for>
-            </ul>
-            </span></li>
-                        <li class="fill">
-                            <h5><span>*</span>展示方式：</h5>
-            <span class="label-span"><if condition="$word['show'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$show[$word['show']]}<else /><a href="javascript:;" tag="show">展示方式</if></a>
-            <ul class="label-check radio" id="show" >
-               	<for start="1" end="count($show)+1">
-					<if condition="$i eq 1">
-						<li value="{$i}" class="checkon">
-								{$show[$i]}</li> 
-                    <else />
-                    	<ul><li value="{$i}">{$show[$i]}</li></ul>
-                    </if>
- 				</for>
-            </ul>
-            </span></li> 
-            			<li class="fill">
-                         	<h5>完成时间：</h5>
-                            <span><input type="text" id="endtime" name="endtime"<if condition="$word['show'] eq $i"> value="{$today}"<else />  value="{$today}"</if> placeholder="完成时间" /></span>
-                            <h6 class="price-tips">请填写你作品完成的时间</h6>
-                        </li>
-                        <li class="fill">
-                            <h5><span>*</span>出售方式：</h5>
-            				<span class="label-span"><if condition="$word['sellcate'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$sellcate[$word['sellcate']]}<else /><a href="javascript:;" tag="show">出售方式</if></a>
-            					<ul class="label-check radio" id="sellcate" >
-	               				<for start="1" end="count($sellcate)+1">
-									<if condition="$word['sellcate'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$sellcate[$i]}</li>
-	 							</for>
-            					</ul>
-            				</span>
-            			</li>                       
-                        <li class="fill" id="moneyyesno">
-                            <h5><span>*</span>作品价格：</h5>
-                            <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
-                                   onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
-                        </li>
-                        <li class="fill" id="authorizeyesno"  style="display: none;">
-                            <h5><span>*</span>授权类别：</h5>
-                            <input name="authorize" id="authorize" type="text" <if condition="$word['authorize'] neq null"> class="white" value="{$word['authorize']}"<else />  class="gray" value="请填写授权类别"</if> 
-                                   onclick="if(this.value=='请填写授权类别'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请填写授权类别';this.className='gray'}" style="width: 290px;">
-                        </li>
-                        <li class="fill copyright">
-                            <h5><span>*</span>版权设置：</h5>
-            <span class="label-span"><if condition="$word['copy_right'] neq null"><a href="javascript:;"  tag="copyri" style="color: rgb(66, 66, 66);">{$use[$word['copy_right']]}<else /><a href="javascript:;" tag="Copyright">不限制作品用途</if></a>
-            <ul class="label-check radio" id="copyri">
-                <for start="1" end="count($use)+1">
-				<if condition="$word['copy_right'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$use[$i]}</li>
- 				</for>
-            </ul>
-            </span></li> </if> 
-            <span id="kt">
-                         <li class="fill">
-                            <h5>角色说明：</h5>
-                        <textarea name="workrole" <if condition="$word['workrole'] neq null"> class="description02"<else /> class="description"</if>  
-                                  onkeyup="strLenCalc($(this), 'checklen', 2000);"
-                                  onfocus="if(value=='作品的角色介绍等'){value='';this.className='description02'}"
-                                  onblur="if (value==''){value='作品的角色介绍等';this.className='description'}"><if condition="$word['workrole'] neq null">{$word['workrole']}<else />作品的角色介绍等</if></textarea>
-                            <h6>可以输入 <span class="word-count">2000</span> 字符 / 汉字</h6>
-                        </li>
-                        <li class="fill">
-                            <h5>故事梗概：</h5>
-                        	<textarea name="workstory" <if condition="$word['story'] neq null"> class="description02"<else /> class="description"</if> 
-                                  onkeyup="strLenCalc($(this), 'checklen', 2000);"
-                                  onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
-                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}"><if condition="$word['story'] neq null">{$word['story']}<else />作品的简单介绍等</if></textarea>
-                            <h6>可以输入 <span>2000</span> 字符 / 汉字</h6>
-                        </li>
-                        <li class="fill">
-                            <h5>上传图片：</h5>
-            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
-          <div class="box">
-	<div id="flieinput" ></div>
-</div>
-
-<div class="box">
-	<div id="flieinput3" ></div>
-</div>
-<div class="box">
-	<div id="flieinput2" ></div>
-</div>
-                        </li>
-                       </span>
-                       <span >
-							<li class="fill" id="xq" style="display: none;">
-	                            <h5>上传图片：</h5>
-	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
-						         <div class="box">
-									<div id="flieinputxq" ></div>
-								</div>
-							</li>
-                       </span>
-                        <li class="fill btn">
-                        
-                        	<input class="button" name="" type="button" onclick="submitcheck()" value="提交">
-                        	
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-    </div>
-    <script type="text/javascript">
-
-/*
-* 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
-* 其他参数同WebUploader
-*/
-
-$('#flieinputxq').diyUpload({
-	url:'/MyCenter/upload',
-	success:function( data ) {
-		//alert(data.result);
-		$("#inputhidden").append("<input type='hidden' name='xqt[]'  value="+data.result+'.'+data.postfix+" />");
-		console.info(data);
-	},
-	error:function( err ) {
-		console.info( err );	
-	},	
-	buttonText : '形象图',
-	chunked:true,
-	// 分片大小
-	chunkSize:512 * 1024,
-	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-	fileNumLimit:10,
-});
-
-$('#flieinput').diyUpload({
-	url:'/MyCenter/upload',
-	success:function( data ) {
-		//alert(data.result);
-		$("#inputhidden").append("<input type='hidden' name='sht[]'  value="+data.result+'.'+data.postfix+" />");
-		console.info( data );
-	},
-	error:function( err ) {
-		console.info( err );	
-	},	buttonText : '三视图',
-	chunked:true,
-	// 分片大小
-	chunkSize:512 * 1024,
-	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-	fileNumLimit:10,
-});
-$('#flieinput2').diyUpload({
-	url:'/MyCenter/upload',
-	success:function( data ) {
-		$("#inputhidden").append("<input type='hidden' name='bqt[]'  value="+data.result+'.'+data.postfix+" />");
-		console.info( data );
-	},
-	error:function( err ) {
-		console.info( err );	
-	},
-	buttonText : '表情图',
-	chunked:true,
-	// 分片大小
-	chunkSize:512 * 1024,
-	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-	fileNumLimit:10,
-	accept: {}
-});
-$('#flieinput3').diyUpload({
-	url:'/MyCenter/upload',
-	success:function( data ) {
-		$("#inputhidden").append("<input type='hidden' name='dzt[]'  value="+data.result+'.'+data.postfix+" />");
-		console.info( data );
-	},
-	error:function( err ) {
-		console.info( err );	
-	},
-	buttonText : '动作图',
-	chunked:true,
-	// 分片大小
-	chunkSize:512 * 1024,
-	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-	fileNumLimit:10,
-	accept: {}
-});
-
-    
-</script>
+<extend name="Base/common"/>
+<block name="head">
+	
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+   <style>
+*{ margin:0; padding:0;}
+.box{ margin:10px 130px; width:750px; min-height:40px;}
+.box li{margin:0 3px; padding:0;}
+
+
+</style>
+    <script type="text/javascript">
+    function submitcheck(){
+		//alert("111");
+		$su=true;
+		if(!$('#title').val()){
+			alert("请选择标签");
+			
+			$su=false;
+			return false;
+		}
+		if(!$('#worktag').val()){
+			alert("请选择标签");
+			$su=false;
+			return false;
+		}
+		if(!$('#activity_id').val()&&!$('#custom_id').val())
+		{
+			
+		if(!$('#theme').val()){
+			alert("请选择主题");
+			$su=false;
+			return false;
+		}
+		if(!$('#create_status').val()){
+			alert("请选择来源");
+			$su=false;
+			return false;
+		}
+		if($('#sellcate').val()==1){
+			if($('#money').val()=='请进行填写价格'||isNaN($('#money').val())){
+				alert("请进行填写价格");
+				$su=false;
+				return false;
+			}
+		}
+			if(!$('#copyri').val()){
+				alert("请选择版权用途");
+				$su=false;
+				return false;
+			}
+		}
+		if(!$('#main_image_url').val()){
+			alert("请上传封面图并保存");
+			$su=false;
+			return false;
+		}
+		
+		if($su){
+			$("#form0").submit();
+		}
+		
+	};	
+        function init(){
+            $('#upload-file').css('display','inline-block');
+        }
+        function uploadevent(status,picUrl,callback){
+ 			var jsonobj=eval('('+callback+')');  
+ 			$('#assistant_image_url').attr('value',jsonobj.assistant_image_url);
+  			$('#main_image_url').attr('value',jsonobj.main_image_url);
+   	}
+    </script>
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    </body>
+
+</block>
+<block name="body">
+    <div class="container content">
+        <div class="custom">
+            <ul class="nextnav">
+                <li class="nextnavon activ-li"><a href="#">上传作品</a></li>
+            </ul>
+            <form action="__ROOT__/MyCenter/uploadWork" id="form0" method="post">
+                <input id="worktag" name="worktag" hidden value="{$word['tags']}"/>
+                 <input id="workid" name="workid" hidden value="{$word['id']}"/>
+                <input id="theme" name="theme" hidden  value="{$word['theme']}" />
+                <input id="create_status" name="create_status" hidden  value="{$word['create_status']}"/>
+                <input id="show" name="show" hidden  value="{$word['show']}" />
+                <input id="copyri" name="copyri" hidden   value="{$word['copy_right']}" />
+                <input id="assistant_image_url" name="assistant_image_url" hidden  value="{$word['assistant_image_url']}" />
+                <input id="main_image_url" name="main_image_url" hidden   value="{$word['main_image_url']}" />
+                <input id="activity_id" name="activity_id" hidden   value="{$word['activity_id']}" />
+                <input id="custom_id" name="custom_id" hidden   value="{$word['custom_id']}" />
+                <input id="sellcate" name="sellcate" hidden   value="{$word['sellcate']}" />
+                <span id ="inputhidden"></span>
+                <div class="custom-content">
+                    <ul>
+                        <li>Hi，{$word['user_id']|getUserNameById=###}，欢迎您来上传作品；带有 <span>*</span> 的项目都是必填项哦。</li>
+                          <style type="text/css" media="screen">
+  html, body { height:100%; background-color: #ffffff;}
+  #flashContent { width:100%; height:100%; }
+  </style>
+  
+
+ </head>
+ <body>
+
+
+  <div id="avatar_priview"></div>
+                         <li class="fill name">
+                            <h5><span>*</span>作品封面：</h5>
+                            <div id="altContent">
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+WIDTH="950" HEIGHT="550" id="myMovieName">
+<PARAM NAME=movie VALUE="__flash__/avatar.swf">
+<PARAM NAME=quality VALUE=high>
+<PARAM NAME=bgcolor VALUE=#FFFFFF>
+<param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
+<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
+NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
+PLUGINSPAGE="">
+</EMBED>
+</OBJECT>
+
+  </div>
+                        </li>
+                        <li class="fill name">
+                            <h5><span>*</span>作品名称：</h5>
+                            <input id="title" name="title" type="text" <if condition="$word['title'] neq null">class="white" value="{$word['title']}" <else /> class="gray" value="请写出你的作品名称，让你的作品更加丰富多彩。" </if>
+                                   onclick="if(this.value=='请写出你的作品名称，让你的作品更加丰富多彩。'){this.value='';this.className='white'}"
+                                   onblur="if(this.value=='') {this.value='请写出你的作品名称，让你的作品更加丰富多彩。';this.className='gray'}">
+                            <h6 class="price-tips">可以输入 <span>50</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill">
+                            <h5><span>*</span>形象分类：</h5>
+            <span class="label-span"><if condition="$word['tags'] neq null"><a href="javascript:;"  tag="worktag" style="color: rgb(66, 66, 66);">{$tags[$word['tags']]}<else /> <a href="javascript:;"  tag="worktag">请选择作品标签</if></a>
+            <ul class="label-check radio noall" id="worktag">
+                    <for start="1" end="count($tags)+1">
+                    	<if condition="$word['tags'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$tags[$i]}</li> 
+                    	
+					
+ 				</for>
+                    
+            </ul>
+            </span></li><if condition="$word['showmoney'] eq 'yes'">
+             <li class="fill">
+                            <h5><span>*</span>作品主题：</h5>
+                           
+            <span class="label-span"><if condition="$word['theme'] neq null"><a href="javascript:;"  tag="theme" style="color: rgb(66, 66, 66);">{$theme[$word['theme']]}<else /><a href="javascript:;" tag="theme">请选择作品主题</if></a>
+            <ul class="label-check radio" id="theme">
+                <for start="1" end="count($theme)+1">
+					<if condition="$word['theme'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$theme[$i]}</li>
+ 				</for>
+            </ul>
+            </span></li>
+                        <li class="fill">
+                            <h5><span>*</span>作品来源：</h5>
+            <span class="label-span"><if condition="$word['create_status'] neq null"><a href="javascript:;"  tag="create_status" style="color: rgb(66, 66, 66);">{$source[$word['create_status']]}<else /><a href="javascript:;" tag="create_status">请选择作品来源</if></a>
+            <ul class="label-check radio" id="create_status">
+                <for start="1" end="count($source)+1">
+				<if condition="$word['create_status'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$source[$i]}</li>
+ 				</for>
+            </ul>
+            </span></li>
+                        <li class="fill">
+                            <h5><span>*</span>展示方式：</h5>
+            <span class="label-span"><if condition="$word['show'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$show[$word['show']]}<else /><a href="javascript:;" tag="show">展示方式</if></a>
+            <ul class="label-check radio" id="show" >
+               	<for start="1" end="count($show)+1">
+					<if condition="$i eq 1">
+						<li value="{$i}" class="checkon">
+								{$show[$i]}</li> 
+                    <else />
+                    	<ul><li value="{$i}">{$show[$i]}</li></ul>
+                    </if>
+ 				</for>
+            </ul>
+            </span></li> 
+            			<li class="fill">
+                         	<h5>完成时间：</h5>
+                            <span><input type="text" id="endtime" name="endtime"<if condition="$word['show'] eq $i"> value="{$today}"<else />  value="{$today}"</if> placeholder="完成时间" /></span>
+                            <h6 class="price-tips">请填写你作品完成的时间</h6>
+                        </li>
+                        <li class="fill">
+                            <h5><span>*</span>出售方式：</h5>
+            				<span class="label-span"><if condition="$word['sellcate'] neq null"><a href="javascript:;"  tag="show" style="color: rgb(66, 66, 66);">{$sellcate[$word['sellcate']]}<else /><a href="javascript:;" tag="show">出售方式</if></a>
+            					<ul class="label-check radio" id="sellcate" >
+	               				<for start="1" end="count($sellcate)+1">
+									<if condition="$word['sellcate'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$sellcate[$i]}</li>
+	 							</for>
+            					</ul>
+            				</span>
+            			</li>                       
+                        <li class="fill" id="moneyyesno">
+                            <h5><span>*</span>作品价格：</h5>
+                            <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
+                                   onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
+                                   onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
+                        </li>
+                        <li class="fill" id="authorizeyesno"  style="display: none;">
+                            <h5><span>*</span>授权类别：</h5>
+                            <input name="authorize" id="authorize" type="text" <if condition="$word['authorize'] neq null"> class="white" value="{$word['authorize']}"<else />  class="gray" value="请填写授权类别"</if> 
+                                   onclick="if(this.value=='请填写授权类别'){this.value='';this.className='white'}"
+                                   onblur="if(this.value=='') {this.value='请填写授权类别';this.className='gray'}" style="width: 290px;">
+                        </li>
+                        <li class="fill copyright">
+                            <h5><span>*</span>版权设置：</h5>
+            <span class="label-span"><if condition="$word['copy_right'] neq null"><a href="javascript:;"  tag="copyri" style="color: rgb(66, 66, 66);">{$use[$word['copy_right']]}<else /><a href="javascript:;" tag="Copyright">不限制作品用途</if></a>
+            <ul class="label-check radio" id="copyri">
+                <for start="1" end="count($use)+1">
+				<if condition="$word['copy_right'] eq $i"><li value="{$i}" class="checkon"><else /> <li value="{$i}"></if>{$use[$i]}</li>
+ 				</for>
+            </ul>
+            </span></li> </if> 
+            <span id="kt">
+                         <li class="fill">
+                            <h5>角色说明：</h5>
+                        <textarea name="workrole" <if condition="$word['workrole'] neq null"> class="description02"<else /> class="description"</if>  
+                                  onkeyup="strLenCalc($(this), 'checklen', 2000);"
+                                  onfocus="if(value=='作品的角色介绍等'){value='';this.className='description02'}"
+                                  onblur="if (value==''){value='作品的角色介绍等';this.className='description'}"><if condition="$word['workrole'] neq null">{$word['workrole']}<else />作品的角色介绍等</if></textarea>
+                            <h6>可以输入 <span class="word-count">2000</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill">
+                            <h5>故事梗概：</h5>
+                        	<textarea name="workstory" <if condition="$word['story'] neq null"> class="description02"<else /> class="description"</if> 
+                                  onkeyup="strLenCalc($(this), 'checklen', 2000);"
+                                  onfocus="if(value=='作品的简单介绍等'){value='';this.className='description02'}"
+                                  onblur="if (value==''){value='作品的简单介绍等';this.className='description'}"><if condition="$word['story'] neq null">{$word['story']}<else />作品的简单介绍等</if></textarea>
+                            <h6>可以输入 <span>2000</span> 字符 / 汉字</h6>
+                        </li>
+                        <li class="fill">
+                            <h5>上传图片：</h5>
+            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
+          <div class="box">
+	<div id="flieinput" ></div>
+</div>
+
+<div class="box">
+	<div id="flieinput3" ></div>
+</div>
+<div class="box">
+	<div id="flieinput2" ></div>
+</div>
+                        </li>
+                       </span>
+                       <span >
+							<li class="fill" id="xq" style="display: none;">
+	                            <h5>上传图片：</h5>
+	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
+						         <div class="box">
+									<div id="flieinputxq" ></div>
+								</div>
+							</li>
+                       </span>
+                        <li class="fill btn">
+                        
+                        	<input class="button" name="" type="button" onclick="submitcheck()" value="提交">
+                        	
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+/*
+* 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
+* 其他参数同WebUploader
+*/
+
+$('#flieinputxq').diyUpload({
+	url:'/MyCenter/upload',
+	success:function( data ) {
+		//alert(data.result);
+		$("#inputhidden").append("<input type='hidden' name='xqt[]'  value="+data.result+'.'+data.postfix+" />");
+		console.info(data);
+	},
+	error:function( err ) {
+		console.info( err );	
+	},	
+	buttonText : '形象图',
+	chunked:true,
+	// 分片大小
+	chunkSize:512 * 1024,
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	fileNumLimit:10,
+});
+
+$('#flieinput').diyUpload({
+	url:'/MyCenter/upload',
+	success:function( data ) {
+		//alert(data.result);
+		$("#inputhidden").append("<input type='hidden' name='sht[]'  value="+data.result+'.'+data.postfix+" />");
+		console.info( data );
+	},
+	error:function( err ) {
+		console.info( err );	
+	},	buttonText : '三视图',
+	chunked:true,
+	// 分片大小
+	chunkSize:512 * 1024,
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	fileNumLimit:10,
+});
+$('#flieinput2').diyUpload({
+	url:'/MyCenter/upload',
+	success:function( data ) {
+		$("#inputhidden").append("<input type='hidden' name='bqt[]'  value="+data.result+'.'+data.postfix+" />");
+		console.info( data );
+	},
+	error:function( err ) {
+		console.info( err );	
+	},
+	buttonText : '表情图',
+	chunked:true,
+	// 分片大小
+	chunkSize:512 * 1024,
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	fileNumLimit:10,
+	accept: {}
+});
+$('#flieinput3').diyUpload({
+	url:'/MyCenter/upload',
+	success:function( data ) {
+		$("#inputhidden").append("<input type='hidden' name='dzt[]'  value="+data.result+'.'+data.postfix+" />");
+		console.info( data );
+	},
+	error:function( err ) {
+		console.info( err );	
+	},
+	buttonText : '动作图',
+	chunked:true,
+	// 分片大小
+	chunkSize:512 * 1024,
+	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	fileNumLimit:10,
+	accept: {}
+});
+
+    
+</script>
 </block>

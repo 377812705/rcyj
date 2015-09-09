@@ -1,95 +1,95 @@
-<extend name="Base/common" />
-<block name="head">
-    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
-    <script type="text/javascript">
-        jQuery.validator.addMethod("isMobile", function (value, element) {
-            var length = value.length;
-            var mobile = /^(((1[3578][0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-            return this.optional(element) || (length == 11 && mobile.test(value));
-        }, "请正确填写您的手机号码");
-        $(function () {
-            var err = 0;
-            $(".login-btn").bind('click', function () {
-                err = 0;
-                $("#form0").submit();
-            });
-            $("#form0").validate({
-                errorPlacement: function (error, element) {
-                    if (err == 0) {
-                        alert(error.html());
-                        //element.focus();
-                    }
-                    err++;
-                },
-                rules: {
-                    mobile: {
-                        required: true,
-                        isMobile: true,
-                        remote: "{:U('Login/checkMobile')}"
-                    },
-                    password: {
-                        rangelength: [6, 20]
-                    }
-                },
-                messages: {
-                    mobile: {
-                        digits: "请输入有效手机号码",
-                        required: "请填写手机号码",
-                        remote: "账号不存在!"
-                    },
-                    password: {
-                        required: "请输入密码!",
-                        rangelength: "密码必须是6到20个字符"
-                    }
-                }
-            });
-        });</script>
-</block>
-<block name="body">
-    <section> 
-        <!--------登录页面内容部分--------->
-        <div class="container login">
-            <div class="login-left">
-                <h4>欢迎来到二次元界</h4>
-                <h5>没有账号可登录？ <a href="{:U('Login/register')}">点击注册</a></h5>
-                <form id="form0" action="__SELF__" method="post">
-                    <ul class="login-ul">
-                        <li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
-                            <input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
-                                        this.value = '';
-                                        this.className = 'black'
-                                    }" onblur="if (this.value == '') {
-                                                this.value = '请输入手机号';
-                                                this.className = 'gray'
-                                            }">
-                        </li>
-                        <li class="txt-input password"><img src="__IMG__/login-img02.gif" alt="密码图标"/>
-                            <input name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
-                                        this.value = '';
-                                        this.className = 'black'
-                                    }" onblur="if (this.value == '') {
-                                                this.value = '请输入密码';
-                                                this.className = 'gray'
-                                            }">
-                        </li>
-                        <h6 id="msginfo" style="margin-top: 10px;margin-left: 20px; color: red;">{$msginfo}</h6>
-                        <li class="auto">
-                            <input name="islogin" type="checkbox" value="islogin">
-                            <span></span>下次自动登录
-                            <h6>使用公用电脑勿勾选</h6>
-                        </li>
-                        <li>
-                            <input class="login-btn" name="" type="button" value="登 录">
-                            <a href="{:U('Login/forgetpass')}">忘记密码</a>|<a href="{:U('Login/register')}" class="register-a">注册</a></li>
-                    </ul>
-                    {__TOKEN__}
-                </form>
-            </div>
-            <!--<div class="login-right">-->
-                <!--<h4>第三方账号登录</h4>-->
-                <!--<input class="blog-btn" name="" type="button" value="新浪微博登录" onclick="javascrtpt:location.href='__ROOT__/Login/thridlogin/type/sina.html'">-->
-                <!--<input class="qq-btn" name="" type="button" value="QQ账号登录" onclick="javascrtpt:location.href='__ROOT__/Login/thridlogin/type/qq.html'">-->
-            <!--</div>-->
-        </div>
-    </section>
-</block>
+<extend name="Base/common" />
+<block name="head">
+    <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        jQuery.validator.addMethod("isMobile", function (value, element) {
+            var length = value.length;
+            var mobile = /^(((1[3578][0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "请正确填写您的手机号码");
+        $(function () {
+            var err = 0;
+            $(".login-btn").bind('click', function () {
+                err = 0;
+                $("#form0").submit();
+            });
+            $("#form0").validate({
+                errorPlacement: function (error, element) {
+                    if (err == 0) {
+                        alert(error.html());
+                        //element.focus();
+                    }
+                    err++;
+                },
+                rules: {
+                    mobile: {
+                        required: true,
+                        isMobile: true,
+                        remote: "{:U('Login/checkMobile')}"
+                    },
+                    password: {
+                        rangelength: [6, 20]
+                    }
+                },
+                messages: {
+                    mobile: {
+                        digits: "请输入有效手机号码",
+                        required: "请填写手机号码",
+                        remote: "账号不存在!"
+                    },
+                    password: {
+                        required: "请输入密码!",
+                        rangelength: "密码必须是6到20个字符"
+                    }
+                }
+            });
+        });</script>
+</block>
+<block name="body">
+    <section> 
+        <!--------登录页面内容部分--------->
+        <div class="container login">
+            <div class="login-left">
+                <h4>欢迎来到二次元界</h4>
+                <h5>没有账号可登录？ <a href="{:U('Login/register')}">点击注册</a></h5>
+                <form id="form0" action="__SELF__" method="post">
+                    <ul class="login-ul">
+                        <li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
+                            <input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
+                                        this.value = '';
+                                        this.className = 'black'
+                                    }" onblur="if (this.value == '') {
+                                                this.value = '请输入手机号';
+                                                this.className = 'gray'
+                                            }">
+                        </li>
+                        <li class="txt-input password"><img src="__IMG__/login-img02.gif" alt="密码图标"/>
+                            <input name="password" type="password" value="请输入密码"  class="gray" onclick="if (this.value == '请输入密码') {
+                                        this.value = '';
+                                        this.className = 'black'
+                                    }" onblur="if (this.value == '') {
+                                                this.value = '请输入密码';
+                                                this.className = 'gray'
+                                            }">
+                        </li>
+                        <h6 id="msginfo" style="margin-top: 10px;margin-left: 20px; color: red;">{$msginfo}</h6>
+                        <li class="auto">
+                            <input name="islogin" type="checkbox" value="islogin">
+                            <span></span>下次自动登录
+                            <h6>使用公用电脑勿勾选</h6>
+                        </li>
+                        <li>
+                            <input class="login-btn" name="" type="button" value="登 录">
+                            <a href="{:U('Login/forgetpass')}">忘记密码</a>|<a href="{:U('Login/register')}" class="register-a">注册</a></li>
+                    </ul>
+                    {__TOKEN__}
+                </form>
+            </div>
+            <!--<div class="login-right">-->
+                <!--<h4>第三方账号登录</h4>-->
+                <!--<input class="blog-btn" name="" type="button" value="新浪微博登录" onclick="javascrtpt:location.href='__ROOT__/Login/thridlogin/type/sina.html'">-->
+                <!--<input class="qq-btn" name="" type="button" value="QQ账号登录" onclick="javascrtpt:location.href='__ROOT__/Login/thridlogin/type/qq.html'">-->
+            <!--</div>-->
+        </div>
+    </section>
+</block>

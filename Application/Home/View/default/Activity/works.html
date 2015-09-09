@@ -1,47 +1,47 @@
-<extend name="Base/common"/>
-<block name="body">
-<link href="__CSS__/index-style.css" rel="stylesheet" type="text/css">
-<div class="header">
-		<div class="con"></div>
-</div>
-<div class="nav1">
-		<div class="nav_c">
-				<ul>
-						<li><a class="home " href="/activity/cyzhindex">活动首页</a></li>
-						<li><a class="works on" href="/activity/works.html">专业组参赛作品展示</a></li>
-						<li><a class="works" href="/activity/worksnew.html">新星组参赛作品展示</a></li>
-						<li><a class="works" href="/activity/join.html">设计说明</a></li>
-						<!-- <li><a class="works" id="js_contact" style="" href="#contact">我要预订</a></li> -->
-				</ul>
-				<div class="join"><a href="__ROOT__/MyCenter/uploadWork/activityid/1.html">我要参加</a></div>
-		</div>
-</div>
-<div class="clearfloat"></div>
-<div class="content">
-		<div class="box" id="content">
-				<div class="title">人气作品</div>
-				<!-- <div class="px">排序：<a onclick="sortOrder(&#39;createDate&#39;);">时间</a> | <a onclick="sortOrder(&#39;praiseCount&#39;);">票数</a> | <a onclick="sortOrder(&#39;openCount&#39;);">人气</a></div> -->
-				<div class="num">作品数量： <span>{$count}</span></div>
-				<div class="text">
-					<volist name="works" id="data"  mod="4">	
-						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/product/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/product/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
-								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
-								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
-						</div>
-					</volist>
-						<div class="clearfloat"></div>
-								
-				</div>
-				
-		</div>
-		{$show}
-		<div class="box">
-				<div class="title">组织机构</div>
-				<div class="text">
-						<p>主办方：中国创意产业联盟、首都版权产业联盟、国际动画协会中国分会</p>
-						<p>承办方：二次元界网、中关村创新研修学院、赛伯乐投资集团、全国百家电视联播平台</p>
-						<p>协办方：中国企业投融资商会、北京创音天承文化传播有限公司</p>
-				</div>
-		</div>
-</div>
+<extend name="Base/common"/>
+<block name="body">
+<link href="__CSS__/index-style.css" rel="stylesheet" type="text/css">
+<div class="header">
+		<div class="con"></div>
+</div>
+<div class="nav1">
+		<div class="nav_c">
+				<ul>
+						<li><a class="home " href="/activity/cyzhindex">活动首页</a></li>
+						<li><a class="works on" href="/activity/works.html">专业组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/worksnew.html">新星组参赛作品展示</a></li>
+						<li><a class="works" href="/activity/join.html">设计说明</a></li>
+						<!-- <li><a class="works" id="js_contact" style="" href="#contact">我要预订</a></li> -->
+				</ul>
+				<div class="join"><a href="__ROOT__/MyCenter/uploadWork/activityid/1.html">我要参加</a></div>
+		</div>
+</div>
+<div class="clearfloat"></div>
+<div class="content">
+		<div class="box" id="content">
+				<div class="title">人气作品</div>
+				<!-- <div class="px">排序：<a onclick="sortOrder(&#39;createDate&#39;);">时间</a> | <a onclick="sortOrder(&#39;praiseCount&#39;);">票数</a> | <a onclick="sortOrder(&#39;openCount&#39;);">人气</a></div> -->
+				<div class="num">作品数量： <span>{$count}</span></div>
+				<div class="text">
+					<volist name="works" id="data"  mod="4">	
+						<div class="work <eq name="mod" value="3">n_m</eq> "> <a href="__ROOT__/product/details/id/{$data.id}" class="pic"><img src="{$data.main_image_url}" width="220" height="160"></a> <a href="__ROOT__/product/details/id/{$data.id}" class="t">{$data.title|mb_substr=0,11,'utf-8'}</a>
+								<div class="aut">票数：{$data.praise_count}票 人气：{$data.open_count}</div>
+								<!-- <a href="javascript:;" onclick="praise(this,230,&#39;works_cartoon&#39;,6824);" class="vote">投一票</a> -->
+						</div>
+					</volist>
+						<div class="clearfloat"></div>
+								
+				</div>
+				
+		</div>
+		{$show}
+		<div class="box">
+				<div class="title">组织机构</div>
+				<div class="text">
+						<p>主办方：中国创意产业联盟、首都版权产业联盟、国际动画协会中国分会</p>
+						<p>承办方：二次元界网、中关村创新研修学院、赛伯乐投资集团、全国百家电视联播平台</p>
+						<p>协办方：中国企业投融资商会、北京创音天承文化传播有限公司</p>
+				</div>
+		</div>
+</div>
 </block>

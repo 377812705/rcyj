@@ -1,41 +1,41 @@
-<extend name="Base/common" />
-<block name="body">
-  <!--------页面内容部分--------->
-  <div class="container content">
-    <div class="custom">
-      <ul class="nextnav pay">
-        <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
-      </ul>
-      <div class="custom-content pay">
-        <h3>订单提交成功，请您尽快付款！<span>订单号：{$data.order_number}</span></h3>
-        <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>
-        <div class="pay-div">
-          <h4>应付金额：<span>{$data.money}</span> 元</h4>
-          <div class="pay-by">
-            <ul>
-              <li class="payon"><a class="shortcut" href="#">平台支付</a></li>
-             <!-- <li><a class="platform" href="#">快捷支付</a></li> --> 
-            </ul>
-            <div class="pay-details">
-               <input class="alipay-pay" name="" type="button" onClick="javascript:location.href='__ROOT__/Zhifubao/zhifubaoPay/orderid/{$data.order_id}'" value="支付宝支付">
-               <input class="wechat-pay" name="" type="button" onClick="javascript:location.href='__ROOT__/Wx/wxpay/orderid/{$data.order_id}'" value="微信支付">
-            
-            </div>
-            <!-- 
-            <div class="pay-details" style="display:none;">
-	             <ul>
-	                <li><a href="pay-detail.html"><img src="__IMG__/bank01.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank02.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank03.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank04.gif"/></a></li>
-	                <li><a href="pay-detail.html"><img src="__IMG__/bank05.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank06.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank07.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank08.gif"/></a></li>
-	                <li><a href="pay-detail.html"><img src="__IMG__/bank09.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank10.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank11.gif"/></a><a href="#" class="more-btn">更多银行</a></li>
-	              </ul>
-            </div> -->
-          </div>
-        </div>
-        <div class="report-btn pay-btn">
-          <input name="" type="button" onClick="javascript:location.href='pay-success.html'"  value="立即支付">
-        </div>
-      </div>
-    </div>
-  </div>
-
-</block>
+<extend name="Base/common" />
+<block name="body">
+  <!--------页面内容部分--------->
+  <div class="container content">
+    <div class="custom">
+      <ul class="nextnav pay">
+        <li class="nextnavon activ-li"><a href="#">选择付款方式</a></li>
+      </ul>
+      <div class="custom-content pay">
+        <h3>订单提交成功，请您尽快付款！<span>订单号：{$data.order_number}</span></h3>
+        <h5>请您在提交订单后24小时内完成支付，否则订单会自动取消</h5>
+        <div class="pay-div">
+          <h4>应付金额：<span>{$data.money}</span> 元</h4>
+          <div class="pay-by">
+            <ul>
+              <li class="payon"><a class="shortcut" href="#">平台支付</a></li>
+             <!-- <li><a class="platform" href="#">快捷支付</a></li> --> 
+            </ul>
+            <div class="pay-details">
+               <input class="alipay-pay" name="" type="button" onClick="javascript:location.href='__ROOT__/Zhifubao/zhifubaoPay/orderid/{$data.order_id}'" value="支付宝支付">
+               <input class="wechat-pay" name="" type="button" onClick="javascript:location.href='__ROOT__/Wx/wxpay/orderid/{$data.order_id}'" value="微信支付">
+            
+            </div>
+            <!-- 
+            <div class="pay-details" style="display:none;">
+	             <ul>
+	                <li><a href="pay-detail.html"><img src="__IMG__/bank01.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank02.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank03.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank04.gif"/></a></li>
+	                <li><a href="pay-detail.html"><img src="__IMG__/bank05.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank06.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank07.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank08.gif"/></a></li>
+	                <li><a href="pay-detail.html"><img src="__IMG__/bank09.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank10.gif"/></a><a href="pay-detail.html"><img src="__IMG__/bank11.gif"/></a><a href="#" class="more-btn">更多银行</a></li>
+	              </ul>
+            </div> -->
+          </div>
+        </div>
+        <div class="report-btn pay-btn">
+          <input name="" type="button" onClick="javascript:location.href='pay-success.html'"  value="立即支付">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</block>

@@ -1,23 +1,23 @@
-<extend name="Base/common"/>
-<block name="body">
-    <div class="container content">
-        <div class="custom">
-            <ul class="nextnav no-drop author-nav">
-                <li class="nextnavon"><a href="javascript:;">系统通知</a></li>
-            </ul>
-        </div>
-        <div class="module">
-            <div class="author-content">
-                <volist name="message" id="data">
-                <span class="review">
-                    <img src="http://erciyuanjie.com{$data.uid|getUserImg}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/>
-                    <span class="review-tle">
-                        <h4>{$data.content}</h4>
-                        <h6>{$data.createtime}</h6>
-                    </span>
-                </span>
-                </volist>
-            </div>
-        </div>
-    </div>
+<extend name="Base/common"/>
+<block name="body">
+    <div class="container content">
+        <div class="custom">
+            <ul class="nextnav no-drop author-nav">
+                <li class="nextnavon"><a href="javascript:;">系统通知</a></li>
+            </ul>
+        </div>
+        <div class="module">
+            <div class="author-content">
+                <volist name="message" id="data">
+                <span class="review">
+                    <img src="http://erciyuanjie.com{$data.uid|getUserImg}" onerror="this.src='__IMG__/touxiang.png'" style="width: 55px;height: 55px;border-radius: 100px;-moz-border-radius: 100px; "/>
+                    <span class="review-tle">
+                        <h4>{$data.content}</h4>
+                        <h6>{$data.createtime}</h6>
+                    </span>
+                </span>
+                </volist>
+            </div>
+        </div>
+    </div>
 </block>

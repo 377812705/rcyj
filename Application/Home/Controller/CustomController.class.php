@@ -133,6 +133,14 @@ class CustomController extends HomeController
                     $custom['cusdesc']='';
                 }
                 $custom['cusid'] = $model->add($custom);
+                
+                //获取需求的orderid
+                $cinfo=D('Custom')->getOrderCustomByid($custom['cusid']);
+                $cuinfo=D('Author')->find($cinfo['uid']);
+                
+                //未指定作者--发送短信
+                $order_id = substr($cinfo['orderid'], -1, 8);
+                sendSms($cuinfo['mobile'], '34911', array($order_id));
 
                 $this->assign('custom', $custom);
                 $this->display('Custom/orderinfo');
@@ -177,14 +185,18 @@ class CustomController extends HomeController
                 'content'=>"您被选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
             );
             M('message')->add($amsg);
+            
+            //定制短信发送--订制通知--通知作者需求者喜欢，希望其能接单
+            sendSms($uinfo['mobile'], '35692', array(getUserNameById($gdata['uid'])));
+            }
+            
+            $uinfo['nick_name'] = getUserNameById($gdata['uid']);
             $cmsg=array(
                 'uid'=>$cinfo['uid'],
                 'content'=>"您的订制需求<<{$cinfo['cusname']}>>选择了作者<<{$uinfo['nick_name']}>>为此制作。"
             );
             M('message')->add($cmsg);
-
-            }
-
+            
             $this->redirect("Order/makeCustomOrder/customid/{$custom['cusid']}");
         }else{
             $this->redirect("Custom/index");
@@ -260,12 +272,16 @@ class CustomController extends HomeController
             'content'=>"您对订制需求<<{$cinfo['cusname']}>>进行了抢单。"
         );
         M('message')->add($amsg);
+        
         $cmsg=array(
            'uid'=>$cinfo['uid'],
             'content'=>"您的订制需求<<{$cinfo['cusname']}>>被作者<<{$uinfo['nick_name']}>>抢单了。"
         );
         M('message')->add($cmsg);
-
+        
+        //抢单通知
+        $order_id = substr($cinfo['orderid'], -1,8);
+        sendSms($cuinfo['mobile'], '34913', array($order_id));
 
         $this->ajaxReturn('已抢单');
     }
@@ -524,6 +540,11 @@ class CustomController extends HomeController
                 'content'=>"您被<<{$cuinfo['nick_name']}>>选中为订制需求<<{$cinfo['cusname']}>>进行制作。抢单成功！"
             );
             M('message')->add($amsg);
+            
+            //抢单成功--发送短信
+            $order_id = substr($cinfo['orderid'], -1, 8);
+            sendSms($uinfo['mobile'], '35735', array($order_id));
+            
             $cmsg=array(
                 'uid'=>$cinfo['uid'],
                 'content'=>"您已经选中<<{$uinfo['nick_name']}>>为订制需求<<{$cinfo['cusname']}>>进行制作。"
@@ -571,11 +592,17 @@ class CustomController extends HomeController
             'content'=>"您选择不为订制需求<<{$cinfo['cusname']}>>进行制作。"
         );
         M('message')->add($amsg);
+        $uinfo['nick_name'] = getUserNameById(is_login());
         $cmsg=array(
             'uid'=>$cinfo['uid'],
             'content'=>"<<{$uinfo['nick_name']}>>选择不为订制需求<<{$cinfo['cusname']}>>进行制作。"
         );
         M('message')->add($cmsg);
+        
+        //作者不接单通知--短信通知
+        $order_id = substr($cinfo['orderid'], -1, 8);
+        sendSms($cuinfo['mobile'], '34915', array($order_id,$uinfo['nick_name']));
+        
         $this->redirect("/Order/grabcustomlist");
     }
     public function conorder(){
@@ -599,11 +626,16 @@ class CustomController extends HomeController
     			'content'=>"您选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
     	);
     	M('message')->add($amsg);
+    	$uinfo['nick_name'] = getUserNameById($cinfo['uid']);
     	$cmsg=array(
     			'uid'=>$cinfo['uid'],
     			'content'=>"<<{$uinfo['nick_name']}>>选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
     	);
     	M('message')->add($cmsg);
+    	//作者确认接单通知--短信通知
+    	$order_id = substr($cinfo['orderid'], -1, 8);
+    	sendSms($cuinfo['mobile'], '34914', array($order_id , $uinfo['nick_name']));
+    	
     	$this->redirect("/Order/grabcustomlist");
     }
 }

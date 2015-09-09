@@ -59,7 +59,7 @@
 										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required,maxSize[16]]" <notempty name="info['user_name']">readonly="true"</notempty> value="{$info['user_name']}"/>
 								</li>
 								<li class="txt-input phone"><span class="input-tle">联系电话：</span>
-										<input name="phone" id="mobile" type="text" placeholder="请输入联系电话"  class="gray validate[required,custom[phone]]" <notempty name="info">readonly="true"</notempty> value="{$info['mobile']}"/>
+										<input name="phone" id="mobile" type="text" placeholder="请输入联系电话"  class="gray validate[required,custom[phone]]" <notempty name="info.mobile">readonly="true"</notempty> value="{$info['mobile']}"/>
 								</li>
 								<li class="txt-input address"><span class="input-tle">联系地址：</span>
 										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" value="{$info['address']}">

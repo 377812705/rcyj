@@ -46,6 +46,18 @@ $(function(){
 			if($(this).attr("value")==1){
 				$("#xq").hide();
 				$("#kt").show();
+				$('#flieinput').each(function () {                
+					   $(this).children('div').eq(1).css('width','72px');
+					   $(this).children('div').eq(1).css('height','39px');
+					});
+				$('#flieinput2').each(function () {                
+					   $(this).children('div').eq(1).css('width','72px');
+					   $(this).children('div').eq(1).css('height','39px');
+					});
+				$('#flieinput2').each(function () {                
+					   $(this).children('div').eq(1).css('width','72px');
+					   $(this).children('div').eq(1).css('height','39px');
+					});
 			}
 			if($(this).attr("value")==2){
 				$("#xq").show();

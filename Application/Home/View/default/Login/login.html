@@ -24,8 +24,6 @@
                 rules: {
                     mobile: {
                         required: true,
-                        isMobile: true,
-                        remote: "{:U('Login/checkMobile')}"
                     },
                     password: {
                         rangelength: [6, 20]
@@ -33,9 +31,7 @@
                 },
                 messages: {
                     mobile: {
-                        digits: "请输入有效手机号码",
-                        required: "请填写手机号码",
-                        remote: "账号不存在!"
+                        required: "请填写手机号|用户名|邮箱",
                     },
                     password: {
                         required: "请输入密码!",
@@ -55,11 +51,11 @@
                 <form id="form0" action="__SELF__" method="post">
                     <ul class="login-ul">
                         <li class="txt-input phone"><img src="__IMG__/login-img01.gif" alt="手机号图标"/>
-                            <input name="mobile" type="text" value="请输入手机号"  class="gray" onclick="if (this.value == '请输入手机号') {
+                            <input name="mobile" type="text" value="请输入手机号|用户名|邮箱"  class="gray" onclick="if (this.value == '请输入手机号|用户名|邮箱') {
                                         this.value = '';
                                         this.className = 'black'
                                     }" onblur="if (this.value == '') {
-                                                this.value = '请输入手机号';
+                                                this.value = '请输入手机号|用户名|邮箱';
                                                 this.className = 'gray'
                                             }">
                         </li>

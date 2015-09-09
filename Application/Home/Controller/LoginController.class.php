@@ -236,24 +236,26 @@ class LoginController extends HomeController
     public function login()
     {
         if (IS_POST) {
-            $map['mobile'] = I('mobile');
+            //初期为了适应老用户，可使用多种方式登录，运营一段时间切换为只能手机号登录
+            $map['mobile|user_name|email'] = I('mobile');
             $Model = M('user', null);
-            $data = $Model->where($map)->select();
+            $data = $Model->where($map)->find();
+            
             // $this->assign("mobile", "欢迎".$data[0]["user_name"]."光临二次元界！");
             $password = I('password');
             if (0 < count($data)) {
-                if (strtoupper(md5($password)) == $data[0]["password"]) {
+                if (strtoupper(md5($password)) == $data["password"]) {
                     //记录登陆历史
                     /* 更新登录信息 */
                     $user = array(
-                        'id' => $data[0]["id"],
+                        'id' => $data["id"],
                         'last_login_date' => date("Y-m-d h:i:s"),
                     );
                     M('user', null)->save($user);
                     //保存session
                     $auth = array(
-                        'uid' => $data[0]["id"],
-                        'username' => $data[0]["user_name"],
+                        'uid' => $data["id"],
+                        'username' => $data["user_name"],
                         'last_login_time' => date("Y-m-d h:i:s"),
                     );
                     session('user_auth', $auth);

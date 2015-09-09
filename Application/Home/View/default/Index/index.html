@@ -151,7 +151,7 @@ $(function() {
 					<span class="label-a"><a href="#">形象</a><a href="#">{$data.theme}</a></span>
 					<h2>{$data.cusstatus}<span>接单状态</span></h2>
 					<h5><span>{$data.open_count}</span>人气</h5>
-					<h6><a href="__ROOT__/Author/details/id/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
+					<h6><a href="__ROOT__/Custom/userdetails/uid/{$data.uid}.html" style="color: #0390e9;">{$data.uid|getUserName}
 						<!--<img src="{$data.user_id|getUserImg}" style="width: 41px;height: 41px;"/>-->
 						<if condition="($data.uid|getUserName) eq null">
 							<img src="__IMG__/touxiang.png" style="width: 41px;height: 41px;" alt="用户头像"/>

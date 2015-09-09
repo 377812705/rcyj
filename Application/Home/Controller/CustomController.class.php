@@ -117,13 +117,14 @@ class CustomController extends HomeController
                     $custom['theme']=$_POST['theme2'];
                 }
                 $custom['style'] = $_POST['style1']."/".$_POST['style2'];
-                $custom['cusissue'] = implode($_POST['cusissue'], "/");
                 $custom['imgurl']=$_POST['imgurl'];
                 //dump($custom);
-                if($_POST["cusissue3"]){
-                    $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].implode($_POST['cusissue3']," ");
-                }else{
-                    $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'];
+                if($custom['imgclass']=='卡通'){
+                    if($_POST["cusissue3"]){
+                        $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].implode($_POST['cusissue3']," ");
+                    }else{
+                        $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'];
+                    }
                 }
 
                 if($custom['themedesc']=='写出您订制用途的描述，例如：能够代表我们公司的吉祥物，更多充分的展现我们公司的文化发展等。'){

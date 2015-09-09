@@ -84,7 +84,7 @@ class AuthorController extends HomeController {
         $ulheight=ceil(count($uwork)/4)*387;
         $this->assign('ulheight',$ulheight);
         //成交量
-        $uinfo[0]['customcount']='56';
+        //$uinfo[0]['customcount']='0';
         $this->assign('uwork',$uwork);
         $this->assign('uswork',$uswork);
         $this->assign('uinfo',$uinfo[0]);

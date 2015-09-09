@@ -118,11 +118,19 @@ WIDTH="950" HEIGHT="550" id="myMovieName">
 <PARAM NAME=movie VALUE="__flash__/avatar.swf">
 <PARAM NAME=quality VALUE=high>
 <PARAM NAME=bgcolor VALUE=#FFFFFF>
+<if condition="$word['main_image_url']">
+<param name="flashvars" id="flashvars1" value="imgUrl={$word['main_image_url']}&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
+<EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl={$word['main_image_url']}&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
+NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
+PLUGINSPAGE="">
+</EMBED>
+<else />
 <param name="flashvars" id="flashvars1" value="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110" />
 <EMBED src="__flash__/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="850" HEIGHT="550" wmode="transparent" id="flashVars" flashVars="imgUrl=__flash__/default.png&uploadUrl=__URL__/upfile&pCut=293|222|164|110&pSize=293|222|164|110&pData=293|222|164|110"
 NAME="myMovieName" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
 PLUGINSPAGE="">
 </EMBED>
+</if>
 </OBJECT>
 
   </div>
@@ -215,7 +223,7 @@ PLUGINSPAGE="">
  				</for>
             </ul>
             </span></li> </if> 
-            <span id="kt">
+            <span id="kt" <if condition="$word['tags'] neq '1'">style="display: none;"</if>>
                          <li class="fill">
                             <h5>角色说明：</h5>
                         <textarea name="workrole" <if condition="$word['workrole'] neq null"> class="description02"<else /> class="description"</if>  
@@ -248,7 +256,7 @@ PLUGINSPAGE="">
                         </li>
                        </span>
                        <span >
-							<li class="fill" id="xq" style="display: none;">
+							<li class="fill" id="xq"  <if condition="$word['tags'] eq '1'">style="display: none;"</if> >
 	                            <h5>上传图片：</h5>
 	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
 						         <div class="box">
@@ -322,7 +330,7 @@ $('#flieinput2').diyUpload({
 	chunkSize:512 * 1024,
 	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
 	fileNumLimit:10,
-	accept: {}
+
 });
 $('#flieinput3').diyUpload({
 	url:'/MyCenter/upload',
@@ -339,7 +347,6 @@ $('#flieinput3').diyUpload({
 	chunkSize:512 * 1024,
 	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
 	fileNumLimit:10,
-	accept: {}
 });
 
     

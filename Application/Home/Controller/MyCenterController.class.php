@@ -117,29 +117,43 @@ class MyCenterController extends HomeController
             	$data['update_date']=date('Y-m-d H:i:s',time());
             	$data['user_id']=is_login();
             	$data['create_date']=date('Y-m-d H:i:s',time());
-            	$path="/uploads/comic/".date('Ymd',time()).'/';
-            	$main_image_url=I('Post.main_image_url','');
-            	$assistant_image_url=I('Post.assistant_image_url','');
-            	$data['main_image_url']=$path.$main_image_url;
-            	$data['assistant_image_url']=$path.$assistant_image_url;
+            	
             	$data['activity_id']=I('Post.activity_id');
             	$data['custom_id']=I('Post.custom_id');
             	if($data['custom_id']>0){
             		D('Custom')->where('cusid='.$data['custom_id'])->save(array('cusstatus'=>5));
-            		echo D('Custom')->getLastSql();
+            		
+            		//作者交稿通知--短信通知
+            		//获取订制这信息
+            		$cinfo=D('Custom')->getOrderCustomByid($data['custom_id']);
+                    $cuinfo=D('Author')->find($cinfo['uid']);
+                    $order_id = substr($cinfo['orderid'], -1, 8);
+            		sendSms($cuinfo['mobile'], '34917', array($order_id));
+            	}
+            	$main_image_url=I('Post.main_image_url','');
+            	if(count(explode('/', $main_image_url))>1){
+            		
+            		$assistant_image_url=I('Post.assistant_image_url','');
+            		$data['main_image_url']=$main_image_url;
+            		$data['assistant_image_url']=$assistant_image_url;
+            	}else{
+            		$path="/uploads/comic/".date('Ymd',time()).'/';
+            		$assistant_image_url=I('Post.assistant_image_url','');
+            		$data['main_image_url']=$path.$main_image_url;
+            		$data['assistant_image_url']=$path.$assistant_image_url;
             	}
             	if($wordid){
             		$arr['id']=$wordid;
             		$id=D('Works')->where($arr)->save($data);
             	}else{
-            		$workid = D('Works')->add($data);
+            		$wordid = D('Works')->add($data);
             		
             	}
             	$sht=I('Post.sht',0);
             	if(is_array($sht)){
 	            	for($i=0;$i<count($sht);$i++){
 	            		$imgsht['user_id']=$data['user_id'];
-	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_id']=$wordid;
 	            		$imgsht['ref_type']=1;
 	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$sht[$i]";
 	            		$imgsht['create_date']=date("Y-m-d H:i:s");
@@ -150,7 +164,7 @@ class MyCenterController extends HomeController
             	if(is_array($bqt)){
 	            	for($i=0;$i<count($bqt);$i++){
 	            		$imgsht['user_id']=$data['user_id'];
-	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_id']=$wordid;
 	            		$imgsht['ref_type']=2;
 	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$bqt[$i]";
 	            		$imgsht['create_date']=date("Y-m-d H:i:s");
@@ -161,7 +175,7 @@ class MyCenterController extends HomeController
             	if(is_array($xqt)){
             		for($i=0;$i<count($xqt);$i++){
             			$imgsht['user_id']=$data['user_id'];
-            			$imgsht['ref_id']=$workid;
+            			$imgsht['ref_id']=$wordid;
             			$imgsht['ref_type']=2;
             			$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$xqt[$i]";
             			$imgsht['create_date']=date("Y-m-d H:i:s");
@@ -172,13 +186,15 @@ class MyCenterController extends HomeController
             	if(is_array($dzt)){
 	            	for($i=0;$i<count($dzt);$i++){
 	            		$imgsht['user_id']=$data['user_id'];
-	            		$imgsht['ref_id']=$workid;
+	            		$imgsht['ref_id']=$wordid;
 	            		$imgsht['ref_type']=3;
 	            		$imgsht['image_url']='/uploads/comic/'.date('Ymd',time()).'/'."$dzt[$i]";
 	            		$imgsht['create_date']=date("Y-m-d H:i:s");
 	            		$image=D('Img')->add($imgsht);
 	            	}
             	}
+            	
+            	
                 $this->display("MyCenter/uploadsuccess");
             } else {
             	$wordid=I('get.id',0);

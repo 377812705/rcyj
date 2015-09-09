@@ -103,41 +103,52 @@ class ProductController extends HomeController {
     function daorushuju(){
     	set_time_limit(0);
     	header("Content-Type: text/html;charset=utf-8");
-    	$con=mysql_connect("tongji.2ciyuanjie.com","root","2cydb");
+    	$con=mysql_connect("182.92.216.80","root","2cydb");
     	if (!$con)
     	{
     		die('Could not connect: ' . mysql_error());
     	}
     	mysql_select_db("v2_2cy", $con);
     	mysql_query("set names 'utf8'");
-    	$sql="SELECT * FROM works_cartoon_image";
+    	$sql="SELECT* FROM `v2_2cy`.`user` ORDER BY id DESC LIMIT 0, 300 ";
     	$list=mysql_query($sql,$con);
 		while($row = mysql_fetch_array($list))
 		  {
-		  	$data['id']=$row['id'];
-		  	$data['user_id']=$row['user_id'];
-		  	$data['main_image_url']=$row['main_image_url'];
-		  	$data['title']=$row['title'];
-		  	$data['workrole']=$row['role_content'];
-		  	$data['story']=$row['content'];
-		  	$data['praise_count']=$row['praise_count'];
-		  	$data['favorite_count']=$row['favorite_count'];
-		  	$data['comment_count']=$row['comment_count'];
-		  	$data['share_count']=$row['share_count'];
-		  	$data['open_count']=$row['open_count'];
-		  	$data['create_status']=3;
-		  	$data['status']=$row['status'];
-		  	$data['create_date']=$row['create_date'];
-		  	$data['update_date']=$row['update_date'];
-		  	$data['copy_right']=$row['copy_right'];
-		  	$data['group_level']=$row['group_level'];
-		  	$data['tags']=1;
-		  	$data['show']=1;
-		  	$data['cate']=1;
-		  	$data['activity_id']=1;
-		  	$data['theme']=8;
-		  	$id=D('Works')->add($data);
 		  	
+		  	$count=0;
+		  	$count=D('User')->where('id='.$row['id'])->count();
+		  	if($count==0){
+		  	$data['id']=$row['id'];
+		  	$data['user_name']=$row['user_name'];
+		  	$data['nick_name']=$row['nick_name'];
+		  	$data['password']=$row['password'];
+		  	$data['mobile']=$row['mobile'];
+		  	$data['gender']=$row['gender'];
+		  	$data['email']=$row['email'];
+		  	$data['birthday']=$row['birthday'];
+		  	$data['header_img']=$row['header_img'];
+		  	$data['header_img_sns']=$data['header_img_sns'];
+		  	$data['author_flag']=$row['author_flag'];		  	
+		  	$data['tags_content']=$row['tags_content'];
+		  	$data['fans_count']=$row['fans_count'];
+		  	$data['follow_count']=$row['follow_count'];
+		  	$data['friend_count']=$row['friend_count'];
+		  	$data['pop_count']=$row['pop_count'];
+		  	$data['work_count']=$row['work_count'];
+		  	$data['create_date']=$row['create_date'];
+		  	$data['last_login_date']=$row['last_login_date'];
+		  	$data['last_update_pwd']=$data['last_update_pwd'];
+		  	$data['love_status']=$row['love_status'];
+		  	$data['love_type']=$row['love_type'];
+		  	$data['blog_url']=$row['blog_url'];
+		  	$data['qq_no']=$data['qq_no'];
+		  	$data['intro']=$row['intro'];
+		  	$data['address']=$row['address'];
+		  	$data['LEVEL']=$row['LEVEL'];
+		  	$data['status']=$data['status'];
+		  	$data['qq_no']=$data['qq_no'];
+		  	D('User')->add($data);
+		  	}
 		  }
 		mysql_close($con);
     }

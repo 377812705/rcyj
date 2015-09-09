@@ -177,3 +177,79 @@ function getTags($skill_id){
     }
     echo $str;
 }
+
+/**
+* 发送短信方法
+* @param
+* @date: 2015年9月9日 上午11:30:03
+* @author: yql
+* @version: 3.0.0
+*/
+function sendSms($mobile,$type,$params){
+    if(empty($type) || empty($params) || empty($mobile)){
+        return false ;
+    }
+    /*switch ($type){
+        case '35692'://订制通知--通知作者
+            $message = '';
+            break ;
+        case '35735'://作者主动申请订制，被选中
+            $message =  '' ;
+            break;
+        case '34913'://抢单通知
+            $message = '';
+            break;
+        case '34914'://作者确认接单通知
+            $message = '';
+            break ;
+        case '34915'://作者不接单通知
+            $message = '';
+            break;
+        case '34917'://作者交稿通知
+            $message =  '';
+            break;
+        case '34918'://需要修改通知
+            $message = '';
+            break ;
+        case '34919'://修改完成通知
+            $message =  '';
+            break ;
+        case '34922'://订制完成通知－发给作者
+            $message = '';
+            break ;
+        case '34923'://订制完成通知－发给订制者
+            $message =  '';
+            break;
+        case '34924'://打款通知
+            $message = '' ;
+            break;
+        case '34925'://退款通知
+            $message =  '';
+            break ;
+        case '34912'://订制通知－指定作者
+            $message =  '';
+            break ;
+        case '34911'://订制通知－未指定作者
+            $message = ''; 
+            break;
+        case '10251'://绑定手机
+            $message =  '';
+            break ;
+        case '10250'://找回密码
+            $message =  '';
+            break ;
+        default://注册短信 10249
+            $message = '';
+            break ;      
+    }*/
+    
+    if($type != '35753' || $type != '35692' || $type != '34917' || $type != '34915' || $type != '34913'){
+        $sendsms = new \Vendor\sms\SendSMS();
+        $result = $sendsms->sendTemplateSMS($mobile, $params, $type);
+        if($result){
+            return true;
+        }   
+    }
+
+    return false;
+}

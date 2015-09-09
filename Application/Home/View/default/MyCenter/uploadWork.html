@@ -194,13 +194,13 @@ PLUGINSPAGE="">
             					</ul>
             				</span>
             			</li>                       
-                        <li class="fill" id="moneyyesno">
+                        <li class="fill" id="moneyyesno" <if condition="$word['sellcate'] eq '2'"> style="display: none;</if>>
                             <h5><span>*</span>作品价格：</h5>
                             <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                         </li>
-                        <li class="fill" id="authorizeyesno"  style="display: none;">
+                        <li class="fill" id="authorizeyesno"  <if condition="$word['sellcate'] neq '2'"> style="display: none;</if>">
                             <h5><span>*</span>授权类别：</h5>
                             <input name="authorize" id="authorize" type="text" <if condition="$word['authorize'] neq null"> class="white" value="{$word['authorize']}"<else />  class="gray" value="请填写授权类别"</if> 
                                    onclick="if(this.value=='请填写授权类别'){this.value='';this.className='white'}"

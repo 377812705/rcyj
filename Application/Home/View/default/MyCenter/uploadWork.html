@@ -205,7 +205,7 @@ PLUGINSPAGE="">
                             <input name="authorize" id="authorize" type="text" <if condition="$word['authorize'] neq null"> class="white" value="{$word['authorize']}"<else />  class="gray" value="请填写授权类别"</if> 
                                    onclick="if(this.value=='请填写授权类别'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请填写授权类别';this.className='gray'}" style="width: 290px;">
-                        </li>
+                        <h6 class="price-tips">请填写授权类别 例：服装、玩具、游戏等</h6></li>
                         <li class="fill copyright">
                             <h5><span>*</span>版权设置：</h5>
             <span class="label-span"><if condition="$word['copy_right'] neq null"><a href="javascript:;"  tag="copyri" style="color: rgb(66, 66, 66);">{$use[$word['copy_right']]}<else /><a href="javascript:;" tag="Copyright">不限制作品用途</if></a>

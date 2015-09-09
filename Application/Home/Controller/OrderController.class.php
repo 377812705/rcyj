@@ -342,6 +342,7 @@ class OrderController extends HomeController {
 					)
 			);
 		}
+	
 		$data = array (
 				'pay_money' => $total_fee,
 				'pay_type' => $pay_type,

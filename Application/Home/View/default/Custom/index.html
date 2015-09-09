@@ -81,7 +81,28 @@
             <ul>
                 <volist name="custom" id="data" mod="4">
                     <li><a href="__ROOT__/Custom/detail/cusid/{$data.cusid}.html">
-                        <img src="http://erciyuanjie.com{$data.imgurl}" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;" onerror="this.src='__IMG__/cmy.png'"/></a>
+                        <switch name="data.theme">
+                            <case value="浪漫的爱情">
+                                <img src="__IMG__/caiqing.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <case value="浓浓的亲情">
+                                <img src="__IMG__/cqinqing.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <case value="真挚的友情">
+                                <img src="__IMG__/cyouqing.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <case value="独一无二的自己">
+                                <img src="__IMG__/cmy.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <case value="生日">
+                                <img src="__IMG__/cshengri.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <case value="投资型订制">
+                                <img src="__IMG__/ctouzi.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                            </case>
+                            <default /><img src="__IMG__/cmy.png" alt="订制图片-{$data.cusname}" style="display：block;width: 293px;height: 222px;"/>
+                        </switch>
+                    </a>
                         <h3>{$data.cusname|mb_substr=0,10,'utf-8'}</h3>
                         <h4>￥{$data.cusmoney}</h4>
                         <span class="label-a"><a href="javascript:;">形象</a><a href="javascript:;">{$data.theme}</a></span>

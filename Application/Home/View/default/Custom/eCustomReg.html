@@ -48,7 +48,7 @@
 							<li class="nextnavon"><a href="__ROOT__/Custom/eCustomReg.html">企业订制注册</a></li>
 						</ul>
 						<ul class="login-ul">
-						<form action="/custom/ecustomreg" method="get" id="form">
+						<form action="__ROOT__/custom/ecustomreg" method="get" id="form">
 								<li class="txt-input name"><span class="input-tle">姓名：</span>
 										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required]" onclick="if(this.value=='请输入姓名'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入姓名';this.className='gray'}" />
 								</li>
@@ -56,16 +56,16 @@
 										<input name="phone" id="mobile" type="text" placeholder="请输入联系电话"  class="gray validate[required,custom[phone]]" onclick="if(this.value=='请输入联系电话'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入联系电话';this.className='gray'}" />
 								</li>
 								<li class="txt-input address"><span class="input-tle">联系地址：</span>
-										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" onclick="if(this.value=='请输入联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入联系地址';this.className='gray'}" />
+										<input name="address" type="text" placeholder="请输入联系地址"  class="gray" onclick="if(this.value=='请输入联系地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入联系地址';this.className='gray'}" />
 								</li>
 								<li class="txt-input password"><span class="input-tle">密码：</span>
-										<input name="password" type="password" placeholder="请输入密码"  class="gray validate[required]"/>
+										<input name="password" type="password" id="password" placeholder="请输入密码"  class="gray validate[required]"/>
 								</li>
 								<li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
-										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required]"/>
+										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required,equals[password]]"/>
 								</li>
 								<li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
-										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[required,custom[email]]" onclick="if(this.value=='请输入邮箱地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入邮箱地址';this.className='gray'}" />
+										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[custom[email]]" onclick="if(this.value=='请输入邮箱地址'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入邮箱地址';this.className='gray'}" />
 								</li>
 								<li class="txt-input company"><span class="input-tle">公司名称：</span>
 										<input name="company" type="text" placeholder="请输入公司名称"  class="gray validate[required]" onclick="if(this.value=='请输入公司名称'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入公司名称';this.className='gray'}" />
@@ -88,11 +88,12 @@
 									</div>	
 									<span id ="inputhidden"></span>	
 								</li>	
-								<li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
+								<!-- <li class="txt-input verify"><span class="input-tle">验证码：</span> <span class="verify-span">
 										<input name="verify" type="text" id="verify"  placeholder="请输入验证码"  class="gray validate[required]" onclick="if(this.value=='请输入验证码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入验证码';this.className='gray'}">
 										<input name="sendcode" type="button" value="验证码" id="sendcode" style="background-color:#34abef;">
 										<input name="sendcode" type="button" value="验证码"  id="sendcode1" style="display: none;" >
-										</span> </li>
+										</span> 
+								</li> -->
 								<li class="txt-input invite"><span class="input-tle">邀请码：</span>
 										<input name="invite" type="text" placeholder="请确认邀请码"  class="gray" onclick="if(this.value=='请确认邀请码'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请确认邀请码';this.className='gray'}">
 										<span class="prompt">通过您的好友邀请，输入邀请码如没有邀请码则不用填写</span></li>
@@ -125,7 +126,9 @@ $('.retrieve-btn').click(function(){
 	//判断手机号无效
 	var mcode = $('#mobile').val();
 	var vcode = $('#verify').val();
-	$.post("__ROOT__/Login/checkReg", {mobile: mcode,verify:vcode},
+	var sht = $('#sht').val();
+	var sin = 1;
+	$.post("__ROOT__/Login/checkReg", {mobile: mcode,verify:vcode,vimg:sht,sgin:sin},
 			function (data) {
 				if(data.status != 1){
 					alert(data.msg);return false;
@@ -141,7 +144,7 @@ $('.retrieve-btn').click(function(){
 $('#flieinput').diyUpload({
 	url:'__ROOT__/Author/upload',
 	success:function( data ) {
-		$("#inputhidden").append("<input type='hidden' name='sht'  value="+data.pic+" />");
+		$("#inputhidden").append("<input type='hidden' name='sht' id='sht' value="+data.pic+" />");
 		$("#flieinput").html(
         		"<span class='permit-img'><img alt='企业营业执照' class='zw-img' src='__ROOT__"+data.pic+"' width='258px' hieght='462px'/></span>"
         );

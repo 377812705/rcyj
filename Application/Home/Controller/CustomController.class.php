@@ -140,7 +140,7 @@ class CustomController extends HomeController
                 $cuinfo=D('Author')->find($cinfo['uid']);
                 
                 //未指定作者--发送短信
-                $order_id = substr($cinfo['orderid'], -1, 8);
+                $order_id = substr($cinfo['orderid'], -1 -8);
                 sendSms($cuinfo['mobile'], '34911', array($order_id));
 
                 $this->assign('custom', $custom);
@@ -281,8 +281,8 @@ class CustomController extends HomeController
         M('message')->add($cmsg);
         
         //抢单通知
-        $order_id = substr($cinfo['orderid'], -1,8);
-        sendSms($cuinfo['mobile'], '34913', array($order_id));
+        $order_id = substr($cinfo['orderid'], -1 -8);
+        sendSms($cuinfo['mobile'], '35768', array($order_id));
 
         $this->ajaxReturn('已抢单');
     }
@@ -304,12 +304,12 @@ class CustomController extends HomeController
             if(!checkMobile($data['phone'])){//匹配手机号
                 $this->error('手机号格式不符合要求');
             }
-            if(empty($data['verify'])){
-                $this->error('验证码必填');
-            }
-            if(check_verify($data['verify']) != true){//匹配验证码
-                $this->error('验证码错误');
-            }
+//             if(empty($data['verify'])){
+//                 $this->error('验证码必填');
+//             }
+//             if(check_verify($data['verify']) != true){//匹配验证码
+//                 $this->error('验证码错误');
+//             }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }
@@ -380,24 +380,18 @@ class CustomController extends HomeController
             if(empty($data['name'])){
                 $this->error('用户名必填');
             }
-            if(empty($data['address'])){
-                $this->error('地址必填');
-            }
-            if(empty($data['mail'])){
-                $this->error('邮箱必填');
-            }
             if(empty($data['company'])){
                 $this->error('公司名称必填');
             }
             if(empty($data['sht'])){
                 $this->error('营业执照必填');
             }
-            if(empty($data['verify'])){
-                $this->error('验证码必填');
-            }
-            if(check_verify($data['verify']) != true){//匹配验证码
-                $this->error('验证码错误');
-            }
+//             if(empty($data['verify'])){
+//                 $this->error('验证码必填');
+//             }
+//             if(check_verify($data['verify']) != true){//匹配验证码
+//                 $this->error('验证码错误');
+//             }
             if($data['password'] != $data['confirm']){
                 $this->error('两次输入密码不同');
             }
@@ -406,8 +400,8 @@ class CustomController extends HomeController
             }
             
             //组织页面注册数据
-            $userData['user_name'] = $data['username'];
-            $userData['nick_name'] = $data['name'];
+            $userData['user_name'] = $data['name'];
+            $userData['nick_name'] = $data['username'];
             $userData['mobile'] = $data['phone'];
             $userData['author_flag'] = 1;
             $userData['password'] = strtoupper(md5($data['password']));
@@ -543,7 +537,7 @@ class CustomController extends HomeController
             M('message')->add($amsg);
             
             //抢单成功--发送短信
-            $order_id = substr($cinfo['orderid'], -1, 8);
+            $order_id = substr($cinfo['orderid'], -1 -8);
             sendSms($uinfo['mobile'], '35735', array($order_id));
             
             $cmsg=array(
@@ -601,8 +595,8 @@ class CustomController extends HomeController
         M('message')->add($cmsg);
         
         //作者不接单通知--短信通知
-        $order_id = substr($cinfo['orderid'], -1, 8);
-        sendSms($cuinfo['mobile'], '34915', array($order_id,$uinfo['nick_name']));
+        $order_id = substr($cinfo['orderid'], -1 -8);
+        sendSms($cuinfo['mobile'], '35769', array($order_id,$uinfo['nick_name']));
         
         $this->redirect("/Order/grabcustomlist");
     }
@@ -627,14 +621,14 @@ class CustomController extends HomeController
     			'content'=>"您选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
     	);
     	M('message')->add($amsg);
-    	$uinfo['nick_name'] = getUserNameById($cinfo['uid']);
+    	$uinfo['nick_name'] = getUserNameById($uinfo['id']);
     	$cmsg=array(
     			'uid'=>$cinfo['uid'],
     			'content'=>"<<{$uinfo['nick_name']}>>选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
     	);
     	M('message')->add($cmsg);
     	//作者确认接单通知--短信通知
-    	$order_id = substr($cinfo['orderid'], -1, 8);
+    	$order_id = substr($cinfo['orderid'], -1 -8);
     	sendSms($cuinfo['mobile'], '34914', array($order_id , $uinfo['nick_name']));
     	
     	$this->redirect("/Order/grabcustomlist");

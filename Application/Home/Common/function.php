@@ -242,14 +242,12 @@ function sendSms($mobile,$type,$params){
             $message = '';
             break ;      
     }*/
-    
-    if($type != '35753' || $type != '35692' || $type != '34917' || $type != '34915' || $type != '34913'){
-        $sendsms = new \Vendor\sms\SendSMS();
-        $result = $sendsms->sendTemplateSMS($mobile, $params, $type);
-        if($result){
-            return true;
-        }   
-    }
+
+    $sendsms = new \Vendor\sms\SendSMS();
+    $result = $sendsms->sendTemplateSMS($mobile, $params, $type);
+    if($result){
+        return true;
+    }   
 
     return false;
 }

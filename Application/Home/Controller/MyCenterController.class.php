@@ -122,12 +122,9 @@ class MyCenterController extends HomeController
             	$data['custom_id']=I('Post.custom_id');
             	if($data['custom_id']>0){
             		D('Custom')->where('cusid='.$data['custom_id'])->save(array('cusstatus'=>5));
-            		
-            		//作者交稿通知--短信通知
-            		//获取订制这信息
             		$cinfo=D('Custom')->getOrderCustomByid($data['custom_id']);
                     $cuinfo=D('Author')->find($cinfo['uid']);
-                    $order_id = substr($cinfo['orderid'], -1, 8);
+                    $order_id = substr($cinfo['orderid'], -1 -8);
             		sendSms($cuinfo['mobile'], '34917', array($order_id));
             	}
             	$main_image_url=I('Post.main_image_url','');
@@ -192,9 +189,7 @@ class MyCenterController extends HomeController
 	            		$imgsht['create_date']=date("Y-m-d H:i:s");
 	            		$image=D('Img')->add($imgsht);
 	            	}
-            	}
-            	
-            	
+            	}	
                 $this->display("MyCenter/uploadsuccess");
             } else {
             	$wordid=I('get.id',0);

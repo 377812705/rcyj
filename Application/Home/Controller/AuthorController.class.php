@@ -106,13 +106,13 @@ class AuthorController extends HomeController {
                 if(!checkMobile($data['phone'])){//匹配手机号
                     $this->error('手机号格式不符合要求');
                 }
-                if(empty($data['verify'])){//匹配验证码
-                    $this->error('验证码必填');
-                }
+//                 if(empty($data['verify'])){//匹配验证码
+//                     $this->error('验证码必填');
+//                 }
                 
-                if(check_verify($data['verify']) != true){//匹配验证码
-                    $this->error('验证码错误');
-                }
+//                 if(check_verify($data['verify']) != true){//匹配验证码
+//                     $this->error('验证码错误');
+//                 }
                 if($data['password'] != $data['confirm']){
                     $this->error('两次输入密码不同');
                 }
@@ -225,13 +225,13 @@ class AuthorController extends HomeController {
                 if(empty($data['tags'])){
                     $this->error('标签必选');
                 }
-                if(empty($data['verify'])){
-                    $this->error('验证码必填');
-                }
+//                 if(empty($data['verify'])){
+//                     $this->error('验证码必填');
+//                 }
                 
-                if(check_verify($data['verify']) != true){//匹配验证码
-                    $this->error('验证码错误');
-                }
+//                 if(check_verify($data['verify']) != true){//匹配验证码
+//                     $this->error('验证码错误');
+//                 }
                 if($data['password'] != $data['confirm']){
                     $this->error('两次输入密码不同');
                 }
@@ -246,8 +246,8 @@ class AuthorController extends HomeController {
                 $userData['id']       = $data['id'];
             }
 
-            $userData['user_name'] = $data['username'];
-            $userData['nick_name'] = $data['name'];
+            $userData['user_name'] = $data['name'];
+            $userData['nick_name'] = $data['username'];
             $userData['mobile'] = $data['phone'];
             $userData['author_flag'] = 1;
             if($data['password']){

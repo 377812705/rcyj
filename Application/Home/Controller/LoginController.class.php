@@ -23,12 +23,12 @@ class LoginController extends HomeController
                 $_POST['password'] = strtoupper(md5($_POST['password']));
                 $data = $_POST;
 
-                if(empty($data['verify'])){
-                    $this->error('验证码必填');
-                }
-                if(check_verify($data['verify']) != true){//匹配验证码
-                    $this->error('验证码错误');
-                }
+//                 if(empty($data['verify'])){
+//                     $this->error('验证码必填');
+//                 }
+//                 if(check_verify($data['verify']) != true){//匹配验证码
+//                     $this->error('验证码错误');
+//                 }
                 if(!checkMobile($data['mobile'])){//匹配手机号
                     $this->error('手机号格式不符合要求');
                 }
@@ -206,7 +206,7 @@ class LoginController extends HomeController
             }
         }
         
-        $verify = $data['verify'];
+        /*$verify = $data['verify'];
         if(!is_numeric($verify)){
             $data1 = array('status'=>-1,'msg'=>'验证码必须是数字');
             $this->ajaxReturn($data1);
@@ -217,8 +217,14 @@ class LoginController extends HomeController
         if($verify != $my_verify){//匹配验证码
             $data1 = array('status'=>-1,'msg'=>'验证码错误');
             $this->ajaxReturn($data1);
-        }
+        }*/
         
+        if($data['sgin'] == 1){//有营业执照页面的
+            if(empty($data['vimg'])){
+                $data1 = array('status'=>-1,'msg'=>'营业执照必填');
+                $this->ajaxReturn($data1);
+            }
+        }
         $data1 = array('status'=>1);
         $this->ajaxReturn($data1);  
     }

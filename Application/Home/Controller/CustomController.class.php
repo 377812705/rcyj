@@ -125,6 +125,8 @@ class CustomController extends HomeController
                     }else{
                         $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'];
                     }
+                }else{
+                    $custom['cusissue']="";
                 }
 
                 if($custom['themedesc']=='写出您订制用途的描述，例如：能够代表我们公司的吉祥物，更多充分的展现我们公司的文化发展等。'){

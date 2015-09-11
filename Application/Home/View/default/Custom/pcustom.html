@@ -39,6 +39,9 @@
                 if($("#h-imgclass").val()=="肖像"){
                     if($("#h-imgurl").val()==""){
                         alert("请上传图片");
+                        return;
+                    }else{
+                        $("#form0").submit();
                     }
                 }else{
                     $("#form0").submit();

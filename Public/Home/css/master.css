@@ -3268,3 +3268,10 @@ input[type='button'].submit-order{
 	border-radius:2px;
 	background-color:#fa5509;
 	}
+	.parentFileBox>.fileBoxUl>li>.viewThumb1 {
+	top:0;
+	left:0;
+	width:170px;
+	height:150px;
+	overflow:hidden;
+}

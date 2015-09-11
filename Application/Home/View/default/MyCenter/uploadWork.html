@@ -206,7 +206,7 @@ PLUGINSPAGE="">
                             <h5><span>*</span>作品价格：</h5>
                             <input name="money" id="money" type="text" <if condition="$word['money'] neq null"> class="white" value="{$word['money']}"<else />  class="gray" value="请进行填写价格"</if> 
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
-                                   onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
+                                   onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}"><h5 style="text-align:left">元</h5>
                         </li>
                         <li class="fill" id="authorizeyesno"  <if condition="$word['sellcate'] neq '2'"> style="display: none;</if>">
                             <h5><span>*</span>授权类别：</h5>
@@ -244,14 +244,55 @@ PLUGINSPAGE="">
                             <h5>上传图片：</h5>
             				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
           <div class="box">
+          
 	<div id="flieinput" ></div>
+	<div class="parentFileBox" style="width: 750px;"> 
+          		<ul class="fileBoxUl">
+          <volist name="imgs" id="img">
+          		<if condition="$img['ref_type'] eq '1'">
+          				<li id="sht_{$img['id']}" class="diyUploadHover"> 
+          					<div class=""><a class="" onclick="delimg({$img['id']})">删除</a></div>	
+          					<div class="viewThumb1"><img src="{$img['image_url']}" width=170 height=150/></div> 
+          				</li>
+          
+          		</if>
+          </volist>		
+          </ul>	
+          </div>
 </div>
 
 <div class="box">
+          
 	<div id="flieinput3" ></div>
+	<div class="parentFileBox" style="width: 750px;"> 
+          		<ul class="fileBoxUl">
+          <volist name="imgs" id="img">
+          		<if condition="$img['ref_type'] eq '2'">
+          				<li id="sht_{$img['id']}" class="diyUploadHover"> 
+          					<div class=""><a class="" onclick="delimg({$img['id']})">删除</a></div>	
+          					<div class="viewThumb1"><img src="{$img['image_url']}" width=170 height=150/></div> 
+          				</li>
+          
+          		</if>
+          </volist>		
+          </ul>	
+          </div>
 </div>
 <div class="box">
 	<div id="flieinput2" ></div>
+	<div class="parentFileBox" style="width: 750px;"> 
+          		<ul class="fileBoxUl">
+          <volist name="imgs" id="img">
+          		<if condition="$img['ref_type'] eq '3'">
+          				<li id="sht_{$img['id']}" class="diyUploadHover"> 
+          					<div class=""><a class="" onclick="delimg({$img['id']})">删除</a></div>	
+          					<div class="viewThumb1"><img src="{$img['image_url']}" width=170 height=150/></div> 
+          				</li>
+          
+          		</if>
+          </volist>		
+          </ul>	
+          </div>
 </div>
                         </li>
                        </span>
@@ -260,7 +301,21 @@ PLUGINSPAGE="">
 	                            <h5>上传图片：</h5>
 	            				<h6 class="upload-tips1">单张图片1M以内，RGB模式，支持jpg/gif/png格式。</h6>
 						         <div class="box">
+						                   
 									<div id="flieinputxq" ></div>
+									<div class="parentFileBox" style="width: 750px;"> 
+							          		<ul class="fileBoxUl">
+							          <volist name="imgs" id="img">
+							          		<if condition="$img['ref_type'] eq '4'">
+							          				<li id="sht_{$img['id']}" class="diyUploadHover"> 
+							          					<div class=><a class="" onclick="delimg({$img['id']})">删除</a></div>	
+							          					<div class="viewThumb1"><img src="{$img['image_url']}" width=170 height=150/></div> 
+							          				</li>
+							          
+							          		</if>
+							          </volist>		
+							          </ul>	
+							          </div>
 								</div>
 							</li>
                        </span>
@@ -275,7 +330,23 @@ PLUGINSPAGE="">
         </div>
     </div>
     <script type="text/javascript">
-
+   function delimg(id){ 
+	   if(id){
+		   if(confirm("确定要进行此操作吗？"))
+	       {
+			   $.ajax({
+		           type: "GET",
+		           url: "/MyCenter/delimg/id/"+id,
+		           dataType: "json",
+		           success: function(data){
+				        	   if(data.stuat==1){
+				                       $('#sht_'+id).remove();   //清空resText里面的所有内容
+				        	   }
+		           }
+		       	});
+	       }  
+	   }
+   }
 /*
 * 服务器地址,成功返回,失败返回参数格式依照jquery.ajax习惯;
 * 其他参数同WebUploader
@@ -347,6 +418,7 @@ $('#flieinput3').diyUpload({
 	chunkSize:512 * 1024,
 	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
 	fileNumLimit:10,
+
 });
 
     

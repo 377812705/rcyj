@@ -42,7 +42,7 @@ class LoginController extends HomeController
             } else {
                 $this->redirect("Login/register");
             }
-        } else {
+        } else {          
             $this->display("Login/register");
         }
     }

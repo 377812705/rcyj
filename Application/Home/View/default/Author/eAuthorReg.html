@@ -60,6 +60,7 @@
 								</li>
 								<li class="txt-input phone"><span class="input-tle">联系电话：</span>
 										<input name="phone" id="mobile" type="text" placeholder="请输入联系电话"  class="gray validate[required,custom[phone]]" <notempty name="info.mobile">readonly="true"</notempty> value="{$info['mobile']}"/>
+										<span class="prompt">请确认您号码的正确性，确保我们能通知到您</span>
 								</li>
 								<li class="txt-input address"><span class="input-tle">联系地址：</span>
 										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" value="{$info['address']}">

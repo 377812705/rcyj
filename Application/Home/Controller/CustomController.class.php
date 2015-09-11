@@ -136,18 +136,10 @@ class CustomController extends HomeController
                     $custom['cusdesc']='';
                 }
                 $custom['cusid'] = $model->add($custom);
-                
-//                //获取需求的orderid
-//                $cinfo=D('Custom')->getOrderCustomByid($custom['cusid']);
-//                $cuinfo=D('Author')->find($cinfo['uid']);
-//
-//                //未指定作者--发送短信
-//                $order_id = substr($cinfo['orderid'], -1 -8);
-//                sendSms($cuinfo['mobile'], '34911', array($order_id));
-//
-//                $this->assign('custom', $custom);
-//                $this->display('Custom/orderinfo');
                 $this->orderConfim($custom);
+
+                $this->assign('custom', $custom);
+                $this->display('Custom/orderinfo');
             }else{
                 $this->redirect('Custom/custom');
             }
@@ -191,8 +183,25 @@ class CustomController extends HomeController
                 M('message')->add($amsg);
 
                 //定制短信发送--订制通知--通知作者需求者喜欢，希望其能接单
-                sendSms($uinfo['mobile'], '35692', array(getUserNameById($gdata['uid'])));
                 $uinfo['nick_name'] = getUserNameById($gdata['uid']);
+                
+                //获取需求编号
+                $prefix = C('DB_PREFIX');
+                $table = $prefix."custom c";
+                $o_table = $prefix.'order';
+                $u_table = 'user';
+                $join = array(
+                    'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+                );
+                $user_id = is_login();
+                $field = "o.order_number";
+                $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$gdata['cusid']))->field($field)->find();
+                 
+                //作者不接单通知--短信通知
+                $order_id = substr($custom_info['order_number'], -1 -8);
+                sendSms($uinfo['mobile'], '35692', array($order_id , $uinfo['nick_name']));
+
+                
                 $cmsg=array(
                     'uid'=>$cinfo['uid'],
                     'content'=>"您的订制需求<<{$cinfo['cusname']}>>选择了作者<<{$uinfo['nick_name']}>>为此制作。"
@@ -280,14 +289,28 @@ class CustomController extends HomeController
         );
         M('message')->add($amsg);
         
+        $uinfo['nick_name'] = getUserNameById($_POST['uid']);
         $cmsg=array(
            'uid'=>$cinfo['uid'],
             'content'=>"您的订制需求<<{$cinfo['cusname']}>>被作者<<{$uinfo['nick_name']}>>抢单了。"
         );
         M('message')->add($cmsg);
         
+        
+        //获取需求编号
+        $prefix = C('DB_PREFIX');
+        $table = $prefix."custom c";
+        $o_table = $prefix.'order';
+        $u_table = 'user';
+        $join = array(
+            'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+        );
+        $user_id = is_login();
+        $field = "o.order_number";
+        $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$_POST['cusid']))->field($field)->find();
+        
         //抢单通知
-        $order_id = substr($cinfo['orderid'], -1 -8);
+        $order_id = substr($custom_info['order_number'], -1 -8);
         sendSms($cuinfo['mobile'], '35768', array($order_id));
 
         $this->ajaxReturn('已抢单');
@@ -543,7 +566,21 @@ class CustomController extends HomeController
             M('message')->add($amsg);
             
             //抢单成功--发送短信
-            $order_id = substr($cinfo['orderid'], -1 -8);
+            
+            //获取需求编号
+            $prefix = C('DB_PREFIX');
+            $table = $prefix."custom c";
+            $o_table = $prefix.'order';
+            $u_table = 'user';
+            $join = array(
+                'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+            );
+            $user_id = is_login();
+            $field = "o.order_number";
+            $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$cusid))->field($field)->find();
+            
+            //作者主动申请被选中
+            $order_id = substr($custom_info['order_number'], -1 -8);
             sendSms($uinfo['mobile'], '35735', array($order_id));
             
             $cmsg=array(
@@ -600,8 +637,20 @@ class CustomController extends HomeController
         );
         M('message')->add($cmsg);
         
+        //获取需求编号
+        $prefix = C('DB_PREFIX');
+        $table = $prefix."custom c";
+        $o_table = $prefix.'order';
+        $u_table = 'user';
+        $join = array(
+            'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+        );
+        $user_id = is_login();
+        $field = "o.order_number";
+        $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$cusid))->field($field)->find();
+        
         //作者不接单通知--短信通知
-        $order_id = substr($cinfo['orderid'], -1 -8);
+        $order_id = substr($custom_info['order_number'], -1 -8);
         sendSms($cuinfo['mobile'], '35769', array($order_id,$uinfo['nick_name']));
         
         $this->redirect("/Order/grabcustomlist");
@@ -634,7 +683,20 @@ class CustomController extends HomeController
     	);
     	M('message')->add($cmsg);
     	//作者确认接单通知--短信通知
-    	$order_id = substr($cinfo['orderid'], -1 -8);
+    	//获取需求编号
+    	$prefix = C('DB_PREFIX');
+    	$table = $prefix."custom c";
+    	$o_table = $prefix.'order';
+    	$u_table = 'user';
+    	$join = array(
+    	    'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+    	);
+    	$user_id = is_login();
+    	$field = "o.order_number";
+    	$custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$cusid))->field($field)->find();
+    	
+    	//作者不接单通知--短信通知	
+    	$order_id = substr($custom_info['order_number'], -1 -8);
     	sendSms($cuinfo['mobile'], '34914', array($order_id , $uinfo['nick_name']));
     	
     	$this->redirect("/Order/grabcustomlist");

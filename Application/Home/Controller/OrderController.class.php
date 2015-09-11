@@ -298,7 +298,6 @@ class OrderController extends HomeController {
 					)
 			);
 		}
-	
 		$model = M ( 'order' );
 		$orderId = $orderInfo ['order_number'];
 		$total_fee = $orderInfo ['money'];
@@ -352,6 +351,13 @@ class OrderController extends HomeController {
 		if($result['custom_id']>0){
 			$dataCustom['cusstatus']=2;
 			D('Custom')->where('cusid='.$result['custom_id'])->save($dataCustom);
+			
+			//获取需求的orderid
+			$cuinfo=D('Author')->find($result['user_id']);
+			
+			//未指定作者--发送短信
+			$order_id = substr($orderId, -1 -8);
+			sendSms($cuinfo['mobile'], '34911', array($order_id));
 		}
 		if($result['work_id']>0){
 			D('Works')->where ( array (

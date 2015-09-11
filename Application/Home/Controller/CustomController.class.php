@@ -137,16 +137,17 @@ class CustomController extends HomeController
                 }
                 $custom['cusid'] = $model->add($custom);
                 
-                //获取需求的orderid
-                $cinfo=D('Custom')->getOrderCustomByid($custom['cusid']);
-                $cuinfo=D('Author')->find($cinfo['uid']);
-                
-                //未指定作者--发送短信
-                $order_id = substr($cinfo['orderid'], -1 -8);
-                sendSms($cuinfo['mobile'], '34911', array($order_id));
-
-                $this->assign('custom', $custom);
-                $this->display('Custom/orderinfo');
+//                //获取需求的orderid
+//                $cinfo=D('Custom')->getOrderCustomByid($custom['cusid']);
+//                $cuinfo=D('Author')->find($cinfo['uid']);
+//
+//                //未指定作者--发送短信
+//                $order_id = substr($cinfo['orderid'], -1 -8);
+//                sendSms($cuinfo['mobile'], '34911', array($order_id));
+//
+//                $this->assign('custom', $custom);
+//                $this->display('Custom/orderinfo');
+                $this->orderConfim($custom);
             }else{
                 $this->redirect('Custom/custom');
             }
@@ -156,54 +157,53 @@ class CustomController extends HomeController
     /**
      * 订制需求确认
      */
-    public function orderConfim()
+    public function orderConfim($custom=null)
     {
-        $model = D('Custom');
-        if ($model->autoCheckToken($_POST)) {
-            $custom = $_POST;
-            $custom['orderid']=time().is_login().$custom['cusid'];
+           // $model = D('Custom');
+       // if ($model->autoCheckToken($_POST)) {
+            //$custom = $_POST;
+            //$custom['orderid']=time().is_login().$custom['cusid'];
             //$custom['cusstatus']=2;
-            $model->where("cusid={$custom['cusid']}")->save($custom);
+           // $model->where("cusid={$custom['cusid']}")->save($custom);
 
             if(isset($custom['touid'])){
-            $gdata=array(
-                "uid"=>$custom['touid'],
-                "cusid"=>$custom['cusid']
-            );
+                $gdata=array(
+                    "uid"=>$custom['touid'],
+                    "cusid"=>$custom['cusid']
+                );
 
-            $gmodel=M('grab');
-            $gmodel->add($gdata);
+                $gmodel=M('grab');
+                $gmodel->add($gdata);
 
-            //订制需求信息
-            $cinfo=D('Custom')->getOrderCustomByid($gdata['cusid']);
+                //订制需求信息
+                $cinfo=D('Custom')->getOrderCustomByid($gdata['cusid']);
 
-            //抢单者信息
-            $uinfo=D('Author')->find($gdata['uid']);
+                //抢单者信息
+                $uinfo=D('Author')->find($gdata['uid']);
 
-            //订制需求者信息
-            $cuinfo=D('Author')->find($gdata['uid']);
+                //订制需求者信息
+                $cuinfo=D('Author')->find($gdata['uid']);
 
-            $amsg=array(
-                'uid'=>$_POST['uid'],
-                'content'=>"您被选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
-            );
-            M('message')->add($amsg);
-            
-            //定制短信发送--订制通知--通知作者需求者喜欢，希望其能接单
-            sendSms($uinfo['mobile'], '35692', array(getUserNameById($gdata['uid'])));
+                $amsg=array(
+                    'uid'=>$_POST['uid'],
+                    'content'=>"您被选择为订制需求<<{$cinfo['cusname']}>>进行制作。"
+                );
+                M('message')->add($amsg);
+
+                //定制短信发送--订制通知--通知作者需求者喜欢，希望其能接单
+                sendSms($uinfo['mobile'], '35692', array(getUserNameById($gdata['uid'])));
+                $uinfo['nick_name'] = getUserNameById($gdata['uid']);
+                $cmsg=array(
+                    'uid'=>$cinfo['uid'],
+                    'content'=>"您的订制需求<<{$cinfo['cusname']}>>选择了作者<<{$uinfo['nick_name']}>>为此制作。"
+                );
+                M('message')->add($cmsg);
             }
             
-            $uinfo['nick_name'] = getUserNameById($gdata['uid']);
-            $cmsg=array(
-                'uid'=>$cinfo['uid'],
-                'content'=>"您的订制需求<<{$cinfo['cusname']}>>选择了作者<<{$uinfo['nick_name']}>>为此制作。"
-            );
-            M('message')->add($cmsg);
-            
             $this->redirect("Order/makeCustomOrder/customid/{$custom['cusid']}");
-        }else{
-            $this->redirect("Custom/index");
-        }
+//        }else{
+//            $this->redirect("Custom/index");
+//        }
 
 
     }
@@ -240,7 +240,11 @@ class CustomController extends HomeController
             $cuinfo=D('Author')->find($custom['uid']);
             $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
 
-            $this->assign('isgrab',isgrab(is_login(),$cusid));
+            if($custom['uid']==is_login()){
+                $this->assign('isgrab',-1);
+            }else{
+                $this->assign('isgrab',isgrab(is_login(),$cusid));
+            }
 
             $this->assign('custom',$custom);
             $this->assign('cuinfo',$cuinfo);

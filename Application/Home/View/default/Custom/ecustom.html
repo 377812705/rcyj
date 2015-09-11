@@ -20,10 +20,12 @@
                 if(newhtml=='肖像'){
                     $("#dzxq").hide();
                     $("#dzms").hide();
+                    $("#xx").show();
                 }
                 if(newhtml=='卡通'){
                     $("#dzxq").show();
                     $("#dzms").show();
+                    $("#xx").hide();
                 }
                 if(newhtml=='征集'){
                     location.href="__ROOT__/Activity/perfect.html";
@@ -32,9 +34,14 @@
                 $("#h-"+$(this).parent().attr("value")).val(newhtml);
             });
             $(".submit").bind("click", function () {
-                //alert($("#cusattr").val());
                 err=0;
-                $("#form0").submit();
+                if($("#h-imgclass").val()=="肖像"){
+                    if($("#h-imgurl").val()==""){
+                        alert("请上传图片");
+                    }
+                }else{
+                    $("#form0").submit();
+                }
             });
             $("#xztp").uploadify({
                 "height"          : 55,
@@ -301,7 +308,7 @@
             </ul>
             </span></li>
                         <li class="fill">
-                            <h5>上传图片：</h5>
+                            <h5><span id="xx" style="display: none;">*</span>上传图片：</h5>
                             <input id="xztp" type="button" value="选择图片">
                             <h6 class="upload-tips" style="margin-top: -55px;">
                                 单张图片5M以内，RGB模式，支持jpg/gif/png格式，请上传需要绘画的照片。您还可以上传一张您喜欢的作品风格，以便作者参考；没有上传，作者会根据您的描述，给您满意的作品。</h6>
@@ -351,7 +358,7 @@
                             <input maxlength="8" name="cusmoney" type="text" class="gray" value="请进行填写价格"
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
-                            <h6 class="price-tips">数码 / 电脑绘画参考价：100~5000元 表情参考价：50元 / 个 动作参考价：80元 / 个</h6>
+                            <h6 class="price-tips"><span>元</span>&nbsp&nbsp&nbsp数码 / 电脑绘画参考价：100~5000元 表情参考价：50元 / 个 动作参考价：80元 / 个</h6>
                         </li>
                         <li class="fill">
                             <h5><span>*</span>时间期限：</h5>

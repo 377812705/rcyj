@@ -246,8 +246,9 @@ class CustomController extends HomeController
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
             $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
-
-            if($custom['uid']==is_login()){
+            if($custom['touid']>0){
+                $this->assign('isgrab',-1);
+            }elseif($custom['uid']==is_login()){
                 $this->assign('isgrab',-1);
             }else{
                 $this->assign('isgrab',isgrab(is_login(),$cusid));
@@ -594,7 +595,7 @@ class CustomController extends HomeController
             $this->redirect('Order/ordercustomlist');
         }else{
             $cusid=I('cusid');
-            $sql="select ga.cusid,u.id,u.user_name,u.nick_name,u.header_img,u.tags_content,u.address,u.pop_count,u.fans_count,u.work_count from 2cy_grab as ga join user as u on ga.uid=u.id where ga.cusid={$cusid}  order by u.fans_count desc,id desc limit 6";
+            $sql="select ga.cusid,u.id,u.user_name,u.nick_name,u.header_img,u.tags_content,u.address,u.pop_count,u.fans_count,u.work_count from 2cy_grab as ga join user as u on ga.uid=u.id where ga.cusid={$cusid} and u.id != (select uid from 2cy_custom where cusid= ga.cusid) order by u.fans_count desc,id desc limit 6";
             $qduser=M()->query($sql);
             $umodel=M('user',null);
             $tjuser=$umodel->order('pop_count desc,id desc')->limit(6)->select();

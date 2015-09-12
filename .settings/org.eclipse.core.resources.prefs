@@ -1,6 +1,11 @@
 eclipse.preferences.version=1
 encoding//Application/Home/Controller/ProductController.class.php=UTF-8
+encoding//Application/Home/View/default/Author/details.html=UTF-8
 encoding//Application/Home/View/default/Index/index.html=UTF-8
 encoding//Application/Home/View/default/MyCenter/uploadWork.html=UTF-8
+encoding//Application/Home/View/default/Order/graborderlist.html=UTF-8
+encoding//Application/Home/View/default/Order/ordercustomlist.html=UTF-8
+encoding//Application/Home/View/default/Order/orderlist.html=UTF-8
+encoding//Application/Home/View/default/Product/details.html=UTF-8
 encoding//Application/Home/View/default/Public/header.html=UTF-8
 encoding/<project>=UTF-8

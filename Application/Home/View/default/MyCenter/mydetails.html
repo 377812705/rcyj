@@ -13,12 +13,12 @@
     <div class="container author-details" >
         <div class="details-left"> <span> <img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
       <h5><a class="edit-data" href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改资料</a></h5>
-      <h5><a class="edit-photo" href="__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html">修改头像</a></h5>
+      <h5><a class="edit-photo" href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改头像</a></h5>
       <h5>
-      <div class="box" id="remove_img">
+      <a class='edit-theme' >主页换肤</a>
+      <!-- <div class="box" id="remove_img">
 			<div id="flieinput" ></div>
-		</div>
-		<span id ="inputhidden"></span>	
+		</div> -->
 	 </h5>
       </span> <span class="author-name">
       <h3>{$uinfo.user_name}</h3>
@@ -112,13 +112,56 @@
             <!--</div>-->
             {$show}
         </div>
+       <div class="report-content theme-order" style="display:none;">
+       <input type='hidden' value="__ROOT__" id="root_url" />
+        <div class="report-tle">主页换肤<a href="javascript:;"><img src="__IMG__/colse-btn.gif"/></a></div>
+        <div class="report-main">
+         	<img src="<empty name='uinfo.back_img'>__IMG__/img001.png<else/>__ROOT__{$uinfo.back_img}</empty>" id="img_src" width="455px" height="295px"/>
+         	<input type="hidden" value="" id="file_img"/>
+			<span class="img-right">
+				<h5>请选择图片上传主页封面大图</h5>
+				<h5>780*539px</h5>
+				<h5>JPG / PNG，RGB模式，300KB以内</h5>
+				<h4>
+					<div class="box" id="remove_img">
+						<div id="flieinput" ></div>
+					</div>
+				</h4>
+			</span>
+		 </div>
+        <div class="report-btn">
+          <input name="" type="button" value="保存设置" id="sure">
+          <input class="cancel-btn reset_btn" name="" type="button" value="取消设置">
+        </div>
+      </div>
     </div>
     <script type="text/javascript">
   //上传背景图片
 	if("{$uinfo['back_img']}".length > 0){
 		$(".author-details").attr("style",'background:url("__ROOT__{$uinfo.back_img}") no-repeat scroll right top #fff;margin-top:20px;overflow:hidden;background-size:780px 535px'); 
 	}
-    $('#flieinput').diyUpload({
+ //确定保存
+  $('#sure').click(function(){
+	  var img_src = $('#file_img').val();
+		$.post('__ROOT__/MyCenter/addImgbg',{'pic':img_src},function(data){
+			if(data['status']==1){
+				//刷新页面
+				$('.theme-order').css('display','none');
+				$('.color-div').css('display','none');
+				$(".author-details").attr("style",'background:url("__ROOT__'+img_src+'") no-repeat scroll right top #fff;margin-top:20px;overflow:hidden;background-size:780px 535px'); 
+			}else{
+				$.alert({'txt':data['msg']});
+			}
+		},'json');
+  });
+ 
+ $('.reset_btn').click(function(){
+	 $('.theme-order').css('display','none');
+	 $('.color-div').css('display','none');
+	 window.location.reload();
+ })
+  
+    /*$('#flieinput').diyUpload({
     	url:'__ROOT__/MyCenter/uploadbg',
     	success:function( data ) {
     		$('.fileBoxUl').remove();
@@ -126,7 +169,7 @@
     	},
     	error:function( err ) {
     		console.info( err );	
-    	},	buttonText : "<a class='edit-theme' >主页换肤</a>",
+    	},	buttonText : "<input class='cancel-btn upimg' name='' type='button' value='上传图片'>",
     	chunked:true,
     	auto:true,
     	thumb:{
@@ -146,7 +189,7 @@
     	chunkSize:512 * 1024,
     	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
     	fileNumLimit:10,
-    });
+    });*/
   $('.webuploader-pick').css('padding','9px 4px');
   $('.edit-theme').css('padding','31px 43px 31px 89px');
     </script>

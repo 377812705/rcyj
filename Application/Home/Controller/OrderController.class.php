@@ -353,11 +353,22 @@ class OrderController extends HomeController {
 			D('Custom')->where('cusid='.$result['custom_id'])->save($dataCustom);
 			
 			//获取需求的orderid
-			$cuinfo=D('Author')->find($result['user_id']);
+			$cinfo=D('Custom')->getOrderCustomByid($result['custom_id']);
+			$cuinfo=D('Author')->find($result['user_id']);//需求者
 			
 			//未指定作者--发送短信
 			$order_id = substr($orderId, -1 -8);
-			sendSms($cuinfo['mobile'], '34911', array($order_id));
+			if($cinfo['touid'] == 0){//未指定作者
+			    sendSms($cuinfo['mobile'], '34911', array($order_id));
+			}else{//指定作者
+			    $user_name = getUserNameById($cinfo['touid']);//获取指定的作者名称
+			    sendSms($cuinfo['mobile'], '34912', array($order_id,$user_name));
+			    
+			    //给作者发短信
+			    $uinfo= D('Author')->find($cinfo['touid']);//作者信息
+			    sendSms($uinfo['mobile'], '35692', array(getUserNameById($result['user_id'])));
+			}
+			
 		}
 		if($result['work_id']>0){
 			D('Works')->where ( array (

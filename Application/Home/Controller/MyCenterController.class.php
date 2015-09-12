@@ -120,24 +120,7 @@ class MyCenterController extends HomeController
             	
             	$data['activity_id']=I('Post.activity_id');
             	$data['custom_id']=I('Post.custom_id');
-            	if($data['custom_id']>0){
-            		D('Custom')->where('cusid='.$data['custom_id'])->save(array('cusstatus'=>5));
-            		
-            		//获取需求编号
-            		$prefix = C('DB_PREFIX');
-            		$table = $prefix."custom c";
-            		$o_table = $prefix.'order';
-            		$join = array(
-            		    'left join '.$o_table . ' o ON c.cusid=o.custom_id',
-            		);
-            		$user_id = is_login();
-            		$field = "o.order_number";
-            		$user_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$data['custom_id']))->field($field)->find();
-                    
-            		$uinfo=D('Author')->find($data['user_id']);
-            		$order_id = substr($user_info['order_number'], -1 -8);
-            		sendSms($uinfo['mobile'], '34917', array($order_id));
-            	}
+            	
             	$main_image_url=I('Post.main_image_url','');
             	if(count(explode('/', $main_image_url))>1){
             		
@@ -156,6 +139,32 @@ class MyCenterController extends HomeController
             	}else{
             		$wordid = D('Works')->add($data);
             		
+            	}
+            	//修改定制状态 短信发送作品日志
+            	if($data['custom_id']>0){
+            		
+            		//获取需求编号
+            		$prefix = C('DB_PREFIX');
+            		$table = $prefix."custom c";
+            		$o_table = $prefix.'order';
+            		$join = array(
+            				'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+            		);
+            		D('Custom')->where('cusid='.$data['custom_id'])->save(array('cusstatus'=>5));
+            		//添加上传作品日志
+            		$datacustomlog['custom_id']=$data['custom_id'];
+            		$datacustomlog['work_id']=$wordid;
+            		$datacustomlog['create_time']=date('Y-m-d H:s:i',time());
+            		$datacustomlog['status']=1;
+            		D('customlog')->add($datacustomlog);
+            		//修改定制状态
+            		$user_id = is_login();
+            		$field = "o.order_number";
+            		$user_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$data['custom_id']))->field($field)->find();
+            	
+            		$uinfo=D('Author')->find($data['user_id']);
+            		$order_id = substr($user_info['order_number'], -1 -8);
+            		sendSms($uinfo['mobile'], '34917', array($order_id));
             	}
             	$sht=I('Post.sht',0);
             	if(is_array($sht)){
@@ -213,7 +222,6 @@ class MyCenterController extends HomeController
             				$this->display('Public/error');
             				exit();
             		}
-            		
             	}
             	$activity_id=I('get.activityid',0);
             	if($activity_id){
@@ -590,15 +598,20 @@ class MyCenterController extends HomeController
             }
         }
         $orderModel =D('Order');
-        $count      = $orderModel->where($data)->count();
-        $pageshowcount=5;
-        $Page       = new Page($count,$pageshowcount);
-        $show       = $Page->pageshow();
-        $orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.auther_id,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode,2cy_custom.cusstatus")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
-        
-        $this->assign('userid',$user_id);
-        $paytype=C('paystatus');
-        $this->assign('orderList',$orderList);
+		$count      = $orderModel->where($data)->count();
+		$pageshowcount=5;
+		$Page       = new Page($count,$pageshowcount);
+		$show       = $Page->pageshow();
+		$orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.work_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags,works_comic.theme,works_comic.show,works_comic.create_status")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		$this->assign('userid',$user_id);
+		$tags=C('tag');
+		$this->assign('tags',$tags);
+		$show1=C('show');
+		$this->assign('show1',$show1);
+		$theme=C('theme');
+		$this->assign('theme',$theme);
+		$paytype=C('paystatus');
+		$this->assign('orderList',$orderList);
         $this->assign('paytype',$paytype);
         $this->assign('order_type',$data['2cy_order.order_type']);
         $this->assign('show',$show);
@@ -770,9 +783,83 @@ class MyCenterController extends HomeController
         }
         $uploadDir = substr($uploadDir, 1);
         $pic = $uploadDir.'/'.$fileNamed.'.'.$end;
-        //插入数据库
-        $user_id = is_login();
-        D('user')->where(array('id'=>$user_id))->save(array('back_img'=>$pic));
         die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'","pic":"'.$pic.'"}');
     }
+    /*
+     * 
+     * 
+     */
+    public function addImgbg(){
+        $post = I('post.');
+        //获取图片路径
+        $pic = $post['pic'];
+        //插入数据库
+        $user_id = is_login();
+        $rs = D('user')->where(array('id'=>$user_id))->save(array('back_img'=>$pic));
+        if($rs){
+            $data = array('status'=>1,'msg'=>'设置成功');
+        }else{
+            $data = array('status'=>-1,'msg'=>'设置失败');
+        }
+        $this->ajaxReturn($data);
+    }
+    /*
+     *确认定制作品完成
+     *
+     */
+    public function  makesure(){
+    	$workid=I('get.workid',0);
+    	if($workid){
+    		$work=D('works')->field('custom_id')->find($workid);
+    		if($work['custom_id']){
+    			$customModel=D('Custom');
+    			$custom = $customModel->field('uid')->find($work['custom_id']);
+    			if($custom['uid']==is_login()){
+    				D('Custom')->where('cusid='.$work['custom_id'])->save(array('cusstatus'=>7));
+            		//添加上传作品日志
+            		$datacustomlog['custom_id']=$work['custom_id'];
+            		$datacustomlog['work_id']=$workid;
+            		$datacustomlog['create_time']=date('Y-m-d H:s:i',time());
+            		$datacustomlog['status']=3;
+            		D('customlog')->add($datacustomlog);
+    			}
+    		}
+    	}
+    	$this->redirect("/order/ordercustomlist");
+    }
+    /*
+     *修改意见
+     *
+     */
+    public function  updateopinion(){
+    	$workid=I('post.work_id',0);
+    	$content=I('post.content',0);
+    	$custom_id=I('post.custom_id',0);
+    	if($workid){
+    		$work=D('works')->field('custom_id')->find($workid);
+    		if($work['custom_id']){
+    			$customModel=D('Custom');
+    			$custom = $customModel->field('uid')->find($work['custom_id']);
+    			if($custom['uid']==is_login()){
+    				D('Custom')->where('cusid='.$work['custom_id'])->save(array('cusstatus'=>6));
+    				//添加上传作品日志
+    				$datacustomlog['custom_id']=$work['custom_id'];
+    				$datacustomlog['work_id']=$workid;
+    				$datacustomlog['content']=$content;
+    				$datacustomlog['create_time']=date('Y-m-d H:s:i',time());
+    				$datacustomlog['status']=2;
+    				D('customlog')->add($datacustomlog);
+    			}
+    		}
+    	}
+    	$this->redirect("/Product/details/custom_id/".$custom_id.".html");
+    }
+     public function showop(){
+     	$custom_id=I('get.id',0);
+     	if($custom_id){
+     		$array=array('custom_id'=>$custom_id,'status'=>2);
+     		$content=D('customlog')->field('content')->where($array)->order('id desc')->find();
+     		die('{stuat:"1",html:"'.$content['content'].'"}');
+     	}
+     }
 }

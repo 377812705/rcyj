@@ -82,7 +82,6 @@ class CustomController extends HomeController
         $this->assign('show', $show);
         $this->assign('wcount', $wTotal);
         $this->assign('custom', $works);
-
         $this->display();
     }
 
@@ -118,7 +117,6 @@ class CustomController extends HomeController
                 }
                 $custom['style'] = $_POST['style1']."/".$_POST['style2'];
                 $custom['imgurl']=$_POST['imgurl'];
-                //dump($custom);
                 if($custom['imgclass']=='卡通'){
                     if($_POST["cusissue3"]){
                         $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].implode($_POST['cusissue3']," ");

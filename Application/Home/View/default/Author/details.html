@@ -181,4 +181,10 @@
         <div class="report-btn"><input id="comfin" type="button" value="确认"><input class="cancel-btn" name=""
                                                                                type="button" value="取消"></div>
     </div>
+    <script type="text/javascript">
+    //上传背景图片
+	if("{$uinfo['back_img']}".length > 0){
+		$(".author-details").attr("style",'background:url("__ROOT__{$uinfo.back_img}") no-repeat scroll right top #fff;margin-top:20px;overflow:hidden;background-size:780px 535px'); 
+	}
+    </script>
 </block>

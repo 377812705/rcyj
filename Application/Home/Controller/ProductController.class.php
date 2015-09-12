@@ -66,9 +66,16 @@ class ProductController extends HomeController {
     public function details(){
     	$id=I('get.id','');
     	$custom_id=I('get.custom_id','0');
+    	$countupdat=0;
     	if($custom_id>0){
     		$works=D('Works')->where(array('custom_id'=>$custom_id))->order('id desc')->find();
+    		$customModel=D('Custom');
+    		$custom = $customModel->field('cusstatus')->find($custom_id);
+    		if($custom['cusstatus']!='已确认完成'&&$custom['cusstatus']!='提出修改意见'){
+    			$countupdat=D('customlog')->where(array('custom_id'=>$custom_id,'status'=>1))->count();
+    		}
     	}
+    	$this->assign('opinion',$countupdat);
     	if($id>0){
     		$works=D('Works')->find($id);
     	}
@@ -96,9 +103,6 @@ class ProductController extends HomeController {
     	$use=C('use');
     	$this->assign('use',$use);
         $this->display();
-    }
-    function huodongzhanshi(){
-    	$this->display();
     }
     function daorushuju(){
     	set_time_limit(0);

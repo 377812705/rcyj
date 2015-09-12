@@ -15,6 +15,7 @@ class LoginController extends HomeController
 
     public function register()
     {
+//         echo strtoupper(md5('zhaoqiang@123'));
         //dump($_POST);
         if (IS_POST) {
             $model = D('User');

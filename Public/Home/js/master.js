@@ -222,6 +222,45 @@ $(function(){
 	//	$(this).addClass("grab-btnon");
 	//	$(this).val("已抢单");
 	//	})
+		
+		$(".edit-theme").click(function(){
+		$(".color-div").show();
+		var url = $('#root_url').val();
+		$(".theme-order").show();
+	    $('#flieinput').diyUpload({
+	    	url:'uploadbg',
+	    	success:function( data ) {
+	    		$('.fileBoxUl').remove();
+	    		$('#img_src').attr('src',url+data.pic);
+	    		$('#file_img').val(data.pic);
+	    		//$(".author-details").attr("style",'background:url("__ROOT__'+data.pic+'") no-repeat scroll right top #fff;margin-top:20px;overflow:hidden;background-size:780px 535px'); 
+	    	},
+	    	error:function( err ) {
+	    		console.info( err );	
+	    	},	buttonText : "<input class='cancel-btn upimg' name='' type='button' value='上传图片'>",
+	    	chunked:true,
+	    	auto:true,
+	    	thumb:{
+				width:780,
+				height:539,
+				// 图片质量，只有type为`image/jpeg`的时候才有效。
+				quality:70,
+				// 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
+				allowMagnify:false,
+				// 是否允许裁剪。
+				crop:true,
+				// 为空的话则保留原有图片格式。
+				// 否则强制转换成指定的类型。
+				type:"image/jpeg"
+			},
+	    	// 分片大小
+	    	chunkSize:512 * 1024,
+	    	//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+	    	fileNumLimit:10,
+	    });
+	  $('.webuploader-pick').css('padding','9px 4px');
+	  $('.edit-theme').css('padding','31px 43px 31px 89px');
+		})
 	});
 	
 	

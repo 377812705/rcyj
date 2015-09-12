@@ -119,6 +119,9 @@ class AuthorController extends HomeController {
                 if(empty($data['ready'])){
                     $this->error('已阅读版权必选');
                 }
+                if(empty($data['cardname'])){
+                    $this->error('持卡人姓名必填');
+                }
             }
             
             

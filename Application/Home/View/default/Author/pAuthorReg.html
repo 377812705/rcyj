@@ -57,35 +57,38 @@
 						</ul>
 						<ul class="login-ul">
 						<form action="__ROOT__/author/pauthorreg" method="get" id="form">
-								<li class="txt-input username"><span class="input-tle">用户名：</span>
+								<li class="txt-input username"><span class="input-tle"><span class="color-span">*</span>用户名：</span>
 										<input name="username" type="text" placeholder="用户名，字母/中文/数字/下划线"  class="gray validate[required,maxSize[16]]" <notempty name="info['user_name']">readonly="true"</notempty> value="{$info['user_name']}">
 										<span class="prompt">用户名是您唯一的名称注册后将不可修改，请您谨慎填写</span> </li>
-								<li class="txt-input name"><span class="input-tle">姓名：</span>
+								<li class="txt-input name"><span class="input-tle"><span class="color-span">*</span>姓名：</span>
 										<input name="name" type="text" placeholder="请输入姓名"  class="gray validate[required,maxSize[16]]" <notempty name="info.aname">readonly="true"</notempty> value="{$info['aname']}">
 								</li>
-								<li class="txt-input phone"><span class="input-tle">手机号：</span>
+								<li class="txt-input phone"><span class="input-tle"><span class="color-span">*</span>手机号：</span>
 										<input name="phone" id="mobile" type="text" placeholder="请输入手机号"  class="gray validate[required,custom[phone]]" <notempty name="info.mobile">readonly="true"</notempty> value="{$info['mobile']}">
 										<span class="prompt">请确认您号码的正确性，确保我们能通知到您</span>
 								</li>
 								<li class="txt-input address"><span class="input-tle">联系地址：</span>
-										<input name="address" type="text" placeholder="请输入联系地址"  class="gray validate[required]" value="{$info['address']}">
+										<input name="address" type="text" placeholder="请输入联系地址"  class="gray" value="{$info['address']}">
 								</li>
 								<empty name="info">
-								<li class="txt-input password"><span class="input-tle">密码：</span>
+								<li class="txt-input password"><span class="input-tle"><span class="color-span">*</span>密码：</span>
 										<input name="password" id="password" type="password" placeholder="请输入密码"  class="gray validate[required]">
 								</li>
-								<li class="txt-input confirm"><span class="input-tle">&nbsp;</span>
+								<li class="txt-input confirm"><span class="input-tle"><span class="color-span">*</span>&nbsp;</span>
 										<input name="confirm" type="password" placeholder="请确认密码"  class="gray validate[required,equals[password]]">
 								</li>
 								</empty>
-								<li class="txt-input idcard"><span class="input-tle">身份证号：</span>
+								<li class="txt-input idcard"><span class="input-tle"><span class="color-span">*</span>身份证号：</span>
 										<input name="idcard" type="text" placeholder="请输入身份证号"  class="gray validate[custom[chinaIdLoose]]" value="{$info['idcode']}">
 								</li>
-								<li class="txt-input bank"><span class="input-tle">开户行名称：</span>
+								<li class="txt-input bank"><span class="input-tle"><span class="color-span">*</span>开户行名称：</span>
 										<input name="bank" type="text" placeholder="请输入开户行名称"  class="gray validate[required]" value="{$info['khname']}">
 								</li>
-								<li class="txt-input number"><span class="input-tle">银行卡账号：</span>
+								<li class="txt-input number"><span class="input-tle"><span class="color-span">*</span>银行卡账号：</span>
 										<input name="number" type="text" placeholder="请输入银行卡账号"  class="gray validate[required]" value="{$info['yhcode']}">
+								</li>
+								<li class="txt-input cardname"><span class="input-tle"><span class="color-span">*</span>持卡人姓名：</span>
+										<input name="cardname" type="text" placeholder="请输入持卡人姓名" class="gray validate[required]" value="{$info['yhcode']}">
 								</li>
 								<li class="txt-input mail"><span class="input-tle">邮箱地址：</span>
 										<input name="mail" type="text" placeholder="请输入邮箱地址"  class="gray validate[custom[email]]" value="{$info['email']}">

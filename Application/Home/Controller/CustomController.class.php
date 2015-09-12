@@ -546,6 +546,7 @@ class CustomController extends HomeController
 
     public function qdlist(){
         if(IS_POST){
+
             $cusid=I('cusid');
             $data=array(
                 "auther_id"=>I('user_id')
@@ -554,11 +555,11 @@ class CustomController extends HomeController
             //订制需求信息
             $cinfo=D('Custom')->getOrderCustomByid($cusid);
             //抢单者信息
-            $uinfo=D('Author')->find($data['user_id']);
+            $uinfo=D('Author')->find($data['auther_id']);
             //订制需求者信息
             $cuinfo=D('Author')->find($cinfo['uid']);
             $amsg=array(
-                'uid'=>$data['user_id'],
+                'uid'=>$data['auther_id'],
                 'content'=>"您被<<{$cuinfo['nick_name']}>>选中为订制需求<<{$cinfo['cusname']}>>进行制作。抢单成功！"
             );
             M('message')->add($amsg);

@@ -619,6 +619,46 @@ class MyCenterController extends HomeController
         $this->display();
     }
     
+    /**
+     * 用户中心的我的作品出售记录列表
+     */
+    public function sellorderlist(){
+        $user_id =is_login();
+        $data['2cy_order.order_type']=1;
+        $data['2cy_order.auther_id']=$user_id;
+        $data['2cy_order.work_id']=array('gt',0);
+        if(empty($user_id)) {
+            $this->assign ( 'message', '请登录后再操作' );
+            $this->display('Public/error');
+            exit();
+        }
+        $paytype=I('get.paytype');
+        if($paytype!=null){
+            if($paytype>=0){
+                $data['2cy_order.order_type'] = $paytype;
+            }
+        }
+        $orderModel =D('Order');
+        $count      = $orderModel->where($data)->count();
+        $pageshowcount=5;
+        $Page       = new Page($count,$pageshowcount);
+        $show       = $Page->pageshow();
+        $orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.work_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags,works_comic.theme,works_comic.show,works_comic.create_status")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $this->assign('userid',$user_id);
+        $tags=C('tag');
+        $this->assign('tags',$tags);
+        $show1=C('show');
+        $this->assign('show1',$show1);
+        $theme=C('theme');
+        $this->assign('theme',$theme);
+        $paytype=C('paystatus');
+        $this->assign('orderList',$orderList);
+        $this->assign('paytype',$paytype);
+        $this->assign('order_type',$data['2cy_order.order_type']);
+        $this->assign('show',$show);
+        $this->display();
+    }
+    
     public function upfile() {
     	$path1 = "/uploads/comic/".date('Ymd',time()).'/';
     	$path='.'.$path1;

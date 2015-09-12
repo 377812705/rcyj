@@ -15,7 +15,7 @@
       <h5><a class="edit-data" href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改资料</a></h5>
       <h5><a class="edit-photo" href="__ROOT__/MyCenter/editdata/id/{$uinfo.id}.html">修改头像</a></h5>
       <h5>
-      <a class='edit-theme' >主页换肤</a>
+      <a class='edit-theme' style="cursor:pointer;">主页换肤</a>
       <!-- <div class="box" id="remove_img">
 			<div id="flieinput" ></div>
 		</div> -->
@@ -34,8 +34,8 @@
     <div class="container content">
         <div class="custom">
             <ul class="nextnav no-drop author-nav">
-                <li class="nextnavon"><a href="javascript:;">我的订单</a></li>
-                <li><a href="javascript:;">我的作品</a></li>
+                <li class="nextnavon"><a href="__ROOT__/MyCenter/ordercustomlist.html">我的订单</a></li>
+                <li><a href="__ROOT__/MyCenter/sellorderlist.html">我的作品</a></li>
                 <!-- <li><a href="javascript:;">收藏作品</a></li>
                 <li><a href="javascript:;">关注作者</a></li> -->
             </ul>
@@ -57,7 +57,7 @@
         </div>
         <volist name="orderList" id="data">			
 	        <div class="order-left nofloat"> <span class="order-tle">{$data.create_date}   订单号：{$data.order_number}</span>
-	          <div class="order-content order-main"> <img src="{$data.main_image_url}" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;"/> <span>
+	          <div class="order-content order-main"> <img src="<empty name='data.main_image_url'>__ROOT__Public/Home/images/cmy.png<else/>{$data.main_image_url}</empty>" alt="作品图片-{$data.work_title}" style="display：block;width: 200px;height: 140px;" onerror="this.src='/Public/Home/images/cmy.png'"/> <span>
 	            <h4><a href="__ROOT__/Product/details/id/{$data.work_id}.html">{$data.work_title}</a></h4>
 	            <h5>主题：{$theme[$data['theme']]} <span> 标签：{$tags[$data['tags']]}  </span></h5>
 	            <h5>展示方式：{$show1[$data['show']]}</h5>

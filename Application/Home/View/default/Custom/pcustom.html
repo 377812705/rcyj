@@ -8,7 +8,7 @@
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
         var err=0; 
-        var endtime= new Date(Date.parse(new Date()) + 7*24*60*60*1000)
+        var endtime= new Date(Date.parse(new Date()) + 20*24*60*60*1000)
         $(function () {
             $("#gtag").click(function(){
                 $(".nextnavon>ul").show();
@@ -152,7 +152,7 @@
                 autoclose:true,
             }).on('changeDate',function(ev){
                 var starttime=$('#starttime').val();
-                endtime= new Date(Date.parse(starttime) + 7*24*60*60*1000);
+                endtime= new Date(Date.parse(starttime) + 20*24*60*60*1000);
                 $('#endtime').datetimepicker('setStartDate',getFormatDate(endtime));
                 $('#starttime').datetimepicker('hide');
                 $('#endtime').val(getFormatDate(endtime));
@@ -381,7 +381,7 @@
                             <!--<span class="activ-txt">至</span> <span class="time-span activ"> &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>-->
                             <input type="text" id="starttime" name="starttime" value="" placeholder="起始时间" /> -
                             <input type="text" id="endtime" name="endtime" value="" placeholder="结束时间" />
-                            <h6 class="price-tips">请填写你希望最迟收到作品的时间期限，不能低于七天哦。</h6>
+                            <h6 class="price-tips">请填写你希望最迟收到作品的时间期限，不能低于二十天哦。</h6>
                         </li>
                         <li class="fill name">
                             <h5><span>*</span>名称：</h5>

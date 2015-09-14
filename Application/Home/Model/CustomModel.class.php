@@ -20,7 +20,7 @@ class CustomModel extends Model
 
     public function getTJCustom()
     {
-        return $this->where('cusstatus>1')->limit(8)->select();
+        return $this->where('cusstatus>1')->order('createtime desc')->limit(8)->select();
     }
 }
 

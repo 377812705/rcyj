@@ -246,7 +246,9 @@ class CustomController extends HomeController
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
             $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
-            if($custom['touid']>0){
+            if($custom['cusstatus']>2){
+                $this->assign('isgrab',-1);
+            }elseif($custom['touid']>0){
                 $this->assign('isgrab',-1);
             }elseif($custom['uid']==is_login()){
                 $this->assign('isgrab',-1);

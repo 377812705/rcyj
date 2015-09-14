@@ -4,7 +4,7 @@ namespace Home\Model;
 use Think\Model;
 
 /**
- * Class 永华模型
+ * Class 订制模型
  * @package Home\Model
  */
 class CustomModel extends Model

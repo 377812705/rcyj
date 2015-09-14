@@ -246,7 +246,8 @@ class CustomController extends HomeController
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
             $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
-            if($custom['cusstatus']>2){
+            $cstatus=array('已接单','已过期','已上传作品');
+            if(in_array($custom['cusstatus'],$cstatus)){
                 $this->assign('isgrab',-1);
             }elseif($custom['touid']>0){
                 $this->assign('isgrab',-1);

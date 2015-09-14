@@ -51,7 +51,7 @@
  												</for>
 										</ul>
 								</li>
-                                <li><a href="javascript:;">最新上传</a>
+                                <li><a href="javascript:;"><if condition="$dataf['news'] eq '1'">价格最低<elseif condition="$dataf['news'] eq '2'"/>价格最高<else />最新上传</if></a>
 									<ul class="custom-ul" id="news">
 												<li class="custom-li custom-all" value=0><a href="javascript:;">最新上传</a></li>
 												<!-- <li class="custom-li"><a href="javascript:;">人气最高</a></li>
@@ -75,6 +75,8 @@
 										
 										<if condition="$data.sellcate eq '2'">
 												<h4>授权</h4>
+												<elseif condition="$data.sellcate eq '3'"/>
+												<h4>成果展示</h4>
 												<else />
 												<h4>￥{$data.money}</h4>
 											</if>

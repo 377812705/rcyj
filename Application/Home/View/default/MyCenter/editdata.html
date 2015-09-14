@@ -30,22 +30,43 @@
                             <input class="edit-btn" name="" type="button" onClick="javascript:location.href='__ROOT__/MyCenter/editaddress/id/{$uinfo.id}.html'" value="修改地址">
                         </li>
                     </ul>
-            <span class="portrait"><img src="http://erciyuanjie.com{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+     <!--        <span class="portrait"><img src="http://erciyuanjie.com{$uinfo.header_img}" style="width: 150px;height: 150px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
             <input class="edit-btn" name="" onClick="javascript:location.href='__ROOT__/MyCenter/editphoto/id/{$uinfo.id}.html'" type="button" value="修改头像">
-            </span>
+            </span> -->
             </li>
             <form action="__ROOT__/MyCenter/editdata/id/{$uinfo['id']}.html"  method="post" id="form">
-            <li class="fill">
+               	<if condition="$uinfo['author_flag'] eq 1">
+               	<!-- <li class="fill min_amount">
+                    <h5>接单金额：</h5>
+                    <input name="min_amount" type="text" class="gray" placeholder="请写最低接单金额" value="{$uinfo['min_amount']}" onclick="if(this.value=='请写最低接单金额。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写最低接单金额。';this.className='gray'}">
+                </li> -->
+                </if>
+            	<li class="fill">
                     <h5>标签：</h5>
                     <h4 max="3">
                     <volist name="cate" id="v">
-                    <span class="auto">
+                    <span class="auto tag_auto">
 		              <input name="tag[]" type="checkbox" value="{$key}" <if condition="($tag[0] eq $key) or ($tag[1] eq $key) or $tag[2] eq $key">checked="checked"</if> />
 		              <span></span>{$v}
 		            </span>
 		            </volist>
               		</h4>
+              		<input type="hidden" value="{$uinfo['skilled_field']}" id="tag"/>
                 </li>
+                <li class="fill">
+		            <h5>接单状态：</h5>
+		            <h4> 
+		            	<span class="auto radio">
+		              		<input name="radiobutton1" type="radio" value="1"  <if condition="$uinfo['workstatus'] eq 1">checked="checked"</if>>
+		              		<span></span>正在接单
+		              	</span> 
+		              	<span class="auto radio">
+		              		<input name="radiobutton1" type="radio" value="0" <if condition="$uinfo['workstatus'] eq 0">checked="checked"</if>>
+		              		<span></span>暂停接单
+		              	</span> 
+		              	<input type="hidden" value="<empty name='uinfo.workstatus'>1<else/>{$uinfo['workstatus']}</empty>" name="workstatus" id="workstatus" />
+		            </h4>
+		          </li>
                 <li class="fill edit-name">
                     <h5>真实姓名：</h5>
                     <input name="aname" type="text" class="gray" placeholder="请写真实姓名。" value="{$uinfo['aname']}" onclick="if(this.value=='请写真实名称。'){this.value='';this.className='white'}" onblur="if(this.value=='') {this.value='请写真实名称。';this.className='gray'}">
@@ -86,7 +107,7 @@
 		})
 		
 		//循环选中多选
-		$('.auto').each(function(i,e){
+		$('.tag_auto').each(function(i,e){
 			var tag = $('#tag').val();
 			b = tag.split(";");
 			$(e).find('.tag').each(function(i,e){
@@ -97,5 +118,10 @@
 				$(e).attr("log",i);
 			});			
 		});
+    
+    $('.radio').click(function(){
+    	var id = $(this).find('input').val();alert(id);
+    	$('#workstatus').val(id);
+    })
     </script>
     </block>

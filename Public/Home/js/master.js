@@ -71,10 +71,18 @@ $(function(){
 			if($(this).attr("value")==1){
 				$("#authorizeyesno").hide();
 				$("#moneyyesno").show();
+				$("#showyesno").hide();
+				
 			}
 			if($(this).attr("value")==2){
 				$("#moneyyesno").hide();
 				$("#authorizeyesno").show();
+				$("#showyesno").hide();
+			}
+			if($(this).attr("value")==3){
+				$("#moneyyesno").hide();
+				$("#authorizeyesno").hide();
+				$("#showyesno").show();
 			}
 		}
 	});

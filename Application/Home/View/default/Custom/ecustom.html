@@ -8,7 +8,7 @@
     <script type="text/javascript" src="__JS__/jquery.validate.min.js"></script>
     <script type="text/javascript">
         var err=0;
-        var endtime= new Date(Date.parse(new Date()) + 7*24*60*60*1000)
+        var endtime= new Date(Date.parse(new Date()) + 20*24*60*60*1000)
         $(function () {
             $("#etag").click(function(){
                 $(".nextnavon>ul").show();
@@ -36,14 +36,24 @@
             $(".submit").bind("click", function () {
                 err=0;
                 if($("#h-imgclass").val()=="肖像"){
+                    if($("#cusmoney").val()<100){
+                        alert("肖像订制价格必须大于100");
+                        return;
+                    }
                     if($("#h-imgurl").val()==""){
                         alert("请上传图片");
                         return;
                     }else{
                         $("#form0").submit();
                     }
-                }else{
-                    $("#form0").submit();
+                }
+                if($("#h-imgclass").val()=="卡通"){
+                    if($("#cusmoney").val()<1000){
+                        alert("卡通订制价格必须大于1000");
+                        return;
+                    }else{
+                        $("#form0").submit();
+                    }
                 }
             });
             $("#xztp").uploadify({
@@ -151,7 +161,7 @@
                 autoclose:true,
             }).on('changeDate',function(ev){
                 var starttime=$('#starttime').val();
-                endtime= new Date(Date.parse(starttime) + 7*24*60*60*1000);
+                endtime= new Date(Date.parse(starttime) + 20*24*60*60*1000);
                 $('#endtime').datetimepicker('setStartDate',getFormatDate(endtime));
                 $('#starttime').datetimepicker('hide');
                 $('#endtime').val(getFormatDate(endtime));
@@ -358,7 +368,7 @@
                         <!--“订制描述”和“订制需求”只有用户选择“形象分类==》卡通”才会显示-->
                         <li class="fill">
                             <h5><span>*</span>订制价格：</h5>
-                            <input maxlength="8" name="cusmoney" type="text" class="gray" value="请进行填写价格"
+                            <input id="cusmoney" maxlength="8" name="cusmoney" type="text" class="gray" value="请进行填写价格"
                                    onclick="if(this.value=='请进行填写价格'){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='请进行填写价格';this.className='gray'}">
                             <h6 class="price-tips"><span>元</span>&nbsp&nbsp&nbsp数码 / 电脑绘画参考价：100~5000元 表情参考价：50元 / 个 动作参考价：80元 / 个</h6>
@@ -369,7 +379,7 @@
                             <!--<span class="activ-txt">至</span> <span class="time-span activ"> &nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日</span>-->
                             <input type="text" id="starttime" name="starttime" value="" placeholder="起始时间" /> -
                             <input type="text" id="endtime" name="endtime" value="" placeholder="结束时间" />
-                            <h6 class="price-tips">请填写你希望最迟收到作品的时间期限，不能低于七天哦。</h6>
+                            <h6 class="price-tips">请填写你希望最迟收到作品的时间期限，不能低于二十天哦。</h6>
                         </li>
                         <li class="fill name">
                             <h5><span>*</span>名称：</h5>

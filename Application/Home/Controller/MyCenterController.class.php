@@ -162,17 +162,17 @@ class MyCenterController extends HomeController
             		D('customlog')->add($datacustomlog);
             		//修改定制状态
             		$user_id = is_login();
-            		$field = "o.order_number";
+            		$field = "o.order_number,c.uid";
             		$user_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$data['custom_id']))->field($field)->find();
             	
-            		$uinfo=D('Author')->find($data['user_id']);
+            		$uinfo=D('Author')->find($user_info['uid']);//订制者信息
             		$order_id = substr($user_info['order_number'], -1 -8);
             		//获取用户免费修改次数
             		$count = M('Customlog')->where(array('custom_id'=>$data['custom_id'],'status'=>2))->count();
             		if($count > 0){
-            		    sendSms($uinfo['mobile'], '35774', array($order_id));
+            		    sendSms($uinfo['mobile'], '35774', array($order_id));//作者
             		}else{
-            		    sendSms($uinfo['mobile'], '35772', array($order_id,2));
+            		    sendSms($uinfo['mobile'], '35772', array($order_id,2));//给订制者
             		}
             		
             	}

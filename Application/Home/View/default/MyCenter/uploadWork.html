@@ -220,7 +220,7 @@ PLUGINSPAGE="">
                         	<h6 class="price-tips">请填写授权类别 例：服装、玩具、游戏等</h6>
                         </li>
                         <li class="fill" id="showyesno"  <if condition="$word['sellcate'] neq '3'"> style="display: none;</if>">
-                            <h5><span>*</span>已成交价：</h5>
+                            <h5>已成交价：</h5>
                             <input name="oldmoney" id="oldmoney" type="text" <if condition="$word['oldmoney'] neq null"> class="white" value="{$word['oldmoney']}"<else />  class="gray" value=""</if> 
                                    onclick="if(this.value==''){this.value='';this.className='white'}"
                                    onblur="if(this.value=='') {this.value='';this.className='gray'}"><h5 style="text-align:left">元</h5>

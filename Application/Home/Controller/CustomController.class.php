@@ -312,8 +312,10 @@ class CustomController extends HomeController
         $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$_POST['cusid']))->field($field)->find();
         
         //抢单通知
-        $order_id = substr($custom_info['order_number'], -1 -8);
-        sendSms($cuinfo['mobile'], '35768', array($order_id));
+        if(!empty($custom_info)){
+            $order_id = substr($custom_info['order_number'], -1 -8);
+            sendSms($cuinfo['mobile'], '35768', array($order_id));
+        }
 
         $this->ajaxReturn('已抢单');
     }

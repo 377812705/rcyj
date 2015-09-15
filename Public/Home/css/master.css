@@ -61,10 +61,15 @@
 	}
 .verify-span {
 	display: block;
-	margin-left: 120px;
+	margin-left: 140px;
 }
 .retrieve .txt-input, .register-div .txt-input {
 	width: 443px;
+}
+
+.login-ul .label-span{
+	margin-top:0;
+	margin-left:140px;
 }
 .retrieve .txt-input {
 	margin: 19px auto 0;
@@ -75,7 +80,7 @@
 	overflow:hidden;
 }
 .personal .txt-input, .firm .txt-input {
-	width: 590px;
+	width: 603px;
 	border: none;
 	margin-left: 223px;
 }
@@ -118,7 +123,7 @@
 }
 
 .personal .txt-input .input-tle, .firm .txt-input .input-tle {
-	width: 115px;
+	width: 135px;
 	padding-right: 5px;
 	font-size: 18px;
 	text-align: right;
@@ -340,14 +345,14 @@
 	background: url(../images/img01.gif) no-repeat left center;
 }
 .personal .prompt, .firm .prompt {
-	right: 220px;
+	right: 180px;
 }
 .permit {
 	height: auto;
 }
 .firm .permit-img {
 	display: block;
-	margin-left: 120px;
+	margin-left: 140px;
 	height: 258px;
 	text-align: center;
 }
@@ -3527,5 +3532,11 @@ div.right-ul .order-main{
 	}
 .conter-span h6{
 	font-size:16px;
+	}
+.login-ul .verify-span{
+	margin-top:0;
+	}
+.login-ul .label-span a{
+	font-size:18px;
 	}
 /*911add*/

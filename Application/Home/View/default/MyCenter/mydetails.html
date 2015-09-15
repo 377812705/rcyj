@@ -30,8 +30,17 @@
 	      	</if>
 	      	<!-- <h5>{$uinfo.address}</h5> -->
 	      </span>
+          <span class="author-status"><h3>
+            <switch name="uinfo.workstatus">
+                <case value="1">工作中</case>
+                <case value="2">未接单</case>
+                <default/>
+               		 暂停接单
+            </switch>
+            <span>接单状态</span></h3>
+          </span>
 	      <span class="author-name"><!-- 作者简介 -->
-	      	<h5><empty name="uinfo.intro">可以“修改资料”设置您的简介信息哦<else/>{$uinfo.intro}</empty> </h5>
+	      	<h5><empty name="uinfo.intro">可以到“修改资料”设置您的简介信息哦<else/>{$uinfo.intro}</empty> </h5>
 	      </span>
 
 	      <!-- <span class="author-status">

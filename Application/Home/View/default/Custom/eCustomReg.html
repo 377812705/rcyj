@@ -85,7 +85,7 @@
 										<input name="idea" type="text" placeholder="请输入经营理念"  class="gray" onclick="if(this.value=='请输入经营理念'){this.value='';this.className='black'}" onblur="if(this.value=='') {this.value='请输入经营理念';this.className='gray'}">
 								</li>
 								<li class="txt-input permit"><span class="input-tle"><span class="color-span">*</span>营业执照：</span> 
-									<div class="box">
+									<div class="box" style="padding-left: 19px;">
 										<div id="flieinput" ></div>
 									</div>	
 									<span id ="inputhidden"></span>	
@@ -150,7 +150,7 @@ $('#flieinput').diyUpload({
 		$("#flieinput").html(
         		"<span class='permit-img'><img alt='企业营业执照' class='zw-img' src='__ROOT__"+data.pic+"' width='258px' hieght='462px'/></span>"
         );
-		
+		$('.fileBoxUl').remove();
 		/* console.info( data ); */
 	},
 	error:function( err ) {

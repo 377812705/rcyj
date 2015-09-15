@@ -14,6 +14,7 @@
 $SITE_URL = "http://www.2ciyuanjie.com/";
 define('URL_CALLBACK', "" . $SITE_URL . "Login/callback/type/");
 return array(
+	'SITE_URL' => "http://www.2ciyuanjie.com/",
     //腾讯QQ登录配置
     'THINK_SDK_QQ' => array(
         'APP_KEY' => '101168875', //应用注册成功后分配的 APP ID

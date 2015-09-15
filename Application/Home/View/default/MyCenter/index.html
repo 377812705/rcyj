@@ -37,10 +37,12 @@
 							<li style="display:block;width:293px;height: 370px; padding:0px 5px"><a href="__ROOT__/Product/details/id/{$wdata.id}.html"><img src="{$wdata.main_image_url}" alt="作品图片-{$wdata.title}" style="display：block;width: 293px;height: 222px;"/></a>
 								<h3>{$wdata.title|mb_substr=0,10,'utf-8'}</h3>
 								<if condition="$wdata.sellcate eq '2'">
-												<h4>授权</h4>
-												<else />
-												<h4>￥{$wdata.money}</h4>
-											</if>
+									<h4>授权</h4>
+									<elseif condition="$wdata['sellcate'] eq '3'"/>
+									<h4>作品展示</h4>
+									<else />
+									<h4><if condition="$wdata['activity_id'] gt '0'"><h4>活动</h4><elseif condition="$wdata['custom_id'] gt '0'"/><h4>订制作品</h4><else/><h4>￥{$wdata.money}</h4></if></h4>
+								</if>
 								<span class="label-a"><a href="javascript:;">{$tags[$wdata[tags]]}</a><a href="javascript:;">{$source[$wdata[create_status]]}</a></span>
 								<if condition="$wdata[issell] eq '1'"><div style="text-align: right;"><span><a style="color: #0390e9  ;"  href="/MyCenter/del/id/{$wdata.id}">删除</a></span><span > <a style="color: #60cb80;" href="/MyCenter/uploadWork/id/{$wdata.id}.html">修改</a></span></span></if>
 								<!-- <h5><span>{$wdata.open_count}</span>人气  /<span>{$wdata.praise_count}</span>点赞  /<span>{$wdata.favorite_count}</span>收藏 </h5> -->

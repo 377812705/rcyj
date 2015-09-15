@@ -59,6 +59,7 @@ class OrderController extends HomeController {
 	 */
 	public function sellorderlist(){
 		$user_id =is_login();
+		getUserAuthercheak(is_login());
 		$data['2cy_order.order_type']=1;
 		$data['2cy_order.auther_id']=$user_id;
 		$data['2cy_order.work_id']=array('gt',0);
@@ -98,6 +99,7 @@ class OrderController extends HomeController {
 	 */
 	public function grabcustomlist(){
 		$user_id =is_login();
+		getUserAuthercheak(is_login());
 		$data['2cy_order.auther_id']=$user_id;
 		$data['2cy_order.custom_id']=array('gt',0);
 		$data['2cy_order.order_type']=1;

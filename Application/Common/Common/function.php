@@ -1038,10 +1038,15 @@ function getUserNameById($id){
  */
 function getUserAutherYesNo($id){
 	$array=D('Home/User')->field('author_flag')->find($id);
-	if($array['author_flag']){
+	if($array['author_flag']>0){
 		return true;
 	}else{
 		return false;
+	}
+}
+function getUserAuthercheak($user_id){
+	if(!getUserAutherYesNo($user_id)){
+		redirect("/Author/pAuthorReg/isno/0.html");
 	}
 }
 /**

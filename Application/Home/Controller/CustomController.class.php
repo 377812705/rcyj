@@ -78,7 +78,6 @@ class CustomController extends HomeController
         $show   = $Page->pageshow();
 
         $works = $wmodel->order($order)->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
-
         $this->assign('show', $show);
         $this->assign('wcount', $wTotal);
         $this->assign('custom', $works);
@@ -273,6 +272,7 @@ class CustomController extends HomeController
      * 抢单
      */
     public function grab(){
+    	getUserAuthercheak(is_login());
         $model=M('grab');
         $model->add($_POST);
 

@@ -34,6 +34,7 @@ class MyCenterController extends HomeController
             session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
             $this->redirect("Login/login");
         } else {
+        		getUserAuthercheak(is_login());
         		$data['user_id']=is_login();
         		$data['title']=array('exp',"is not Null");
         		$tags=I('get.tags');
@@ -45,7 +46,7 @@ class MyCenterController extends HomeController
 		        $pageshowcount=8;
 		        $Page       = new Page($count,$pageshowcount);
 		        $show       = $Page->pageshow();
-		        $workList = $worksModel->field("works_comic.id,tags,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $workList = $worksModel->field("works_comic.id,works_comic.activity_id,tags,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		        $this->assign('works',$workList);
 		        $this->assign('show',$show);
 		        $this->assign('wcount',$count);
@@ -75,7 +76,7 @@ class MyCenterController extends HomeController
 	}
     public function uploadWork()
     {
-
+    	
         if (!is_login()) {
         	$activityid=I('get.activityid',0);
 			if($activityid){
@@ -85,6 +86,7 @@ class MyCenterController extends HomeController
 			}
             $this->redirect("Login/login");
         } else {
+        	getUserAuthercheak(is_login());
             if (IS_POST) {
             	$wordid=I('Post.workid',0);
             	$data['tags']=I('Post.worktag',1);
@@ -101,6 +103,8 @@ class MyCenterController extends HomeController
             	$data['sellcate']=I('Post.sellcate',1);
             	if($data['sellcate']==1){
             		$data['money']=I('Post.money',0.01);
+            	}elseif($data['sellcate']==3){
+            		$data['oldmoney']=I('Post.oldmoney',0.01);
             	}else{
             		$data['authorize']=I('Post.authorize','');
             		if($data['authorize']=='请填写授权类别'){
@@ -123,7 +127,6 @@ class MyCenterController extends HomeController
             	
             	$main_image_url=I('Post.main_image_url','');
             	if(count(explode('/', $main_image_url))>1){
-            		
             		$assistant_image_url=I('Post.assistant_image_url','');
             		$data['main_image_url']=$main_image_url;
             		$data['assistant_image_url']=$assistant_image_url;
@@ -164,7 +167,14 @@ class MyCenterController extends HomeController
             	
             		$uinfo=D('Author')->find($data['user_id']);
             		$order_id = substr($user_info['order_number'], -1 -8);
-            		sendSms($uinfo['mobile'], '34917', array($order_id));
+            		//获取用户免费修改次数
+            		$count = M('Customlog')->where(array('custom_id'=>$data['custom_id'],'status'=>2))->count();
+            		if($count > 0){
+            		    sendSms($uinfo['mobile'], '35774', array($order_id));
+            		}else{
+            		    sendSms($uinfo['mobile'], '35772', array($order_id,2));
+            		}
+            		
             	}
             	$sht=I('Post.sht',0);
             	if(is_array($sht)){
@@ -309,6 +319,7 @@ class MyCenterController extends HomeController
             $userData['id'] = $data['uid'];
             $userData['intro'] = $data['intro'];
             $userData['skilled_field'] = implode($data['tag'], ';');
+            $userData['workstatus'] = $data['workstatus'];
             
             $userModel = D('User') ;
             $user_id = $userModel->register($userData);//user表插入
@@ -538,6 +549,7 @@ class MyCenterController extends HomeController
     public function mydetails($uid=null){
         $user_id =is_login();
         $uinfo=D('Author')->getUserInfo($user_id);
+        $uinfo['0']['user_name'] = getUserNameById($user_id);
         $data['2cy_order.user_id']=$user_id;
         $data['2cy_order.work_id']=array('gt',0);
         $paytype=I('get.paytype');
@@ -584,6 +596,7 @@ class MyCenterController extends HomeController
     public function ordercustomlist(){
         $user_id =is_login();
         $uinfo=D('Author')->getUserInfo($user_id);
+        $uinfo['0']['user_name'] = getUserNameById($user_id);
         $data['2cy_order.user_id']=$user_id;
         $data['2cy_order.custom_id']=array('gt',0);
         if(empty($user_id)) {
@@ -624,6 +637,9 @@ class MyCenterController extends HomeController
      */
     public function sellorderlist(){
         $user_id =is_login();
+        $uinfo=D('Author')->getUserInfo($user_id);
+        $uinfo['0']['user_name'] = getUserNameById($user_id);
+
         $data['2cy_order.order_type']=1;
         $data['2cy_order.auther_id']=$user_id;
         $data['2cy_order.work_id']=array('gt',0);
@@ -643,7 +659,12 @@ class MyCenterController extends HomeController
         $pageshowcount=5;
         $Page       = new Page($count,$pageshowcount);
         $show       = $Page->pageshow();
-        $orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.work_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags,works_comic.theme,works_comic.show,works_comic.create_status")->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $field = "2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.work_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,works_comic.main_image_url,works_comic.tags,works_comic.theme,works_comic.show,works_comic.create_status";
+        $orderList = $orderModel->field($field)->join('left join works_comic on 2cy_order.work_id = works_comic.id')->order('2cy_order.create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        $uwork=D('Works')->getUserWorks($user_id);
+        
+        
+        $this->assign('uinfo',$uinfo[0]);
         $this->assign('userid',$user_id);
         $tags=C('tag');
         $this->assign('tags',$tags);
@@ -657,6 +678,49 @@ class MyCenterController extends HomeController
         $this->assign('order_type',$data['2cy_order.order_type']);
         $this->assign('show',$show);
         $this->display();
+    }
+    
+    /**
+    * 我的作品--订制订单
+    * @param
+    * @date: 2015年9月14日 下午2:18:07
+    * @author: yql
+    * @version: 3.0.0
+    */
+    public function grabcustomlist(){
+        $user_id =  is_login();
+        $uinfo=D('Author')->getUserInfo($user_id);
+        $uinfo['0']['user_name'] = getUserNameById($user_id);
+
+        $data['2cy_order.auther_id']=$user_id;
+        $data['2cy_order.custom_id']=array('gt',0);
+        $data['2cy_order.order_type']=1;
+        if(empty($user_id)) {
+            $this->assign ( 'message', '请登录后再操作' );
+            $this->display('Public/error');
+            exit();
+        }
+        $paytype=I('get.paytype');
+        if($paytype!=null){
+            if($paytype>=0){
+                $data['2cy_order.order_type'] = $paytype;
+            }
+        }
+        $orderModel =D('Order');
+        $count      = $orderModel->where($data)->count();
+        $pageshowcount=5;
+        $Page       = new Page($count,$pageshowcount);
+        $show       = $Page->pageshow();
+        $orderList = $orderModel->field("2cy_order.user_id,2cy_order.order_type,2cy_order.auther,2cy_order.work_title,2cy_order.custom_id,2cy_order.pay_money,2cy_order.money,2cy_order.order_id,2cy_order.order_number,2cy_order.create_date,2cy_custom.imgurl,2cy_custom.theme,2cy_custom.style,2cy_custom.endtime,2cy_custom.imgclass,2cy_custom.theme,2cy_custom.dismode,2cy_custom.mode,2cy_custom.cusstatus")->join('left join 2cy_custom on 2cy_order.custom_id = 2cy_custom.cusid')->order('create_date desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+        
+        $this->assign('uinfo',$uinfo[0]);
+        $this->assign('userid',$user_id);
+        $paytype=C('paystatus');
+        $this->assign('orderList',$orderList);
+        $this->assign('paytype',$paytype);
+        $this->assign('order_type',$data['2cy_order.order_type']);
+        $this->assign('show',$show);
+        $this->display('graborderlist');
     }
     
     public function upfile() {
@@ -862,6 +926,27 @@ class MyCenterController extends HomeController
             		$datacustomlog['create_time']=date('Y-m-d H:s:i',time());
             		$datacustomlog['status']=3;
             		D('customlog')->add($datacustomlog);
+            		
+            		//短信通知--订单完结
+            		//发送短信通知--修改通知
+            		$prefix = C('DB_PREFIX');
+            		$table = $prefix."custom c";
+            		$o_table = $prefix.'order';
+            		$u_table = 'user';
+            		$join = array(
+            		    'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+            		);
+            		$user_id = is_login();
+            		$field = "o.order_number,c.touid";
+            		$custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$work['custom_id']))->field($field)->find();
+            		 
+            		//作者不接单通知--短信通知
+            		$order_id = substr($custom_info['order_number'], -1 -8);
+            		$uinfo=D('Author')->find($custom_info['touid']);//作者信息
+            		$cinfo=D('Author')->find($custom['uid']);//订制者信息
+            		
+            		sendSms($uinfo['mobile'], '36656', array($order_id));//作者
+            		sendSms($cinfo['mobile'], '34923', array($order_id));//订制者
     			}
     		}
     	}
@@ -889,6 +974,24 @@ class MyCenterController extends HomeController
     				$datacustomlog['create_time']=date('Y-m-d H:s:i',time());
     				$datacustomlog['status']=2;
     				D('customlog')->add($datacustomlog);
+    				
+    				//发送短信通知--修改通知
+    				$prefix = C('DB_PREFIX');
+                    $table = $prefix."custom c";
+                    $o_table = $prefix.'order';
+                    $u_table = 'user';
+                    $join = array(
+                        'left join '.$o_table . ' o ON c.cusid=o.custom_id',
+                    );
+                    $user_id = is_login();
+                    $field = "o.order_number,c.touid";
+                    $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$work['custom_id']))->field($field)->find();
+                     
+                    //作者不接单通知--短信通知
+                    $order_id = substr($custom_info['order_number'], -1 -8);
+                    $uinfo=D('Author')->find($custom_info['touid']);
+    				sendSms($uinfo['mobile'], '35773', array($order_id));
+    				
     			}
     		}
     	}

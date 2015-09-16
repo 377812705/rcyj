@@ -6,7 +6,9 @@ use Think\Page;
 
 class CustomController extends HomeController
 {
-
+    /**
+     * 订制列表页显示
+     */
     public function index()
     {   //dump($_GET);
         $source=C('source');
@@ -84,6 +86,9 @@ class CustomController extends HomeController
         $this->display();
     }
 
+    /**
+     * 订制页
+     */
     public function custom()
     {
         if (is_login()) {
@@ -104,6 +109,9 @@ class CustomController extends HomeController
         }
     }
 
+    /**
+     * 订制表单提交保存
+     */
     public function customsave()
     {
 
@@ -213,6 +221,9 @@ class CustomController extends HomeController
 
 
     }
+    /**
+     * 上传文件方法
+     */
     public function upload(){
         //$this->ajaxReturn($_FILES);
         $config = array(
@@ -235,6 +246,9 @@ class CustomController extends HomeController
            // exit;
         }
     }
+    /**
+     * 订制明细页数据
+     */
     public function detail($cusid=null){
         //人气+1
         D('Custom')->where("cusid={$cusid}")->setInc("open_count",1);
@@ -483,11 +497,7 @@ class CustomController extends HomeController
         $this->display();
     }
     /**
-    * 个人定制注册
-    * @param
-    * @date: 2015年8月31日 下午6:58:46
-    * @author: yql
-    * @version: 3.0.0
+    * 个人定制表单
     */
     public function pcustom()
     {
@@ -508,6 +518,10 @@ class CustomController extends HomeController
             $this->redirect("Login/login");
         }
     }
+
+    /**
+     * 企业订制表单
+     */
     public function ecustom()
     {
         if (is_login()) {
@@ -527,6 +541,10 @@ class CustomController extends HomeController
             $this->redirect("Login/login");
         }
     }
+
+    /**
+     * 订制者明细页数据
+     */
     public function userdetails(){
         $uid = I('uid');
 
@@ -552,6 +570,9 @@ class CustomController extends HomeController
         $this->display();
     }
 
+    /**
+     * 抢单列表页数据
+     */
     public function qdlist(){
         if(IS_POST){
 
@@ -613,6 +634,9 @@ class CustomController extends HomeController
         }
     }
 
+    /**
+     * 作者不接单流程处理
+     */
     public function noorder(){
         $cusid=I('cusid');
         $data=array(
@@ -662,6 +686,10 @@ class CustomController extends HomeController
         
         $this->redirect("/Order/grabcustomlist");
     }
+
+    /**
+     * 作者确认接单流程处理
+     */
     public function conorder(){
     	$cusid=I('cusid');
     	$cdata=array(

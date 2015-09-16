@@ -124,6 +124,7 @@ class CustomController extends HomeController
                 }
                 $custom['style'] = $_POST['style1']."/".$_POST['style2'];
                 $custom['imgurl']=$_POST['imgurl'];
+                //订制为卡通时，订制需求的处理
                 if($custom['imgclass']=='卡通'){
                     if($_POST["cusissue3"]){
                         $custom['cusissue']=$_POST['cusissue1'].$_POST['cusissue2'].implode($_POST['cusissue3']," ");
@@ -259,6 +260,8 @@ class CustomController extends HomeController
             //得到订制者明细
             $cuinfo=D('Author')->find($custom['uid']);
             $custom['diffday']=floor((strtotime($custom['endtime'])-strtotime($custom['starttime']))/86400);
+
+            //抢单条件判断
             $cstatus=array('已接单','已过期','已上传作品');
             if(in_array($custom['cusstatus'],$cstatus)){
                 $this->assign('isgrab',-1);

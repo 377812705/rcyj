@@ -7,7 +7,7 @@
             <ul class="login-ul">
                 <form action="__SELF__" enctype="multipart/form-data" method="post" >
                     <input name="id" type="text" value="{$uid}" style="display: none;"/>
-                <li class="photo-li"><img src="http://erciyuanjie.com{$uid|getUserImg}" style="width: 150px;height: 150px;"/></li>
+                <li class="photo-li"><img src="__ROOT__{$uinfo['header_img']}" style="width: 150px;height: 150px;"/></li>
                 <li class="txt-input file-box">
                     <input type='text' name='textfield' id='textfield' class='file-txt' />
                     <input type='button' class='file-btn' value='浏览...' />

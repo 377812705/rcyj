@@ -35,7 +35,7 @@
 	            <h5>（含运费：￥0.00）</h5>
 	          </div>
 	          <div class="operating"> <span>{$paytype[$data[order_type]]}<a class="report-a" onclick="orderclick({$data.order_id})" >订单详情</a></span>
-	            <h5 class="evaluate-btn"><if condition="$data[order_type] "><else /><a href="__ROOT__/order/pay/orderid/{$data.order_id}.html">支付</a></if> </h5>
+	            <h5 class="evaluate-btn"><if condition="$data[order_type] "><else /><input class="noaccepting-a" name="" onClick="javascript:location.href='__ROOT__/order/pay/orderid/{$data.order_id}.html'" type="button" value="支付"></if> </h5>
 	          </div>
 	        </div>
 	    	<div class="report-content order-details" id="report-content{$data.order_id}" style="display:none;">

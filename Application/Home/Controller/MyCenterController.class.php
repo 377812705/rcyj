@@ -30,6 +30,7 @@ class MyCenterController extends HomeController
      */
     public function index()
     {
+    	
         if (!is_login()) {
             session('PRI_URL', CONTROLLER_NAME . '/' . ACTION_NAME);
             $this->redirect("Login/login");
@@ -46,7 +47,7 @@ class MyCenterController extends HomeController
 		        $pageshowcount=8;
 		        $Page       = new Page($count,$pageshowcount);
 		        $show       = $Page->pageshow();
-		        $workList = $worksModel->field("works_comic.id,works_comic.activity_id,tags,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
+		        $workList = $worksModel->field("works_comic.id,works_comic.activity_id,tags,works_comic.issell,works_comic.sellcate,works_comic.authorize,create_status,title,works_comic.user_id,works_comic.issell,main_image_url,money,theme,user.header_img")->join('left join user on works_comic.user_id = user.id')->order('activity_id asc,id desc')->limit($Page->firstRow.','.$Page->listRows)->where($data)->select();
 		        $this->assign('works',$workList);
 		        $this->assign('show',$show);
 		        $this->assign('wcount',$count);
@@ -423,6 +424,8 @@ class MyCenterController extends HomeController
 			D('Author')->where("id={$uid}")->save($data);
 			$this->redirect('MyCenter/editdata/id/'.is_login());
 		}else{
+		    $uinfo = D('Author')->find($uid);
+		    $this->assign('uinfo',$uinfo);
         	$this->assign('uid',$uid);
         	$this->display();
 		}
@@ -886,6 +889,7 @@ class MyCenterController extends HomeController
             @fclose($out);
         }
         $uploadDir = substr($uploadDir, 1);
+
         $pic = $uploadDir.'/'.$fileNamed.'.'.$end;
         die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'","pic":"'.$pic.'"}');
     }
@@ -987,7 +991,7 @@ class MyCenterController extends HomeController
                     $field = "o.order_number,c.touid";
                     $custom_info =  M()->table($table)->join($join)->where(array('c.cusid'=>$work['custom_id']))->field($field)->find();
                      
-                    //作者不接单通知--短信通知
+                    //修改意见短信--给作者发送
                     $order_id = substr($custom_info['order_number'], -1 -8);
                     $uinfo=D('Author')->find($custom_info['touid']);
     				sendSms($uinfo['mobile'], '35773', array($order_id));
@@ -1002,7 +1006,7 @@ class MyCenterController extends HomeController
      	if($custom_id){
      		$array=array('custom_id'=>$custom_id,'status'=>2);
      		$content=D('customlog')->field('content')->where($array)->order('id desc')->find();
-     		die('{stuat:"1",html:"'.$content['content'].'"}');
+     		die('{"stuat" : "1","html":"'.$content['content'].'"}');
      	}
      }
 }

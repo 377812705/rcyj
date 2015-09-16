@@ -1822,6 +1822,7 @@ input[type='button'].submit-order{
 	border:1px solid #74c8fe;
 	background-color:transparent;
 	color:#0390e9;
+	margin-bottom:5px;
 	}
 .order-right{
 	width:548px;
@@ -2497,6 +2498,7 @@ input[type='button'].submit-order{
 	}
 .tag-ul span{
 	float:left;
+	max-width:90%;
 	}
 .tag-ul li>span h4 img{
 	margin-left:180px;
@@ -3223,7 +3225,7 @@ input[type='button'].submit-order{
 .details-btn{
 	margin-bottom:20px;
 }
-.error{
+.error-section{
 	position:fixed;
 	width:100%;
 	height:100%;

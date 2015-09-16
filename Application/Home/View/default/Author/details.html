@@ -18,14 +18,14 @@
     <div class="container author-details">
         <div class="details-left">
                 	<span>
-                    	<img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
+                    	<img src="__ROOT__{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
                         <!--<h5><a class="add-attention" href="javascript:;">加关注</a></h5>-->
                         <h5><a class="custom-a" href="__ROOT__/Custom/pcustom/toid/{$uinfo.id}.html">我要订制</a></h5>
                         <gt name="islogin" value="0">
                             <h5><a class="report-a" id="jb_btn" href="javascript:;">举报</a></h5>
                         </gt>
                     </span>
-            <span class="author-name"><h3><empty name="uinfo.nick_name">{$uinfo.user_name}<else/>{$uinfo.nick_name}</empty></h3>
+            <span class="author-name"><h3>{:getuserNameById($uinfo['id'])}</h3>
                 <!--<h5>{$uinfo.address} / {$uinfo.tags_content|strtr=';',''}</h5>-->
                 <!-- <h5>形象最低接单金额 ￥{$uinfo.minmoney}</h5> -->
                 </span>
@@ -93,7 +93,7 @@
 												<else />
 												<h4>￥{$data.money}</h4>
 											</if>
-                                <span class="label-a"><a href="javascript:;">动漫</a><a href="javascript:;">自创</a></span>
+                                <span class="label-a"><if condition="$data['tags']"><a href="javascript:;">{$tags[$data['tags']]}</a><else /> </if><if condition="$data['create_status']"><a href="javascript:;">{$source[$data['create_status']]}</a><else /> </if></span>
                                 <h5><span>{$data.open_count}</span>人气 /<span>{$data.praise_count}</span>点赞 /<span>{$data.favorite_count}</span>收藏
                                 </h5>
                         </li>

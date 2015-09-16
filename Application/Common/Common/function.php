@@ -1089,3 +1089,317 @@ function wxReplyNotify($status)
 	$wxPay = new wxPay();
 	$wxPay::replyNotify($status);
 }
+//加水印
+function watermark(){
+	$url='http://localhost:88/';
+	$dst_path = $url.'/uploads/activity/wdwl1.png';
+	$con=C('TMPL_PARSE_STRING');
+	$src_path = $url.$con['__IMG__'].'/watermark.png';
+	//echo $src_path;die;
+	//创建图片的实例
+	$dst = imagecreatefromstring(file_get_contents($dst_path));
+	$src = imagecreatefromstring(file_get_contents($src_path));
+	//获取水印图片的宽高
+	list($src_w, $src_h) = getimagesize($src_path);
+	//将水印图片复制到目标图片上，最后个参数50是设置透明度，这里实现半透明效果
+	//imagecopymerge($dst, $src, 10, 10, 0, 0, $src_w, $src_h, 50);
+	//如果水印图片本身带透明色，则使用imagecopy方法
+	imagecopy($dst, $src, 10, 10, 0, 0, $src_w, $src_h);
+	//输出图片
+	list($dst_w, $dst_h, $dst_type) = getimagesize($dst_path);
+	switch ($dst_type) {
+		case 1://GIF
+			header('Content-Type: image/gif');
+			imagegif($dst);
+			break;
+		case 2://JPG
+			header('Content-Type: image/jpeg');
+			imagejpeg($dst);
+			break;
+		case 3://PNG
+			header('Content-Type: image/png');
+			imagepng($dst);
+			break;
+		default:
+			break;
+	}
+	imagedestroy($dst);
+	imagedestroy($src);
+}
+function imageWaterMark($groundImage,$waterPos=0,$waterImage="",$waterText="sa121",$textFont=5,$textColor="#FF0000")
+
+{
+
+	$isWaterImage = FALSE;
+
+	$formatMsg = "暂不支持该文件格式，请用图片处理软件将图片转换为GIF、JPG、PNG格式。";
+
+	//读取水印文件
+
+	if(!empty($waterImage) && file_exists($waterImage))
+
+	{
+
+		$isWaterImage = TRUE;
+
+		$water_info = getimagesize($waterImage);
+
+		$water_w = $water_info[0];//取得水印图片的宽
+
+		$water_h = $water_info[1];//取得水印图片的高
+
+		switch($water_info[2])//取得水印图片的格式
+
+		{
+
+			case 1:$water_im = imagecreatefromgif($waterImage);break;
+
+			case 2:$water_im = imagecreatefromjpeg($waterImage);break;
+
+			case 3:$water_im = imagecreatefrompng($waterImage);break;
+
+			default:die($formatMsg);
+
+		}
+
+	}
+
+	//读取背景图片
+	//echo $groundImage;die;
+	if(!empty($groundImage) && file_exists($groundImage))
+
+	{
+
+		$ground_info = getimagesize($groundImage);
+
+		$ground_w = $ground_info[0];//取得背景图片的宽
+
+		$ground_h = $ground_info[1];//取得背景图片的高
+
+		switch($ground_info[2])//取得背景图片的格式
+
+		{
+
+			case 1:$ground_im = imagecreatefromgif($groundImage);break;
+
+			case 2:$ground_im = imagecreatefromjpeg($groundImage);break;
+
+			case 3:$ground_im = imagecreatefrompng($groundImage);break;
+
+			default:die($formatMsg);
+
+		}
+
+	}
+
+	else
+
+	{
+
+		die("需要加水印的图片不存在！");
+
+	}
+
+	//水印位置
+
+	if($isWaterImage)//图片水印
+
+	{
+
+		$w = $water_w;
+
+		$h = $water_h;
+
+		$label = "图片的";
+
+	}
+
+	else//文字水印
+
+	{
+
+		$temp = imagettfbbox(ceil($textFont*5),0,"./cour.ttf",$waterText);//取得使用 TrueType 字体的文本的范围
+
+		$w = $temp[2] - $temp[6];
+
+		$h = $temp[3] - $temp[7];
+
+		unset($temp);
+
+		$label = "文字区域";
+
+	}
+
+	if( ($ground_w<$w) || ($ground_h<$h) )
+
+	{
+
+		echo "需要加水印的图片的长度或宽度比水印".$label."还小，无法生成水印！";
+
+		return;
+
+	}
+
+	switch($waterPos)
+
+	{
+
+		case 0://随机
+
+			$posX = rand(0,($ground_w - $w));
+
+			$posY = rand(0,($ground_h - $h));
+
+			break;
+
+		case 1://1为顶端居左
+
+			$posX = 0;
+
+			$posY = 0;
+
+			break;
+
+		case 2://2为顶端居中
+
+			$posX = ($ground_w - $w) / 2;
+
+			$posY = 0;
+
+			break;
+
+		case 3://3为顶端居右
+
+			$posX = $ground_w - $w;
+
+			$posY = 0;
+
+			break;
+
+		case 4://4为中部居左
+
+			$posX = 0;
+
+			$posY = ($ground_h - $h) / 2;
+
+			break;
+
+		case 5://5为中部居中
+
+			$posX = ($ground_w - $w) / 2;
+
+			$posY = ($ground_h - $h) / 2;
+
+			break;
+
+		case 6://6为中部居右
+
+			$posX = $ground_w - $w;
+
+			$posY = ($ground_h - $h) / 2;
+
+			break;
+
+		case 7://7为底端居左
+
+			$posX = 0;
+
+			$posY = $ground_h - $h;
+
+			break;
+
+		case 8://8为底端居中
+
+			$posX = ($ground_w - $w) / 2;
+
+			$posY = $ground_h - $h;
+
+			break;
+
+		case 9://9为底端居右
+
+			$posX = $ground_w - $w - 10;   // -10 是距离右侧10px 可以自己调节
+
+			$posY = $ground_h - $h - 10;   // -10 是距离底部10px 可以自己调节
+
+			break;
+
+		default://随机
+
+			$posX = rand(0,($ground_w - $w));
+
+			$posY = rand(0,($ground_h - $h));
+
+			break;
+
+	}
+
+	//设定图像的混色模式
+
+	imagealphablending($ground_im, true);
+
+	if($isWaterImage)//图片水印
+
+	{
+
+		imagecopy($ground_im, $water_im, $posX, $posY, 0, 0, $water_w,$water_h);//拷贝水印到目标文件
+
+	}
+
+	else//文字水印
+
+	{
+
+		if( !empty($textColor) && (strlen($textColor)==7) )
+
+		{
+
+			$R = hexdec(substr($textColor,1,2));
+
+			$G = hexdec(substr($textColor,3,2));
+
+			$B = hexdec(substr($textColor,5));
+
+		}
+
+		else
+
+		{
+
+			die("水印文字颜色格式不正确！");
+
+		}
+
+		imagestring ( $ground_im, $textFont, $posX, $posY, $waterText, imagecolorallocate($ground_im, $R, $G, $B));
+
+	}
+
+	//生成水印后的图片
+
+	@unlink($groundImage);
+
+	switch($ground_info[2])//取得背景图片的格式
+
+	{
+
+		case 1:imagegif($ground_im,$groundImage);break;
+
+		case 2:imagejpeg($ground_im,$groundImage);break;
+
+		case 3:imagepng($ground_im,$groundImage);break;
+
+		default:die($errorMsg);
+
+	}
+
+	//释放内存
+
+	if(isset($water_info)) unset($water_info);
+
+	if(isset($water_im)) imagedestroy($water_im);
+
+	unset($ground_info);
+
+	imagedestroy($ground_im);
+
+}

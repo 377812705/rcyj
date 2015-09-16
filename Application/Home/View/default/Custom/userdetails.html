@@ -18,16 +18,24 @@
     <div class="details-left user-details"> <span> <img src="{$uinfo.header_img}" style="width: 233px;height: 233px;border-radius:100px;-moz-border-radius:100px;" onerror="this.src='__IMG__/touxiang.png'"/>
       <h5><a class="add-attention" href="javascript:;">加关注</a></h5>
       <h5><a class="report-a" id="jb_btn" href="javascript:;">举报</a></h5>
-      </span> <span class="author-name">
-      <h3>{$uinfo.user_name}</h3>
-      <h5>{$uinfo.address}</h5>
-      </span> <span class="author-status">
-      <h3>{$uinfo.pop_count} <span>人气</span><span> / </span> {$uinfo.fans_count} <span>粉丝</span></h3>
-      </span> <span class="author-status">
-      <h3>{$uinfo.work_count} <span>积分</span><span>/</span> 98% <span>好评</span><span>/</span> 九品<span>等级</span></h3>
-      </span> <span class="author-status">
-      <h3>0<span>收藏</span><span>/</span> {$uinfo.follow_count} <span>关注</span></h3>
-      </span> </div>
+      </span> 
+      <span class="author-name">
+      	<h3>{:getuserNameById($uinfo['id'])}</h3>
+      	<!-- <h5>{$uinfo.address}</h5> -->
+      </span> 
+      <span class="author-name">
+       	<h5><empty name="uinfo.intro">这个人很懒，还没有留下任何简介哦<else/>{$uinfo.intro}</empty> </h5>
+      </span>
+      <!-- <span class="author-status">
+      	<h3>{$uinfo.pop_count} <span>人气</span><span> / </span> {$uinfo.fans_count} <span>粉丝</span></h3>
+      </span> 
+      <span class="author-status">
+      	<h3>{$uinfo.work_count} <span>积分</span><span>/</span> 98% <span>好评</span><span>/</span> 九品<span>等级</span></h3>
+      </span> 
+      <span class="author-status">
+      	<h3>0<span>收藏</span><span>/</span> {$uinfo.follow_count} <span>关注</span></h3>
+      </span> --> 
+     </div>
   </div>
   <div class="container content">
     <div class="custom">

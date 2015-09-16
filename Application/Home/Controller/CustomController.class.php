@@ -363,6 +363,7 @@ class CustomController extends HomeController
             $userData['sign_contract_flag'] = 0 ;
             $userData['email_verified'] = 0 ;
             $userData['mobile_verified'] = 0 ;
+            $userData['workstatus'] = 1 ;
             $userData['invitecode'] = $data['invite'];
             $userData['status'] = 1;
             $userData['mycode'] = make_coupon_card();//自己的邀请码
@@ -446,6 +447,7 @@ class CustomController extends HomeController
             $userData['skilled_field'] = $data['tags'];
             $userData['email_verified'] = 0 ;
             $userData['mobile_verified'] = 0 ;
+            $userData['workstatus'] = 1 ;
             $userData['invitecode'] = $data['invite'];
             $userData['status'] = 1;
             $userData['mycode'] = make_coupon_card();//自己的邀请码

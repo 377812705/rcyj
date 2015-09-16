@@ -93,7 +93,10 @@ class AuthorController extends HomeController {
         $author=D('Author')->getAllAuthor();
         $this->assign('author',$author);
         $this->assign('islogin',is_login());
-
+        $tags=C('tag');
+        $this->assign('tags',$tags);
+        $source=C('source');
+        $this->assign('source',$source);
 
         $this->display();
     }
@@ -147,6 +150,7 @@ class AuthorController extends HomeController {
             $userData['skilled_field'] = $data['tags'];
             $userData['email_verified'] = 0 ;
             $userData['mobile_verified'] = 0 ;  
+            $userData['workstatus'] = 1 ;
             $userData['status'] = 1;
             $userModel = D('User') ;
             $user_id = $userModel->register($userData);//user表插入
@@ -267,6 +271,7 @@ class AuthorController extends HomeController {
             $userData['skilled_field'] = $data['tags'];
             $userData['email_verified'] = 0 ;
             $userData['mobile_verified'] = 0 ;
+            $userData['workstatus'] = 1 ;
             $userData['status'] = 1;
             $userModel = D('User') ;
             
@@ -442,4 +447,5 @@ class AuthorController extends HomeController {
         $pic = $uploadDir.'/'.$fileNamed.'.'.$end;
         die('{"jsonrpc" : "2.0", "result" : "'.$fileNamed.'", "postfix" : "'.$end.'","pic":"'.$pic.'"}');
     }
+    
 }
